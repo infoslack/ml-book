@@ -1,0 +1,15 @@
+{
+  "name": "ml-book",
+  "description": "Livro sobre Machine Learning na prática",
+  "version": "0.0.1",
+  "maintainers": [
+    {
+      "name": "Daniel Romero"
+    }
+  ],
+  "license": "Copyright ©2022 Daniel Romero",
+  "devDependencies": {
+    "honkit": "^3.7.1"
+  },
+  "homepage": "https://infoslack.pro/ml-book/"
+}

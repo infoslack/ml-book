@@ -1,0 +1,888 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Manipulando dados · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../xx" />
+    
+    
+    <link rel="prev" href="series-dataframe.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
+            
+                <a href="sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
+            
+                <a href="ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="part-i-data-science.html">
+            
+                <a href="part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.1.2" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Scatter plot e Bar plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Histograma e Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Subplots e suas opções
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="part-ii-ml.md">
+            
+                <span>
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../xx">
+            
+                <span>
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Manipulando dados</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="manipulando-dados-com-pandas">Manipulando dados com Pandas</h1>
+<p>Como vimos anteriormente, criar Séries e DataFrame do zero é legal, mas normalmente faremos a importação dos dados no formato de um arquivo <code>.csv</code> ou planilha.</p>
+<p>O Pandas permite a importação de dados de maneira fácil por meio de funções como <code>pd.read_csv()</code> e <code>pd.read_excel()</code>.</p>
+<p>Por exemplo, vamos obter as informações deste documento do Google Sheet:</p>
+<p><img src="images/excel.png" alt="Google Sheet" title="Dados no google sheet"></p>
+<p>Depois de exportá-lo como um arquivo <code>.csv</code>, podemos agora importá-lo no Pandas com <code>pd.read_csv()</code> e criar o nosso DataFrame:</p>
+<p><img src="images/carros-df.png" alt="Importando dados" title="Importando CSV"></p>
+<p>Agora temos os mesmos dados da planilha disponíveis em um DataFrame Pandas.
+Isso permite que você aproveite todas as funcionalidades do Pandas para explorar os dados.</p>
+<h2 id="anatomia-de-um-dataframe">Anatomia de um DataFrame</h2>
+<p>Abaixo vemos um resumo dos principais componentes de um DataFrame:</p>
+<p><img src="images/anatomia-dataframe.png" alt="Anatomia DataFrame" title="Anatomia de um DataFrame"></p>
+<h2 id="explorando-os-dados">Explorando os dados</h2>
+<p>Uma das primeiras tarefas que fazemos logo após importar os dados para um DataFrame Pandas é começar a explorá-lo. O Pandas possui muitas funções internas que nos permitem obter informações descritivas dos dados, <code>.dtypes</code> por exemplo nos mostra que tipo de dados cada coluna contém:</p>
+<pre><code class="lang-python">df.dtypes
+
+Fabricante       <span class="hljs-built_in">object</span>
+Cor              <span class="hljs-built_in">object</span>
+Quilometragem     int64
+Portas            int64
+Preco            <span class="hljs-built_in">object</span>
+dtype: <span class="hljs-built_in">object</span>
+</code></pre>
+<p>Note que a coluna <code>Preco</code> não é um número inteiro como <code>Quilometragem</code> e <code>Portas</code>. Não se preocupe isso é fácil de consertar e faremos isso em outro momento.</p>
+<p>A função <code>.describe()</code> nos mostra uma visão estatística de todas as colunas numéricas:</p>
+<pre><code class="lang-python">df.describe()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">10.000000</td>
+<td style="text-align:center">10.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">mean</td>
+<td style="text-align:center">78601.400000</td>
+<td style="text-align:center">4.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">std</td>
+<td style="text-align:center">61983.471735</td>
+<td style="text-align:center">0.471405</td>
+</tr>
+<tr>
+<td style="text-align:center">min</td>
+<td style="text-align:center">11179.000000</td>
+<td style="text-align:center">3.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">25%</td>
+<td style="text-align:center">35836.250000</td>
+<td style="text-align:center">4.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">50%</td>
+<td style="text-align:center">57369.000000</td>
+<td style="text-align:center">4.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">75%</td>
+<td style="text-align:center">96384.500000</td>
+<td style="text-align:center">4.000000</td>
+</tr>
+<tr>
+<td style="text-align:center">max</td>
+<td style="text-align:center">213095.000000</td>
+<td style="text-align:center">5.000000</td>
+</tr>
+</tbody>
+</table>
+<p>Outra função muito utilizada é a <code>.info()</code>, que mostra quantas linhas existem, se há valores ausentes e os tipos de dados de cada coluna:</p>
+<pre><code>df.info()
+
+&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 5 columns):
+ #   Column         Non-Null Count  Dtype 
+---  ------         --------------  ----- 
+ 0   Fabricante     10 non-null     object
+ 1   Cor            10 non-null     object
+ 2   Quilometragem  10 non-null     int64 
+ 3   Portas         10 non-null     int64 
+ 4   Preco          10 non-null     object
+dtypes: int64(2), object(3)
+memory usage: 528.0+ bytes
+</code></pre><p>Pandas também disponibiliza várias funções estatísticas e matemáticas como <code>.mean()</code> e <code>.sum()</code> que podem ser aplicadas diretamente em um DataFrame ou Séries.</p>
+<pre><code class="lang-python">valores = pd.Series([<span class="hljs-number">3000</span>, <span class="hljs-number">3500</span>, <span class="hljs-number">11250</span>])
+valores.mean()
+
+<span class="hljs-number">5916.666666666667</span>
+</code></pre>
+<pre><code class="lang-python">valores.<span class="hljs-built_in">sum</span>()
+
+<span class="hljs-number">17750</span>
+</code></pre>
+<p>Usar essas funções em um DataFrame inteiro pode não fazer muito sentido, nesse caso podemos direcionar a função individualmente para uma coluna.
+O método <code>.columns</code> mostrará todas as colunas de um DataFrame:</p>
+<pre><code class="lang-python">df.columns
+
+Index([<span class="hljs-string">&apos;Fabricante&apos;</span>, <span class="hljs-string">&apos;Cor&apos;</span>, <span class="hljs-string">&apos;Quilometragem&apos;</span>, <span class="hljs-string">&apos;Portas&apos;</span>, <span class="hljs-string">&apos;Preco&apos;</span>], dtype=<span class="hljs-string">&apos;object&apos;</span>)
+</code></pre>
+<p>Selecionando uma coluna com dados numéricos podemos utilizar a função estatística <code>.mean()</code> novamente:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;Quilometragem&quot;</span>].mean()
+
+<span class="hljs-number">78601.4</span>
+</code></pre>
+<h2 id="visualizando-e-selecionando-dados">Visualizando e selecionando dados</h2>
+<p>Na prática, realizar alterações nos dados e visualizá-los constantemente é uma tarefa de rotina. Nem sempre precisamos alterar todos os dados de um DataFrame, portanto veremos maneiras diferentes de selecionar.</p>
+<p>Para visualizar as primeiras 5 linhas do seu DataFrame existe a função <code>.head()</code> que é muito utilizada:</p>
+<pre><code class="lang-python">df.head()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 24,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 25,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">R$ 27,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">R$ 122,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 13,500.00</td>
+</tr>
+</tbody>
+</table>
+<p>Para selecionar mais de 5, você pode passar o valor desejado como argumento na função, por exemplo: <code>.head(7)</code>.</p>
+<p>Outro método muito utilizado é o <code>.tail()</code> que seleciona as últimas 5 linhas do seu DataFrame:</p>
+<pre><code class="lang-python">df.tail()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">99213</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 14,500.00</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 17,500.00</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 27,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 26,250.00</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 19,700.00</td>
+</tr>
+</tbody>
+</table>
+<p>Por meio das instruções <code>.loc[]</code> e <code>.iloc[]</code> podemos selecionar dados de Séries e DataFrames, essas opções são muito utilizadas. Para ilustrar o uso em uma Série, vamos criar uma:</p>
+<pre><code>animais = pd.Series([&quot;gato&quot;, &quot;ave&quot;, &quot;cachorro&quot;, &quot;cobra&quot;, &quot;leão&quot;, &quot;cavalo&quot;], 
+                   index=[0, 3, 8, 9, 6, 3])
+animais
+
+0        gato
+3         ave
+8    cachorro
+9       cobra
+6        leão
+3      cavalo
+dtype: object
+</code></pre><p>Agora vamos utilizar o <code>.loc[]</code> informando como valor de entrada um número inteiro que corresponde ao índice da nossa Série:</p>
+<pre><code>animais.loc[3]
+
+3       ave
+3    cavalo
+dtype: object
+</code></pre><p>Temos como retorno os valores que tem como índice o número 3.</p>
+<p>Já com o <code>.iloc[]</code>:</p>
+<pre><code>animais.iloc[3]
+
+cobra
+</code></pre><p>O valor retornado é bem diferente <code>cobra</code> que tem como índice o número 9. Isso acontece pois o <code>.iloc[]</code> faz uma seleção pela posição dos dados na Série ou DataFrame. Vamos testar esses recursos agora no nosso DataFrame:</p>
+<pre><code>df.loc[3]
+
+Fabricante                 BMW
+Cor                      Preto
+Quilometragem            11179
+Portas                       5
+Preco            R$ 122,000.00
+Name: 3, dtype: object
+
+df.iloc[3]
+
+Fabricante                 BMW
+Cor                      Preto
+Quilometragem            11179
+Portas                       5
+Preco            R$ 122,000.00
+Name: 3, dtype: object
+</code></pre><p>Ambos <code>.loc[]</code> e <code>.iloc[]</code> retornaram o mesmo valor pois as informações no DataFrame exibidas estão em ordem tanto na posição quanto no índice.</p>
+<p>Ainda podemos utilizar o <code>slicing</code> com <code>.loc[]</code> e <code>.iloc[]</code>, selecionando dados em um range:</p>
+<pre><code>animais.iloc[:3]
+
+0        gato
+3         ave
+8    cachorro
+dtype: object
+</code></pre><blockquote>
+<p>Lembre-se, utilize <code>.loc[]</code> quando estiver selecionando dados pelo índice e <code>.iloc[]</code> quando estiver referindo-se a posições no DataFrame.</p>
+</blockquote>
+<p>Se quiser selecionar uma coluna em particular use <code>[&apos;NOME_DA_COLUNA&apos;]</code>:</p>
+<pre><code>df[&quot;Fabricante&quot;]
+
+0    Toyota
+1     Honda
+2    Toyota
+3       BMW
+4    Nissan
+5    Toyota
+6     Honda
+7     Honda
+8    Toyota
+9    Nissan
+Name: Fabricante, dtype: object
+</code></pre><p>WIP</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="series-dataframe.html" class="navigation navigation-prev " aria-label="Previous page: Series e DataFrames">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Exercícios">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"next":{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/manipulando-dados.md","mtime":"2022-02-12T23:14:29.982Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-12T23:58:13.012Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
