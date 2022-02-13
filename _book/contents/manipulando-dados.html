@@ -988,7 +988,752 @@ Data columns (total 5 columns):
  4   Preco          10 non-null     float64
 dtypes: float64(1), int64(2), object(2)
 memory usage: 528.0+ bytes
-</code></pre><p>WIP</p>
+</code></pre><p>Um desafio muito comum em Data Science é preencher dados ausentes. É provável que em algum momento você trabalhe com um DataFrame incompleto e terá que decidir como preencher os dados ausentes ou remover linhas de dados ausentes. Vamos verificar como fazer isso em uma versão do nosso DataFrame com valores ausentes:</p>
+<pre><code class="lang-python">df2 = pd.read_csv(<span class="hljs-string">&quot;venda-de-carros-dados-ausentes.csv&quot;</span>)
+df2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043.0</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">24000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899.0</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">25000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">27000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179.0</td>
+<td style="text-align:center">5.0</td>
+<td style="text-align:center">122000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095.0</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">13500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">14500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">17500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000.0</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600.0</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">19700.0</td>
+</tr>
+</tbody>
+</table>
+<p>Os valores ausentes são mostrados por <code>NaN</code> no Pandas, isso é considerado o equivalente ao <code>None</code> em Python. Vamos usar a função <code>.fillna()</code> para preencher a coluna <code>Quilometragem</code> com a média dos outros valores da mesma coluna, dessa vez não vamos reatribuir a coluna para persistir os dados no DataFrame, em vez disso, usaremos a opção <code>inplace=True</code>:</p>
+<pre><code class="lang-python">df2[<span class="hljs-string">&quot;Quilometragem&quot;</span>].fillna(df2[<span class="hljs-string">&quot;Quilometragem&quot;</span>].mean(), inplace=<span class="hljs-literal">True</span>)
+df2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">24000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">25000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">27000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179.000000</td>
+<td style="text-align:center">5.0</td>
+<td style="text-align:center">122000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">13500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">14500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">17500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">19700.0</td>
+</tr>
+</tbody>
+</table>
+<p>Perfeito! Os valores ausentes da coluna <code>Quilometragem</code> foram preenchidos com o valor médio da mesma coluna. Digamos que você queira apenas remover todas as linhas com dados ausentes e trabalhar apenas com as linhas que possuem todos os valores preenchidos, podemos fazer isso usando o <code>.dropna()</code>:</p>
+<pre><code class="lang-python">df2.dropna(inplace=<span class="hljs-literal">True</span>)
+df2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">24000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">25000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">27000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179.000000</td>
+<td style="text-align:center">5.0</td>
+<td style="text-align:center">122000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095.000000</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">13500.0</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">92302.666667</td>
+<td style="text-align:center">4.0</td>
+<td style="text-align:center">14500.0</td>
+</tr>
+</tbody>
+</table>
+<p>Mas e se você quisesse criar dados em vez de remover ou preencher ?
+Por exemplo, adicionando uma coluna nova chamada <em>Assentos</em> para o número de lugares disponíveis no carro. Pandas permite a criação simples de colunas extras no DataFrame usando <code>Series</code>, <code>Lista</code> ou uma coluna existente:</p>
+<pre><code class="lang-python">qtde_assentos = pd.Series([<span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>])
+df[<span class="hljs-string">&quot;Assentos&quot;</span>] = qtde_assentos
+df
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+<th style="text-align:center">Assentos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">99213</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">14500.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">17500.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">26250.0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">19700.0</td>
+<td style="text-align:center">5</td>
+</tr>
+</tbody>
+</table>
+<p>A coluna assentos foi criada por meio de uma <code>Series</code>, vamos criar outra coluna chamada <code>Motor</code>, dessa vez usando uma lista Python:</p>
+<pre><code class="lang-python">motor_lista = [<span class="hljs-number">1.3</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.2</span>, <span class="hljs-number">1.6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.3</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>]
+df[<span class="hljs-string">&quot;Motor&quot;</span>] = motor_lista
+df
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+<th style="text-align:center">Assentos</th>
+<th style="text-align:center">Motor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.3</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4.2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.6</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">99213</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">14500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.0</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">17500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.3</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">26250.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">19700.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+</tr>
+</tbody>
+</table>
+<p>Por fim, vamos criar mais uma coluna, dessa vez combinando diretamente os valores de outras colunas. Dividindo o preço do carro por sua quilometragem teremos o preço por quilômetro, esses serão os dados da nova coluna:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;Preco por KM&quot;</span>] = df[<span class="hljs-string">&quot;Preco&quot;</span>] / df[<span class="hljs-string">&quot;Quilometragem&quot;</span>]
+df
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+<th style="text-align:center">Assentos</th>
+<th style="text-align:center">Motor</th>
+<th style="text-align:center">Preco por KM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.3</td>
+<td style="text-align:center">0.159954</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0.284417</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">0.829519</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4.2</td>
+<td style="text-align:center">10.913320</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.6</td>
+<td style="text-align:center">0.063352</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">99213</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">14500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">0.146150</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">17500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0.382949</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.3</td>
+<td style="text-align:center">0.493259</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">26250.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0.437500</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">19700.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">0.623418</td>
+</tr>
+</tbody>
+</table>
+<p>Esse tipo de criação de coluna é chamado de <code>Feature Engineering</code>. Se fabricante, cor e quantidade de portas são características dos dados, a criação de preço por quilômetro pode ser outra. Nesse exemplo não foi uma boa escolha, então vamos remover essa coluna. Para remover uma só coluna podemos usar o <code>.drop(&apos;NOME_DA_COLUNA&apos;, axis=1)</code>:</p>
+<pre><code class="lang-python">df = df.drop(<span class="hljs-string">&quot;Preco por KM&quot;</span>, axis=<span class="hljs-number">1</span>)
+df
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+<th style="text-align:center">Assentos</th>
+<th style="text-align:center">Motor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.3</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4.2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.6</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Verde</td>
+<td style="text-align:center">99213</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">14500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.0</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">17500.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.3</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">26250.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">31600</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">19700.0</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3.0</td>
+</tr>
+</tbody>
+</table>
+<p>WIP</p>
 
                                 
                                 </section>
@@ -1032,7 +1777,7 @@ memory usage: 528.0+ bytes
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"next":{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/manipulando-dados.md","mtime":"2022-02-13T00:55:32.862Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-13T00:56:23.361Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"next":{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/manipulando-dados.md","mtime":"2022-02-13T12:41:06.806Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-13T12:42:11.415Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

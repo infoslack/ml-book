@@ -336,4 +336,143 @@ dtypes: float64(1), int64(2), object(2)
 memory usage: 528.0+ bytes
 ```
 
+Um desafio muito comum em Data Science é preencher dados ausentes. É provável que em algum momento você trabalhe com um DataFrame incompleto e terá que decidir como preencher os dados ausentes ou remover linhas de dados ausentes. Vamos verificar como fazer isso em uma versão do nosso DataFrame com valores ausentes:
+
+```python
+df2 = pd.read_csv("venda-de-carros-dados-ausentes.csv")
+df2
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: |
+|  0  |   Toyota   |  Branco  |   150043.0    |  4.0   | 24000.0  |
+|  1  |   Honda    | Vermelho |    87899.0    |  4.0   | 25000.0  |
+|  2  |   Toyota   |   Azul   |      NaN      |  3.0   | 27000.0  |
+|  3  |    BMW     |  Preto   |    11179.0    |  5.0   | 122000.0 |
+|  4  |   Nissan   |  Branco  |   213095.0    |  4.0   | 13500.0  |
+|  5  |   Toyota   |  Verde   |      NaN      |  4.0   | 14500.0  |
+|  6  |   Honda    |   NaN    |      NaN      |  4.0   | 17500.0  |
+|  7  |   Honda    |   Azul   |      NaN      |  4.0   |   NaN    |
+|  8  |   Toyota   |  Branco  |    60000.0    |  NaN   |   NaN    |
+|  9  |    NaN     |  Branco  |    31600.0    |  4.0   | 19700.0  |
+
+Os valores ausentes são mostrados por `NaN` no Pandas, isso é considerado o equivalente ao `None` em Python. Vamos usar a função `.fillna()` para preencher a coluna `Quilometragem` com a média dos outros valores da mesma coluna, dessa vez não vamos reatribuir a coluna para persistir os dados no DataFrame, em vez disso, usaremos a opção `inplace=True`:
+
+```python
+df2["Quilometragem"].fillna(df2["Quilometragem"].mean(), inplace=True)
+df2
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: |
+|  0  |   Toyota   |  Branco  | 150043.000000 |  4.0   | 24000.0  |
+|  1  |   Honda    | Vermelho | 87899.000000  |  4.0   | 25000.0  |
+|  2  |   Toyota   |   Azul   | 92302.666667  |  3.0   | 27000.0  |
+|  3  |    BMW     |  Preto   | 11179.000000  |  5.0   | 122000.0 |
+|  4  |   Nissan   |  Branco  | 213095.000000 |  4.0   | 13500.0  |
+|  5  |   Toyota   |  Verde   | 92302.666667  |  4.0   | 14500.0  |
+|  6  |   Honda    |   NaN    | 92302.666667  |  4.0   | 17500.0  |
+|  7  |   Honda    |   Azul   | 92302.666667  |  4.0   |   NaN    |
+|  8  |   Toyota   |  Branco  | 60000.000000  |  NaN   |   NaN    |
+|  9  |    NaN     |  Branco  | 31600.000000  |  4.0   | 19700.0  |
+
+Perfeito! Os valores ausentes da coluna `Quilometragem` foram preenchidos com o valor médio da mesma coluna. Digamos que você queira apenas remover todas as linhas com dados ausentes e trabalhar apenas com as linhas que possuem todos os valores preenchidos, podemos fazer isso usando o `.dropna()`:
+
+```python
+df2.dropna(inplace=True)
+df2
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: |
+|  0  |   Toyota   |  Branco  | 150043.000000 |  4.0   | 24000.0  |
+|  1  |   Honda    | Vermelho | 87899.000000  |  4.0   | 25000.0  |
+|  2  |   Toyota   |   Azul   | 92302.666667  |  3.0   | 27000.0  |
+|  3  |    BMW     |  Preto   | 11179.000000  |  5.0   | 122000.0 |
+|  4  |   Nissan   |  Branco  | 213095.000000 |  4.0   | 13500.0  |
+|  5  |   Toyota   |  Verde   | 92302.666667  |  4.0   | 14500.0  |
+
+Mas e se você quisesse criar dados em vez de remover ou preencher ?
+Por exemplo, adicionando uma coluna nova chamada *Assentos* para o número de lugares disponíveis no carro. Pandas permite a criação simples de colunas extras no DataFrame usando `Series`, `Lista` ou uma coluna existente:
+
+```python
+qtde_assentos = pd.Series([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+df["Assentos"] = qtde_assentos
+df
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |
+|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |
+|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |
+|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |
+|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |
+|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |
+|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |
+|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |
+
+A coluna assentos foi criada por meio de uma `Series`, vamos criar outra coluna chamada `Motor`, dessa vez usando uma lista Python:
+
+```python
+motor_lista = [1.3, 2.0, 3.0, 4.2, 1.6, 1, 2.0, 2.3, 2.0, 3.0]
+df["Motor"] = motor_lista
+df
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |
+|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |
+|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |
+|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |
+|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
+|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
+|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
+
+Por fim, vamos criar mais uma coluna, dessa vez combinando diretamente os valores de outras colunas. Dividindo o preço do carro por sua quilometragem teremos o preço por quilômetro, esses serão os dados da nova coluna:
+
+```python
+df["Preco por KM"] = df["Preco"] / df["Quilometragem"]
+df
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor | Preco por KM |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: | :----------: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |   0.159954   |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |   0.284417   |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |   0.829519   |
+|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |  10.913320   |
+|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |   0.063352   |
+|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |   0.146150   |
+|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |   0.382949   |
+|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |   0.493259   |
+|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |   0.437500   |
+|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |   0.623418   |
+
+Esse tipo de criação de coluna é chamado de `Feature Engineering`. Se fabricante, cor e quantidade de portas são características dos dados, a criação de preço por quilômetro pode ser outra. Nesse exemplo não foi uma boa escolha, então vamos remover essa coluna. Para remover uma só coluna podemos usar o `.drop('NOME_DA_COLUNA', axis=1)`:
+
+```python
+df = df.drop("Preco por KM", axis=1)
+df
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |
+|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |
+|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |
+|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |
+|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
+|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
+|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
+
 WIP
