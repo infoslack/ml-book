@@ -231,4 +231,109 @@ df["Fabricante"]
 Name: Fabricante, dtype: object
 ```
 
+Ao selecionar colunas podemos elaborar filtros condicionais entre colchetes, vejamos a sintaxe:
+
+```python
+df[df["Quilometragem"] > 100000]
+```
+
+|     | Fabricante |  Cor   | Quilometragem | Portas |    Preco     |
+| :-: | :--------: | :----: | :-----------: | :----: | :----------: |
+|  0  |   Toyota   | Branco |    150043     |   4    | R$ 24,000.00 |
+|  4  |   Nissan   | Branco |    213095     |   4    | R$ 13,500.00 |
+
+No exemplo estamos filtrando a coluna `Quilometragem` adicionando a condição para retornar apenas os carros que possuem uma quilometragem maior que `100.000`.
+
+Que tal elaborar um filtro para listar apenas os carros da **Honda** ?
+
+```python
+df[df["Fabricante"] == "Honda"]
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |    Preco     |
+| :-: | :--------: | :------: | :-----------: | :----: | :----------: |
+|  1  |   Honda    | Vermelho |     87899     |   4    | R$ 25,000.00 |
+|  6  |   Honda    |   Azul   |     45698     |   4    | R$ 17,500.00 |
+|  7  |   Honda    |   Azul   |     54738     |   4    | R$ 27,000.00 |
+
+Para comparar mais colunas no contexto de outra coluna, podemos usar o `.groupby()`, por exemplo, podemos agrupar os dados por *fabricante* e calcular a média das colunas numéricas:
+
+```python
+df.groupby(["Fabricante"]).mean()
+```
+
+| Fabricante | Quilometragem | Portas |
+| :--------: | :-----------: | :----: |
+|    BMW     | 11179.000000  |  5.00  |
+|   Honda    | 62778.333333  |  4.00  |
+|   Nissan   | 122347.500000 |  4.00  |
+|   Toyota   | 85451.250000  |  3.75  |
+
+A coluna de *preço* no DataFrame ainda não foi convertida para um tipo numérico, vamos tratar isso. Primeiro precisamos elaborar uma expressão regular para eliminar os caracteres `R$` e `,`. O Pandas permite isso por meio do método `str.replace`, para persistir a mudança no DataFrame é comum atribuir a mudança ao próprio DataFrame:
+
+```python
+df["Preco"] = df["Preco"].str.replace('[/R$\,]', '', regex=True)
+```
+
+Agora vejamos como ficaram os dados:
+
+```python
+df.head(3)
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.00 |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.00 |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.00 |
+
+A coluna de preço já exibe os novos valores formatados, porém os dados ainda não são numéricos:
+
+```
+df.info()
+
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 5 columns):
+ #   Column         Non-Null Count  Dtype 
+---  ------         --------------  ----- 
+ 0   Fabricante     10 non-null     object
+ 1   Cor            10 non-null     object
+ 2   Quilometragem  10 non-null     int64 
+ 3   Portas         10 non-null     int64 
+ 4   Preco          10 non-null     object
+dtypes: int64(2), object(3)
+memory usage: 528.0+ bytes
+```
+
+Como podemos ver `Preco` continua sendo do tipo *object*. Podemos corrigir isso com a função `to_numeric` do Pandas:
+
+```python
+df["Preco"] = pd.to_numeric(df["Preco"])
+df.head(3)
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco  |
+| :-: | :--------: | :------: | :-----------: | :----: | :-----: |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0 |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0 |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0 |
+
+Se verificarmos o tipo novamente veremos que agora a coluna `Preco` é do tipo `float64`:
+
+```
+df.info()
+
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 5 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   Fabricante     10 non-null     object 
+ 1   Cor            10 non-null     object 
+ 2   Quilometragem  10 non-null     int64  
+ 3   Portas         10 non-null     int64  
+ 4   Preco          10 non-null     float64
+dtypes: float64(1), int64(2), object(2)
+memory usage: 528.0+ bytes
+```
+
 WIP

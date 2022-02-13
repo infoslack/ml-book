@@ -765,6 +765,229 @@ dtype: object
 8    Toyota
 9    Nissan
 Name: Fabricante, dtype: object
+</code></pre><p>Ao selecionar colunas podemos elaborar filtros condicionais entre colchetes, vejamos a sintaxe:</p>
+<pre><code class="lang-python">df[df[<span class="hljs-string">&quot;Quilometragem&quot;</span>] &gt; <span class="hljs-number">100000</span>]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 24,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 13,500.00</td>
+</tr>
+</tbody>
+</table>
+<p>No exemplo estamos filtrando a coluna <code>Quilometragem</code> adicionando a condição para retornar apenas os carros que possuem uma quilometragem maior que <code>100.000</code>.</p>
+<p>Que tal elaborar um filtro para listar apenas os carros da <strong>Honda</strong> ?</p>
+<pre><code class="lang-python">df[df[<span class="hljs-string">&quot;Fabricante&quot;</span>] == <span class="hljs-string">&quot;Honda&quot;</span>]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 25,000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">45698</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 17,500.00</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">54738</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">R$ 27,000.00</td>
+</tr>
+</tbody>
+</table>
+<p>Para comparar mais colunas no contexto de outra coluna, podemos usar o <code>.groupby()</code>, por exemplo, podemos agrupar os dados por <em>fabricante</em> e calcular a média das colunas numéricas:</p>
+<pre><code class="lang-python">df.groupby([<span class="hljs-string">&quot;Fabricante&quot;</span>]).mean()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">11179.000000</td>
+<td style="text-align:center">5.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">62778.333333</td>
+<td style="text-align:center">4.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">122347.500000</td>
+<td style="text-align:center">4.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">85451.250000</td>
+<td style="text-align:center">3.75</td>
+</tr>
+</tbody>
+</table>
+<p>A coluna de <em>preço</em> no DataFrame ainda não foi convertida para um tipo numérico, vamos tratar isso. Primeiro precisamos elaborar uma expressão regular para eliminar os caracteres <code>R$</code> e <code>,</code>. O Pandas permite isso por meio do método <code>str.replace</code>, para persistir a mudança no DataFrame é comum atribuir a mudança ao próprio DataFrame:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;Preco&quot;</span>] = df[<span class="hljs-string">&quot;Preco&quot;</span>].<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">&apos;[/R$\,]&apos;</span>, <span class="hljs-string">&apos;&apos;</span>, regex=<span class="hljs-literal">True</span>)
+</code></pre>
+<p>Agora vejamos como ficaram os dados:</p>
+<pre><code class="lang-python">df.head(<span class="hljs-number">3</span>)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.00</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.00</td>
+</tr>
+</tbody>
+</table>
+<p>A coluna de preço já exibe os novos valores formatados, porém os dados ainda não são numéricos:</p>
+<pre><code>df.info()
+
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 5 columns):
+ #   Column         Non-Null Count  Dtype 
+---  ------         --------------  ----- 
+ 0   Fabricante     10 non-null     object
+ 1   Cor            10 non-null     object
+ 2   Quilometragem  10 non-null     int64 
+ 3   Portas         10 non-null     int64 
+ 4   Preco          10 non-null     object
+dtypes: int64(2), object(3)
+memory usage: 528.0+ bytes
+</code></pre><p>Como podemos ver <code>Preco</code> continua sendo do tipo <em>object</em>. Podemos corrigir isso com a função <code>to_numeric</code> do Pandas:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;Preco&quot;</span>] = pd.to_numeric(df[<span class="hljs-string">&quot;Preco&quot;</span>])
+df.head(<span class="hljs-number">3</span>)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+</tr>
+</tbody>
+</table>
+<p>Se verificarmos o tipo novamente veremos que agora a coluna <code>Preco</code> é do tipo <code>float64</code>:</p>
+<pre><code>df.info()
+
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 5 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   Fabricante     10 non-null     object 
+ 1   Cor            10 non-null     object 
+ 2   Quilometragem  10 non-null     int64  
+ 3   Portas         10 non-null     int64  
+ 4   Preco          10 non-null     float64
+dtypes: float64(1), int64(2), object(2)
+memory usage: 528.0+ bytes
 </code></pre><p>WIP</p>
 
                                 
@@ -809,7 +1032,7 @@ Name: Fabricante, dtype: object
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"next":{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/manipulando-dados.md","mtime":"2022-02-12T23:14:29.982Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-12T23:58:13.012Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"next":{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/manipulando-dados.md","mtime":"2022-02-13T00:55:32.862Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-13T00:56:23.361Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
