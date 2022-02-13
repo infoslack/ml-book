@@ -7,7 +7,7 @@
   * [Conhecendo o Pandas](contents/conhecendo-o-pandas.md)
     * [Series e DataFrames](contents/series-dataframe.md)
     * [Manipulando dados](contents/manipulando-dados.md)
-    * [Exercícios](xx)
+    * [Exercícios](contents/pandas-exercicios.md)
   * [Introdução ao NumPy](xx)
     * [Tipos de dados e atributos](xx)
     * [Arrays, matrizes e operações](xx)

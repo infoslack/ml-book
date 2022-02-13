@@ -475,4 +475,50 @@ df
 |  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
 |  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
 
+Outro recurso interessante no Pandas é o de ordenação, digamos que você precise embaralhar a ordem do seu DataFrame para poder dividi-lo em conjuntos de treinamento, teste e validação para utilizar em um projeto de Machine Learning. Para isso temos o recurso `.sample(frac=1)`, essa função pega diferentes linhas de um DataFrame e embaralha. O parâmetro `frac` configura a fração que será utilizada para embaralhar, onde 1 equivale a 100% das linhas.
+
+```python
+df_sample = df.sample(frac=1)
+df_sample
+```
+
+|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor |
+| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: |
+|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |
+|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
+|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
+|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |
+|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |
+|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |
+|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |
+|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
+|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
+|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+
+Note como as linhas permanecem intactas, apenas a ordem é alterada e isso pode ser verificado pelos índices.
+Agora, e se você quisesse colocar os índices de volta em ordem ?
+
+Nesse caso podemos utilizar o `.reset_index()`:
+
+```python
+df_sample.reset_index()
+```
+
+|     | index | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor |
+| :-: | :---: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: |
+|  0  |   3   |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |
+|  1  |   8   |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
+|  2  |   9   |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
+|  3  |   6   |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |
+|  4  |   5   |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |
+|  5  |   4   |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |
+|  6  |   1   |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |
+|  7  |   0   |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
+|  8  |   7   |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
+|  9  |   2   |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+
+Ao utilizar `.reset_index()` em um DataFrame, os números de índice retornam para o padrão, porém ele também cria uma nova coluna de índice contendo os valores anteriores.
+
+---
+
 WIP
