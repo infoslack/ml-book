@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Tipos de dados e atributos · HonKit</title>
+        <title>Arrays, matrizes e operações · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="np-matrizes-e-operacoes.html" />
+    <link rel="next" href="../xx" />
     
     
-    <link rel="prev" href="intro-numpy.html" />
+    <link rel="prev" href="np-tipos-de-dados.html" />
     
 
     </head>
@@ -232,7 +232,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.2.1" data-path="np-tipos-de-dados.html">
+        <li class="chapter " data-level="1.2.2.1" data-path="np-tipos-de-dados.html">
             
                 <a href="np-tipos-de-dados.html">
             
@@ -245,7 +245,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.2" data-path="np-matrizes-e-operacoes.html">
+        <li class="chapter active" data-level="1.2.2.2" data-path="np-matrizes-e-operacoes.html">
             
                 <a href="np-matrizes-e-operacoes.html">
             
@@ -466,7 +466,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Tipos de dados e atributos</a>
+        <a href=".." >Arrays, matrizes e operações</a>
     </h1>
 </div>
 
@@ -481,68 +481,71 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="tipos-de-dados-e-atributos">Tipos de dados e atributos</h1>
-<blockquote>
-<p>O principal tipo de dado usado no NumPy é o <code>ndarray</code>, mesmo tipos diferentes de arrays continuam sendo <code>ndarray</code>.</p>
-</blockquote>
-<pre><code class="lang-python"><span class="hljs-comment"># vetor</span>
-a1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-<span class="hljs-comment"># matrix de duas dimensões</span>
-a2 = np.array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-               [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
-
-<span class="hljs-comment"># matrix</span>
-a3 = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-                [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-                [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]],
-                [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>],
-                 [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
-                 [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
-</code></pre>
-<p>Vamos olhar algumas informações sobre os exemplos criados, usando os métodos <code>shape</code>, <code>ndim</code>, <code>size</code> e a função <code>type</code>:</p>
-<pre><code class="lang-python">a1.shape
-
-(<span class="hljs-number">3</span>,)
-</code></pre>
-<p>Usando o método <code>.shape</code>, podemos ver que o array NumPy <code>a1</code> é um vetor de 3 posições.</p>
-<pre><code class="lang-python">a1.ndim, a2.ndim
-
-(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
-</code></pre>
-<p>Aqui, usando <code>.ndim</code> vemos que <code>a1</code> é um array unidimensional, enquanto <code>a2</code> possui duas dimensões.</p>
-<pre><code class="lang-python">a3.size
-
-<span class="hljs-number">18</span>
-</code></pre>
-<p>O método <code>.size</code> mostra que o array <code>a3</code> possui 18 elementos.</p>
-<pre><code class="lang-python"><span class="hljs-built_in">type</span>(a1), <span class="hljs-built_in">type</span>(a2), <span class="hljs-built_in">type</span>(a3)
-
-(numpy.ndarray, numpy.ndarray, numpy.ndarray)
-</code></pre>
-<p>Todos os arrays são do tipo <code>ndarray</code>.</p>
-<p>Assim como no Pandas, você pode exibir os elementos dos arrays apenas digitando o seu nome em uma célula do notebook:</p>
-<pre><code class="lang-python">a1
+                                <h1 id="arrays-matrizes-e-operações">Arrays, matrizes e operações</h1>
+<p>NumPy possui algumas funções para criar arrays, veremos agoras as mais utilizadas:</p>
+<pre><code class="lang-python">array_simples = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_simples
 
 array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-a2
-
-array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
-
-a3
-
-array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span>,  <span class="hljs-number">3</span>],
-        [ <span class="hljs-number">4</span>,  <span class="hljs-number">5</span>,  <span class="hljs-number">6</span>],
-        [ <span class="hljs-number">7</span>,  <span class="hljs-number">8</span>,  <span class="hljs-number">9</span>]],
-
-       [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>],
-        [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
-        [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
 </code></pre>
-<h2 id="anatomia-de-um-array-numpy">Anatomia de um array NumPy</h2>
+<p>Como visto anteriormente <code>.array()</code> cria um array simples. Mas e se eu precisar de um array repleto de números <code>1</code> ? NumPy fornece a função <code>.ones()</code>:</p>
+<pre><code class="lang-python">ones = np.ones((<span class="hljs-number">10</span>, <span class="hljs-number">2</span>))
+ones
+
+array([[<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>],
+       [<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>]])
+</code></pre>
+<p>A função <code>.ones()</code> recebe como parâmetro o shape do array que desejamos criar, nesse exemplo criamos um array de <code>10x2</code>.
+Existe outra função para criar um array apenas de zeros. Exatamente, ela se chama <code>.zeros()</code> e também recebe parâmetros para definir o tamanho do array:</p>
+<pre><code class="lang-python">zeros = np.zeros((<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>))
+zeros
+
+array([[[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+       [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+       [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+       [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+        [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]]])
+</code></pre>
+<p>Mas, se precisarmos criar um array informando apenas um range de valores, podemos usar o <code>.arange()</code>:</p>
+<pre><code class="lang-python">range_a1 = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>)
+range_a1
+
+array([<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
+</code></pre>
+<p>A função <code>.arange()</code> assim como as outras também recebe parâmetros configuráveis, nesse caso temos 3 valores: <em>Start</em>, <em>Stop</em> e <em>Step</em>. No nosso exemplo o array começa em 0, conta até 10 com saltos de 2 em 2, ou seja, um array de números pares.</p>
+<hr>
 <p>WIP</p>
+<ul>
+<li>random.randint</li>
+<li>random.random</li>
+<li>random.rand</li>
+<li>random.seed</li>
+<li>indexing</li>
+<li>select</li>
+<li>operações</li>
+</ul>
 
                                 
                                 </section>
@@ -570,12 +573,12 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
 
             
                 
-                <a href="intro-numpy.html" class="navigation navigation-prev " aria-label="Previous page: Introdução ao NumPy">
+                <a href="np-tipos-de-dados.html" class="navigation navigation-prev " aria-label="Previous page: Tipos de dados e atributos">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="np-matrizes-e-operacoes.html" class="navigation navigation-next " aria-label="Next page: Arrays, matrizes e operações">
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Exercícios">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -586,7 +589,7 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"next":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"path":"contents/np-matrizes-e-operacoes.md","ref":"contents/np-matrizes-e-operacoes.md","articles":[]},"previous":{"title":"Introdução ao NumPy","level":"1.2.2","depth":2,"path":"contents/intro-numpy.md","ref":"contents/intro-numpy.md","articles":[{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"path":"contents/np-matrizes-e-operacoes.md","ref":"contents/np-matrizes-e-operacoes.md","articles":[]},{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-tipos-de-dados.md","mtime":"2022-02-14T20:53:51.973Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T21:18:34.779Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"next":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-matrizes-e-operacoes.md","mtime":"2022-02-14T21:17:52.439Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T21:18:34.779Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

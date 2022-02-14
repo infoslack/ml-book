@@ -11,7 +11,7 @@
     * [Exercícios](contents/pandas-exercicios.md)
   * [Introdução ao NumPy](contents/intro-numpy.md)
     * [Tipos de dados e atributos](contents/np-tipos-de-dados.md)
-    * [Arrays, matrizes e operações](xx)
+    * [Arrays, matrizes e operações](contents/np-matrizes-e-operacoes.md)
     * [Exercícios](xx)
   * [Gráficos com Matplotlib](xx)
     * [Anatomia de um gráfico](xx)
