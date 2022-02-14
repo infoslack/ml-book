@@ -535,17 +535,91 @@ range_a1
 array([<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
 </code></pre>
 <p>A função <code>.arange()</code> assim como as outras também recebe parâmetros configuráveis, nesse caso temos 3 valores: <em>Start</em>, <em>Stop</em> e <em>Step</em>. No nosso exemplo o array começa em 0, conta até 10 com saltos de 2 em 2, ou seja, um array de números pares.</p>
+<p>Outro recurso interessante é o de poder criar arrays com valores aleatórios:</p>
+<pre><code class="lang-python">random_1 = np.random.randint(<span class="hljs-number">10</span>, size=(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>))
+random_1
+
+array([[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">8</span>],
+       [<span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>],
+       [<span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+       [<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>],
+       [<span class="hljs-number">9</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>]])
+</code></pre>
+<p>A método <code>.random</code> cria valores aleatórios para preencher o array, nesse caso estamos usando a função <code>.randint()</code> para gerar valores inteiros, como parâmetro informamos que queremos valores aleatórios entre 0 e 10 inseridos em um array de tamanho <code>5x3</code>. Outra função muito utilizada é a própria <code>.random()</code> que gera valores do tipo <em>float</em>, nesse caso a sua utilização fica <code>.random.random()</code>:</p>
+<pre><code class="lang-python">random_2 = np.random.random((<span class="hljs-number">5</span>, <span class="hljs-number">3</span>))
+random_2
+
+array([[<span class="hljs-number">0.55826932</span>, <span class="hljs-number">0.81632871</span>, <span class="hljs-number">0.90207164</span>],
+       [<span class="hljs-number">0.78776093</span>, <span class="hljs-number">0.21937942</span>, <span class="hljs-number">0.88146314</span>],
+       [<span class="hljs-number">0.01304884</span>, <span class="hljs-number">0.72247319</span>, <span class="hljs-number">0.15347852</span>],
+       [<span class="hljs-number">0.0923776</span> , <span class="hljs-number">0.32395553</span>, <span class="hljs-number">0.11888521</span>],
+       [<span class="hljs-number">0.40217155</span>, <span class="hljs-number">0.04779815</span>, <span class="hljs-number">0.98891801</span>]])
+</code></pre>
+<p>Como resultado temos outro array mas dessa vez de floats <strong>entre 0 e 1</strong>, também de tamanho <code>5x3</code>. NumPy utiliza números pseudo-aleatórios, significa que os números apenas parecem aleatórios, mas na verdade são predeterminados.</p>
+<p>Para consistência em um experimento de Machine Learning, convém manter os números aleatórios gerados semelhantes ao longo dos experimentos. Fazer isso é simples e depende do uso da função <code>.seed()</code>:</p>
+<pre><code class="lang-python">np.random.seed(<span class="hljs-number">42</span>)
+np.random.randint(<span class="hljs-number">10</span>, size=(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>))
+
+array([[<span class="hljs-number">6</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>],
+       [<span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>],
+       [<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>],
+       [<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>]])
+</code></pre>
+<blockquote>
+<p>Ao reproduzir o exemplo acima no seu ambiente, você deve obter o mesmo resultado.</p>
+</blockquote>
+<h2 id="selecionando-e-visualizando-elementos">Selecionando e visualizando elementos</h2>
+<p>Lembra dos nossos primeiros arrays ? Veremos agora como selecionar os elementos, mas primeiro vamos visualizar todos os elementos apenas para recordar:</p>
+<pre><code class="lang-python">a1
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+a3
+
+array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span>,  <span class="hljs-number">3</span>],
+        [ <span class="hljs-number">4</span>,  <span class="hljs-number">5</span>,  <span class="hljs-number">6</span>],
+        [ <span class="hljs-number">7</span>,  <span class="hljs-number">8</span>,  <span class="hljs-number">9</span>]],
+
+       [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>],
+        [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
+        [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
+</code></pre>
+<p>Bem, agora queremos selecionar apenas o primeiro elemento do <code>a1</code> que por ser um vetor, tem apenas uma única linha:</p>
+<pre><code class="lang-python">a1[<span class="hljs-number">0</span>]
+
+<span class="hljs-number">1</span>
+</code></pre>
+<p>Se fizermos o mesmo com <code>a2</code> o resultado é diferente:</p>
+<pre><code class="lang-python">a2[<span class="hljs-number">0</span>]
+
+array([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])
+</code></pre>
+<p>Isso ocorre pois <code>a2</code> é um array de duas dimensões, logo o que estamos recebendo como responta é a primeira linha do array. Para selecionar apenas o primeiro elemento é preciso informar a coluna:</p>
+<pre><code class="lang-python">a2[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+
+<span class="hljs-number">4</span>
+</code></pre>
+<p>Outra forma de selecionar os elementos é utilizando <code>slice</code>, vejamos um exemplo no array <code>a3</code>:</p>
+<pre><code class="lang-python">a3[:<span class="hljs-number">2</span>, :<span class="hljs-number">2</span>, :<span class="hljs-number">2</span>]
+
+array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span>],
+        [ <span class="hljs-number">4</span>,  <span class="hljs-number">5</span>]],
+
+       [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>],
+        [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>]]])
+</code></pre>
+<blockquote>
+<p>Acessar elementos em arrays requer um pouco de prática, especialmente quando as dimensões aumentam, como no caso do exemplo anterior.</p>
+</blockquote>
+<h2 id="manipulando-e-comparando-arrays">Manipulando e comparando arrays</h2>
 <hr>
 <p>WIP</p>
-<ul>
-<li>random.randint</li>
-<li>random.random</li>
-<li>random.rand</li>
-<li>random.seed</li>
-<li>indexing</li>
-<li>select</li>
-<li>operações</li>
-</ul>
 
                                 
                                 </section>
@@ -589,7 +663,7 @@ array([<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"next":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-matrizes-e-operacoes.md","mtime":"2022-02-14T21:17:52.439Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T21:18:34.779Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"next":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-matrizes-e-operacoes.md","mtime":"2022-02-14T22:46:40.315Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T22:47:16.105Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
