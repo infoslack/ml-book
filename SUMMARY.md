@@ -10,7 +10,7 @@
     * [Manipulando dados](contents/manipulando-dados.md)
     * [Exercícios](contents/pandas-exercicios.md)
   * [Introdução ao NumPy](contents/intro-numpy.md)
-    * [Tipos de dados e atributos](xx)
+    * [Tipos de dados e atributos](contents/np-tipos-de-dados.md)
     * [Arrays, matrizes e operações](xx)
     * [Exercícios](xx)
   * [Gráficos com Matplotlib](xx)

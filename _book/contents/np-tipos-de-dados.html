@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Configurando o ambiente · HonKit</title>
+        <title>Tipos de dados e atributos · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -59,7 +59,7 @@
     <link rel="next" href="../xx" />
     
     
-    <link rel="prev" href="sobre-o-livro.html" />
+    <link rel="prev" href="intro-numpy.html" />
     
 
     </head>
@@ -115,7 +115,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.2" data-path="ambiente.html">
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
             
                 <a href="ambiente.html">
             
@@ -232,7 +232,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.2.1" data-path="np-tipos-de-dados.html">
+        <li class="chapter active" data-level="1.2.2.1" data-path="np-tipos-de-dados.html">
             
                 <a href="np-tipos-de-dados.html">
             
@@ -466,7 +466,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Configurando o ambiente</a>
+        <a href=".." >Tipos de dados e atributos</a>
     </h1>
 </div>
 
@@ -481,8 +481,67 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="configurando-o-ambiente">Configurando o Ambiente</h1>
-<p>Google Colab</p>
+                                <h1 id="tipos-de-dados-e-atributos">Tipos de dados e atributos</h1>
+<blockquote>
+<p>O principal tipo de dado usado no NumPy é o <code>ndarray</code>, mesmo tipos diferentes de arrays continuam sendo <code>ndarray</code>.</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># vetor</span>
+a1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+<span class="hljs-comment"># matrix de duas dimensões</span>
+a2 = np.array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+               [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+<span class="hljs-comment"># matrix</span>
+a3 = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+                [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+                [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]],
+                [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>],
+                 [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
+                 [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
+</code></pre>
+<p>Vamos olhar algumas informações sobre os exemplos criados, usando os métodos <code>shape</code>, <code>ndim</code>, <code>size</code> e a função <code>type</code>:</p>
+<pre><code class="lang-python">a1.shape
+
+(<span class="hljs-number">3</span>,)
+</code></pre>
+<p>Usando o método <code>.shape</code>, podemos ver que o array NumPy <code>a1</code> é um vetor de 3 posições.</p>
+<pre><code class="lang-python">a1.ndim, a2.ndim
+
+(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+</code></pre>
+<p>Aqui, usando <code>.ndim</code> vemos que <code>a1</code> é um array unidimensional, enquanto <code>a2</code> possui duas dimensões.</p>
+<pre><code class="lang-python">a3.size
+
+<span class="hljs-number">18</span>
+</code></pre>
+<p>O método <code>.size</code> mostra que o array <code>a3</code> possui 18 elementos.</p>
+<pre><code class="lang-python"><span class="hljs-built_in">type</span>(a1), <span class="hljs-built_in">type</span>(a2), <span class="hljs-built_in">type</span>(a3)
+
+(numpy.ndarray, numpy.ndarray, numpy.ndarray)
+</code></pre>
+<p>Todos os arrays são do tipo <code>ndarray</code>.</p>
+<p>Assim como no Pandas, você pode exibir os elementos dos arrays apenas digitando o seu nome em uma célula do notebook:</p>
+<pre><code class="lang-python">a1
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+a3
+
+array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span>,  <span class="hljs-number">3</span>],
+        [ <span class="hljs-number">4</span>,  <span class="hljs-number">5</span>,  <span class="hljs-number">6</span>],
+        [ <span class="hljs-number">7</span>,  <span class="hljs-number">8</span>,  <span class="hljs-number">9</span>]],
+
+       [[<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>],
+        [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
+        [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
+</code></pre>
+<h2 id="anatomia-de-um-array-numpy">Anatomia de um array NumPy</h2>
 <p>WIP</p>
 
                                 
@@ -511,12 +570,12 @@
 
             
                 
-                <a href="sobre-o-livro.html" class="navigation navigation-prev " aria-label="Previous page: Para quem é este livro?">
+                <a href="intro-numpy.html" class="navigation navigation-prev " aria-label="Previous page: Introdução ao NumPy">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Um pouco de Python para Data Science">
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Arrays, matrizes e operações">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -527,7 +586,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Configurando o ambiente","level":"1.1.2","depth":2,"next":{"title":"Um pouco de Python para Data Science","level":"1.1.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Para quem é este livro?","level":"1.1.1","depth":2,"path":"contents/sobre-o-livro.md","ref":"contents/sobre-o-livro.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ambiente.md","mtime":"2022-02-11T16:50:09.061Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T20:54:11.356Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"next":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Introdução ao NumPy","level":"1.2.2","depth":2,"path":"contents/intro-numpy.md","ref":"contents/intro-numpy.md","articles":[{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-tipos-de-dados.md","mtime":"2022-02-14T20:53:51.973Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T20:54:11.356Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

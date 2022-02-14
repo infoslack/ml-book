@@ -1,7 +1,7 @@
 {
   "name": "ml-book",
   "description": "Livro sobre Machine Learning na prática",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "maintainers": [
     {
       "name": "Daniel Romero"
