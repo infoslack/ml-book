@@ -441,19 +441,7 @@ Por fim, vamos criar mais uma coluna, dessa vez combinando diretamente os valore
 df["Preco por KM"] = df["Preco"] / df["Quilometragem"]
 df
 ```
-
-|     | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor | Preco por KM |
-| :-: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: | :----------: |
-|  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |   0.159954   |
-|  1  |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |   0.284417   |
-|  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |   0.829519   |
-|  3  |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |  10.913320   |
-|  4  |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |   0.063352   |
-|  5  |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |   0.146150   |
-|  6  |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |   0.382949   |
-|  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |   0.493259   |
-|  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |   0.437500   |
-|  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |   0.623418   |
+![Gerando nova coluna](images/coluna-preco-por-km.png "Criando uma nova coluna, preço por km")
 
 Esse tipo de criação de coluna é chamado de `Feature Engineering`. Se fabricante, cor e quantidade de portas são características dos dados, a criação de preço por quilômetro pode ser outra. Nesse exemplo não foi uma boa escolha, então vamos remover essa coluna. Para remover uma só coluna podemos usar o `.drop('NOME_DA_COLUNA', axis=1)`:
 
@@ -504,18 +492,7 @@ Nesse caso podemos utilizar o `.reset_index()`:
 df_sample.reset_index()
 ```
 
-|     | index | Fabricante |   Cor    | Quilometragem | Portas |  Preco   | Assentos | Motor |
-| :-: | :---: | :--------: | :------: | :-----------: | :----: | :------: | :------: | :---: |
-|  0  |   3   |    BMW     |  Preto   |     11179     |   5    | 122000.0 |    5     |  4.2  |
-|  1  |   8   |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
-|  2  |   9   |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
-|  3  |   6   |   Honda    |   Azul   |     45698     |   4    | 17500.0  |    5     |  2.0  |
-|  4  |   5   |   Toyota   |  Verde   |     99213     |   4    | 14500.0  |    5     |  1.0  |
-|  5  |   4   |   Nissan   |  Branco  |    213095     |   4    | 13500.0  |    5     |  1.6  |
-|  6  |   1   |   Honda    | Vermelho |     87899     |   4    | 25000.0  |    5     |  2.0  |
-|  7  |   0   |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
-|  8  |   7   |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
-|  9  |   2   |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+![Sample reset index](images/reset-index.png "Ordenando os índices com reset_index")
 
 Ao utilizar `.reset_index()` em um DataFrame, os números de índice retornam para o padrão, porém ele também cria uma nova coluna de índice contendo os valores anteriores.
 

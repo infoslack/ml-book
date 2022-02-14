@@ -3,6 +3,7 @@
 * [Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática](README.md)
   * [Para quem é este livro?](contents/sobre-o-livro.md)
   * [Configurando o ambiente](contents/ambiente.md)
+  * [Um pouco de Python para Data Science](xx)
 * [Parte I: Data Science](contents/part-i-data-science.md)
   * [Conhecendo o Pandas](contents/conhecendo-o-pandas.md)
     * [Series e DataFrames](contents/series-dataframe.md)
