@@ -13,7 +13,7 @@
     * [Tipos de dados e atributos](contents/np-tipos-de-dados.md)
     * [Arrays, matrizes e operações](contents/np-matrizes-e-operacoes.md)
     * [Exercícios](contents/numpy-exercicios.md)
-  * [Gráficos com Matplotlib](xx)
+  * [Gráficos com Matplotlib](contents/intro-matplotlib.md)
     * [Anatomia de um gráfico](xx)
     * [Scatter plot e Bar plot](xx)
     * [Histograma e Subplots](xx)
