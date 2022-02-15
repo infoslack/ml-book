@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Series e DataFrames · HonKit</title>
+        <title>Anatomia de um gráfico · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="manipulando-dados.html" />
+    <link rel="next" href="../xx" />
     
     
-    <link rel="prev" href="conhecendo-o-pandas.html" />
+    <link rel="prev" href="intro-matplotlib.html" />
     
 
     </head>
@@ -174,7 +174,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1.1" data-path="series-dataframe.html">
+        <li class="chapter " data-level="1.2.1.1" data-path="series-dataframe.html">
             
                 <a href="series-dataframe.html">
             
@@ -290,7 +290,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.3.1" data-path="anatomia-matplotlib.html">
+        <li class="chapter active" data-level="1.2.3.1" data-path="anatomia-matplotlib.html">
             
                 <a href="anatomia-matplotlib.html">
             
@@ -466,7 +466,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Series e DataFrames</a>
+        <a href=".." >Anatomia de um gráfico</a>
     </h1>
 </div>
 
@@ -481,23 +481,33 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="tipos-de-dados">Tipos de dados</h1>
-<p>O Pandas possui dois tipos de dados principais, <code>Series</code> e <code>DataFrame</code>.
-Séries são dados em uma única dimensão (coluna), já os DataFrames representam uma tabela de dados e possuem duas dimensões (linhas e colunas).</p>
-<p>Você pode criar uma Séries usando <code>pd.Series()</code> e passando uma lista Python:</p>
-<pre><code class="lang-python">carros = pd.Series([<span class="hljs-string">&quot;Toyota&quot;</span>, <span class="hljs-string">&quot;Honda&quot;</span>, <span class="hljs-string">&quot;BMW&quot;</span>])
-cores = pd.Series([<span class="hljs-string">&quot;Azul&quot;</span>, <span class="hljs-string">&quot;Branco&quot;</span>, <span class="hljs-string">&quot;Vermelho&quot;</span>])
+                                <h1 id="matplotlib---anatomia-de-um-gráfico">Matplotlib - Anatomia de um gráfico</h1>
+<blockquote>
+<p>WIP</p>
+</blockquote>
+<p><img src="images/anatomia-matplotlib.png" alt="matplotlib anatomia"></p>
+<h2 id="workflow">Workflow</h2>
+<pre><code class="lang-python"><span class="hljs-comment"># importe da biblioteca</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-comment"># preparando os dados</span>
+x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+y = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>]
+
+<span class="hljs-comment"># configuração do plot</span>
+fig, ax = plt.subplots(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment"># plotando os dados</span>
+ax.plot(x, y)
+
+<span class="hljs-comment"># customizando o plot</span>
+ax.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Exemplo de plot customizado&quot;</span>, xlabel=<span class="hljs-string">&quot;axis x&quot;</span>, ylabel=<span class="hljs-string">&quot;axis y&quot;</span>)
+
+<span class="hljs-comment"># exibindo o plot</span>
+plt.show()
 </code></pre>
-<p>O notebook terá a seguinte saída:</p>
-<p><img src="images/series.png" alt="pandas series" title="Pandas series"></p>
-<p>Para criar um DataFrame utilizamos <code>pd.DataFrame()</code> passando um dicionário Python como parâmetro:</p>
-<pre><code class="lang-python">df = pd.DataFrame({<span class="hljs-string">&quot;Fabricante&quot;</span>: carros,
-                   <span class="hljs-string">&quot;Cores&quot;</span>: cores})
-</code></pre>
-<p>No exemplo acima estamos criando um DataFrame a partir de duas Séries.
-A saída no notebook será:</p>
-<p><img src="images/dataframe.png" alt="pandas dataframe" title="Pandas DataFrame"></p>
-<p>Como podemos observar ao criar o DataFrame informamos um dicionário Python e geramos uma tabela de linhas e colunas onde as chaves do dicionário se tornaram os títulos das colunas e os valores das duas Séries se tornaram os dados no DataFrame.</p>
+<p><img src="images/plot-custom.png" alt="matplotlib plot custom"></p>
+<hr>
 <p>WIP</p>
 
                                 
@@ -526,12 +536,12 @@ A saída no notebook será:</p>
 
             
                 
-                <a href="conhecendo-o-pandas.html" class="navigation navigation-prev " aria-label="Previous page: Conhecendo o Pandas">
+                <a href="intro-matplotlib.html" class="navigation navigation-prev " aria-label="Previous page: Gráficos com Matplotlib">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="manipulando-dados.html" class="navigation navigation-next " aria-label="Next page: Manipulando dados">
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Scatter plot e Bar plot">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -542,7 +552,7 @@ A saída no notebook será:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"next":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},"previous":{"title":"Conhecendo o Pandas","level":"1.2.1","depth":2,"path":"contents/conhecendo-o-pandas.md","ref":"contents/conhecendo-o-pandas.md","articles":[{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"contents/pandas-exercicios.md","ref":"contents/pandas-exercicios.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/series-dataframe.md","mtime":"2022-02-12T19:44:31.289Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-15T22:12:32.072Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Anatomia de um gráfico","level":"1.2.3.1","depth":3,"next":{"title":"Scatter plot e Bar plot","level":"1.2.3.2","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Gráficos com Matplotlib","level":"1.2.3","depth":2,"path":"contents/intro-matplotlib.md","ref":"contents/intro-matplotlib.md","articles":[{"title":"Anatomia de um gráfico","level":"1.2.3.1","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},{"title":"Scatter plot e Bar plot","level":"1.2.3.2","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Histograma e Subplots","level":"1.2.3.3","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Subplots e suas opções","level":"1.2.3.4","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Customizando os seus plots","level":"1.2.3.5","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Exercícios","level":"1.2.3.6","depth":3,"path":"xx","ref":"xx","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/anatomia-matplotlib.md","mtime":"2022-02-15T22:12:05.395Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-15T22:12:32.072Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

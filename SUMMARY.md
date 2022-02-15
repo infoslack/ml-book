@@ -14,7 +14,7 @@
     * [Arrays, matrizes e operações](contents/np-matrizes-e-operacoes.md)
     * [Exercícios](contents/numpy-exercicios.md)
   * [Gráficos com Matplotlib](contents/intro-matplotlib.md)
-    * [Anatomia de um gráfico](xx)
+    * [Anatomia de um gráfico](contents/anatomia-matplotlib.md)
     * [Scatter plot e Bar plot](xx)
     * [Histograma e Subplots](xx)
     * [Subplots e suas opções](xx)

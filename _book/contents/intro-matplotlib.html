@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Series e DataFrames · HonKit</title>
+        <title>Gráficos com Matplotlib · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="manipulando-dados.html" />
+    <link rel="next" href="anatomia-matplotlib.html" />
     
     
-    <link rel="prev" href="conhecendo-o-pandas.html" />
+    <link rel="prev" href="numpy-exercicios.html" />
     
 
     </head>
@@ -174,7 +174,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1.1" data-path="series-dataframe.html">
+        <li class="chapter " data-level="1.2.1.1" data-path="series-dataframe.html">
             
                 <a href="series-dataframe.html">
             
@@ -276,7 +276,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="intro-matplotlib.html">
+        <li class="chapter active" data-level="1.2.3" data-path="intro-matplotlib.html">
             
                 <a href="intro-matplotlib.html">
             
@@ -466,7 +466,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Series e DataFrames</a>
+        <a href=".." >Gráficos com Matplotlib</a>
     </h1>
 </div>
 
@@ -481,23 +481,51 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="tipos-de-dados">Tipos de dados</h1>
-<p>O Pandas possui dois tipos de dados principais, <code>Series</code> e <code>DataFrame</code>.
-Séries são dados em uma única dimensão (coluna), já os DataFrames representam uma tabela de dados e possuem duas dimensões (linhas e colunas).</p>
-<p>Você pode criar uma Séries usando <code>pd.Series()</code> e passando uma lista Python:</p>
-<pre><code class="lang-python">carros = pd.Series([<span class="hljs-string">&quot;Toyota&quot;</span>, <span class="hljs-string">&quot;Honda&quot;</span>, <span class="hljs-string">&quot;BMW&quot;</span>])
-cores = pd.Series([<span class="hljs-string">&quot;Azul&quot;</span>, <span class="hljs-string">&quot;Branco&quot;</span>, <span class="hljs-string">&quot;Vermelho&quot;</span>])
+                                <h1 id="gráficos-com-matplotlib">Gráficos com Matplotlib</h1>
+<p>Saber plotar gráficos é uma importante tarefa na sua jornada com dados. Nesse capítulo faremos uma imersão na biblioteca mais utilizada para essa tarefa, chegou o momento de conhecer a <code>Matplotlib</code>.</p>
+<p>Para importar, usaremos a maneira mais comum com a abreviação <code>plt</code>:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+plt.plot()
 </code></pre>
-<p>O notebook terá a seguinte saída:</p>
-<p><img src="images/series.png" alt="pandas series" title="Pandas series"></p>
-<p>Para criar um DataFrame utilizamos <code>pd.DataFrame()</code> passando um dicionário Python como parâmetro:</p>
-<pre><code class="lang-python">df = pd.DataFrame({<span class="hljs-string">&quot;Fabricante&quot;</span>: carros,
-                   <span class="hljs-string">&quot;Cores&quot;</span>: cores})
+<p><img src="images/plot-base.png" alt="introdução a matplotlib"></p>
+<p>A função <code>plot()</code> é utilizada para renderizar uma imagem, no exemplo acima mostra a saída padrão da função. Vamos adicionar alguns dados para criar o nosso primeiro gráfico:</p>
+<pre><code class="lang-python">plt.plot([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+[&lt;matplotlib.lines.Line2D at <span class="hljs-number">0x7f4caa06a810</span>&gt;]
 </code></pre>
-<p>No exemplo acima estamos criando um DataFrame a partir de duas Séries.
-A saída no notebook será:</p>
-<p><img src="images/dataframe.png" alt="pandas dataframe" title="Pandas DataFrame"></p>
-<p>Como podemos observar ao criar o DataFrame informamos um dicionário Python e geramos uma tabela de linhas e colunas onde as chaves do dicionário se tornaram os títulos das colunas e os valores das duas Séries se tornaram os dados no DataFrame.</p>
+<p><img src="images/plot-dados-1.png" alt="primeiro plot com dados"></p>
+<p>Geramos o nosso primeiro plot com dados em sequência de 1 a 5 que criou uma linha reta. Ao executar a instrução de plot no notebook recebemos como retorno uma mensagem não muito amigável <code>[&lt;matplotlib.lines.Line2D at 0x7f4caa06a810&gt;]</code>.
+Essa informação retornada não é um erro, trata-se de uma mensagem padrão da Matplotlib informando que um objeto de plotagem foi criado. Essa mensagem pode ser escondida de duas formas, utilizando a função <code>plt.show()</code> ou adicionando um <code>;</code> no final da instrução de plot. Usaremos ambas no decorrer do livro para demonstrar.</p>
+<p>Vamos criar 2 listas de dados, dessa vez armazenadas em variáveis:</p>
+<pre><code class="lang-python">x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+y = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>]
+
+plt.plot(x, y);
+</code></pre>
+<p><img src="images/plot-dados-2.png" alt="segundo plot com dados"></p>
+<p>Dessa vez inserimos dados em ambos os eixos, x e y, observe o eixo y com os valores de 10 à 50, se comparar com o gráfico anterior você vai notar o que mudou. Perceba também o <code>;</code> ao final da instrução, ocultou a mensagem padrão que recebemos da outra vez.</p>
+<p>Outra versão muito comum de plotagem é utilizando Orientação a Objetos em vez da interface Pyplot (que utilizamos no import). Vamos a um exemplo:</p>
+<pre><code class="lang-python">fig = plt.figure()
+ax = fig.add_subplot()
+plt.show()
+</code></pre>
+<p><img src="images/plot-oo.png" alt="plot OO version"></p>
+<p>Diferente da interface Pyplot, onde só precisamos utilizar a função <code>plot()</code>, aqui é necessário definir o objeto <code>figure</code>, para então adicionarmos um <code>plot</code> à figura criada. Observe que dessa vez utilizamos <code>plt.show()</code> para ocultar a mensagem padrão.</p>
+<p>Agora vamos adicionar alguns dados para essa outra forma de plotagem:</p>
+<pre><code class="lang-python">fig = plt.figure()
+ax = fig.add_axes([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+ax.plot(x, y)
+plt.show()
+</code></pre>
+<p><img src="images/plot-oo-dados.png" alt="plot OO data"></p>
+<p>Nossa plotagem ficou um pouco mais complexa, utilizamos os dados das variáveis que criamos anteriormente, já <code>axes</code> é uma camada da figura onde um gráfico será posicionado (veremos isso em detalhes no próximo capítulo).</p>
+<p>Vejamos mais uma forma, dessa vez mais simples de plotar, utilizando <code>subplots()</code>:</p>
+<pre><code class="lang-python">fig, ax = plt.subplots()
+ax.plot(x, y);
+</code></pre>
+<p><img src="images/plot-dados-2.png" alt="subplots plot com dados"></p>
+<p>Concordamos que essa opção não é tão simples como a primeira que vimos até agora, porém esse formato nos permite explorar muitas configurações da Matplotlib. Usaremos esse formato daqui pra frente.</p>
+<hr>
 <p>WIP</p>
 
                                 
@@ -526,12 +554,12 @@ A saída no notebook será:</p>
 
             
                 
-                <a href="conhecendo-o-pandas.html" class="navigation navigation-prev " aria-label="Previous page: Conhecendo o Pandas">
+                <a href="numpy-exercicios.html" class="navigation navigation-prev " aria-label="Previous page: Exercícios">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="manipulando-dados.html" class="navigation navigation-next " aria-label="Next page: Manipulando dados">
+                <a href="anatomia-matplotlib.html" class="navigation navigation-next " aria-label="Next page: Anatomia de um gráfico">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -542,7 +570,7 @@ A saída no notebook será:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"next":{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},"previous":{"title":"Conhecendo o Pandas","level":"1.2.1","depth":2,"path":"contents/conhecendo-o-pandas.md","ref":"contents/conhecendo-o-pandas.md","articles":[{"title":"Series e DataFrames","level":"1.2.1.1","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},{"title":"Manipulando dados","level":"1.2.1.2","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},{"title":"Exercícios","level":"1.2.1.3","depth":3,"path":"contents/pandas-exercicios.md","ref":"contents/pandas-exercicios.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/series-dataframe.md","mtime":"2022-02-12T19:44:31.289Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-15T22:12:32.072Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Gráficos com Matplotlib","level":"1.2.3","depth":2,"next":{"title":"Anatomia de um gráfico","level":"1.2.3.1","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},"previous":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"contents/numpy-exercicios.md","ref":"contents/numpy-exercicios.md","articles":[]},"articles":[{"title":"Anatomia de um gráfico","level":"1.2.3.1","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},{"title":"Scatter plot e Bar plot","level":"1.2.3.2","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Histograma e Subplots","level":"1.2.3.3","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Subplots e suas opções","level":"1.2.3.4","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Customizando os seus plots","level":"1.2.3.5","depth":3,"path":"xx","ref":"xx","articles":[]},{"title":"Exercícios","level":"1.2.3.6","depth":3,"path":"xx","ref":"xx","articles":[]}],"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/intro-matplotlib.md","mtime":"2022-02-15T20:58:37.918Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-15T22:12:32.072Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
