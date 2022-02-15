@@ -174,6 +174,316 @@ array([[[ 1,  2],
 
 ## Manipulando e comparando arrays
 
----
+Veremos agora um pouco de aritmética com arrays. É possível realizar todas as operações (soma, subtração, multiplicação, potência, etc) e mais, para exemplificar vamos utilizar o nosso primeiro array criado, `a1` e vamos criar um novo utilizando `.ones()`:
 
+```python
+a1
+
+array([1, 2, 3])
+
+ones = np.ones(3)
+ones
+
+array([1., 1., 1.])
+```
+
+> Uma adição simples
+
+```python
+a1 + ones
+
+array([2., 3., 4.])
+```
+
+> Subtração
+
+```python
+a1 - ones
+
+array([0., 1., 2.])
+```
+
+> Multiplicação
+
+```python
+a1 * ones
+
+array([1., 2., 3.])
+```
+
+> Divisão
+
+```python
+a1 / ones
+
+array([1., 2., 3.])
+```
+
+> Divisão obtendo a parte inteira
+
+```python
+a2 // a1
+
+array([[4, 2, 2],
+       [7, 4, 3]])
+```
+
+> Exponenciação
+
+```python
+a1 ** 2
+
+array([1, 4, 9])
+```
+
+> Exponenciação utilizando a função `.square()`
+
+```python
+np.square(a1)
+
+array([1, 4, 9])
+```
+
+> Módulo
+
+```python
+a1 % 2
+
+array([1, 0, 1])
+```
+
+> Logaritmo
+
+```python
+np.log(a1)
+
+array([0.   , 0.69314718, 1.09861229])
+```
+
+> Exponencial
+
+```python
+np.exp(a1)
+
+array([ 2.71828183,  7.3890561 , 20.08553692])
+```
+
+## Agregação
+
+NumPy também disponibiliza várias funções para agregação, `sum()` por exemplo, pode somar todos os elementos de um array:
+
+```python
+sum(a1)
+
+6
+```
+
+A mesma função disponibilizada pelo NumPy seria `np.sum()`:
+
+```python
+np.sum(a1)
+
+6
+```
+
+O resultado é o mesmo, porém o desempenho é completamente diferente. Para o nosso teste, vamos criar um array com `1.000.000` de valores aleatório e comparar as duas funções de soma ( do Python e do NumPy ), medindo o tempo de processamento de cada uma:
+
+```python
+grande_array = np.random.random(1000000)
+grande_array.size
+
+1000000
+```
+
+Ok, já temos o nosso array com 1 milhão de valores aleatórios, para medir o tempo de processamento das operações de soma, podemos utilizar a função mágica chamada `%timeit` que vai exibir o tempo total de processamento de cada função, essa operação pode demorar um pouco:
+
+```python
+%timeit sum(grande_array)       # Python sum()
+%timeit np.sum(grande_array)  # NumPy np.sum()
+
+10 loops, best of 5: 165 ms per loop
+1000 loops, best of 5: 365 µs per loop
+```
+
+A função `.sum()` do Python levou **165 milissegundos**, enquanto a função `np.sum()` do NumPy fez tudo em **365 microssegundos**, um pouco mais de **450x** mais rápido. Em outras palavras, se estiver trabalhando com NumPy, por questões de desempenho é melhor escolher as suas funções embutidas para grandes volumes de dados, do que utilizar as operações nativas do Python.
+
+Vamos utilizar o array `a2` e experimentar outras funções, por exemplo calcular a média dos valores:
+
+```python
+a2
+
+array([[4, 5, 6],
+       [7, 8, 9]])
+
+np.mean(a2)
+
+6.5
+```
+
+> Encontrar o maior valor `.max()`
+
+```python
+np.max(a2)
+
+9
+```
+
+> Encontrar o menor valor `.min()`
+
+```python
+np.min(a2)
+
+4
+```
+
+> Calcular o desvio padrão `.std()` (é uma média de como os valores estão espalhados)
+
+```python
+np.std(a2)
+
+1.707825127659933
+```
+
+> Calcular a variância `.var()` (é a média das diferenças quadradas da média)
+
+```python
+np.var(a2)
+
+2.9166666666666665
+```
+
+## Reshaping e Transpose
+
+Imagine que precisamos somar os arrays `a2` e `a3`:
+
+```python
+a2 + a3
+
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-60-7e0cfe75ff3f> in <module>()
+----> 1 a2 + a3
+
+ValueError: operands could not be broadcast together with shapes (2,3) (2,3,3) 
+```
+
+E para nossa surpresa recebemos esse erro informando que os shapes são diferentes e que por esse motivo a operação não pode ser realizada. Para resolver o problema podemos reordenar um dos arrays ou fazer o `reshape`:
+
+```python
+a2
+
+array([[4, 5, 6],
+       [7, 8, 9]])
+
+a2.reshape(2, 3, 1)
+
+array([[[4],
+        [5],
+        [6]],
+
+       [[7],
+        [8],
+        [9]]])
+```
+
+O que fizemos com o reshape foi alterar o formato do nosso array para uma estrutura de uma só coluna, agora é possível somar `a2` e `a3`:
+
+```python
+a2.reshape(2, 3, 1) + a3
+
+array([[[ 5,  6,  7],
+        [ 9, 10, 11],
+        [13, 14, 15]],
+
+       [[17, 18, 19],
+        [21, 22, 23],
+        [25, 26, 27]]])
+```
+
+Já o `transpose` inverte a estrutura do array, por exemplo:
+
+```python
+a2
+
+array([[4, 5, 6],
+       [7, 8, 9]])
+
+a2.T
+
+array([[4, 7],
+       [5, 8],
+       [6, 9]])
+
+a2.shape
+
+(2, 3)
+
+a2.T.shape
+
+(3, 2)
+```
+
+> Assim, temos `a2` um array de `2x3` quando invertido pelo método transpose vira um array de `3x2`.
+
+## Operações de comparação e ordenação de arrays
+
+Assim como podemos utilizar operadores aritméticos com arrays, também é possível utilizar operadores de comparação:
+
+```python
+# Temos os arrays a1 e a2
+a1
+
+array([1, 2, 3])
+
+a2
+
+array([[4, 5, 6],
+       [7, 8, 9]])
+      
+# a1 é maior que a2 ?
+a1 > a2
+
+array([[False, False, False],
+       [False, False, False]])
+
+# a1 é menor ou igual à a2 ?
+a1 <= a2
+
+array([[ True,  True,  True],
+       [ True,  True,  True]])
+
+# a1 é maior que 5 ?
+a1 > 5
+
+array([False, False, False])
+
+# a1 é igual à a2 ?
+a1 == a2
+
+array([[False, False, False],
+       [False, False, False]])
+```
+
+Agora um pouco de ordenação, lembra do nosso array aleatório `random_1` ?
+Podemos utilizar a função `.sort()` e ordenar os elementos:
+
+```python
+random_1
+
+array([[6, 6, 1],
+       [6, 4, 1],
+       [1, 1, 6],
+       [1, 6, 4],
+       [9, 0, 4]])
+
+np.sort(random_1)
+
+array([[1, 6, 6],
+       [1, 4, 6],
+       [1, 1, 6],
+       [1, 4, 6],
+       [0, 4, 9]])
+```
+
+---
 WIP

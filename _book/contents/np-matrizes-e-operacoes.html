@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../xx" />
+    <link rel="next" href="numpy-exercicios.html" />
     
     
     <link rel="prev" href="np-tipos-de-dados.html" />
@@ -258,9 +258,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2.3" data-path="../xx">
+        <li class="chapter " data-level="1.2.2.3" data-path="numpy-exercicios.html">
             
-                <span>
+                <a href="numpy-exercicios.html">
             
                     
                     Exercícios
@@ -618,6 +618,264 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
 <p>Acessar elementos em arrays requer um pouco de prática, especialmente quando as dimensões aumentam, como no caso do exemplo anterior.</p>
 </blockquote>
 <h2 id="manipulando-e-comparando-arrays">Manipulando e comparando arrays</h2>
+<p>Veremos agora um pouco de aritmética com arrays. É possível realizar todas as operações (soma, subtração, multiplicação, potência, etc) e mais, para exemplificar vamos utilizar o nosso primeiro array criado, <code>a1</code> e vamos criar um novo utilizando <code>.ones()</code>:</p>
+<pre><code class="lang-python">a1
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+ones = np.ones(<span class="hljs-number">3</span>)
+ones
+
+array([<span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">1.</span>])
+</code></pre>
+<blockquote>
+<p>Uma adição simples</p>
+</blockquote>
+<pre><code class="lang-python">a1 + ones
+
+array([<span class="hljs-number">2.</span>, <span class="hljs-number">3.</span>, <span class="hljs-number">4.</span>])
+</code></pre>
+<blockquote>
+<p>Subtração</p>
+</blockquote>
+<pre><code class="lang-python">a1 - ones
+
+array([<span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">2.</span>])
+</code></pre>
+<blockquote>
+<p>Multiplicação</p>
+</blockquote>
+<pre><code class="lang-python">a1 * ones
+
+array([<span class="hljs-number">1.</span>, <span class="hljs-number">2.</span>, <span class="hljs-number">3.</span>])
+</code></pre>
+<blockquote>
+<p>Divisão</p>
+</blockquote>
+<pre><code class="lang-python">a1 / ones
+
+array([<span class="hljs-number">1.</span>, <span class="hljs-number">2.</span>, <span class="hljs-number">3.</span>])
+</code></pre>
+<blockquote>
+<p>Divisão obtendo a parte inteira</p>
+</blockquote>
+<pre><code class="lang-python">a2 // a1
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>]])
+</code></pre>
+<blockquote>
+<p>Exponenciação</p>
+</blockquote>
+<pre><code class="lang-python">a1 ** <span class="hljs-number">2</span>
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>])
+</code></pre>
+<blockquote>
+<p>Exponenciação utilizando a função <code>.square()</code></p>
+</blockquote>
+<pre><code class="lang-python">np.square(a1)
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>])
+</code></pre>
+<blockquote>
+<p>Módulo</p>
+</blockquote>
+<pre><code class="lang-python">a1 % <span class="hljs-number">2</span>
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])
+</code></pre>
+<blockquote>
+<p>Logaritmo</p>
+</blockquote>
+<pre><code class="lang-python">np.log(a1)
+
+array([<span class="hljs-number">0.</span>   , <span class="hljs-number">0.69314718</span>, <span class="hljs-number">1.09861229</span>])
+</code></pre>
+<blockquote>
+<p>Exponencial</p>
+</blockquote>
+<pre><code class="lang-python">np.exp(a1)
+
+array([ <span class="hljs-number">2.71828183</span>,  <span class="hljs-number">7.3890561</span> , <span class="hljs-number">20.08553692</span>])
+</code></pre>
+<h2 id="agregação">Agregação</h2>
+<p>NumPy também disponibiliza várias funções para agregação, <code>sum()</code> por exemplo, pode somar todos os elementos de um array:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">sum</span>(a1)
+
+<span class="hljs-number">6</span>
+</code></pre>
+<p>A mesma função disponibilizada pelo NumPy seria <code>np.sum()</code>:</p>
+<pre><code class="lang-python">np.<span class="hljs-built_in">sum</span>(a1)
+
+<span class="hljs-number">6</span>
+</code></pre>
+<p>O resultado é o mesmo, porém o desempenho é completamente diferente. Para o nosso teste, vamos criar um array com <code>1.000.000</code> de valores aleatório e comparar as duas funções de soma ( do Python e do NumPy ), medindo o tempo de processamento de cada uma:</p>
+<pre><code class="lang-python">grande_array = np.random.random(<span class="hljs-number">1000000</span>)
+grande_array.size
+
+<span class="hljs-number">1000000</span>
+</code></pre>
+<p>Ok, já temos o nosso array com 1 milhão de valores aleatórios, para medir o tempo de processamento das operações de soma, podemos utilizar a função mágica chamada <code>%timeit</code> que vai exibir o tempo total de processamento de cada função, essa operação pode demorar um pouco:</p>
+<pre><code class="lang-python">%timeit <span class="hljs-built_in">sum</span>(grande_array)       <span class="hljs-comment"># Python sum()</span>
+%timeit np.<span class="hljs-built_in">sum</span>(grande_array)  <span class="hljs-comment"># NumPy np.sum()</span>
+
+<span class="hljs-number">10</span> loops, best of <span class="hljs-number">5</span>: <span class="hljs-number">165</span> ms per loop
+<span class="hljs-number">1000</span> loops, best of <span class="hljs-number">5</span>: <span class="hljs-number">365</span> µs per loop
+</code></pre>
+<p>A função <code>.sum()</code> do Python levou <strong>165 milissegundos</strong>, enquanto a função <code>np.sum()</code> do NumPy fez tudo em <strong>365 microssegundos</strong>, um pouco mais de <strong>450x</strong> mais rápido. Em outras palavras, se estiver trabalhando com NumPy, por questões de desempenho é melhor escolher as suas funções embutidas para grandes volumes de dados, do que utilizar as operações nativas do Python.</p>
+<p>Vamos utilizar o array <code>a2</code> e experimentar outras funções, por exemplo calcular a média dos valores:</p>
+<pre><code class="lang-python">a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+np.mean(a2)
+
+<span class="hljs-number">6.5</span>
+</code></pre>
+<blockquote>
+<p>Encontrar o maior valor <code>.max()</code></p>
+</blockquote>
+<pre><code class="lang-python">np.<span class="hljs-built_in">max</span>(a2)
+
+<span class="hljs-number">9</span>
+</code></pre>
+<blockquote>
+<p>Encontrar o menor valor <code>.min()</code></p>
+</blockquote>
+<pre><code class="lang-python">np.<span class="hljs-built_in">min</span>(a2)
+
+<span class="hljs-number">4</span>
+</code></pre>
+<blockquote>
+<p>Calcular o desvio padrão <code>.std()</code> (é uma média de como os valores estão espalhados)</p>
+</blockquote>
+<pre><code class="lang-python">np.std(a2)
+
+<span class="hljs-number">1.707825127659933</span>
+</code></pre>
+<blockquote>
+<p>Calcular a variância <code>.var()</code> (é a média das diferenças quadradas da média)</p>
+</blockquote>
+<pre><code class="lang-python">np.var(a2)
+
+<span class="hljs-number">2.9166666666666665</span>
+</code></pre>
+<h2 id="reshaping-e-transpose">Reshaping e Transpose</h2>
+<p>Imagine que precisamos somar os arrays <code>a2</code> e <code>a3</code>:</p>
+<pre><code class="lang-python">a2 + a3
+
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+&lt;ipython-input-60-7e0cfe75ff3f&gt; in &lt;module&gt;()
+----&gt; 1 a2 + a3
+
+ValueError: operands could not be broadcast together with shapes (2,3) (2,3,3)
+</code></pre>
+<p>E para nossa surpresa recebemos esse erro informando que os shapes são diferentes e que por esse motivo a operação não pode ser realizada. Para resolver o problema podemos reordenar um dos arrays ou fazer o <code>reshape</code>:</p>
+<pre><code class="lang-python">a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+a2.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>)
+
+array([[[<span class="hljs-number">4</span>],
+        [<span class="hljs-number">5</span>],
+        [<span class="hljs-number">6</span>]],
+
+       [[<span class="hljs-number">7</span>],
+        [<span class="hljs-number">8</span>],
+        [<span class="hljs-number">9</span>]]])
+</code></pre>
+<p>O que fizemos com o reshape foi alterar o formato do nosso array para uma estrutura de uma só coluna, agora é possível somar <code>a2</code> e <code>a3</code>:</p>
+<pre><code class="lang-python">a2.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>) + a3
+
+array([[[ <span class="hljs-number">5</span>,  <span class="hljs-number">6</span>,  <span class="hljs-number">7</span>],
+        [ <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>],
+        [<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>]],
+
+       [[<span class="hljs-number">17</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>],
+        [<span class="hljs-number">21</span>, <span class="hljs-number">22</span>, <span class="hljs-number">23</span>],
+        [<span class="hljs-number">25</span>, <span class="hljs-number">26</span>, <span class="hljs-number">27</span>]]])
+</code></pre>
+<p>Já o <code>transpose</code> inverte a estrutura do array, por exemplo:</p>
+<pre><code class="lang-python">a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+a2.T
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">7</span>],
+       [<span class="hljs-number">5</span>, <span class="hljs-number">8</span>],
+       [<span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+
+a2.shape
+
+(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+a2.T.shape
+
+(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)
+</code></pre>
+<blockquote>
+<p>Assim, temos <code>a2</code> um array de <code>2x3</code> quando invertido pelo método transpose vira um array de <code>3x2</code>.</p>
+</blockquote>
+<h2 id="operações-de-comparação-e-ordenação-de-arrays">Operações de comparação e ordenação de arrays</h2>
+<p>Assim como podemos utilizar operadores aritméticos com arrays, também é possível utilizar operadores de comparação:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Temos os arrays a1 e a2</span>
+a1
+
+array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+a2
+
+array([[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+
+<span class="hljs-comment"># a1 é maior que a2 ?</span>
+a1 &gt; a2
+
+array([[<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>],
+       [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>]])
+
+<span class="hljs-comment"># a1 é menor ou igual à a2 ?</span>
+a1 &lt;= a2
+
+array([[ <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>],
+       [ <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>]])
+
+<span class="hljs-comment"># a1 é maior que 5 ?</span>
+a1 &gt; <span class="hljs-number">5</span>
+
+array([<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>])
+
+<span class="hljs-comment"># a1 é igual à a2 ?</span>
+a1 == a2
+
+array([[<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>],
+       [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>]])
+</code></pre>
+<p>Agora um pouco de ordenação, lembra do nosso array aleatório <code>random_1</code> ?
+Podemos utilizar a função <code>.sort()</code> e ordenar os elementos:</p>
+<pre><code class="lang-python">random_1
+
+array([[<span class="hljs-number">6</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>],
+       [<span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>],
+       [<span class="hljs-number">9</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>]])
+
+np.sort(random_1)
+
+array([[<span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>]])
+</code></pre>
 <hr>
 <p>WIP</p>
 
@@ -652,7 +910,7 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
                 </a>
                 
                 
-                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Exercícios">
+                <a href="numpy-exercicios.html" class="navigation navigation-next " aria-label="Next page: Exercícios">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -663,7 +921,7 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"next":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-matrizes-e-operacoes.md","mtime":"2022-02-14T22:46:40.315Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-14T22:47:16.105Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Arrays, matrizes e operações","level":"1.2.2.2","depth":3,"next":{"title":"Exercícios","level":"1.2.2.3","depth":3,"path":"contents/numpy-exercicios.md","ref":"contents/numpy-exercicios.md","articles":[]},"previous":{"title":"Tipos de dados e atributos","level":"1.2.2.1","depth":3,"path":"contents/np-tipos-de-dados.md","ref":"contents/np-tipos-de-dados.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/np-matrizes-e-operacoes.md","mtime":"2022-02-15T16:52:08.813Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-15T17:02:35.894Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
