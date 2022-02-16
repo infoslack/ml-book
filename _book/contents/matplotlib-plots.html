@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Para quem é este livro? · HonKit</title>
+        <title>Tipos de plots mais utilizados · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ambiente.html" />
+    <link rel="next" href="../xx" />
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="anatomia-matplotlib.html" />
     
 
     </head>
@@ -102,7 +102,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.1.1" data-path="sobre-o-livro.html">
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
             
                 <a href="sobre-o-livro.html">
             
@@ -693,7 +693,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.5" data-path="matplotlib-plots.html">
+        <li class="chapter active" data-level="1.2.3.5" data-path="matplotlib-plots.html">
             
                 <a href="matplotlib-plots.html">
             
@@ -882,7 +882,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Para quem é este livro?</a>
+        <a href=".." >Tipos de plots mais utilizados</a>
     </h1>
 </div>
 
@@ -897,10 +897,74 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="para-quem-é-este-livro">Para quem é este livro?</h1>
-<p>O livro é destinado para qualquer pessoa interessada em aprender sobre Machine Learning. Para acompanhar o material, conhecimento em Python é recomendado.</p>
-<p>Os exemplos foram elaborados de maneira prática para uma rápida reprodução. Você não precisa instalar nada no seu computador para reproduzir os exemplos, tudo pode ser feito usando o <a href="https://colab.research.google.com/" target="_blank">Google Colab</a>.</p>
-<p>Um grupo no Discord foi criado para trocar ideias sobre o livro, caso tenha interesse em participar basta acessar pelo link: <a href="https://discord.gg/UdksFem2" target="_blank">https://discord.gg/UdksFem2</a></p>
+                                <h1 id="tipos-de-plots-mais-utilizados">Tipos de plots mais utilizados</h1>
+<p>As visualizações do Matplotlib são construídas a partir de matrizes NumPy, neste capítulo veremos alguns dos tipos de gráficos mais utilizados. Para solucionar maior parte do problema em descobrir que tipo de plotagem usar, primeiro é ter uma ideia geral dos dados para em seguida ver qual plotagem melhor se adapta. Faremos alguns experimentos!</p>
+<p>Antes de continuar, vamos precisar do NumPy para gerar alguns dados para nossas plotagens:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+x[:<span class="hljs-number">10</span>]
+
+array([<span class="hljs-number">0.</span>        , <span class="hljs-number">0.1010101</span> , <span class="hljs-number">0.2020202</span> , <span class="hljs-number">0.3030303</span> , <span class="hljs-number">0.4040404</span> ,
+       <span class="hljs-number">0.50505051</span>, <span class="hljs-number">0.60606061</span>, <span class="hljs-number">0.70707071</span>, <span class="hljs-number">0.80808081</span>, <span class="hljs-number">0.90909091</span>])
+</code></pre>
+<h3 id="line">Line</h3>
+<p>Gráfico de linha é o tipo padrão de visualização no Matplotlib, geralmente, a menos que seja configurado de outra forma, os gráficos começarão como linhas.</p>
+<pre><code class="lang-python">fig, ax = plt.subplots()
+ax.plot(x, x**<span class="hljs-number">2</span>);
+</code></pre>
+<p><img src="images/plot-line.png" alt="plot line"></p>
+<h3 id="scatter">Scatter</h3>
+<p>Outro tipo de gráfico bastante usado é o <code>scatter</code> ou gráfico de dispersão. Lembra um pouco o gráfico de linhas, mas é representado por pontos.</p>
+<pre><code class="lang-python">fig, ax = plt.subplots()
+ax.scatter(x, np.sin(x));
+</code></pre>
+<p><img src="images/plot-scatter.png" alt="plot scatter"></p>
+<h3 id="bar">Bar</h3>
+<p>Um gráfico de barras apresenta barras retangulares com comprimentos e alturas proporcionais aos valores que representam. Pode ser plotado horizontalmente ou verticalmente. Bastante utilizado em comparações entre dados.</p>
+<pre><code class="lang-python">produtos = {<span class="hljs-string">&quot;Pão&quot;</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-string">&quot;Leite&quot;</span>: <span class="hljs-number">8</span>,
+            <span class="hljs-string">&quot;Sorvete&quot;</span>: <span class="hljs-number">12</span>}
+
+fig, ax = plt.subplots()
+ax.bar(produtos.keys(), produtos.values())
+ax.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Lista de produtos&quot;</span>, ylabel=<span class="hljs-string">&quot;Preço&quot;</span>);
+</code></pre>
+<p><img src="images/plot-bar-h.png" alt="plot bar"></p>
+<pre><code class="lang-python">fig, ax = plt.subplots()
+ax.barh(<span class="hljs-built_in">list</span>(produtos.keys()), <span class="hljs-built_in">list</span>(produtos.values()));
+</code></pre>
+<p><img src="images/plot-bar.png" alt="plot bar horizontal"></p>
+<h3 id="hist">Hist</h3>
+<p>Histograma pode ser um ótimo passo para entender um conjunto de dados.
+A função <code>randn</code> do NumPy gera valores aleatórios com uma <a href="https://pt.wikipedia.org/wiki/Distribui%C3%A7%C3%A3o_normal" target="_blank">distribuição normal</a>. Vamos gerar dados com essa função e plotar em um gráfico de histograma:</p>
+<pre><code class="lang-python">x = np.random.randn(<span class="hljs-number">1000</span>)
+
+fig, ax = plt.subplots()
+ax.hist(x);
+</code></pre>
+<p><img src="images/plot-hist.png" alt="plot hist"></p>
+<h3 id="subplots">Subplots</h3>
+<p>Já vimos uma breve apresentação de subplots, agora veremos um pouco mais de recursos dessa função. Vamos criar vários plots em uma só figura. Na primeira opção vamos plotar os dados em cada <code>axis</code> da figura:</p>
+<pre><code class="lang-python">fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=<span class="hljs-number">2</span>,
+                                             ncols=<span class="hljs-number">2</span>,
+                                             figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>))
+ax1.plot(x, x/<span class="hljs-number">2</span>); <span class="hljs-comment">#line</span>
+ax2.scatter(np.random.random(<span class="hljs-number">10</span>), np.random.random(<span class="hljs-number">10</span>)) <span class="hljs-comment">#scatter</span>
+ax3.bar(produtos.keys(), produtos.values()) <span class="hljs-comment">#bar</span>
+ax4.hist(np.random.randn(<span class="hljs-number">1000</span>)); <span class="hljs-comment">#hist</span>
+</code></pre>
+<p><img src="images/plot-subplots-1.png" alt="plot subplots opt 1"></p>
+<p>Na segunda opção usaremos um índice para plotar os dados, particularmente prefiro essa alternativa:</p>
+<pre><code class="lang-python">fig, ax = plt.subplots(nrows=<span class="hljs-number">2</span>, ncols=<span class="hljs-number">2</span>, figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>))
+
+ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>].plot(x, x/<span class="hljs-number">2</span>) <span class="hljs-comment">#line</span>
+ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].scatter(np.random.random(<span class="hljs-number">10</span>), np.random.random(<span class="hljs-number">10</span>)) <span class="hljs-comment">#scatter</span>
+ax[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>].bar(produtos.keys(), produtos.values()) <span class="hljs-comment">#bar</span>
+ax[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>].hist(np.random.randn(<span class="hljs-number">1000</span>)); <span class="hljs-comment">#hist</span>
+</code></pre>
+<p><img src="images/plot-subplots-1.png" alt="plot subplots opt 2"></p>
+<h2 id="plotando-dados-com-pandas">Plotando dados com Pandas</h2>
 <hr>
 <p>WIP</p>
 
@@ -930,12 +994,12 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática">
+                <a href="anatomia-matplotlib.html" class="navigation navigation-prev " aria-label="Previous page: Anatomia de um gráfico">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="ambiente.html" class="navigation navigation-next " aria-label="Next page: Configurando o ambiente">
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Exercícios">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -946,7 +1010,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Para quem é este livro?","level":"1.1.1","depth":2,"next":{"title":"Configurando o ambiente","level":"1.1.2","depth":2,"path":"contents/ambiente.md","ref":"contents/ambiente.md","articles":[]},"previous":{"title":"Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Para quem é este livro?","level":"1.1.1","depth":2,"path":"contents/sobre-o-livro.md","ref":"contents/sobre-o-livro.md","articles":[]},{"title":"Configurando o ambiente","level":"1.1.2","depth":2,"path":"contents/ambiente.md","ref":"contents/ambiente.md","articles":[]},{"title":"Um pouco de Python para Data Science","level":"1.1.3","depth":2,"path":"xx","ref":"xx","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/sobre-o-livro.md","mtime":"2022-02-15T11:52:21.035Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-16T01:27:08.351Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tipos de plots mais utilizados","level":"1.2.3.5","depth":3,"next":{"title":"Exercícios","level":"1.2.3.11","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Anatomia de um gráfico","level":"1.2.3.4","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/matplotlib-plots.md","mtime":"2022-02-16T01:23:56.455Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-16T01:27:08.351Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
