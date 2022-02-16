@@ -1,4 +1,4 @@
-# 1.1.1 Conhecendo o Pandas
+# Conhecendo o Pandas
 
 O Pandas fornece um conjunto de funções simples de usar. Essas funções são integradas a muitas outras ferramentas de Data Science e Machine Learning que utilizam Python como linguagem, logo, entender o Pandas é indispensável para o resto da sua jornada.
 

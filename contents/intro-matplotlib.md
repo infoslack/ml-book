@@ -12,6 +12,8 @@ plt.plot()
 
 ![introdução a matplotlib](images/plot-base.png)
 
+### Plot
+
 A função `plot()` é utilizada para renderizar uma imagem, no exemplo acima mostra a saída padrão da função. Vamos adicionar alguns dados para criar o nosso primeiro gráfico:
 
 ```python
@@ -37,6 +39,8 @@ plt.plot(x, y);
 
 Dessa vez inserimos dados em ambos os eixos, x e y, observe o eixo y com os valores de 10 à 50, se comparar com o gráfico anterior você vai notar o que mudou. Perceba também o `;` ao final da instrução, ocultou a mensagem padrão que recebemos da outra vez.
 
+### Figure
+
 Outra versão muito comum de plotagem é utilizando Orientação a Objetos em vez da interface Pyplot (que utilizamos no import). Vamos a um exemplo:
 
 ```python
@@ -61,6 +65,8 @@ plt.show()
 ![plot OO data](images/plot-oo-dados.png)
 
 Nossa plotagem ficou um pouco mais complexa, utilizamos os dados das variáveis que criamos anteriormente, já `axes` é uma camada da figura onde um gráfico será posicionado (veremos isso em detalhes no próximo capítulo).
+
+### Subplots
 
 Vejamos mais uma forma, dessa vez mais simples de plotar, utilizando `subplots()`:
 

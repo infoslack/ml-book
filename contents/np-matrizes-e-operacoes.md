@@ -268,7 +268,7 @@ np.exp(a1)
 array([ 2.71828183,  7.3890561 , 20.08553692])
 ```
 
-## Agregação
+## Aggregations
 
 NumPy também disponibiliza várias funções para agregação, `sum()` por exemplo, pode somar todos os elementos de um array:
 
@@ -425,7 +425,7 @@ a2.T.shape
 
 > Assim, temos `a2` um array de `2x3` quando invertido pelo método transpose vira um array de `3x2`.
 
-## Operações de comparação e ordenação de arrays
+## Comparando e ordenando arrays
 
 Assim como podemos utilizar operadores aritméticos com arrays, também é possível utilizar operadores de comparação:
 

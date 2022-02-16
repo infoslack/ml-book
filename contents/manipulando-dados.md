@@ -25,6 +25,8 @@ Abaixo vemos um resumo dos principais componentes de um DataFrame:
 
 Uma das primeiras tarefas que fazemos logo após importar os dados para um DataFrame Pandas é começar a explorá-lo. O Pandas possui muitas funções internas que nos permitem obter informações descritivas dos dados, `.dtypes` por exemplo nos mostra que tipo de dados cada coluna contém:
 
+### Dtypes
+
 ```python
 df.dtypes
 
@@ -37,6 +39,8 @@ dtype: object
 ```
 
 Note que a coluna `Preco` não é um número inteiro como `Quilometragem` e `Portas`. Não se preocupe isso é fácil de consertar e faremos isso em outro momento.
+
+### Describe
 
 A função `.describe()` nos mostra uma visão estatística de todas as colunas numéricas:
 
@@ -54,6 +58,8 @@ df.describe()
 |  50%  | 57369.000000  | 4.000000  |
 |  75%  | 96384.500000  | 4.000000  |
 |  max  | 213095.000000 | 5.000000  |
+
+### Info
 
 Outra função muito utilizada é a `.info()`, que mostra quantas linhas existem, se há valores ausentes e os tipos de dados de cada coluna:
 
@@ -74,6 +80,8 @@ dtypes: int64(2), object(3)
 memory usage: 528.0+ bytes
 ```
 
+### Mean e Sum
+
 Pandas também disponibiliza várias funções estatísticas e matemáticas como `.mean()` e `.sum()` que podem ser aplicadas diretamente em um DataFrame ou Séries.
 
 ```python
@@ -88,6 +96,8 @@ valores.sum()
 
 17750
 ```
+
+### Columns
 
 Usar essas funções em um DataFrame inteiro pode não fazer muito sentido, nesse caso podemos direcionar a função individualmente para uma coluna.
 O método `.columns` mostrará todas as colunas de um DataFrame:
@@ -110,6 +120,8 @@ df["Quilometragem"].mean()
 
 Na prática, realizar alterações nos dados e visualizá-los constantemente é uma tarefa de rotina. Nem sempre precisamos alterar todos os dados de um DataFrame, portanto veremos maneiras diferentes de selecionar.
 
+### Head
+
 Para visualizar as primeiras 5 linhas do seu DataFrame existe a função `.head()` que é muito utilizada:
 
 ```python
@@ -126,6 +138,8 @@ df.head()
 
 Para selecionar mais de 5, você pode passar o valor desejado como argumento na função, por exemplo: `.head(7)`.
 
+### Tail
+
 Outro método muito utilizado é o `.tail()` que seleciona as últimas 5 linhas do seu DataFrame:
 
 ```python
@@ -139,6 +153,8 @@ df.tail()
 |  7  |   Honda    |  Azul  |     54738     |   4    | R$ 27,000.00 |
 |  8  |   Toyota   | Branco |     60000     |   4    | R$ 26,250.00 |
 |  9  |   Nissan   | Branco |     31600     |   4    | R$ 19,700.00 |
+
+### Loc e Iloc
 
 Por meio das instruções `.loc[]` e `.iloc[]` podemos selecionar dados de Séries e DataFrames, essas opções são muito utilizadas. Para ilustrar o uso em uma Série, vamos criar uma:
 
@@ -256,6 +272,8 @@ df[df["Fabricante"] == "Honda"]
 |  6  |   Honda    |   Azul   |     45698     |   4    | R$ 17,500.00 |
 |  7  |   Honda    |   Azul   |     54738     |   4    | R$ 27,000.00 |
 
+### Groupby
+
 Para comparar mais colunas no contexto de outra coluna, podemos usar o `.groupby()`, por exemplo, podemos agrupar os dados por *fabricante* e calcular a média das colunas numéricas:
 
 ```python
@@ -268,6 +286,8 @@ df.groupby(["Fabricante"]).mean()
 |   Honda    | 62778.333333  |  4.00  |
 |   Nissan   | 122347.500000 |  4.00  |
 |   Toyota   | 85451.250000  |  3.75  |
+
+### Replace
 
 A coluna de *preço* no DataFrame ainda não foi convertida para um tipo numérico, vamos tratar isso. Primeiro precisamos elaborar uma expressão regular para eliminar os caracteres `R$` e `,`. O Pandas permite isso por meio do método `str.replace`, para persistir a mudança no DataFrame é comum atribuir a mudança ao próprio DataFrame:
 
@@ -304,6 +324,8 @@ Data columns (total 5 columns):
 dtypes: int64(2), object(3)
 memory usage: 528.0+ bytes
 ```
+
+### Numeric
 
 Como podemos ver `Preco` continua sendo do tipo *object*. Podemos corrigir isso com a função `to_numeric` do Pandas:
 
@@ -356,6 +378,8 @@ df2
 |  8  |   Toyota   |  Branco  |    60000.0    |  NaN   |   NaN    |
 |  9  |    NaN     |  Branco  |    31600.0    |  4.0   | 19700.0  |
 
+### Fillna
+
 Os valores ausentes são mostrados por `NaN` no Pandas, isso é considerado o equivalente ao `None` em Python. Vamos usar a função `.fillna()` para preencher a coluna `Quilometragem` com a média dos outros valores da mesma coluna, dessa vez não vamos reatribuir a coluna para persistir os dados no DataFrame, em vez disso, usaremos a opção `inplace=True`:
 
 ```python
@@ -375,6 +399,8 @@ df2
 |  7  |   Honda    |   Azul   | 92302.666667  |  4.0   |   NaN    |
 |  8  |   Toyota   |  Branco  | 60000.000000  |  NaN   |   NaN    |
 |  9  |    NaN     |  Branco  | 31600.000000  |  4.0   | 19700.0  |
+
+### Dropna
 
 Perfeito! Os valores ausentes da coluna `Quilometragem` foram preenchidos com o valor médio da mesma coluna. Digamos que você queira apenas remover todas as linhas com dados ausentes e trabalhar apenas com as linhas que possuem todos os valores preenchidos, podemos fazer isso usando o `.dropna()`:
 
@@ -443,6 +469,8 @@ df
 ```
 ![Gerando nova coluna](images/coluna-preco-por-km.png "Criando uma nova coluna, preço por km")
 
+### Drop
+
 Esse tipo de criação de coluna é chamado de `Feature Engineering`. Se fabricante, cor e quantidade de portas são características dos dados, a criação de preço por quilômetro pode ser outra. Nesse exemplo não foi uma boa escolha, então vamos remover essa coluna. Para remover uma só coluna podemos usar o `.drop('NOME_DA_COLUNA', axis=1)`:
 
 ```python
@@ -463,6 +491,8 @@ df
 |  8  |   Toyota   |  Branco  |     60000     |   4    | 26250.0  |    5     |  2.0  |
 |  9  |   Nissan   |  Branco  |     31600     |   4    | 19700.0  |    5     |  3.0  |
 
+### Sample
+
 Outro recurso interessante no Pandas é o de ordenação, digamos que você precise embaralhar a ordem do seu DataFrame para poder dividi-lo em conjuntos de treinamento, teste e validação para utilizar em um projeto de Machine Learning. Para isso temos o recurso `.sample(frac=1)`, essa função pega diferentes linhas de um DataFrame e embaralha. O parâmetro `frac` configura a fração que será utilizada para embaralhar, onde 1 equivale a 100% das linhas.
 
 ```python
@@ -482,6 +512,8 @@ df_sample
 |  0  |   Toyota   |  Branco  |    150043     |   4    | 24000.0  |    5     |  1.3  |
 |  7  |   Honda    |   Azul   |     54738     |   4    | 27000.0  |    5     |  2.3  |
 |  2  |   Toyota   |   Azul   |     32549     |   3    | 27000.0  |    5     |  3.0  |
+
+### Reset index
 
 Note como as linhas permanecem intactas, apenas a ordem é alterada e isso pode ser verificado pelos índices.
 Agora, e se você quisesse colocar os índices de volta em ordem ?
