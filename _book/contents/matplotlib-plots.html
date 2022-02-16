@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../xx" />
+    <link rel="next" href="matplotlib-exercicios.html" />
     
     
     <link rel="prev" href="anatomia-matplotlib.html" />
@@ -771,9 +771,100 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.11" data-path="../xx">
+        <li class="chapter " data-level="1.2.3.11" data-path="matplotlib-plots.html">
             
-                <span>
+                <a href="matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="matplotlib-exercicios.html">
+            
+                <a href="matplotlib-exercicios.html">
             
                     
                     Exercícios
@@ -955,7 +1046,7 @@ ax3.bar(produtos.keys(), produtos.values()) <span class="hljs-comment">#bar</spa
 ax4.hist(np.random.randn(<span class="hljs-number">1000</span>)); <span class="hljs-comment">#hist</span>
 </code></pre>
 <p><img src="images/plot-subplots-1.png" alt="plot subplots opt 1"></p>
-<p>Na segunda opção usaremos um índice para plotar os dados, particularmente prefiro essa alternativa:</p>
+<p>Na segunda opção usaremos um índice para plotar os dados, particularmente prefiro a primeira alternativa:</p>
 <pre><code class="lang-python">fig, ax = plt.subplots(nrows=<span class="hljs-number">2</span>, ncols=<span class="hljs-number">2</span>, figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>))
 
 ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>].plot(x, x/<span class="hljs-number">2</span>) <span class="hljs-comment">#line</span>
@@ -965,6 +1056,308 @@ ax[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>].hist(
 </code></pre>
 <p><img src="images/plot-subplots-1.png" alt="plot subplots opt 2"></p>
 <h2 id="plotando-dados-com-pandas">Plotando dados com Pandas</h2>
+<p>Veremos agora como utilizar o método <code>pd.plot()</code> em um DataFrame para plotar diretamente com Pandas. Primeiro vamos importar o Pandas e alguns dados para o nosso DataFrame:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+venda_de_carros = pd.read_csv(<span class="hljs-string">&quot;venda-de-carros-formatado.csv&quot;</span>)
+venda_de_carros.head()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+</tr>
+</tbody>
+</table>
+<p>Uma boa ideia seria adicionar uma coluna nova no DataFrame com as datas das vendas dos carros. Vamos criar um range de datas com a função <code>date_range</code> do Pandas e adicionar uma data para cada linha do DataFrame:</p>
+<pre><code class="lang-python">venda_de_carros[<span class="hljs-string">&quot;Data da venda&quot;</span>] = pd.date_range(<span class="hljs-string">&quot;1/1/2021&quot;</span>, periods=<span class="hljs-built_in">len</span>(venda_de_carros))
+venda_de_carros.head()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Fabricante</th>
+<th style="text-align:center">Cor</th>
+<th style="text-align:center">Quilometragem</th>
+<th style="text-align:center">Portas</th>
+<th style="text-align:center">Preco</th>
+<th style="text-align:center">Data da venda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">150043</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">24000.0</td>
+<td style="text-align:center">2021-01-01</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Honda</td>
+<td style="text-align:center">Vermelho</td>
+<td style="text-align:center">87899</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25000.0</td>
+<td style="text-align:center">2021-01-02</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Toyota</td>
+<td style="text-align:center">Azul</td>
+<td style="text-align:center">32549</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">27000.0</td>
+<td style="text-align:center">2021-01-03</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">BMW</td>
+<td style="text-align:center">Preto</td>
+<td style="text-align:center">11179</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">122000.0</td>
+<td style="text-align:center">2021-01-04</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Nissan</td>
+<td style="text-align:center">Branco</td>
+<td style="text-align:center">213095</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13500.0</td>
+<td style="text-align:center">2021-01-05</td>
+</tr>
+</tbody>
+</table>
+<p>Faremos mais um ajuste antes de plotar, vamos criar mais uma coluna, dessa vez com a soma cumulativa das vendas, para isso utilizaremos a função <code>cumsum()</code>:</p>
+<pre><code class="lang-python">venda_de_carros[<span class="hljs-string">&quot;Total&quot;</span>] = venda_de_carros[<span class="hljs-string">&quot;Preco&quot;</span>].cumsum()
+venda_de_carros.head()
+</code></pre>
+<p><img src="images/plot-pandas-dados.png" alt="plot pandas dados"></p>
+<h3 id="pandas-plot-line">Pandas plot line</h3>
+<p>Finalmente vamos gerar o nosso gráfico, a função plot do Pandas espera como parâmetro os valores para o eixo <code>x</code> e <code>y</code>, respectivamente vamos adicionar a data das vendas no eixo <code>x</code> e o total vendido no <code>y</code>:</p>
+<pre><code class="lang-python">venda_de_carros.plot(x=<span class="hljs-string">&quot;Data da venda&quot;</span>, y=<span class="hljs-string">&quot;Total&quot;</span>);
+</code></pre>
+<p><img src="images/plot-pandas-1.png" alt="plot line pandas"></p>
+<h3 id="pandas-plot-scatter">Pandas plot scatter</h3>
+<p>A função plot do Pandas pode gerar vários tipos de gráfico, veremos agora a opção para Scatter como fizemos com Matplotlib. Um bom exemplo para nosso DataFrame seria plotar um gráfico de correlação entre preço e quilometragem percorrida. Na função plot precisamos informar no parâmetro <code>kind</code> o tipo de gráfico, que nesse exemplo é scatter:</p>
+<pre><code class="lang-python">venda_de_carros.plot(x=<span class="hljs-string">&quot;Quilometragem&quot;</span>, y=<span class="hljs-string">&quot;Preco&quot;</span>, kind=<span class="hljs-string">&quot;scatter&quot;</span>);
+</code></pre>
+<p><img src="images/plot-pandas-2.png" alt="plot scatter pandas"></p>
+<h3 id="pandas-plot-bar">Pandas plot bar</h3>
+<p>Temos também a opção para bar plot, da mesma forma que fizemos com scatter, podemos alterar o <code>kind</code> para bar. Vamos plotar uma pequena comparação entre fabricante e quilometragem:</p>
+<pre><code class="lang-python">venda_de_carros.plot(x=<span class="hljs-string">&quot;Fabricante&quot;</span>, y=<span class="hljs-string">&quot;Quilometragem&quot;</span>, kind=<span class="hljs-string">&quot;bar&quot;</span>);
+</code></pre>
+<p><img src="images/plot-pandas-3.png" alt="plot bar pandas"></p>
+<h3 id="pandas-plot-hist">Pandas plot hist</h3>
+<p>Não poderia deixar de mencionar a opção para histograma <code>kind=&quot;hist&quot;</code>.
+Uma boa maneira de plotar histograma com Pandas é selecionar uma coluna específica:</p>
+<pre><code class="lang-python">venda_de_carros[<span class="hljs-string">&quot;Quilometragem&quot;</span>].plot(kind=<span class="hljs-string">&quot;hist&quot;</span>);
+</code></pre>
+<p><img src="images/plot-pandas-4.png" alt="plot hist pandas"></p>
+<p>Para gráficos mais complicados, usaremos o método OO demonstrado com Matplotlib. No restante do capítulo focaremos em gráficos mais complexos.</p>
+<h2 id="customizando-os-seus-plots">Customizando os seus plots</h2>
+<p>Veremos agora como construir gráficos bem elaborados utilizando vários recursos da Matplotlib. Vamos utilizar outro dataset, um de <a href="https://www.kaggle.com/ronitf/heart-disease-uci/" target="_blank">doenças cardíacas</a>, com muitas colunas e dados.</p>
+<pre><code class="lang-python">df = pd.read_csv(<span class="hljs-string">&quot;heart-disease.csv&quot;</span>)
+df.head()
+</code></pre>
+<p><img src="images/heart-data.png" alt="heart data"></p>
+<p>Vamos iniciar nosso plot por uma análise de dados em pacientes com mais de 50 anos. Criaremos um filtro para em seguida plotar utilizando as opções da Matplotlib ajustando o tamanho da figura combinando com o plot do Pandas:</p>
+<pre><code class="lang-python">mais_de_50 = df[df[<span class="hljs-string">&quot;age&quot;</span>] &gt; <span class="hljs-number">50</span>]
+
+fig, ax = plt.subplots(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))
+mais_de_50.plot(kind=<span class="hljs-string">&quot;scatter&quot;</span>,
+                x=<span class="hljs-string">&quot;age&quot;</span>,
+                y=<span class="hljs-string">&quot;chol&quot;</span>,
+                c=<span class="hljs-string">&quot;target&quot;</span>,
+                ax=ax)
+
+ax.set_xlim([<span class="hljs-number">45</span>, <span class="hljs-number">100</span>]);
+</code></pre>
+<p><img src="images/oo-plot-1.png" alt="oo plot 1"></p>
+<p>No eixo <code>y</code> temos o colesterol e no <code>x</code> a idade do paciente. Ao lado temos uma escala em cinza chamada <code>target</code>, esses valores são 0 ou 1 e são utilizados para classificar se o paciente é um alvo para a doença cardíaca ou não (1=sim, 0=não). Veremos esse dataset com mais detalhes nos capítulos de Machine Learning. A opção <code>set_xlim</code> foi adicionada para limitar a idade dos pacientes entre 45 e 100, já que o nosso filtro é para pacientes acima de 50 anos.</p>
+<p>Faremos agora um plot um pouco mais complicado, dessa vez utilizando apenas parâmetros da Matplotlib. Utilizaremos o mesmo filtro de idade:</p>
+<pre><code class="lang-python">fig, ax = plt.subplots(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))
+
+scatter = ax.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                     mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>],
+                     c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>])
+
+ax.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doença cardíaca e níveis de colesterol&quot;</span>,
+       xlabel=<span class="hljs-string">&quot;Idade&quot;</span>,
+       ylabel=<span class="hljs-string">&quot;Colesterol&quot;</span>)
+
+ax.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>);
+</code></pre>
+<p><img src="images/oo-plot-2.png" alt="oo plot 2"></p>
+<p>Analisando por partes para entender o que fizemos aqui: primeiro criamos um objeto do tipo <code>subplots</code> e definimos o tamanho final da nossa imagem, no caso (<code>10x6</code>). Na configuração dos <code>axes</code> ou <code>ax</code> (<em>consulte anatomia de um gráfico</em>) escolhemos o tipo de plot, no caso <code>scatter</code> e preenchemos os valores dos eixos, <code>x</code> e <code>y</code> inserindo respectivamente as colunas de idade e colesterol. O último parâmetro na configuração de <code>scatter</code> o <code>c</code> é um marcador de cores que recebe como argumento valores em escala ou sequência de números, que serão mapeados para cores, nesse caso inserimos a coluna <code>target</code> que possui apenas dois tipos de valores <code>0 ou 1</code> para exibir roxo nos casos onde o paciente não é um possível alvo de uma doença cardíaca e amarelo para os casos onde o paciente é um possível alvo.</p>
+<p>A função <code>set()</code> permite configurar o título da nossa imagem e os labels dos eixos <code>x</code> e <code>y</code>, respectivamente <em>idade</em> e <em>colesterol</em>. E a última função inserida <code>legend()</code> foi utilizada para configurar a nossa legenda que aparece no canto superior direito com o título de <code>Alvo</code>.</p>
+<p>Vamos customizar um pouco mais ? E se quiséssemos por uma linha horizontal determinando a média de colesterol dos casos avaliados ? Vamos ao plot:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Criando o plot</span>
+fig, ax = plt.subplots(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))
+
+<span class="hljs-comment"># Plotando os dados</span>
+scatter = ax.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                     mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>],
+                     c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>])
+
+<span class="hljs-comment"># Customizando o plot</span>
+ax.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doença cardíaca e níveis de colesterol&quot;</span>,
+       xlabel=<span class="hljs-string">&quot;Idade&quot;</span>,
+       ylabel=<span class="hljs-string">&quot;Colesterol&quot;</span>)
+ax.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>)
+
+<span class="hljs-comment"># Adicionando a linha média horizontal para colesterol</span>
+ax.axhline(mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>].mean(),
+           linestyle=<span class="hljs-string">&quot;--&quot;</span>);
+</code></pre>
+<p><img src="images/oo-plot-3.png" alt="oo plot 3"></p>
+<p>A novidade aqui foi a função <code>axhline()</code> para gerar uma linha horizontal, em seus parâmetros informamos apenas a coluna de onde a função deve capturar os dados (<em>no nosso caso a média desses dados</em>) e escolhemos o estilho da linha.</p>
+<h2 id="adicionando-outro-plot-ao-existente">Adicionando outro plot ao existente</h2>
+<p>Até o momento o nosso plot exibe a distribuição de casos de doenças cardíacas por níveis de colesterol. Vamos adicionar outro plot para exibir os níveis máximos de frequência cardíaca.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Criando o plot</span>
+fig, (ax0, ax1) = plt.subplots(nrows=<span class="hljs-number">2</span>,
+                               ncols=<span class="hljs-number">1</span>,
+                               sharex=<span class="hljs-literal">True</span>,
+                               figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment"># Adicionando os dados para ax0</span>
+scatter = ax0.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                      mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>],
+                      c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>])
+
+<span class="hljs-comment"># Customizando ax0</span>
+ax0.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doença cardíaca e níveis de colesterol&quot;</span>,
+       xlabel=<span class="hljs-string">&quot;Idade&quot;</span>,
+       ylabel=<span class="hljs-string">&quot;Colesterol&quot;</span>)
+ax0.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>)
+
+<span class="hljs-comment"># Adicionando a linha média horizontal para colesterol em ax0</span>
+ax0.axhline(mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>].mean(),
+           linestyle=<span class="hljs-string">&quot;--&quot;</span>)
+
+<span class="hljs-comment"># Adicionando os dados para ax1</span>
+scatter = ax1.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                      mais_de_50[<span class="hljs-string">&quot;thalach&quot;</span>],
+                      c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>])
+
+<span class="hljs-comment"># Customizando ax1</span>
+ax1.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doença cardíaca e níveis máximos de frequência cardíaca&quot;</span>,
+        xlabel=<span class="hljs-string">&quot;Idade&quot;</span>,
+        ylabel=<span class="hljs-string">&quot;Frequência cardíaca máxima&quot;</span>)
+ax1.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>)
+
+<span class="hljs-comment"># Adicionando a linha média para frequência cardíaca</span>
+ax1.axhline(mais_de_50[<span class="hljs-string">&quot;thalach&quot;</span>].mean(),
+            linestyle=<span class="hljs-string">&quot;--&quot;</span>)
+
+<span class="hljs-comment"># Título da figura</span>
+fig.suptitle(<span class="hljs-string">&quot;Análise de Doenças Cardíacas&quot;</span>, fontsize=<span class="hljs-number">16</span>, fontweight=<span class="hljs-string">&quot;bold&quot;</span>);
+</code></pre>
+<p><img src="images/oo-plot-4.png" alt="oo plot 4"></p>
+<p>Aqui não fizemos nada muito especial, apenas utilizamos o recurso de subplots visto anteriormente para plotar mais de um gráfico na mesma figura. Adicionamos também algumas poucas configurações extras, como: a disposição dos plots na figura ocupando 2 linhas e 1 coluna (<code>nrows</code> e <code>ncols</code>), compartilhamos o eixo <code>x</code> entre os dois plots utilizando a opção <code>sharex</code>, já que o range de idade para ambos é o mesmo. E adicionamos um título mais destacado (<em>personalizando o tamanho e estilo da fonte</em>) para a figura como um todo.</p>
+<p>Para finalizar vamos alterar um pouco o estilo do gráfico e mudar algumas cores. O estilo pode ser trocado por meio da função <code>style.use()</code> e para as cores, vamos explorar a opção <code>cmap</code> abreviação para color map:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Definindo um novo estilo com grid</span>
+plt.style.use(<span class="hljs-string">&quot;seaborn-whitegrid&quot;</span>)
+
+<span class="hljs-comment"># Criando o plot</span>
+fig, (ax0, ax1) = plt.subplots(nrows=<span class="hljs-number">2</span>,
+                               ncols=<span class="hljs-number">1</span>,
+                               sharex=<span class="hljs-literal">True</span>,
+                               figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>))
+
+<span class="hljs-comment"># Adicionando os dados para ax0</span>
+scatter = ax0.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                      mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>],
+                      c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>],
+                      cmap=<span class="hljs-string">&apos;winter&apos;</span>)
+
+<span class="hljs-comment"># Customizando ax0</span>
+ax0.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doenças cardíacas e níveis de colesterol&quot;</span>,
+        ylabel=<span class="hljs-string">&quot;Colesterol&quot;</span>)
+ax0.set_xlim([<span class="hljs-number">50</span>, <span class="hljs-number">80</span>])
+ax0.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>)
+
+<span class="hljs-comment"># Adicionando a linha média horizontal para colesterol em ax0</span>
+ax0.axhline(mais_de_50[<span class="hljs-string">&quot;chol&quot;</span>].mean(),
+            color=<span class="hljs-string">&quot;r&quot;</span>,
+            linestyle=<span class="hljs-string">&quot;--&quot;</span>)
+
+<span class="hljs-comment"># Adicionando os dados para ax1</span>
+scatter = ax1.scatter(mais_de_50[<span class="hljs-string">&quot;age&quot;</span>],
+                      mais_de_50[<span class="hljs-string">&quot;thalach&quot;</span>],
+                      c=mais_de_50[<span class="hljs-string">&quot;target&quot;</span>],
+                      cmap=<span class="hljs-string">&apos;winter&apos;</span>)
+
+<span class="hljs-comment"># Customizando ax1</span>
+ax1.<span class="hljs-built_in">set</span>(title=<span class="hljs-string">&quot;Doença cardíaca e níveis máximos de frequência cardíaca&quot;</span>,
+        ylabel=<span class="hljs-string">&quot;Frequência cardíaca máxima&quot;</span>,
+        xlabel=<span class="hljs-string">&quot;Idade&quot;</span>,
+        ylim=[<span class="hljs-number">60</span>, <span class="hljs-number">200</span>])
+ax1.legend(*scatter.legend_elements(), title=<span class="hljs-string">&quot;Alvo&quot;</span>)
+
+<span class="hljs-comment"># Adicionando a linha média para frequência cardíaca</span>
+ax1.axhline(mais_de_50[<span class="hljs-string">&quot;thalach&quot;</span>].mean(),
+            color=<span class="hljs-string">&quot;r&quot;</span>,
+            linestyle=<span class="hljs-string">&quot;--&quot;</span>)
+
+<span class="hljs-comment"># Título da figura</span>
+fig.suptitle(<span class="hljs-string">&quot;Análise de Doenças Cardíacas&quot;</span>, fontsize=<span class="hljs-number">16</span>, fontweight=<span class="hljs-string">&quot;bold&quot;</span>);
+</code></pre>
+<p><img src="images/oo-plot-5.png" alt="oo plot 5"></p>
+<p>Temos agora um gráfico completamente diferente, um pouco mais amigável visualmente. Mais uma vez vamos entender por partes as pequenas diferenças:
+primeiro escolhemos um novo estilo para o plot com a opção <code>style.use(&quot;seaborn-whitegrid&quot;)</code> esse estilo deixou o plot menos grosseiro, além de ter inserido um grid nos gráficos. Ao configurar os dados para os plots <code>ax0</code> e <code>ax1</code>, adicionamos a opção <code>cmap</code> ou <em>color map</em> para definir o esquema de cores dos dados relacionados ao <code>alvo</code>, ou seja <code>cmap</code> está alterando as cores da opção <code>c</code>. </p>
+<p>Já na customização dos plots adicionamos limites para o eixo <code>x</code> com <code>set_xlim</code> indo de <code>50</code> anos até <code>80</code> anos. No plot <code>ax1</code> fizemos o mesmo, mas para o eixo <code>y</code> utilizando <code>ylim</code> e limitamos os valores que representam a frequência cardíaca entre 60 e 200. Por fim mudamos também as cores das linhas horizontais que marcam as médias de colesterol e frequência cardíaca respectivamente, utilizando a opção <code>color=&quot;r&quot;</code> trocamos para cor vermelha.</p>
 <hr>
 <p>WIP</p>
 
@@ -999,7 +1392,7 @@ ax[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>].hist(
                 </a>
                 
                 
-                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Exercícios">
+                <a href="matplotlib-exercicios.html" class="navigation navigation-next " aria-label="Next page: Exercícios">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1010,7 +1403,7 @@ ax[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>].hist(
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tipos de plots mais utilizados","level":"1.2.3.5","depth":3,"next":{"title":"Exercícios","level":"1.2.3.11","depth":3,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Anatomia de um gráfico","level":"1.2.3.4","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/matplotlib-plots.md","mtime":"2022-02-16T01:23:56.455Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-16T01:27:08.351Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tipos de plots mais utilizados","level":"1.2.3.5","depth":3,"next":{"title":"Exercícios","level":"1.2.3.18","depth":3,"path":"contents/matplotlib-exercicios.md","ref":"contents/matplotlib-exercicios.md","articles":[]},"previous":{"title":"Anatomia de um gráfico","level":"1.2.3.4","depth":3,"path":"contents/anatomia-matplotlib.md","ref":"contents/anatomia-matplotlib.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/matplotlib-plots.md","mtime":"2022-02-16T16:06:28.169Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-16T16:08:11.615Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
