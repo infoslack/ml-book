@@ -1,4 +1,4 @@
-.vscode
+.vscode/*
 node_modules/*
 package-lock.json
 _book/gitbook/gitbook-plugin-livereload/*
