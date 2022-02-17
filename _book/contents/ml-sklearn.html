@@ -1271,6 +1271,80 @@ model_scores
 </code></pre>
 <p>Olhando para os valores, parece que o modelo <code>LogisticRegression()</code> tem o melhor desempenho. O próximo passo é ajustar os hiperparâmetros dos modelos (<em>configurações refinadas</em>) e avaliar novamente para ver se o ajuste influencia no <code>score</code>.</p>
 <h2 id="ajuste-de-hiperparâmetros-e-validação-cruzada">Ajuste de hiperparâmetros e validação cruzada</h2>
+<p>Imagine que para fazer uma pizza você ajusta o forno para 180 graus. Mas quando um amigo vai utilizar o mesmo forno para preparar uma pizza, ele utiliza em 200 graus. Temos o mesmo forno, com configurações diferentes, logo teremos resultados diferentes.</p>
+<p>O mesmo pensamento pode ser aplicado em <code>ML</code>, podemos utilizar os mesmos algoritmos, aplicando pequenas configurações (<em>hiperparâmetros</em>) e obter resultados diferentes. Assim como ajustar o forno para aquecer mais pode queimar a comida, o mesmo ocorre com os algoritmos de <code>ML</code>. Podemos ajustar as configurações para funcionar tão bem que <em>superajusta</em> os dados.</p>
+<p>Queremos encontrar um meio termo, um modelo que se saia bem com o nosso conjunto de dados, mas também que entregue bons resultados em exemplos nunca vistos.</p>
+<p>Para testar diferentes hiperparâmetros, podemos utilizar um conjunto de dados de validação, o problema é que não temos muitos dados, então usaremos validação cruzada. O tipo mais utilizado de validação cruzada é o <code>K-fold</code>, basicamente funciona dividindo os dados em grupos menores e, em seguida, testa um modelo em cada um dos grupos. Por exemplo, se tivéssemos 5 <code>folds</code> (k=5):</p>
+<p><img src="images/k-fold.png" alt="k-fold"></p>
+<p>Vamos utilizar essa configuração para ajustar os hiperparâmetros de alguns dos modelos que treinamos e depois vamos avaliá-los.</p>
+<h2 id="ajustando-kneighborsclassifier-knn">Ajustando KNeighborsClassifier (KNN)</h2>
+<p>Existe um hiperparâmetro principal que podemos ajustar para o algoritmo <code>KNN</code>, trata-se do número de vizinhos. Por padrão esse valor é 5 (<code>n_neigbors=5</code>).</p>
+<p>Ok, mas o que são esses &quot;vizinhos&quot; ? Imagine todos os dados que plotamos anteriormente em um gráfico do tipo <code>scatter</code>. O algoritmos <code>KNN</code> analisa se os pontos mais próximos pertencem à mesma classe. Ou seja se <code>n_neigbors=5</code> então <code>KNN</code> assume que os 5 pontos mais próximos ao seu redor estão na mesma classe. O nosso plano no momento é tentar alguns valores diferentes para <code>n_neigbors</code>.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Lista para armazenar o score de treino</span>
+train_scores = []
+
+<span class="hljs-comment"># Lista para armazenar o score de teste</span>
+test_scores = []
+
+<span class="hljs-comment"># Lista com diferentes valores para &quot;n_neighbors&quot;</span>
+<span class="hljs-comment"># vamos começar com 1 e subir até 20</span>
+neighbors = <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">21</span>)
+
+<span class="hljs-comment"># Instanciando o KNN</span>
+knn = KNeighborsClassifier()
+
+<span class="hljs-comment"># Loop para aplicar os diferentes valores em &quot;n_neighbors&quot;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> neighbors:
+    knn.set_params(n_neighbors = i)
+
+    <span class="hljs-comment"># Treina o modelo</span>
+    knn.fit(X_train, y_train)
+
+    <span class="hljs-comment"># Guarda o score de treino</span>
+    train_scores.append(knn.score(X_train, y_train))
+
+    <span class="hljs-comment"># Armazena o score de teste</span>
+    test_scores.append(knn.score(X_test, y_test))
+</code></pre>
+<p>Agora vamos dar uma olhada nos scores de treino para ver qual ajuste tem melhor performance:</p>
+<pre><code class="lang-python">train_scores
+
+[<span class="hljs-number">1.0</span>,
+ <span class="hljs-number">0.8099173553719008</span>,
+ <span class="hljs-number">0.7727272727272727</span>,
+ <span class="hljs-number">0.743801652892562</span>,
+ <span class="hljs-number">0.7603305785123967</span>,
+ <span class="hljs-number">0.7520661157024794</span>,
+ <span class="hljs-number">0.743801652892562</span>,
+ <span class="hljs-number">0.7231404958677686</span>,
+ <span class="hljs-number">0.71900826446281</span>,
+ <span class="hljs-number">0.6942148760330579</span>,
+ <span class="hljs-number">0.7272727272727273</span>,
+ <span class="hljs-number">0.6983471074380165</span>,
+ <span class="hljs-number">0.6900826446280992</span>,
+ <span class="hljs-number">0.6942148760330579</span>,
+ <span class="hljs-number">0.6859504132231405</span>,
+ <span class="hljs-number">0.6735537190082644</span>,
+ <span class="hljs-number">0.6859504132231405</span>,
+ <span class="hljs-number">0.6652892561983471</span>,
+ <span class="hljs-number">0.6818181818181818</span>,
+ <span class="hljs-number">0.6694214876033058</span>]
+</code></pre>
+<p>Péssima ideia tentar entender esses valores, melhor criarmos um gráfico, vamos ao plot:</p>
+<pre><code class="lang-python">plt.plot(neighbors, train_scores, label=<span class="hljs-string">&quot;Score de Treino&quot;</span>)
+plt.plot(neighbors, test_scores, label=<span class="hljs-string">&quot;Score de Teste&quot;</span>)
+plt.xticks(np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">21</span>, <span class="hljs-number">1</span>))
+plt.xlabel(<span class="hljs-string">&quot;Valor ajustado para n_neighbors&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Desempenho do modelo&quot;</span>)
+plt.legend()
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Desempenho máximo de KNN nos dados de teste: <span class="hljs-subst">{<span class="hljs-built_in">max</span>(test_scores)*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%&quot;</span>)
+</code></pre>
+<p><strong>Desempenho máximo de KNN nos dados de teste: 75.41%</strong></p>
+<p><img src="images/knn-1.png" alt="knn desempenho"></p>
+<p>No gráfico, a configuração <code>n_neighbors=11</code> apresenta o melhor resultado. Mesmo ajustando esse hiperparâmetro o desempenho do modelo <code>KNN</code> não chegou nem perto do resultado de <code>LogisticRegression</code> ou de <code>RandomForestClassifier</code>. Por esse motivo, vamos descartar o <code>KNN</code> e focar nos outros dois que tiveram melhor resultado.</p>
+<p>No exemplo de <code>KNN</code> ajustamos o hiperparâmetro manualmente, em vez de fazer isso com <code>LogisticRegression</code> e <code>RandomForest</code>, veremos como automatizar utilizando <code>RandomizedSearchCV</code>, basicamente esse recurso tenta várias combinações diferentes, avalia todas e salva a melhor.</p>
+<h2 id="ajustando-modelos-com-randomizedsearchcv">Ajustando modelos com RandomizedSearchCV</h2>
 <hr>
 <p>WIP</p>
 
@@ -1316,7 +1390,7 @@ model_scores
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T01:01:56.232Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T01:02:49.855Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T13:05:37.460Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T13:06:10.945Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

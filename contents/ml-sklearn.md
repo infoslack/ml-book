@@ -349,6 +349,102 @@ Olhando para os valores, parece que o modelo `LogisticRegression()` tem o melhor
 
 ## Ajuste de hiperparâmetros e validação cruzada
 
+Imagine que para fazer uma pizza você ajusta o forno para 180 graus. Mas quando um amigo vai utilizar o mesmo forno para preparar uma pizza, ele utiliza em 200 graus. Temos o mesmo forno, com configurações diferentes, logo teremos resultados diferentes.
+
+O mesmo pensamento pode ser aplicado em `ML`, podemos utilizar os mesmos algoritmos, aplicando pequenas configurações (*hiperparâmetros*) e obter resultados diferentes. Assim como ajustar o forno para aquecer mais pode queimar a comida, o mesmo ocorre com os algoritmos de `ML`. Podemos ajustar as configurações para funcionar tão bem que *superajusta* os dados.
+
+Queremos encontrar um meio termo, um modelo que se saia bem com o nosso conjunto de dados, mas também que entregue bons resultados em exemplos nunca vistos.
+
+Para testar diferentes hiperparâmetros, podemos utilizar um conjunto de dados de validação, o problema é que não temos muitos dados, então usaremos validação cruzada. O tipo mais utilizado de validação cruzada é o `K-fold`, basicamente funciona dividindo os dados em grupos menores e, em seguida, testa um modelo em cada um dos grupos. Por exemplo, se tivéssemos 5 `folds` (k=5):
+
+![k-fold](images/k-fold.png)
+
+Vamos utilizar essa configuração para ajustar os hiperparâmetros de alguns dos modelos que treinamos e depois vamos avaliá-los.
+
+## Ajustando KNeighborsClassifier (KNN)
+
+Existe um hiperparâmetro principal que podemos ajustar para o algoritmo `KNN`, trata-se do número de vizinhos. Por padrão esse valor é 5 (`n_neigbors=5`).
+
+Ok, mas o que são esses "vizinhos" ? Imagine todos os dados que plotamos anteriormente em um gráfico do tipo `scatter`. O algoritmos `KNN` analisa se os pontos mais próximos pertencem à mesma classe. Ou seja se `n_neigbors=5` então `KNN` assume que os 5 pontos mais próximos ao seu redor estão na mesma classe. O nosso plano no momento é tentar alguns valores diferentes para `n_neigbors`.
+
+```python
+# Lista para armazenar o score de treino
+train_scores = []
+
+# Lista para armazenar o score de teste
+test_scores = []
+
+# Lista com diferentes valores para "n_neighbors"
+# vamos começar com 1 e subir até 20
+neighbors = range(1, 21)
+
+# Instanciando o KNN
+knn = KNeighborsClassifier()
+
+# Loop para aplicar os diferentes valores em "n_neighbors"
+for i in neighbors:
+    knn.set_params(n_neighbors = i)
+    
+    # Treina o modelo
+    knn.fit(X_train, y_train)
+    
+    # Guarda o score de treino
+    train_scores.append(knn.score(X_train, y_train))
+    
+    # Armazena o score de teste
+    test_scores.append(knn.score(X_test, y_test))
+```
+
+Agora vamos dar uma olhada nos scores de treino para ver qual ajuste tem melhor performance:
+
+```python
+train_scores
+
+[1.0,
+ 0.8099173553719008,
+ 0.7727272727272727,
+ 0.743801652892562,
+ 0.7603305785123967,
+ 0.7520661157024794,
+ 0.743801652892562,
+ 0.7231404958677686,
+ 0.71900826446281,
+ 0.6942148760330579,
+ 0.7272727272727273,
+ 0.6983471074380165,
+ 0.6900826446280992,
+ 0.6942148760330579,
+ 0.6859504132231405,
+ 0.6735537190082644,
+ 0.6859504132231405,
+ 0.6652892561983471,
+ 0.6818181818181818,
+ 0.6694214876033058]
+ ```
+
+Péssima ideia tentar entender esses valores, melhor criarmos um gráfico, vamos ao plot:
+
+```python
+plt.plot(neighbors, train_scores, label="Score de Treino")
+plt.plot(neighbors, test_scores, label="Score de Teste")
+plt.xticks(np.arange(1, 21, 1))
+plt.xlabel("Valor ajustado para n_neighbors")
+plt.ylabel("Desempenho do modelo")
+plt.legend()
+
+print(f"Desempenho máximo de KNN nos dados de teste: {max(test_scores)*100:.2f}%")
+```
+
+**Desempenho máximo de KNN nos dados de teste: 75.41%**
+
+![knn desempenho](images/knn-1.png)
+
+No gráfico, a configuração `n_neighbors=11` apresenta o melhor resultado. Mesmo ajustando esse hiperparâmetro o desempenho do modelo `KNN` não chegou nem perto do resultado de `LogisticRegression` ou de `RandomForestClassifier`. Por esse motivo, vamos descartar o `KNN` e focar nos outros dois que tiveram melhor resultado.
+
+No exemplo de `KNN` ajustamos o hiperparâmetro manualmente, em vez de fazer isso com `LogisticRegression` e `RandomForest`, veremos como automatizar utilizando `RandomizedSearchCV`, basicamente esse recurso tenta várias combinações diferentes, avalia todas e salva a melhor.
+
+## Ajustando modelos com RandomizedSearchCV
+
 ---
 
 WIP
