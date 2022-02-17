@@ -1,6 +1,6 @@
 # Scikit-Learn
 
-Scikit-Learn, também conhecido como `sklearn`, é uma biblioteca Python com focada em problemas de Machine Learning. Em seu background `sklearn` utiliza NumPy e Matplotlib.
+Scikit-Learn, também conhecido como `sklearn`, é uma biblioteca Python focada em resolver problemas de Machine Learning. Em seu background `sklearn` utiliza NumPy e Matplotlib.
 
 Embora o campo de Machine Learning seja vasto, o objetivo principal é encontrar padrões nos dados e utilizar esses padrões para tentar fazer previsões. *Existem certas categorias nas quais a maioria dos problemas se enquadra*.
 
