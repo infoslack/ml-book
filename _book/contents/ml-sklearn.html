@@ -1,0 +1,1395 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Scikit-Learn · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../xx" />
+    
+    
+    <link rel="prev" href="ml-101.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
+            
+                <a href="sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
+            
+                <a href="ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Um pouco de Python para Data Science
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="part-i-data-science.html">
+            
+                <a href="part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html#importando-o-pandas">
+            
+                    
+                    Importando o Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#series">
+            
+                    
+                    Series
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#dataframe">
+            
+                    
+                    DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#anatomia-de-um-dataframe">
+            
+                    
+                    Anatomia de um DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#explorando-os-dados">
+            
+                    
+                    Explorando os dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dtypes">
+            
+                    
+                    dtypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#describe">
+            
+                    
+                    describe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#info">
+            
+                    
+                    info
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#mean-e-sum">
+            
+                    
+                    mean, sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#columns">
+            
+                    
+                    columns
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.13" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#head">
+            
+                    
+                    head
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.14" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#tail">
+            
+                    
+                    tail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.15" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#loc-e-iloc">
+            
+                    
+                    loc, iloc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.16" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#groupby">
+            
+                    
+                    groupby
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.17" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#replace">
+            
+                    
+                    str.replace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.18" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#numeric">
+            
+                    
+                    to_numeric
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.19" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#fillna">
+            
+                    
+                    fillna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.20" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dropna">
+            
+                    
+                    dropna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.21" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#drop">
+            
+                    
+                    drop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.22" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#sample">
+            
+                    
+                    sample
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.23" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#reset-index">
+            
+                    
+                    reset_index
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.24" data-path="pandas-exercicios.html">
+            
+                <a href="pandas-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html">
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html#importando-a-biblioteca-numpy">
+            
+                    
+                    Importando a biblioteca NumPy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="np-tipos-de-dados.html">
+            
+                <a href="np-tipos-de-dados.html">
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html">
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#selecionando-e-visualizando-elementos">
+            
+                    
+                    Selecionando e visualizando elementos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#manipulando-e-comparando-arrays">
+            
+                    
+                    Manipulando e comparando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#aggregations">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#reshaping-e-transpose">
+            
+                    
+                    Reshaping e Transpose
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#comparando-e-ordenando-arrays">
+            
+                    
+                    Comparando e ordenando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="numpy-exercicios.html">
+            
+                <a href="numpy-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html">
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#plot">
+            
+                    
+                    plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#figure">
+            
+                    
+                    plt.figure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#subplots">
+            
+                    
+                    plt.subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="anatomia-matplotlib.html">
+            
+                <a href="anatomia-matplotlib.html">
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html">
+            
+                    
+                    Tipos de plots mais utilizados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#line">
+            
+                    
+                    Line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#scatter">
+            
+                    
+                    Scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#bar">
+            
+                    
+                    Bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#hist">
+            
+                    
+                    Hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#subplots">
+            
+                    
+                    Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="matplotlib-exercicios.html">
+            
+                <a href="matplotlib-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="part-ii-ml.html">
+            
+                <a href="part-ii-ml.html">
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="ml-101.html">
+            
+                <a href="ml-101.html">
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html">
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Scikit-Learn</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="scikit-learn">Scikit-Learn</h1>
+<p>Scikit-Learn, também conhecido como <code>sklearn</code>, é uma biblioteca Python com focada em problemas de Machine Learning. Em seu background <code>sklearn</code> utiliza NumPy e Matplotlib.</p>
+<p>Embora o campo de Machine Learning seja vasto, o objetivo principal é encontrar padrões nos dados e utilizar esses padrões para tentar fazer previsões. <em>Existem certas categorias nas quais a maioria dos problemas se enquadra</em>.</p>
+<p>Digamos que você está tentando desenvolver um modelo de <code>ML</code> para conseguir prever se um email é spam ou não, nesse caso temos um problema de classificação. Agora suponha que você precise criar um modelo para prever o preço de apartamentos de acordo com suas características, agora você tem um problema de regressão (<em>prever um número</em>).</p>
+<p>Tudo começa descobrindo primeiro que tipo de problema estamos trabalhando, dependendo do problema, existem etapas semelhantes que devemos seguir para cada caso. Por exemplo, separar os dados em diferentes conjuntos, uma parte para os modelos de Machine Learning aprenderem e outra parte para utilizarmos nos testes. Escolher e avaliar se um modelo de <code>ML</code>  aprendeu alguma coisa.</p>
+<p>O Scikit-Learn fornece implementações em Python para realizar todas essas tarefas, evitando a necessidade de ter que construí-los do zero.</p>
+<h2 id="sklearn-de-ponta-a-ponta">Sklearn de ponta a ponta</h2>
+<p>Veremos agora na prática um fluxo de trabalho com <code>sklearn</code> de ponta a ponta e nos aprofundaremos um pouco mais em cada etapa no decorrer dos estudos.</p>
+<p>Nesse capítulo vamos explorar um problema de classificação binária ou seja (<em>uma amostra só poder ser uma coisa ou outra</em>). O conjunto de dados que usaremos é o mesmo do capítulo de Matplotlib (<em>uma lista de pacientes anônimos e se eles possuem ou não doenças cardíacas</em>).</p>
+<p>Vamos começar importando algumas bibliotecas e carregando os dados:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+df = pd.read_csv(<span class="hljs-string">&quot;heart-disease.csv&quot;</span>)
+df.head()
+</code></pre>
+<p><img src="images/sklearn-1.png" alt="heart disease df"></p>
+<h2 id="eda">EDA</h2>
+<p>Uma vez que importamos os dados, a próxima etapa é explorar. Não há uma maneira definitiva para fazer isso. O objetivo é se familiarizar cada vez mais com os dados. Podemos começar verificando quantas vezes cada um dos valores de uma coluna categórica aparece, no caso vamos inspecionar a coluna <code>target</code> utilizando a função <code>value_counts()</code> do Pandas:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;target&quot;</span>].value_counts()
+
+<span class="hljs-number">1</span>    <span class="hljs-number">165</span>
+<span class="hljs-number">0</span>    <span class="hljs-number">138</span>
+Name: target, dtype: int64
+</code></pre>
+<p>Outra opção é visualizar esses valores em porcentagens, o <code>value_counts()</code> recebe um parâmetro chamado <code>normalize</code> que pode ser definido como <code>True</code>:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;target&quot;</span>].value_counts(normalize=<span class="hljs-literal">True</span>)
+
+<span class="hljs-number">1</span>    <span class="hljs-number">0.544554</span>
+<span class="hljs-number">0</span>    <span class="hljs-number">0.455446</span>
+Name: target, dtype: float64
+</code></pre>
+<p>Podemos também plotar esses valores:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;target&quot;</span>].value_counts().plot(kind=<span class="hljs-string">&quot;bar&quot;</span>, color=[<span class="hljs-string">&quot;salmon&quot;</span>, <span class="hljs-string">&quot;lightblue&quot;</span>]);
+</code></pre>
+<p><img src="images/sklearn-plot-1.png" alt="plot target value counts"></p>
+<p>Vamos verificar os valores ausentes que podem existir e os tipos de dados com que vamos trabalhar:</p>
+<pre><code>df.info()
+
+&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+RangeIndex: 303 entries, 0 to 302
+Data columns (total 14 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   age       303 non-null    int64  
+ 1   sex       303 non-null    int64  
+ 2   cp        303 non-null    int64  
+ 3   trestbps  303 non-null    int64  
+ 4   chol      303 non-null    int64  
+ 5   fbs       303 non-null    int64  
+ 6   restecg   303 non-null    int64  
+ 7   thalach   303 non-null    int64  
+ 8   exang     303 non-null    int64  
+ 9   oldpeak   303 non-null    float64
+ 10  slope     303 non-null    int64  
+ 11  ca        303 non-null    int64  
+ 12  thal      303 non-null    int64  
+ 13  target    303 non-null    int64  
+dtypes: float64(1), int64(13)
+memory usage: 33.3 KB
+</code></pre><blockquote>
+<p>Felizmente nesse caso não temos valores ausentes e todas as colunas são de natureza numérica.</p>
+</blockquote>
+<h2 id="frequência-de-doenças-cardíacas-de-acordo-com-o-sexo">Frequência de doenças cardíacas de acordo com o sexo</h2>
+<p>Mais uma análise interessante que podemos fazer é verificar a frequência das doenças cardíacas de acordo com o sexo. Para comparar duas colunas entre si, podemos utilizar a função <code>pd.crosstab(coluna_1, coluna_2)</code>. Vamos comparar a coluna <code>target</code> com a coluna <code>sex</code>:</p>
+<pre><code class="lang-python">pd.crosstab(df[<span class="hljs-string">&quot;target&quot;</span>], df[<span class="hljs-string">&quot;sex&quot;</span>])
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">sex</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">target</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">24</td>
+<td style="text-align:center">114</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">72</td>
+<td style="text-align:center">93</td>
+</tr>
+</tbody>
+</table>
+<p>Existem cerca de 100 mulheres e 72 delas têm um valor positivo de presença de alguma doença cardíaca, podemo inferi com base nessa variável, se a participante for mulher, há 75% de chance de ela ter uma doença cardíaca.</p>
+<p>Quanto aos homens, há cerca de 200 no total, com quase metade indicando a presença de doenças cardíacas. Assim podemos prever que, se o participante for do sexo masculino, 50% das vezes ele terá uma doença cardíaca.</p>
+<p>Aplicando a média desses dois valores, podemos supor, com base em nenhum outro parâmetro, caso haja uma pessoa, há 62,5% de chance de que ela tenha uma doença cardíaca.</p>
+<blockquote>
+<p>Esse pode ser nosso baseline, tentaremos vencê-lo com Machine Learning.</p>
+</blockquote>
+<p>O exemplo utilizando <code>crosstab</code> poderia ficar melhor em um gráfico, vamos plotar utilizando alguns parâmetros na função <code>plot()</code> e adicionar alguns atributos explicativos:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Criando o plot</span>
+pd.crosstab(df.target, df.sex).plot(kind=<span class="hljs-string">&quot;bar&quot;</span>,
+                                    figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">6</span>),
+                                    color=[<span class="hljs-string">&quot;salmon&quot;</span>, <span class="hljs-string">&quot;lightblue&quot;</span>])
+
+<span class="hljs-comment"># Adicionando atributos</span>
+plt.title(<span class="hljs-string">&quot;Frequência de doenças cardíacas por sexo&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;0 = Não tem doença, 1 = Doença detectada&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Montante&quot;</span>)
+plt.legend([<span class="hljs-string">&quot;Mulher&quot;</span>, <span class="hljs-string">&quot;Homen&quot;</span>])
+plt.xticks(rotation=<span class="hljs-number">0</span>); <span class="hljs-comment"># configura os eixos dos labels para vertical</span>
+</code></pre>
+<p><img src="images/sklearn-plot-2.png" alt="plot target sex crosstab"></p>
+<h2 id="idade-vs-frequência-cardíaca-máxima-para-doenças-cardíacas">Idade vs Frequência cardíaca máxima para doenças cardíacas</h2>
+<p>Vamos tentar combinar outras duas variáveis, como idade e <code>thalach</code> (<em>frequência cardíaca máxima</em>) e depois compará-las com a variável <code>target</code>. Como temos muitos valores para as duas variáveis, vamos plotar usando um gráfico do tipo <code>scatter</code>.</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">6</span>))
+
+<span class="hljs-comment"># Plot para valores positivos</span>
+plt.scatter(df[<span class="hljs-string">&quot;age&quot;</span>][df[<span class="hljs-string">&quot;target&quot;</span>] ==<span class="hljs-number">1</span> ], 
+            df[<span class="hljs-string">&quot;thalach&quot;</span>][df[<span class="hljs-string">&quot;target&quot;</span>] == <span class="hljs-number">1</span>], 
+            c=<span class="hljs-string">&quot;salmon&quot;</span>)
+
+<span class="hljs-comment"># Plot para valores negativos</span>
+<span class="hljs-comment"># queremos plotar no mesmo gráfico então não vamos configurar axes diferentes</span>
+plt.scatter(df[<span class="hljs-string">&quot;age&quot;</span>][df[<span class="hljs-string">&quot;target&quot;</span>] == <span class="hljs-number">0</span>], 
+            df[<span class="hljs-string">&quot;thalach&quot;</span>][df[<span class="hljs-string">&quot;target&quot;</span>] == <span class="hljs-number">0</span>], 
+            c=<span class="hljs-string">&quot;lightblue&quot;</span>)
+
+<span class="hljs-comment"># Atributos</span>
+plt.title(<span class="hljs-string">&quot;Doença cardíaca em função da idade e da frequência cardíaca máxima&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Idade&quot;</span>)
+plt.legend([<span class="hljs-string">&quot;Doença detectada&quot;</span>, <span class="hljs-string">&quot;Não tem doença&quot;</span>])
+plt.ylabel(<span class="hljs-string">&quot;Frequência cardíaca máxima&quot;</span>);
+</code></pre>
+<p><img src="images/sklearn-plot-3.png" alt="plot target age scatter"></p>
+<p>Parece que quanto mais jovem alguém é, maior sua frequência cardíaca máxima (<em>são os pontos mais altos à esquerda do gráfico</em>) e quanto mais velho alguém é, mais pontos azuis existem. Mas isso pode ser porque há mais pontos juntos no lado direito do gráfico (<em>indica participantes mais velhos</em>).</p>
+<h2 id="frequência-de-doenças-cardíacas-por-tipo-de-dor-torácica">Frequência de Doenças Cardíacas por Tipo de Dor Torácica</h2>
+<p>Vamos tentar analisar outra variável. Desta vez <code>cp</code> (<em>dor no peito</em>), utilizaremos o mesmo processo de antes:</p>
+<pre><code class="lang-python">pd.crosstab(df[<span class="hljs-string">&quot;cp&quot;</span>], df[<span class="hljs-string">&quot;target&quot;</span>]).plot(kind=<span class="hljs-string">&quot;bar&quot;</span>, 
+                                   figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">6</span>), 
+                                   color=[<span class="hljs-string">&quot;lightblue&quot;</span>, <span class="hljs-string">&quot;salmon&quot;</span>])
+
+<span class="hljs-comment"># Adicionando atributos ao gráfico</span>
+plt.title(<span class="hljs-string">&quot;Frequência de Doença Cardíaca por Tipo de Dor Torácica&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Tipo de dor no peito&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Frequência&quot;</span>)
+plt.legend([<span class="hljs-string">&quot;Não tem doença&quot;</span>, <span class="hljs-string">&quot;Doença detectada&quot;</span>])
+plt.xticks(rotation = <span class="hljs-number">0</span>);
+</code></pre>
+<p><img src="images/sklearn-plot-4.png" alt="plot target cp bar"></p>
+<p>Antes de prosseguir, precisamos de um pequeno dicionário:</p>
+<ul>
+<li><strong>cp</strong>  (<em>dor no peito</em>)</li>
+<li><strong>0</strong>   (<em>típica dor no peito</em>)</li>
+<li><strong>1</strong>   (<em>dor no peito, não relacionada ao coração</em>)</li>
+<li><strong>2</strong>   (<em>espasmos, não relacionados ao coração</em>)</li>
+<li><strong>3</strong>   (<em>dor torácica, sem sinais de doença</em>)</li>
+</ul>
+<p>É interessante notar que o valor <code>1</code> afirma que a dor não está relacionada ao coração, mas parece ter uma proporção maior de participantes com doenças cardíacas.</p>
+<blockquote>
+<p>De acordo com o PubMed, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2763472/" target="_blank">parece que até alguns profissionais médicos estão confusos com o termo</a>.</p>
+</blockquote>
+<p>Embora não conclusivo, o gráfico acima é uma alerta que revela a confusão das definições apresentadas nos dados.</p>
+<h2 id="correlação-entre-variáveis-independentes">Correlação entre variáveis independentes</h2>
+<p>Por fim, vamos comparar todas as variáveis independentes, plotando em um único resultado. Isso pode nos dar uma ideia de quais variáveis independentes podem ou não ter impacto na nossa variável <code>target</code>.</p>
+<p>Para fazer isso podemos usar <code>df.corr()</code> que cria uma matriz de correlação, uma grande tabela de números informando o quanto cada variável está relacionada à outra.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+
+corr_matrix = df.corr()
+plt.figure(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">10</span>))
+sns.heatmap(corr_matrix, 
+            annot=<span class="hljs-literal">True</span>, 
+            linewidths=<span class="hljs-number">0.5</span>, 
+            fmt= <span class="hljs-string">&quot;.2f&quot;</span>, 
+            cmap=<span class="hljs-string">&quot;YlGnBu&quot;</span>);
+</code></pre>
+<p><img src="images/sklearn-plot-matrix.png" alt="sklearn plot matrix corr"></p>
+<blockquote>
+<p>Não se preocupe com a biblioteca <code>seaborn</code> utilizada neste exemplo, falaremos mais sobre ela <em>Apêndice A</em>.</p>
+</blockquote>
+<p>Um valor positivo mais alto significa um potencial para uma correlação positiva e um valor negativo mais alto, significa um potencial para uma correlação negativa.</p>
+<h2 id="modelagem-dos-dados">Modelagem dos dados</h2>
+<p>Exploramos os dados e agora tentaremos utilizar <code>ML</code> para prever nossa variável <code>target</code> com base nas outras 13 variáveis independentes. Antes de construir um modelo é preciso preparar os dados.</p>
+<p>Relembrando, cada linha do DataFrame é um paciente diferente, todas as colunas, exceto <code>target</code> são características dos pacientes. O <code>target</code> indica se o paciente tem doença cardíaca (<code>target=1</code>) ou não (<code>target=0</code>). Em outras palavras, estamos tentando prever o valor da nossa variável <code>target</code> usando todas as outras variáveis. Para fazer isso com <code>sklearn</code> precisamos separar a variável <code>target</code> de todo o resto:</p>
+<pre><code class="lang-python">X = df.drop(<span class="hljs-string">&quot;target&quot;</span>, axis=<span class="hljs-number">1</span>)
+y = df[<span class="hljs-string">&quot;target&quot;</span>]
+
+X.head()
+</code></pre>
+<p><img src="images/sklearn-2.png" alt="heart disease target"></p>
+<pre><code>y.head()
+
+0    1
+1    1
+2    1
+3    1
+4    1
+Name: target, dtype: int64
+</code></pre><p>O que fizemos aqui foi isolar a coluna <code>target</code> na variável <code>y</code> e manter todas as outras colunas na variável <code>X</code>. A utilização de <code>X</code> e <code>y</code> como variáveis são um padrão adotado pelos desenvolvedores (<em>bastante comum nos exemplos que você vai encontrar em outros livros, cursos e repositórios</em>).</p>
+<h2 id="treino-e-teste">Treino e Teste</h2>
+<p>Chegou o momento de dividir os dados em um conjunto para treino e um conjunto para teste. Esse é um dos conceitos mais importantes em <code>ML</code>.</p>
+<p>Utilizaremos o conjunto de treino para treinar o nosso modelo (<em>são os dados que o modelo utiliza para aprender</em>) e o conjunto de testes para testá-lo (<em>são os dados utilizados para validar o modelo</em>).</p>
+<blockquote>
+<p>O conjunto de testes sempre deve permanecer separado do conjunto de treinamento!</p>
+</blockquote>
+<p>E por que não usar todos os dados para treinar um modelo ? Digamos que você queira usar o seu modelo em uma aplicação real de hospital, classificando os pacientes. Como você saberia o desempenho do seu modelo em um novo paciente não incluído no conjunto de dados inicial que você tinha ? E é aqui que entra o conjunto de teste. Ele é usado para simular o máximo possível a utilização do modelo em um ambiente real.</p>
+<p>Para dividir nossos dados em dois conjuntos, um de treinamento e outro de teste, podemos usar o <code>train_test_split()</code> do <code>sklearn</code> e alimentá-lo com nossas variáveis (<code>X</code> e <code>y</code>):</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+
+np.random.seed(<span class="hljs-number">42</span>)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>)
+
+X_train.head()
+</code></pre>
+<p><img src="images/sklearn-3.png" alt="heart disease split"></p>
+<blockquote>
+<p>Note o <code>seed</code> do NumPy em ação, essa configuração serve para preservar o estado do que faremos aqui, em outras palavras os resultados que você vai ver nos exemplos serão os mesmos no seu ambiente na hora de reproduzir.</p>
+</blockquote>
+<p>O parâmetro <code>test_size</code> é utilizado para informar à função <code>train_test_split()</code> quanto de nossos dados queremos no conjunto de teste. Nesse caso, <code>0.2</code> que representa <code>20%</code>. Uma regra prática é utilizar <code>80%</code> dos seus dados para treino e os outros <code>20%</code> para teste.</p>
+<p>Para o nosso exemplo, um conjunto de treino e teste são suficientes. Mas para outros problemas, você também pode precisar de um conjunto de validação (<em>treinar, validar e testar</em>).</p>
+<h3 id="escolha-de-modelos">Escolha de modelos</h3>
+<p>Agora que os dados estão preparados, podemos começar a treinar os modelos. Vamos utilizar e comparar os resultados dos respectivos modelos:</p>
+<ul>
+<li><strong>Logistic Regression</strong> - <code>LogisticRegression()</code></li>
+<li><strong>K-Nearest Neighbors</strong> - <code>KNeighboursClassifier()</code></li>
+<li><strong>RandomForest</strong> - <code>RandomForestClassifier()</code></li>
+</ul>
+<p>Ok, mas por que esses ? O <code>Scikit-Learn</code> disponibiliza um <a href="https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html" target="_blank">mapa que podemos seguir</a> para fazer as escolhas do que utilizar como solução para o nosso problema.</p>
+<p>Vejamos como fica o nosso problema:</p>
+<p><img src="images/ml_map.png" alt="ml sklearn map"></p>
+<blockquote>
+<p>Eu não sei porque <code>Logistic Regression</code> não é listado no mapa, pois ao ler a documentação do <code>Scikit-Learn</code> sobre esse tipo de modelo, consta que é um modelo para classificação.</p>
+</blockquote>
+<p><code>LinearSVC</code>, vamos ignorar, fingir que tentamos e não funcionou, então estamos seguindo para as outras opções no mapa. No momento, conhecer cada um desses algoritmos a fundo não é essencial. Machine Learning e Data Science são uma prática iterativa, esses algoritmos são ferramentas para o seu arsenal. Nesse momento, para se tornar um bom praticante, é mais importante entender o problema que queremos resolver (<em>classificação</em> vs <em>regressão</em>) e depois avaliar quais ferramentas utilizar para resolver os problemas.</p>
+<p>Como o nosso conjunto de dados é relativamente pequeno (<em>303 amostras</em>), podemos experimentar para encontrar o algoritmo que oferece o melhor desempenho.</p>
+<p>Todos os algoritmos disponíveis na <code>sklearn</code> usam as mesmas funções para treinar um modelo <code>model.fit(X_train, y_train)</code> e para saber se um modelo é efetivo ou não usa a função <code>model.score(X_test, y_test)</code> que retorna a proporção de previsões corretas (<em>1.0 = 100%</em>).</p>
+<p>Como os algoritmos que escolhemos implementam os mesmos métodos para treinar e avaliar, vamos colocá-los em um dicionário e desenvolver um modelo que treine com cada um deles e classifique os dados.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># imports</span>
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LogisticRegression
+<span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+<span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># inserindo os algoritmos em um dicionário</span>
+models = {<span class="hljs-string">&quot;KNN&quot;</span>: KNeighborsClassifier(),
+           <span class="hljs-string">&quot;Logistc Regression&quot;</span>: LogisticRegression(),
+           <span class="hljs-string">&quot;Random Forest&quot;</span>: RandomForestClassifier()}
+
+<span class="hljs-comment"># criando uma função para treinar e avaliar os modelos</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fit_and_score</span>(<span class="hljs-params">models, X_train, X_test, y_train, y_test</span>):</span>
+
+  <span class="hljs-comment"># seed para ter resultados reproduzíveis</span>
+  np.random.seed(<span class="hljs-number">42</span>)
+
+  <span class="hljs-comment"># criando uma lista para armazenar o score dos modelos</span>
+  model_scores = {}
+
+  <span class="hljs-comment"># loop para executar todos os modelos</span>
+  <span class="hljs-keyword">for</span> name, model <span class="hljs-keyword">in</span> models.items():
+
+    <span class="hljs-comment"># treina o modelo com os dados</span>
+    model.fit(X_train, y_train)
+
+    <span class="hljs-comment"># Avalia o modelo e adiciona seu score na lista</span>
+    model_scores[name] = model.score(X_test, y_test)
+
+  <span class="hljs-keyword">return</span> model_scores
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># executando a função</span>
+model_scores = fit_and_score(models=models,
+                             X_train=X_train,
+                             X_test=X_test,
+                             y_train=y_train,
+                             y_test=y_test)
+model_scores
+
+{<span class="hljs-string">&apos;KNN&apos;</span>: <span class="hljs-number">0.6885245901639344</span>,
+ <span class="hljs-string">&apos;Logistc Regression&apos;</span>: <span class="hljs-number">0.8524590163934426</span>,
+ <span class="hljs-string">&apos;Random Forest&apos;</span>: <span class="hljs-number">0.8360655737704918</span>}
+</code></pre>
+<p>Olhando para os valores, parece que o modelo <code>LogisticRegression()</code> tem o melhor desempenho. O próximo passo é ajustar os hiperparâmetros dos modelos (<em>configurações refinadas</em>) e avaliar novamente para ver se o ajuste influencia no <code>score</code>.</p>
+<h2 id="ajuste-de-hiperparâmetros-e-validação-cruzada">Ajuste de hiperparâmetros e validação cruzada</h2>
+<hr>
+<p>WIP</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ml-101.html" class="navigation navigation-prev " aria-label="Previous page: O que é Machine Learning?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: TensorFlow">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T00:48:16.620Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T00:52:20.985Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

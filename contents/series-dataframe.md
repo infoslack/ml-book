@@ -32,4 +32,5 @@ A saída no notebook será:
 
 Como podemos observar ao criar o DataFrame informamos um dicionário Python e geramos uma tabela de linhas e colunas onde as chaves do dicionário se tornaram os títulos das colunas e os valores das duas Séries se tornaram os dados no DataFrame.
 
+---
 WIP

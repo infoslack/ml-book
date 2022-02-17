@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Series e DataFrames · HonKit</title>
+        <title>O que é Machine Learning? · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="manipulando-dados.html" />
+    <link rel="next" href="ml-sklearn.html" />
     
     
-    <link rel="prev" href="conhecendo-o-pandas.html" />
+    <link rel="prev" href="part-ii-ml.html" />
     
 
     </head>
@@ -187,7 +187,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.1.2" data-path="series-dataframe.html">
+        <li class="chapter " data-level="1.2.1.2" data-path="series-dataframe.html">
             
                 <a href="series-dataframe.html">
             
@@ -899,7 +899,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="ml-101.html">
+        <li class="chapter active" data-level="1.3.1" data-path="ml-101.html">
             
                 <a href="ml-101.html">
             
@@ -973,7 +973,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Series e DataFrames</a>
+        <a href=".." >O que é Machine Learning?</a>
     </h1>
 </div>
 
@@ -988,25 +988,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="tipos-de-dados">Tipos de dados</h1>
-<p>O Pandas possui dois tipos de dados principais, <code>Series</code> e <code>DataFrame</code>.
-Séries são dados em uma única dimensão (coluna), já os DataFrames representam uma tabela de dados e possuem duas dimensões (linhas e colunas).</p>
-<h3 id="series">Series</h3>
-<p>Você pode criar uma Séries usando <code>pd.Series()</code> e passando uma lista Python:</p>
-<pre><code class="lang-python">carros = pd.Series([<span class="hljs-string">&quot;Toyota&quot;</span>, <span class="hljs-string">&quot;Honda&quot;</span>, <span class="hljs-string">&quot;BMW&quot;</span>])
-cores = pd.Series([<span class="hljs-string">&quot;Azul&quot;</span>, <span class="hljs-string">&quot;Branco&quot;</span>, <span class="hljs-string">&quot;Vermelho&quot;</span>])
-</code></pre>
-<p>O notebook terá a seguinte saída:</p>
-<p><img src="images/series.png" alt="pandas series" title="Pandas series"></p>
-<h3 id="dataframe">DataFrame</h3>
-<p>Para criar um DataFrame utilizamos <code>pd.DataFrame()</code> passando um dicionário Python como parâmetro:</p>
-<pre><code class="lang-python">df = pd.DataFrame({<span class="hljs-string">&quot;Fabricante&quot;</span>: carros,
-                   <span class="hljs-string">&quot;Cores&quot;</span>: cores})
-</code></pre>
-<p>No exemplo acima estamos criando um DataFrame a partir de duas Séries.
-A saída no notebook será:</p>
-<p><img src="images/dataframe.png" alt="pandas dataframe" title="Pandas DataFrame"></p>
-<p>Como podemos observar ao criar o DataFrame informamos um dicionário Python e geramos uma tabela de linhas e colunas onde as chaves do dicionário se tornaram os títulos das colunas e os valores das duas Séries se tornaram os dados no DataFrame.</p>
+                                <h1 id="machine-learning-101">Machine Learning 101</h1>
 <hr>
 <p>WIP</p>
 
@@ -1036,12 +1018,12 @@ A saída no notebook será:</p>
 
             
                 
-                <a href="conhecendo-o-pandas.html" class="navigation navigation-prev " aria-label="Previous page: Conhecendo o Pandas">
+                <a href="part-ii-ml.html" class="navigation navigation-prev " aria-label="Previous page: Parte II: Machine Learning">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="manipulando-dados.html" class="navigation navigation-next " aria-label="Next page: Manipulando dados">
+                <a href="ml-sklearn.html" class="navigation navigation-next " aria-label="Next page: Scikit-Learn">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1052,7 +1034,7 @@ A saída no notebook será:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Series e DataFrames","level":"1.2.1.2","depth":3,"next":{"title":"Manipulando dados","level":"1.2.1.5","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},"previous":{"title":"Conhecendo o Pandas","level":"1.2.1","depth":2,"path":"contents/conhecendo-o-pandas.md","ref":"contents/conhecendo-o-pandas.md","articles":[{"title":"Importando o Pandas","level":"1.2.1.1","depth":3,"anchor":"#importando-o-pandas","path":"contents/conhecendo-o-pandas.md","ref":"contents/conhecendo-o-pandas.md#importando-o-pandas","articles":[]},{"title":"Series e DataFrames","level":"1.2.1.2","depth":3,"path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md","articles":[]},{"title":"Series","level":"1.2.1.3","depth":3,"anchor":"#series","path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md#series","articles":[]},{"title":"DataFrame","level":"1.2.1.4","depth":3,"anchor":"#dataframe","path":"contents/series-dataframe.md","ref":"contents/series-dataframe.md#dataframe","articles":[]},{"title":"Manipulando dados","level":"1.2.1.5","depth":3,"path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md","articles":[]},{"title":"Anatomia de um DataFrame","level":"1.2.1.6","depth":3,"anchor":"#anatomia-de-um-dataframe","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#anatomia-de-um-dataframe","articles":[]},{"title":"Explorando os dados","level":"1.2.1.7","depth":3,"anchor":"#explorando-os-dados","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#explorando-os-dados","articles":[]},{"title":"dtypes","level":"1.2.1.8","depth":3,"anchor":"#dtypes","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#dtypes","articles":[]},{"title":"describe","level":"1.2.1.9","depth":3,"anchor":"#describe","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#describe","articles":[]},{"title":"info","level":"1.2.1.10","depth":3,"anchor":"#info","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#info","articles":[]},{"title":"mean, sum","level":"1.2.1.11","depth":3,"anchor":"#mean-e-sum","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#mean-e-sum","articles":[]},{"title":"columns","level":"1.2.1.12","depth":3,"anchor":"#columns","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#columns","articles":[]},{"title":"head","level":"1.2.1.13","depth":3,"anchor":"#head","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#head","articles":[]},{"title":"tail","level":"1.2.1.14","depth":3,"anchor":"#tail","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#tail","articles":[]},{"title":"loc, iloc","level":"1.2.1.15","depth":3,"anchor":"#loc-e-iloc","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#loc-e-iloc","articles":[]},{"title":"groupby","level":"1.2.1.16","depth":3,"anchor":"#groupby","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#groupby","articles":[]},{"title":"str.replace","level":"1.2.1.17","depth":3,"anchor":"#replace","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#replace","articles":[]},{"title":"to_numeric","level":"1.2.1.18","depth":3,"anchor":"#numeric","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#numeric","articles":[]},{"title":"fillna","level":"1.2.1.19","depth":3,"anchor":"#fillna","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#fillna","articles":[]},{"title":"dropna","level":"1.2.1.20","depth":3,"anchor":"#dropna","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#dropna","articles":[]},{"title":"drop","level":"1.2.1.21","depth":3,"anchor":"#drop","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#drop","articles":[]},{"title":"sample","level":"1.2.1.22","depth":3,"anchor":"#sample","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#sample","articles":[]},{"title":"reset_index","level":"1.2.1.23","depth":3,"anchor":"#reset-index","path":"contents/manipulando-dados.md","ref":"contents/manipulando-dados.md#reset-index","articles":[]},{"title":"Exercícios","level":"1.2.1.24","depth":3,"path":"contents/pandas-exercicios.md","ref":"contents/pandas-exercicios.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/series-dataframe.md","mtime":"2022-02-17T00:51:27.024Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T00:52:20.985Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"next":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[]},"previous":{"title":"Parte II: Machine Learning","level":"1.3","depth":1,"path":"contents/part-ii-ml.md","ref":"contents/part-ii-ml.md","articles":[{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[]},{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-101.md","mtime":"2022-02-16T18:47:51.610Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T00:52:20.985Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -21,3 +21,6 @@ pd.__version__
 O seu notebook do Google Colab deve apresentar um resultado parecido com:
 
 ![import pandas](images/import-pandas.png "Importando o Pandas")
+
+---
+WIP

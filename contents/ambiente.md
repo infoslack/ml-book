@@ -1,5 +1,6 @@
 # Configurando o Ambiente
 
-Google Colab
+Google Colab ou Jupyter Notebook
 
+---
 WIP

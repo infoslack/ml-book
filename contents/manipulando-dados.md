@@ -529,5 +529,4 @@ df_sample.reset_index()
 Ao utilizar `.reset_index()` em um DataFrame, os números de índice retornam para o padrão, porém ele também cria uma nova coluna de índice contendo os valores anteriores.
 
 ---
-
 WIP

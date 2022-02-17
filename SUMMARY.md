@@ -60,6 +60,6 @@
     * [Adicionando outro plot ao existente](contents/matplotlib-plots.md#adicionando-outro-plot-ao-existente)
     * [Exercícios](contents/matplotlib-exercicios.md)
 * [Parte II: Machine Learning](contents/part-ii-ml.md)
-  * [O que é Machine Learning?](xx)
-  * [Scikit-Learn](xx)
+  * [O que é Machine Learning?](contents/ml-101.md)
+  * [Scikit-Learn](contents/ml-sklearn.md)
   * [TensorFlow](xx)
