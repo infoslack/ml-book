@@ -445,6 +445,194 @@ No exemplo de `KNN` ajustamos o hiperparâmetro manualmente, em vez de fazer iss
 
 ## Ajustando modelos com RandomizedSearchCV
 
+A documentação do `sklearn` mostra que há vários hiperparâmetros diferentes que podemos ajustar para `LogisticRegression`. O mesmo vale para `RandomForest`. Vamos implementar um dicionário com diferentes hiperparâmetros para cada um dos algoritmos e depois testá-los:
+
+```python
+# LogisticRegression hiperparâmetros
+log_reg_grid = {"C": np.logspace(-4, 4, 20),
+                "solver": ["liblinear"]}
+
+# RandomForestClassifier hiperparâmetros
+rf_grid = {"n_estimators": np.arange(10, 1000, 50),
+           "max_depth": [None, 3, 5, 10],
+           "min_samples_split": np.arange(2, 20, 2),
+           "min_samples_leaf": np.arange(1, 20, 2)}
+```
+
+Agora, utilizando o `RandomizedSearchCV`, vamos tentar ajustar nosso modelo `LogisticRegression`. Precisamos informar os diferentes hiperparâmetros de `log_reg_grid` e definir `n_iter=20`. Em outras palavras `RandomizedSearchCV` vai trabalhar com 20 combinações diferentes de hiperparâmetros e salvará apenas as melhores.
+
+```python
+# Import
+from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
+
+# Definindo o seed
+np.random.seed(42)
+
+# Configurando hiperparâmetros para LogisticRegression
+rs_log_reg = RandomizedSearchCV(LogisticRegression(),
+                                param_distributions=log_reg_grid,
+                                cv=5,
+                                n_iter=20,
+                                verbose=True)
+
+# Treinando o modelo com as 20 combinações possíveis
+rs_log_reg.fit(X_train, y_train);
+```
+
+> Fitting 5 folds for each of 20 candidates, totalling 100 fits
+
+Agora podemos verificar qual foi o score obtido no treino e qual foi a melhor combinação de hiperparâmetro encontrada:
+
+```python
+rs_log_reg.score(X_test, y_test)
+
+0.8852459016393442
+
+rs_log_reg.best_params_
+
+{'C': 0.23357214690901212, 'solver': 'liblinear'}
+```
+
+Agora que ajustamos `LogisticRegression`, faremos o mesmo com `RandomForest`:
+
+```python
+# Definindo o seed
+np.random.seed(42)
+
+# Configurando hiperparâmetros para RandomForestClassifier
+rs_rf = RandomizedSearchCV(RandomForestClassifier(),
+                           param_distributions=rf_grid,
+                           cv=5,
+                           n_iter=20,
+                           verbose=True)
+
+# Treinando o modelo com as 20 combinações possíveis
+rs_rf.fit(X_train, y_train);
+```
+
+> Fitting 5 folds for each of 20 candidates, totalling 100 fits
+
+Verificando o score e a melhor combinação:
+
+```python
+rs_rf.best_params_
+
+{'max_depth': 3,
+ 'min_samples_leaf': 19,
+ 'min_samples_split': 4,
+ 'n_estimators': 210}
+
+rs_rf.score(X_test, y_test)
+
+0.8688524590163934
+```
+
+Com os ajustes nos modelos tivemos um leve aumento no desempenho em `RandomForrestClassifier` e `LogisticRegression`. Mesmo com `LogisticRegression` ganhando, vamos tentar ajustá-lo ainda mais com `GridSearchCV`.
+
+## Ajustando modelos com GridSearchCV
+
+A principal diferença entre `RandomizedSearchCV` e `GridSearchCV` é que o primeiro pesquisa em um dicionário de hiperparâmetros executando várias combinações definidas em `n_iter`, enquanto o segundo testará *todas* as combinações possíveis.
+
+Na prática:
+
+```python
+log_reg_grid = {"C": np.logspace(-4, 4, 20),
+                "solver": ["liblinear"]}
+
+gs_log_reg = GridSearchCV(LogisticRegression(),
+                          param_grid=log_reg_grid,
+                          cv=5,
+                          verbose=True)
+
+gs_log_reg.fit(X_train, y_train);
+```
+
+> Fitting 5 folds for each of 20 candidates, totalling 100 fits
+
+```python
+gs_log_reg.best_params_
+
+{'C': 0.23357214690901212, 'solver': 'liblinear'}
+
+gs_log_reg.score(X_test, y_test)
+
+0.8852459016393442
+```
+
+Nesse caso, tivemos os mesmos resultados de antes pois nosso dicionário de opções tem no máximo 20 combinações de hiperparâmetros diferentes. Se por acaso houver uma grande quantidade de combinações de hiperparâmetros em seu dicionário, o `GridSearchCV` levará muito tempo para testar todas as opções. Por isso é recomendado começar com `RandomizedSearchCV` e tentar com uma quantidade menor de combinações.
+
+## Avaliando um modelo de classificação
+
+Agora que o nosso modelo está ajustado, vamos analisar algumas métricas. Para isso, teremos que utilizar o modelo para fazer previsões no nosso conjunto de teste. As previsões podem ser feitas pelo método `predict()` em um modelo treinado, passando a ele os dados que desejamos *prever*.
+
+As previsões serão feitas nos dados de teste:
+
+```python
+y_preds = gs_log_reg.predict(X_test)
+```
+
+Agora que temos nossos valores de previsão armazenados em `y_preds`, podemos focar nas métricas.
+
+## ROC Curve e AUC Scores
+
+*ROC o que ?* É uma forma de entender o desempenho do nosso modelo, comparando a taxa de verdadeiros positivos com a taxa de falsos positivos.
+Ou seja, para o nosso problema, pense em um teste de diagnóstico que verifica se uma pessoa tem uma doença cardíaca. Um falso positivo nesse caso ocorre quando a pessoa testa positivo, mas na verdade não tem a doença. E um falso negativo, ocorre quando a pessoa tem um resultado de teste negativo, sugerindo que está saudável, quando na verdade tem a doença.
+
+Ficou imaginando como fazer essas verificações nos dados ? Pois bem, felizmente `Scikit-Learn` implementa uma função chamada `plot_roc_curve` que pode ajudar na criação dessa métrica.
+
+A funçào `plot_roc_curve` recebe como entrada `(estimator, X, y)`, onde `estimator` é um modelo de `ML` ajustado (*o nosso modelo treinado anteriormente*) e `X` e `y` são os dados que queremos testar. Usaremos a última versão do nosso modelo `LogisticRegression` como `estimator` e os dados teste (`X_test` e `y_test`).
+
+```python
+# Import ROC Curve
+from sklearn.metrics import plot_roc_curve
+
+# Plot ROC Curve e calcula a métrica
+plot_roc_curve(gs_log_reg, X_test, y_test);
+```
+
+![plot roc curve](images/roc-curve.png)
+
+Olhando para esse plot pode parecer um pouco confuso. A principal coisa que podemos observar aqui é que o modelo está se saindo muito melhor do que apenas *adivinhar*. A métrica usada para quantificar a `ROC Curve` se chama `AUC`.
+
+A pontuação máxima dessa métrica que podemos alcançar é `1,0` e, geralmente quanto mais próximo de `1,0` melhor o modelo. A posição mais ideal para essa curva em azul seria ao longo do canto superior esquerdo do gráfico. Isso significaria que o modelo consegue prever apenas *verdadeiros positivos* e nenhum *falso positivo*.
+
+Vamos agora para a próxima métrica de avaliação, *Matriz de Confusão*.
+
+## Matriz de Confusão
+
+Uma Matriz de Confusão é uma forma de visualizar onde o modelo fez as previsões certas e onde fez as erradas em outras palavras (*onde ele ficou confuso*). O `sklearn` por meio da função `confusion_matrix()` nos permite criar essa matriz, passando os rótulos verdadeiros e os previstos.
+
+```python
+from sklearn.metrics import confusion_matrix, classification_report
+print(confusion_matrix(y_test, y_preds))
+```
+
+> Ok, essa matriz de confusão embutida do `sklearn` é sem graça. Vamos melhorar esse visual.
+
+```python
+# Seaborn
+import seaborn as sns
+sns.set(font_scale=1.5)
+
+def plot_conf_mat(y_test, y_preds):
+    fig, ax = plt.subplots(figsize=(3, 3))
+    ax = sns.heatmap(confusion_matrix(y_test, y_preds),
+                     annot=True,
+                     cbar=False)
+    plt.xlabel("rótulos verdadeiros")
+    plt.ylabel("rótulos previstos")
+    
+plot_conf_mat(y_test, y_preds)
+```
+
+![matriz de confusão](images/confusion-matrix.png)
+
+Bem melhor! Podemos ver que o modelo fica "confuso" prevendo o rótulo errado relativamente da mesma forma em ambas as classes. Ou seja, em 4 ocasiões o modelo previu `0` quando deveria ter previsto `1` (*falso negativo*) e em 3 ocasiões o modelo previu `1` em vez de `0` (*falso positivo*).
+
+## Relatório de classificação
+
+
+
 ---
 
 WIP

@@ -1345,6 +1345,147 @@ plt.legend()
 <p>No gráfico, a configuração <code>n_neighbors=11</code> apresenta o melhor resultado. Mesmo ajustando esse hiperparâmetro o desempenho do modelo <code>KNN</code> não chegou nem perto do resultado de <code>LogisticRegression</code> ou de <code>RandomForestClassifier</code>. Por esse motivo, vamos descartar o <code>KNN</code> e focar nos outros dois que tiveram melhor resultado.</p>
 <p>No exemplo de <code>KNN</code> ajustamos o hiperparâmetro manualmente, em vez de fazer isso com <code>LogisticRegression</code> e <code>RandomForest</code>, veremos como automatizar utilizando <code>RandomizedSearchCV</code>, basicamente esse recurso tenta várias combinações diferentes, avalia todas e salva a melhor.</p>
 <h2 id="ajustando-modelos-com-randomizedsearchcv">Ajustando modelos com RandomizedSearchCV</h2>
+<p>A documentação do <code>sklearn</code> mostra que há vários hiperparâmetros diferentes que podemos ajustar para <code>LogisticRegression</code>. O mesmo vale para <code>RandomForest</code>. Vamos implementar um dicionário com diferentes hiperparâmetros para cada um dos algoritmos e depois testá-los:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># LogisticRegression hiperparâmetros</span>
+log_reg_grid = {<span class="hljs-string">&quot;C&quot;</span>: np.logspace(-<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">20</span>),
+                <span class="hljs-string">&quot;solver&quot;</span>: [<span class="hljs-string">&quot;liblinear&quot;</span>]}
+
+<span class="hljs-comment"># RandomForestClassifier hiperparâmetros</span>
+rf_grid = {<span class="hljs-string">&quot;n_estimators&quot;</span>: np.arange(<span class="hljs-number">10</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">50</span>),
+           <span class="hljs-string">&quot;max_depth&quot;</span>: [<span class="hljs-literal">None</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>],
+           <span class="hljs-string">&quot;min_samples_split&quot;</span>: np.arange(<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, <span class="hljs-number">2</span>),
+           <span class="hljs-string">&quot;min_samples_leaf&quot;</span>: np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">20</span>, <span class="hljs-number">2</span>)}
+</code></pre>
+<p>Agora, utilizando o <code>RandomizedSearchCV</code>, vamos tentar ajustar nosso modelo <code>LogisticRegression</code>. Precisamos informar os diferentes hiperparâmetros de <code>log_reg_grid</code> e definir <code>n_iter=20</code>. Em outras palavras <code>RandomizedSearchCV</code> vai trabalhar com 20 combinações diferentes de hiperparâmetros e salvará apenas as melhores.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Import</span>
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> RandomizedSearchCV, GridSearchCV
+
+<span class="hljs-comment"># Definindo o seed</span>
+np.random.seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Configurando hiperparâmetros para LogisticRegression</span>
+rs_log_reg = RandomizedSearchCV(LogisticRegression(),
+                                param_distributions=log_reg_grid,
+                                cv=<span class="hljs-number">5</span>,
+                                n_iter=<span class="hljs-number">20</span>,
+                                verbose=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Treinando o modelo com as 20 combinações possíveis</span>
+rs_log_reg.fit(X_train, y_train);
+</code></pre>
+<blockquote>
+<p>Fitting 5 folds for each of 20 candidates, totalling 100 fits</p>
+</blockquote>
+<p>Agora podemos verificar qual foi o score obtido no treino e qual foi a melhor combinação de hiperparâmetro encontrada:</p>
+<pre><code class="lang-python">rs_log_reg.score(X_test, y_test)
+
+<span class="hljs-number">0.8852459016393442</span>
+
+rs_log_reg.best_params_
+
+{<span class="hljs-string">&apos;C&apos;</span>: <span class="hljs-number">0.23357214690901212</span>, <span class="hljs-string">&apos;solver&apos;</span>: <span class="hljs-string">&apos;liblinear&apos;</span>}
+</code></pre>
+<p>Agora que ajustamos <code>LogisticRegression</code>, faremos o mesmo com <code>RandomForest</code>:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Definindo o seed</span>
+np.random.seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Configurando hiperparâmetros para RandomForestClassifier</span>
+rs_rf = RandomizedSearchCV(RandomForestClassifier(),
+                           param_distributions=rf_grid,
+                           cv=<span class="hljs-number">5</span>,
+                           n_iter=<span class="hljs-number">20</span>,
+                           verbose=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Treinando o modelo com as 20 combinações possíveis</span>
+rs_rf.fit(X_train, y_train);
+</code></pre>
+<blockquote>
+<p>Fitting 5 folds for each of 20 candidates, totalling 100 fits</p>
+</blockquote>
+<p>Verificando o score e a melhor combinação:</p>
+<pre><code class="lang-python">rs_rf.best_params_
+
+{<span class="hljs-string">&apos;max_depth&apos;</span>: <span class="hljs-number">3</span>,
+ <span class="hljs-string">&apos;min_samples_leaf&apos;</span>: <span class="hljs-number">19</span>,
+ <span class="hljs-string">&apos;min_samples_split&apos;</span>: <span class="hljs-number">4</span>,
+ <span class="hljs-string">&apos;n_estimators&apos;</span>: <span class="hljs-number">210</span>}
+
+rs_rf.score(X_test, y_test)
+
+<span class="hljs-number">0.8688524590163934</span>
+</code></pre>
+<p>Com os ajustes nos modelos tivemos um leve aumento no desempenho em <code>RandomForrestClassifier</code> e <code>LogisticRegression</code>. Mesmo com <code>LogisticRegression</code> ganhando, vamos tentar ajustá-lo ainda mais com <code>GridSearchCV</code>.</p>
+<h2 id="ajustando-modelos-com-gridsearchcv">Ajustando modelos com GridSearchCV</h2>
+<p>A principal diferença entre <code>RandomizedSearchCV</code> e <code>GridSearchCV</code> é que o primeiro pesquisa em um dicionário de hiperparâmetros executando várias combinações definidas em <code>n_iter</code>, enquanto o segundo testará <em>todas</em> as combinações possíveis.</p>
+<p>Na prática:</p>
+<pre><code class="lang-python">log_reg_grid = {<span class="hljs-string">&quot;C&quot;</span>: np.logspace(-<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">20</span>),
+                <span class="hljs-string">&quot;solver&quot;</span>: [<span class="hljs-string">&quot;liblinear&quot;</span>]}
+
+gs_log_reg = GridSearchCV(LogisticRegression(),
+                          param_grid=log_reg_grid,
+                          cv=<span class="hljs-number">5</span>,
+                          verbose=<span class="hljs-literal">True</span>)
+
+gs_log_reg.fit(X_train, y_train);
+</code></pre>
+<blockquote>
+<p>Fitting 5 folds for each of 20 candidates, totalling 100 fits</p>
+</blockquote>
+<pre><code class="lang-python">gs_log_reg.best_params_
+
+{<span class="hljs-string">&apos;C&apos;</span>: <span class="hljs-number">0.23357214690901212</span>, <span class="hljs-string">&apos;solver&apos;</span>: <span class="hljs-string">&apos;liblinear&apos;</span>}
+
+gs_log_reg.score(X_test, y_test)
+
+<span class="hljs-number">0.8852459016393442</span>
+</code></pre>
+<p>Nesse caso, tivemos os mesmos resultados de antes pois nosso dicionário de opções tem no máximo 20 combinações de hiperparâmetros diferentes. Se por acaso houver uma grande quantidade de combinações de hiperparâmetros em seu dicionário, o <code>GridSearchCV</code> levará muito tempo para testar todas as opções. Por isso é recomendado começar com <code>RandomizedSearchCV</code> e tentar com uma quantidade menor de combinações.</p>
+<h2 id="avaliando-um-modelo-de-classificação">Avaliando um modelo de classificação</h2>
+<p>Agora que o nosso modelo está ajustado, vamos analisar algumas métricas. Para isso, teremos que utilizar o modelo para fazer previsões no nosso conjunto de teste. As previsões podem ser feitas pelo método <code>predict()</code> em um modelo treinado, passando a ele os dados que desejamos <em>prever</em>.</p>
+<p>As previsões serão feitas nos dados de teste:</p>
+<pre><code class="lang-python">y_preds = gs_log_reg.predict(X_test)
+</code></pre>
+<p>Agora que temos nossos valores de previsão armazenados em <code>y_preds</code>, podemos focar nas métricas.</p>
+<h2 id="roc-curve-e-auc-scores">ROC Curve e AUC Scores</h2>
+<p><em>ROC o que ?</em> É uma forma de entender o desempenho do nosso modelo, comparando a taxa de verdadeiros positivos com a taxa de falsos positivos.
+Ou seja, para o nosso problema, pense em um teste de diagnóstico que verifica se uma pessoa tem uma doença cardíaca. Um falso positivo nesse caso ocorre quando a pessoa testa positivo, mas na verdade não tem a doença. E um falso negativo, ocorre quando a pessoa tem um resultado de teste negativo, sugerindo que está saudável, quando na verdade tem a doença.</p>
+<p>Ficou imaginando como fazer essas verificações nos dados ? Pois bem, felizmente <code>Scikit-Learn</code> implementa uma função chamada <code>plot_roc_curve</code> que pode ajudar na criação dessa métrica.</p>
+<p>A funçào <code>plot_roc_curve</code> recebe como entrada <code>(estimator, X, y)</code>, onde <code>estimator</code> é um modelo de <code>ML</code> ajustado (<em>o nosso modelo treinado anteriormente</em>) e <code>X</code> e <code>y</code> são os dados que queremos testar. Usaremos a última versão do nosso modelo <code>LogisticRegression</code> como <code>estimator</code> e os dados teste (<code>X_test</code> e <code>y_test</code>).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Import ROC Curve</span>
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> plot_roc_curve
+
+<span class="hljs-comment"># Plot ROC Curve e calcula a métrica</span>
+plot_roc_curve(gs_log_reg, X_test, y_test);
+</code></pre>
+<p><img src="images/roc-curve.png" alt="plot roc curve"></p>
+<p>Olhando para esse plot pode parecer um pouco confuso. A principal coisa que podemos observar aqui é que o modelo está se saindo muito melhor do que apenas <em>adivinhar</em>. A métrica usada para quantificar a <code>ROC Curve</code> se chama <code>AUC</code>.</p>
+<p>A pontuação máxima dessa métrica que podemos alcançar é <code>1,0</code> e, geralmente quanto mais próximo de <code>1,0</code> melhor o modelo. A posição mais ideal para essa curva em azul seria ao longo do canto superior esquerdo do gráfico. Isso significaria que o modelo consegue prever apenas <em>verdadeiros positivos</em> e nenhum <em>falso positivo</em>.</p>
+<p>Vamos agora para a próxima métrica de avaliação, <em>Matriz de Confusão</em>.</p>
+<h2 id="matriz-de-confusão">Matriz de Confusão</h2>
+<p>Uma Matriz de Confusão é uma forma de visualizar onde o modelo fez as previsões certas e onde fez as erradas em outras palavras (<em>onde ele ficou confuso</em>). O <code>sklearn</code> por meio da função <code>confusion_matrix()</code> nos permite criar essa matriz, passando os rótulos verdadeiros e os previstos.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> confusion_matrix, classification_report
+<span class="hljs-built_in">print</span>(confusion_matrix(y_test, y_preds))
+</code></pre>
+<blockquote>
+<p>Ok, essa matriz de confusão embutida do <code>sklearn</code> é sem graça. Vamos melhorar esse visual.</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># Seaborn</span>
+<span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+sns.<span class="hljs-built_in">set</span>(font_scale=<span class="hljs-number">1.5</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_conf_mat</span>(<span class="hljs-params">y_test, y_preds</span>):</span>
+    fig, ax = plt.subplots(figsize=(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
+    ax = sns.heatmap(confusion_matrix(y_test, y_preds),
+                     annot=<span class="hljs-literal">True</span>,
+                     cbar=<span class="hljs-literal">False</span>)
+    plt.xlabel(<span class="hljs-string">&quot;rótulos verdadeiros&quot;</span>)
+    plt.ylabel(<span class="hljs-string">&quot;rótulos previstos&quot;</span>)
+
+plot_conf_mat(y_test, y_preds)
+</code></pre>
+<p><img src="images/confusion-matrix.png" alt="matriz de confusão"></p>
+<p>Bem melhor! Podemos ver que o modelo fica &quot;confuso&quot; prevendo o rótulo errado relativamente da mesma forma em ambas as classes. Ou seja, em 4 ocasiões o modelo previu <code>0</code> quando deveria ter previsto <code>1</code> (<em>falso negativo</em>) e em 3 ocasiões o modelo previu <code>1</code> em vez de <code>0</code> (<em>falso positivo</em>).</p>
+<h2 id="relatório-de-classificação">Relatório de classificação</h2>
 <hr>
 <p>WIP</p>
 
@@ -1390,7 +1531,7 @@ plt.legend()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T13:05:37.460Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T13:06:10.945Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T18:24:08.336Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T18:25:06.001Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
