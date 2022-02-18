@@ -106,6 +106,60 @@ Esse é um exemplo de um tensor `rank` 3 (possui 3 dimensões), como dito antes,
 
 ## Criando Tensors com tf.Variable()
 
+Outra opção para criar tensors é utilizando `tf.Variable()`. A diferença é que  `tf.constant()` cria tensors imutáveis (não podem ser alterados, só podem ser utilizados para criar um novo tensor) enquanto `tf.Variable()` cria tensors mutáveis (que podem ser alterados).
+
+```python
+tensor_mutavel = tf.Variable([10, 5])
+tensor_imutavel = tf.constant([10, 5])
+
+tensor_mutavel, tensor_imutavel
+```
+
+```
+(<tf.Variable 'Variable:0' shape=(2,) dtype=int32, numpy=array([10,  5], dtype=int32)>,
+ <tf.Tensor: shape=(2,), dtype=int32, numpy=array([10,  5], dtype=int32)>)
+```
+
+Por exemplo, podemos alterar os valores do tensor mutável por meio da função `assign()`:
+
+```python
+tensor_mutavel[0].assign(3)
+tensor_mutavel
+```
+
+> <tf.Variable 'Variable:0' shape=(2,) dtype=int32, numpy=array([3, 5], dtype=int32)>
+
+Os valores forma alterados de `[10, 5]` para `[3, 5]`. Se tentarmos a mesma alteração no tensor imutável, teremos uma mensagem de erro:
+
+```python
+tensor_imutavel[0].assign(3)
+tensor_imutavel
+```
+
+![tensorflow error](images/tf-error.png)
+
+A escolha de qual utilizar, `tf.Variable()` ou `tf.constant()` vai depender do tipo de solução que o seu problema exige. Na maioria das vezes, o TensorFlow escolherá automaticamente para você (ao carregar dados).
+
+## Criando Tensors aleatórios
+
+Tensors aleatórios possuem algum tamanho arbitrário com números aleatórios. Isso é bastante utilizado em redes neurais para inicializar as configurações (*pesos padrões*) que estão tentando aprender nos dados.
+O processo de aprendizado de uma rede neural geralmente envolve o uso de uma matriz aleatória `n-dimensional` de números e refiná-los até que representem algum tipo de padrão (uma forma compacta de representar os dados originais).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 WIP
