@@ -71,4 +71,5 @@
     * [RandomizedSearchCV](contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv)
     * [GridSearchCV](contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv)
     * [ROC Curve e AUC Scores](contents/ml-sklearn.md#roc-curve-e-auc-scores)
+    * [Feature importance](contents/ml-sklearn.md#feature-importance)
   * [TensorFlow](xx)

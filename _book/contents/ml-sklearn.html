@@ -1043,6 +1043,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.3.2.10" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#feature-importance">
+            
+                    
+                    Feature importance
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1609,6 +1622,138 @@ plot_conf_mat(y_test, y_preds)
 <p><img src="images/confusion-matrix.png" alt="matriz de confusão"></p>
 <p>Bem melhor! Podemos ver que o modelo fica &quot;confuso&quot; prevendo o rótulo errado relativamente da mesma forma em ambas as classes. Ou seja, em 4 ocasiões o modelo previu <code>0</code> quando deveria ter previsto <code>1</code> (<em>falso negativo</em>) e em 3 ocasiões o modelo previu <code>1</code> em vez de <code>0</code> (<em>falso positivo</em>).</p>
 <h2 id="relatório-de-classificação">Relatório de classificação</h2>
+<p>Podemos gerar um relatório de classificação utilizando <code>class_report()</code>, inserindo os rótulos verdadeiros e os rótulos previstos dos nossos modelos. O relatório de classificação, mostra também informações sobre a precisão e revocação de nosso modelo para cada classe.</p>
+<pre><code>print(classification_report(y_test, y_preds))
+
+              precision    recall  f1-score   support
+
+           0       0.89      0.86      0.88        29
+           1       0.88      0.91      0.89        32
+
+    accuracy                           0.89        61
+   macro avg       0.89      0.88      0.88        61
+weighted avg       0.89      0.89      0.89        61
+</code></pre><p>Legal, temos o nosso relatório! Mas o que significa isso tudo ?
+Calma, vamos por partes:</p>
+<ul>
+<li><strong>Precision</strong> - mostra a proporção de identificações positivas (<em>classe 1</em>) previstas no modelo, ou seja, que foram realmente corretas. Se um modelo não apresenta falsos positivos esse valor marca <code>1,0</code>.</li>
+<li><strong>Recall</strong> - é o indicador de proporção de positivos reais que foram classificados corretamente. Se um modelo não produz falsos negativos então ele apresenta um <code>recall</code> de <code>1,0</code>.</li>
+<li><strong>F1 score</strong> - é uma combinação de <code>Precision</code> e <code>Recall</code>. Um modelo perfeito alcança uma pontuação F1 de <code>1,0</code>.</li>
+<li><strong>Support</strong> - é o número de amostras em que cada métrica foi calculada.</li>
+<li><strong>Accuracy</strong> - é a precisão do modelo em formato decimal. A precisão perfeita seria igual a <code>1,0</code>.</li>
+<li><strong>Macro avg</strong> - é a média de <code>Precision</code>, <code>Recall</code> e <code>F1 score</code> entre as classes.</li>
+<li><strong>Weighted avg</strong> - é a média ponderada de <code>Precision</code>, <code>Recall</code> e <code>F1 score</code>. Ponderado nesse caso, significa que cada métrica é calculada em relação ao total de amostras existentes em cada classe.</li>
+</ul>
+<p>Pronto, agora já temos uma visão mais profunda sobre o nosso modelo. Porém, tudo foi calculado utilizando um único conjunto de dados (<em>treino e teste</em>). O que faremos agora para torná-los mais sólidos é calculá-los utilizando validação cruzada. Para isso, pegaremos o melhor modelo junto com os melhores hiperparâmetros e usaremos <code>cross_val_score()</code> junto com vários outros valores de parâmetros de pontuação.</p>
+<p>A função <code>cross_val_score()</code> funciona pegando um estimador (modelo de <code>ML</code>) junto com os dados e os rótulos (labels). Em sequência, ele avalia o modelo nos dados e rótulos utilizando validação cruzada.</p>
+<p>Quais são mesmo os hiperparâmetros ? Vamos lembrar:</p>
+<pre><code class="lang-python">gs_log_reg.best_params_
+
+{<span class="hljs-string">&apos;C&apos;</span>: <span class="hljs-number">0.23357214690901212</span>, <span class="hljs-string">&apos;solver&apos;</span>: <span class="hljs-string">&apos;liblinear&apos;</span>}
+</code></pre>
+<p>Ok, agora é instanciar o classificado com o modelo e os hiperparâmetros:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Importa cross_val_score</span>
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_val_score
+
+<span class="hljs-comment"># Passando o melhor modelo com os melhores hiperparâmetros</span>
+<span class="hljs-comment"># que encontramos com (GridSearchCV)</span>
+clf = LogisticRegression(C=<span class="hljs-number">0.23357214690901212</span>,
+                         solver=<span class="hljs-string">&quot;liblinear&quot;</span>)
+</code></pre>
+<p>Tudo pronto, vamos encontrar algumas métricas de validação cruzada:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Cross-validated (validação cruzada)</span>
+cv_acc = cross_val_score(clf,
+                         X,
+                         y,
+                         cv=<span class="hljs-number">5</span>, <span class="hljs-comment"># 5-fold</span>
+                         scoring=<span class="hljs-string">&quot;accuracy&quot;</span>)
+cv_acc
+</code></pre>
+<blockquote>
+<p>array([0.81967213, 0.90163934, 0.8852459 , 0.88333333, 0.75      ])</p>
+</blockquote>
+<p>Como existem 5 métricas, vamos calcular a média:</p>
+<pre><code class="lang-python">cv_acc = np.mean(cv_acc)
+cv_acc
+
+<span class="hljs-number">0.8479781420765027</span>
+</code></pre>
+<p>Agora faremos a mesma coisa para outras métricas de classificação:</p>
+<pre><code class="lang-python">cv_precision = np.mean(cross_val_score(clf,
+                                       X,
+                                       y,
+                                       cv=<span class="hljs-number">5</span>,
+                                       scoring=<span class="hljs-string">&quot;precision&quot;</span>))
+
+cv_recall = np.mean(cross_val_score(clf,
+                                    X,
+                                    y,
+                                    cv=<span class="hljs-number">5</span>,
+                                    scoring=<span class="hljs-string">&quot;recall&quot;</span>))
+
+cv_f1 = np.mean(cross_val_score(clf,
+                                X,
+                                y,
+                                cv=<span class="hljs-number">5</span>,
+                                scoring=<span class="hljs-string">&quot;f1&quot;</span>))
+
+cv_precision, cv_recall, cv_f1
+</code></pre>
+<blockquote>
+<p>(0.8215873015873015, 0.9272727272727274, 0.8705403543192143)</p>
+</blockquote>
+<p>Perfeito, temos métricas validadas cruzadas, agora vamos visualizá-las:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Plot cross-validated metrics</span>
+cv_metrics = pd.DataFrame({<span class="hljs-string">&quot;Accuracy&quot;</span>: cv_acc,
+                            <span class="hljs-string">&quot;Precision&quot;</span>: cv_precision,
+                            <span class="hljs-string">&quot;Recall&quot;</span>: cv_recall,
+                            <span class="hljs-string">&quot;F1&quot;</span>: cv_f1},
+                            index=[<span class="hljs-number">0</span>])
+cv_metrics.T.plot.bar(title=<span class="hljs-string">&quot;Métricas de validação cruzada&quot;</span>, legend=<span class="hljs-literal">False</span>);
+</code></pre>
+<p><img src="images/cross-valid.png" alt="cross validate metrics"></p>
+<h2 id="feature-importance">Feature importance</h2>
+<p><strong>Feature importance</strong> é outra forma de perguntar que recursos contribuem mais para os resultados do modelo ?</p>
+<p>Para o problema que queremos resolver, tentar prever doenças cardíacas utilizando características médicas de um paciente, quais dessas características contribuem mais para um modelo que prevê se alguém tem uma doença cardíaca ou não ? Diferente de algumas das outras funções que vimos, cada modelo encontra padrões nos dados de maneira ligeiramente diferente, a forma como um modelo julga a importância desses padrões também é diferente. Em outras palavras, para cada modelo, existe uma forma ligeiramente diferente de descobrir quais recursos foram mais importantes.</p>
+<p>Como estamos utilizando <code>LogisticRegression</code>, veremos uma maneira de calcular o <code>feature importance</code> para ele. Usaremos o atributo <code>coef_</code>, que é o coeficiente dos recursos na função de decisão (<em>função que julga a importância</em>).</p>
+<pre><code>clf.fit(X_train, y_train);
+clf.coef_
+
+
+array([[ 0.00369922, -0.9042409 ,  0.67472826, -0.0116134 , -0.00170364,
+         0.04787688,  0.33490198,  0.02472938, -0.63120406, -0.5759095 ,
+         0.47095141, -0.65165348, -0.69984208]])
+</code></pre><p>Ok, concordo que olhando para isso não faz nenhum sentido. Mas esses valores representam o quanto cada recurso contribui na forma em que um modelo toma uma decisão sobre se os padrões em uma amostra de dados de saúde de pacientes tem maior tendência para doenças cardíacas ou não.</p>
+<p>Mesmo sabendo o significado agora, esse formato atual de array ainda não faz muito sentido. Mas se combinarmos com as colunas do nosso DataFrame, pode melhorar:</p>
+<pre><code class="lang-python">features_dict = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(df.columns, <span class="hljs-built_in">list</span>(clf.coef_[<span class="hljs-number">0</span>])))
+features_dict
+
+
+{<span class="hljs-string">&apos;age&apos;</span>: <span class="hljs-number">0.003699220776580221</span>,
+ <span class="hljs-string">&apos;ca&apos;</span>: -<span class="hljs-number">0.6516534770577476</span>,
+ <span class="hljs-string">&apos;chol&apos;</span>: -<span class="hljs-number">0.0017036439067759743</span>,
+ <span class="hljs-string">&apos;cp&apos;</span>: <span class="hljs-number">0.6747282587404362</span>,
+ <span class="hljs-string">&apos;exang&apos;</span>: -<span class="hljs-number">0.6312040612837573</span>,
+ <span class="hljs-string">&apos;fbs&apos;</span>: <span class="hljs-number">0.047876881148997324</span>,
+ <span class="hljs-string">&apos;oldpeak&apos;</span>: -<span class="hljs-number">0.5759095045469952</span>,
+ <span class="hljs-string">&apos;restecg&apos;</span>: <span class="hljs-number">0.3349019815885189</span>,
+ <span class="hljs-string">&apos;sex&apos;</span>: -<span class="hljs-number">0.9042409028785717</span>,
+ <span class="hljs-string">&apos;slope&apos;</span>: <span class="hljs-number">0.4709514073081419</span>,
+ <span class="hljs-string">&apos;thal&apos;</span>: -<span class="hljs-number">0.6998420764664995</span>,
+ <span class="hljs-string">&apos;thalach&apos;</span>: <span class="hljs-number">0.02472938284108309</span>,
+ <span class="hljs-string">&apos;trestbps&apos;</span>: -<span class="hljs-number">0.011613401339975146</span>}
+</code></pre>
+<p>Agora podemos visualizar:</p>
+<pre><code class="lang-python">features_df = pd.DataFrame(features_dict, index=[<span class="hljs-number">0</span>])
+features_df.T.plot.bar(title=<span class="hljs-string">&quot;Feature Importance&quot;</span>, legend=<span class="hljs-literal">False</span>);
+</code></pre>
+<p><img src="images/feature-importance.png" alt="feature importance"></p>
+<p>Perceba que alguns são positivos e outros são negativos. Quanto maior o valor (maior barra), mais o recurso contribui para a decisão do modelo. Se o valor for negativo, significa que a correlação é negativa. E para valores positivos a correlação também é positiva.</p>
+<p>Veja por exemplo o atributo <code>sex</code> que tem um valor negativo de <code>-0.904</code>, o que significa que a medida que o valor de <code>sex</code> aumenta, mais o valor de <code>target</code> diminui. Podemos ver isso melhor, comparando a coluna <code>sex</code> com <code>target</code>:</p>
+<pre><code class="lang-python">pd.crosstab(df[<span class="hljs-string">&quot;sex&quot;</span>], df[<span class="hljs-string">&quot;target&quot;</span>])
+</code></pre>
+<p><img src="images/crosstab-sex-target.png" alt="crosstab sex target"></p>
+<p>Podemos ver que, quando <code>sex</code> é 0 (<em>feminino</em>), há 3 vezes mais pessoas com doença cardíaca (<code>target=1</code>) do que sem. E para <code>sex</code> 1 (<em>masculino</em>), a proporção cai para quase 1 para 1 de pessoas que tem doenças cardíacas e que não tem. Isso significa que o modelo encontrou um padrão que reflete os dados, olhando para esses números e o conjunto de dados específico, parece que se o paciente é do sexo feminino, é mais provável que tenha doenças cardíacas.</p>
 <hr>
 <p>WIP</p>
 
@@ -1654,7 +1799,7 @@ plot_conf_mat(y_test, y_preds)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]}],"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-17T18:24:08.336Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-17T18:39:54.809Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"next":{"title":"TensorFlow","level":"1.3.3","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},"articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]},{"title":"Feature importance","level":"1.3.2.10","depth":3,"anchor":"#feature-importance","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#feature-importance","articles":[]}],"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/ml-sklearn.md","mtime":"2022-02-18T03:34:08.328Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-18T03:37:09.552Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1706,10 +1851,6 @@ plot_conf_mat(y_test, y_preds)
     </script>
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

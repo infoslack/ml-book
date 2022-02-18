@@ -631,7 +631,181 @@ Bem melhor! Podemos ver que o modelo fica "confuso" prevendo o rótulo errado re
 
 ## Relatório de classificação
 
+Podemos gerar um relatório de classificação utilizando `class_report()`, inserindo os rótulos verdadeiros e os rótulos previstos dos nossos modelos. O relatório de classificação, mostra também informações sobre a precisão e revocação de nosso modelo para cada classe.
 
+```
+print(classification_report(y_test, y_preds))
+
+              precision    recall  f1-score   support
+
+           0       0.89      0.86      0.88        29
+           1       0.88      0.91      0.89        32
+
+    accuracy                           0.89        61
+   macro avg       0.89      0.88      0.88        61
+weighted avg       0.89      0.89      0.89        61
+```
+
+Legal, temos o nosso relatório! Mas o que significa isso tudo ?
+Calma, vamos por partes:
+
+- **Precision** - mostra a proporção de identificações positivas (*classe 1*) previstas no modelo, ou seja, que foram realmente corretas. Se um modelo não apresenta falsos positivos esse valor marca `1,0`.
+- **Recall** - é o indicador de proporção de positivos reais que foram classificados corretamente. Se um modelo não produz falsos negativos então ele apresenta um `recall` de `1,0`.
+- **F1 score** - é uma combinação de `Precision` e `Recall`. Um modelo perfeito alcança uma pontuação F1 de `1,0`.
+- **Support** - é o número de amostras em que cada métrica foi calculada.
+- **Accuracy** - é a precisão do modelo em formato decimal. A precisão perfeita seria igual a `1,0`.
+- **Macro avg** - é a média de `Precision`, `Recall` e `F1 score` entre as classes.
+- **Weighted avg** - é a média ponderada de `Precision`, `Recall` e `F1 score`. Ponderado nesse caso, significa que cada métrica é calculada em relação ao total de amostras existentes em cada classe.
+
+Pronto, agora já temos uma visão mais profunda sobre o nosso modelo. Porém, tudo foi calculado utilizando um único conjunto de dados (*treino e teste*). O que faremos agora para torná-los mais sólidos é calculá-los utilizando validação cruzada. Para isso, pegaremos o melhor modelo junto com os melhores hiperparâmetros e usaremos `cross_val_score()` junto com vários outros valores de parâmetros de pontuação.
+
+A função `cross_val_score()` funciona pegando um estimador (modelo de `ML`) junto com os dados e os rótulos (labels). Em sequência, ele avalia o modelo nos dados e rótulos utilizando validação cruzada.
+
+Quais são mesmo os hiperparâmetros ? Vamos lembrar:
+
+```python
+gs_log_reg.best_params_
+
+{'C': 0.23357214690901212, 'solver': 'liblinear'}
+```
+
+Ok, agora é instanciar o classificado com o modelo e os hiperparâmetros:
+
+```python
+# Importa cross_val_score
+from sklearn.model_selection import cross_val_score
+
+# Passando o melhor modelo com os melhores hiperparâmetros
+# que encontramos com (GridSearchCV)
+clf = LogisticRegression(C=0.23357214690901212,
+                         solver="liblinear")
+```
+
+Tudo pronto, vamos encontrar algumas métricas de validação cruzada:
+
+```python
+# Cross-validated (validação cruzada)
+cv_acc = cross_val_score(clf,
+                         X,
+                         y,
+                         cv=5, # 5-fold
+                         scoring="accuracy")
+cv_acc
+```
+
+> array([0.81967213, 0.90163934, 0.8852459 , 0.88333333, 0.75      ])
+
+Como existem 5 métricas, vamos calcular a média:
+
+```python
+cv_acc = np.mean(cv_acc)
+cv_acc
+
+0.8479781420765027
+```
+
+Agora faremos a mesma coisa para outras métricas de classificação:
+
+```python
+cv_precision = np.mean(cross_val_score(clf,
+                                       X,
+                                       y,
+                                       cv=5,
+                                       scoring="precision"))
+
+cv_recall = np.mean(cross_val_score(clf,
+                                    X,
+                                    y,
+                                    cv=5,
+                                    scoring="recall"))
+
+cv_f1 = np.mean(cross_val_score(clf,
+                                X,
+                                y,
+                                cv=5,
+                                scoring="f1"))
+
+cv_precision, cv_recall, cv_f1
+```
+
+> (0.8215873015873015, 0.9272727272727274, 0.8705403543192143)
+
+Perfeito, temos métricas validadas cruzadas, agora vamos visualizá-las:
+
+```python
+# Plot cross-validated metrics
+cv_metrics = pd.DataFrame({"Accuracy": cv_acc,
+                            "Precision": cv_precision,
+                            "Recall": cv_recall,
+                            "F1": cv_f1},
+                            index=[0])
+cv_metrics.T.plot.bar(title="Métricas de validação cruzada", legend=False);
+```
+
+![cross validate metrics](images/cross-valid.png)
+
+## Feature importance
+
+**Feature importance** é outra forma de perguntar que recursos contribuem mais para os resultados do modelo ?
+
+Para o problema que queremos resolver, tentar prever doenças cardíacas utilizando características médicas de um paciente, quais dessas características contribuem mais para um modelo que prevê se alguém tem uma doença cardíaca ou não ? Diferente de algumas das outras funções que vimos, cada modelo encontra padrões nos dados de maneira ligeiramente diferente, a forma como um modelo julga a importância desses padrões também é diferente. Em outras palavras, para cada modelo, existe uma forma ligeiramente diferente de descobrir quais recursos foram mais importantes.
+
+Como estamos utilizando `LogisticRegression`, veremos uma maneira de calcular o `feature importance` para ele. Usaremos o atributo `coef_`, que é o coeficiente dos recursos na função de decisão (*função que julga a importância*).
+
+```
+clf.fit(X_train, y_train);
+clf.coef_
+
+
+array([[ 0.00369922, -0.9042409 ,  0.67472826, -0.0116134 , -0.00170364,
+         0.04787688,  0.33490198,  0.02472938, -0.63120406, -0.5759095 ,
+         0.47095141, -0.65165348, -0.69984208]])
+```
+
+Ok, concordo que olhando para isso não faz nenhum sentido. Mas esses valores representam o quanto cada recurso contribui na forma em que um modelo toma uma decisão sobre se os padrões em uma amostra de dados de saúde de pacientes tem maior tendência para doenças cardíacas ou não.
+
+Mesmo sabendo o significado agora, esse formato atual de array ainda não faz muito sentido. Mas se combinarmos com as colunas do nosso DataFrame, pode melhorar:
+
+```python
+features_dict = dict(zip(df.columns, list(clf.coef_[0])))
+features_dict
+
+
+{'age': 0.003699220776580221,
+ 'ca': -0.6516534770577476,
+ 'chol': -0.0017036439067759743,
+ 'cp': 0.6747282587404362,
+ 'exang': -0.6312040612837573,
+ 'fbs': 0.047876881148997324,
+ 'oldpeak': -0.5759095045469952,
+ 'restecg': 0.3349019815885189,
+ 'sex': -0.9042409028785717,
+ 'slope': 0.4709514073081419,
+ 'thal': -0.6998420764664995,
+ 'thalach': 0.02472938284108309,
+ 'trestbps': -0.011613401339975146}
+```
+
+Agora podemos visualizar:
+
+```python
+features_df = pd.DataFrame(features_dict, index=[0])
+features_df.T.plot.bar(title="Feature Importance", legend=False);
+```
+
+![feature importance](images/feature-importance.png)
+
+Perceba que alguns são positivos e outros são negativos. Quanto maior o valor (maior barra), mais o recurso contribui para a decisão do modelo. Se o valor for negativo, significa que a correlação é negativa. E para valores positivos a correlação também é positiva.
+
+Veja por exemplo o atributo `sex` que tem um valor negativo de `-0.904`, o que significa que a medida que o valor de `sex` aumenta, mais o valor de `target` diminui. Podemos ver isso melhor, comparando a coluna `sex` com `target`:
+
+```python
+pd.crosstab(df["sex"], df["target"])
+```
+
+![crosstab sex target](images/crosstab-sex-target.png)
+
+Podemos ver que, quando `sex` é 0 (*feminino*), há 3 vezes mais pessoas com doença cardíaca (`target=1`) do que sem. E para `sex` 1 (*masculino*), a proporção cai para quase 1 para 1 de pessoas que tem doenças cardíacas e que não tem. Isso significa que o modelo encontrou um padrão que reflete os dados, olhando para esses números e o conjunto de dados específico, parece que se o paciente é do sexo feminino, é mais provável que tenha doenças cardíacas.
 
 ---
 
