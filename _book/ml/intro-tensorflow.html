@@ -1,0 +1,1380 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>TensorFlow · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../contents/ml-sklearn.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../contents/sobre-o-livro.html">
+            
+                <a href="../contents/sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../contents/ambiente.html">
+            
+                <a href="../contents/ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Um pouco de Python para Data Science
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../contents/part-i-data-science.html">
+            
+                <a href="../contents/part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../contents/conhecendo-o-pandas.html">
+            
+                <a href="../contents/conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="../contents/conhecendo-o-pandas.html">
+            
+                <a href="../contents/conhecendo-o-pandas.html#importando-o-pandas">
+            
+                    
+                    Importando o Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="../contents/series-dataframe.html">
+            
+                <a href="../contents/series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../contents/series-dataframe.html">
+            
+                <a href="../contents/series-dataframe.html#series">
+            
+                    
+                    Series
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="../contents/series-dataframe.html">
+            
+                <a href="../contents/series-dataframe.html#dataframe">
+            
+                    
+                    DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#anatomia-de-um-dataframe">
+            
+                    
+                    Anatomia de um DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#explorando-os-dados">
+            
+                    
+                    Explorando os dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#dtypes">
+            
+                    
+                    dtypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#describe">
+            
+                    
+                    describe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#info">
+            
+                    
+                    info
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#mean-e-sum">
+            
+                    
+                    mean, sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#columns">
+            
+                    
+                    columns
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.13" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#head">
+            
+                    
+                    head
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.14" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#tail">
+            
+                    
+                    tail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.15" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#loc-e-iloc">
+            
+                    
+                    loc, iloc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.16" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#groupby">
+            
+                    
+                    groupby
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.17" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#replace">
+            
+                    
+                    str.replace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.18" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#numeric">
+            
+                    
+                    to_numeric
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.19" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#fillna">
+            
+                    
+                    fillna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.20" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#dropna">
+            
+                    
+                    dropna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.21" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#drop">
+            
+                    
+                    drop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.22" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#sample">
+            
+                    
+                    sample
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.23" data-path="../contents/manipulando-dados.html">
+            
+                <a href="../contents/manipulando-dados.html#reset-index">
+            
+                    
+                    reset_index
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.24" data-path="../contents/pandas-exercicios.html">
+            
+                <a href="../contents/pandas-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../contents/intro-numpy.html">
+            
+                <a href="../contents/intro-numpy.html">
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../contents/intro-numpy.html">
+            
+                <a href="../contents/intro-numpy.html#importando-a-biblioteca-numpy">
+            
+                    
+                    Importando a biblioteca NumPy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../contents/np-tipos-de-dados.html">
+            
+                <a href="../contents/np-tipos-de-dados.html">
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html">
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html#selecionando-e-visualizando-elementos">
+            
+                    
+                    Selecionando e visualizando elementos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html#manipulando-e-comparando-arrays">
+            
+                    
+                    Manipulando e comparando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html#aggregations">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html#reshaping-e-transpose">
+            
+                    
+                    Reshaping e Transpose
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="../contents/np-matrizes-e-operacoes.html">
+            
+                <a href="../contents/np-matrizes-e-operacoes.html#comparando-e-ordenando-arrays">
+            
+                    
+                    Comparando e ordenando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="../contents/numpy-exercicios.html">
+            
+                <a href="../contents/numpy-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../contents/intro-matplotlib.html">
+            
+                <a href="../contents/intro-matplotlib.html">
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../contents/intro-matplotlib.html">
+            
+                <a href="../contents/intro-matplotlib.html#plot">
+            
+                    
+                    plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../contents/intro-matplotlib.html">
+            
+                <a href="../contents/intro-matplotlib.html#figure">
+            
+                    
+                    plt.figure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../contents/intro-matplotlib.html">
+            
+                <a href="../contents/intro-matplotlib.html#subplots">
+            
+                    
+                    plt.subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../contents/anatomia-matplotlib.html">
+            
+                <a href="../contents/anatomia-matplotlib.html">
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html">
+            
+                    
+                    Tipos de plots mais utilizados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#line">
+            
+                    
+                    Line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#scatter">
+            
+                    
+                    Scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#bar">
+            
+                    
+                    Bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#hist">
+            
+                    
+                    Hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#subplots">
+            
+                    
+                    Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="../contents/matplotlib-plots.html">
+            
+                <a href="../contents/matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="../contents/matplotlib-exercicios.html">
+            
+                <a href="../contents/matplotlib-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../contents/part-ii-ml.html">
+            
+                <a href="../contents/part-ii-ml.html">
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../contents/ml-101.html">
+            
+                <a href="../contents/ml-101.html">
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html">
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#sklearn-de-ponta-a-ponta">
+            
+                    
+                    Sklearn de ponta a ponta
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#eda">
+            
+                    
+                    EDA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#modelagem-dos-dados">
+            
+                    
+                    Modelagem dos dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#treino-e-teste">
+            
+                    
+                    Treino e Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#escolha-de-modelos">
+            
+                    
+                    Escolha de modelos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#ajustando-kneighborsclassifier-knn">
+            
+                    
+                    KNeighborsClassifier
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#ajustando-modelos-com-randomizedsearchcv">
+            
+                    
+                    RandomizedSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#ajustando-modelos-com-gridsearchcv">
+            
+                    
+                    GridSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#roc-curve-e-auc-scores">
+            
+                    
+                    ROC Curve e AUC Scores
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="../contents/ml-sklearn.html">
+            
+                <a href="../contents/ml-sklearn.html#feature-importance">
+            
+                    
+                    Feature importance
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html">
+            
+                    
+                    TensorFlow
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#tensors">
+            
+                    
+                    Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfconstant">
+            
+                    
+                    Criando Tensors com tf.constant()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfvariable">
+            
+                    
+                    Criando Tensors com tf.Variable()
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >TensorFlow</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="tensorflow">TensorFlow</h1>
+<p>TensorFlow é uma biblioteca de Machine Learning <em>open-source</em> para pré-processamento de dados, modelagem de dados e criação de modelos. Em vez de criar modelos de <code>ML</code> do zero, podemos utilizar TensorFlow que contém muitas funções de <code>ML</code> (<em>principalmente as mais utilizadas</em>). Ok, TensorFlow é vasto, mas o foco principal é simples: transformar dados em números que são chamados de (<code>tensors</code>) e construir algoritmos de <code>ML</code> para encontrar padrões neles.</p>
+<h2 id="tensors">Tensors</h2>
+<p>Os <code>tensors</code> são como matrizes NumPy. Daqui pra frente pense em um tensor como uma representação numérica multidimensional (n-dimensional, onde <code>n</code> pode ser qualquer número) de algo. Esse algo pode ser quase qualquer coisa que possamos imaginar:</p>
+<ul>
+<li>Pode ser os próprios números (tensors representando o preço de carros).</li>
+<li>Pode ser uma imagem (tensors representando os pixels de uma foto).</li>
+<li>Pode ser texto (tensors representando palavras).</li>
+<li>Ou pode ser alguma outra forma de informação (dados) que você deseja representar como números.</li>
+</ul>
+<p>A principal diferença entre tensors e matrizes NumPy é que os tensors podem ser utilizados em <code>GPUs</code> (unidades de processamento gráfico, placas de vídeo) e <code>TPUs</code> (unidades de processamento de tensor). O benefício disso é poder executar tarefas computacionais mais rápidas, ou seja, para encontrar padrões em representações numéricas nos dados de forma mais rápida.</p>
+<p>Vamos começar nossa jornada, a primeira coisa que faremos é importar o TensorFlow, o alias mais comum utilizado é o <code>tf</code>:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+<span class="hljs-built_in">print</span>(tf.__version__)
+</code></pre>
+<blockquote>
+<p>2.8.0</p>
+</blockquote>
+<h2 id="criando-tensors-com-tfconstant">Criando Tensors com tf.constant()</h2>
+<p>No geral, normalmente não criaremos <code>tensors</code> por conta própria, pois o TensorFlow possui módulos integrados capazes de ler nossas fontes de dados e convertê-las automaticamente em tensors. Apenas para exemplificar nesse momento em que estamos nos familiarizando, criaremos tensors e veremos como manipulá-los. Começando por <code>tf.constant()</code>:</p>
+<pre><code class="lang-python">scalar = tf.constant(<span class="hljs-number">5</span>)
+scalar
+
+&lt;tf.Tensor: shape=(), dtype=int32, numpy=<span class="hljs-number">5</span>&gt;
+</code></pre>
+<blockquote>
+<p>Um <code>scalar</code> é conhecido como um tensor de <code>rank</code> 0 por não ter dimensões (é apenas um número). No momento não precisamos saber muito sobre os diferentes <code>ranks</code> de tensors, veremos mais detalhes sobre isso em outro momento. O importante agora é saber que os tensors podem ter um intervalo ilimitado de dimensões (a quantidade exata, vai depender dos dados que vamos representar).</p>
+</blockquote>
+<pre><code class="lang-python">scalar.ndim
+
+<span class="hljs-number">0</span>
+</code></pre>
+<pre><code class="lang-python">vetor = tf.constant([<span class="hljs-number">10</span>, <span class="hljs-number">10</span>])
+vetor
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>,), dtype=int32, numpy=array([<span class="hljs-number">10</span>, <span class="hljs-number">10</span>], dtype=int32)&gt;
+
+vetor.ndim
+
+<span class="hljs-number">1</span>
+</code></pre>
+<pre><code class="lang-python">matriz = tf.constant([[<span class="hljs-number">10</span>, <span class="hljs-number">5</span>],
+                      [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>]])
+matriz
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[<span class="hljs-number">10</span>,  <span class="hljs-number">5</span>],
+       [ <span class="hljs-number">5</span>, <span class="hljs-number">10</span>]], dtype=int32)&gt;
+
+matriz.ndim
+
+<span class="hljs-number">2</span>
+</code></pre>
+<p>Por padrão o TensorFlow cria tensors utilizando <code>int32</code> como tipo de dados ou <code>float32</code>. Isso também é conhecido como precisão de <code>32 bits</code> (quanto maior o número, mais preciso ele é).</p>
+<pre><code class="lang-python">tensor = tf.constant([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+                       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]],
+                      [[<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>],
+                       [<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>]],
+                      [[<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
+                       [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]])
+tensor
+
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>), dtype=int32, numpy=
+array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span>,  <span class="hljs-number">3</span>],
+        [ <span class="hljs-number">4</span>,  <span class="hljs-number">5</span>,  <span class="hljs-number">6</span>]],
+
+       [[ <span class="hljs-number">7</span>,  <span class="hljs-number">8</span>,  <span class="hljs-number">9</span>],
+        [<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>]],
+
+       [[<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>],
+        [<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]]], dtype=int32)&gt;
+
+tensor.ndim
+
+<span class="hljs-number">3</span>
+</code></pre>
+<p>Esse é um exemplo de um tensor <code>rank</code> 3 (possui 3 dimensões), como dito antes, um tensor pode ter uma quantidade ilimitada de dimensões. Imagine que você quer transformar uma série de imagens em tensors, no formato (223,223, 3, 32), onde:</p>
+<p><strong>223, 223</strong> são as primeiras 2 dimensões, altura e largura das imagens em pixels. <strong>3</strong> é o número de canais de cores da imagem (vermelho, verde e azul) e <strong>32</strong> é o tamanho do lote (número de imagens que uma rede neural vê). Todas as variáveis criadas acima, são na verdade tensors, na literatura podemos encontrar referências com nomes diferentes:</p>
+<ul>
+<li><strong>scalar</strong>: um único número</li>
+<li><strong>vetor</strong>: um número com direção (ex: velocidade de um carro)</li>
+<li><strong>matriz</strong>: uma matriz bidimensional numérica</li>
+<li><strong>tensor</strong>: uma matriz n-dimensional numérica (onde <code>n</code> pode ser qualquer número, logo um tensor com dimensão <code>0</code> é um scalar, um tensor com 1 dimensão é um vetor).</li>
+</ul>
+<blockquote>
+<p>MEMO: inserir uma imagem aqui com ex. de álgebra visual comparando as referências para um tensor, algo parecido com: <a href="https://www.mathsisfun.com/algebra/scalar-vector-matrix.html" target="_blank">https://www.mathsisfun.com/algebra/scalar-vector-matrix.html</a></p>
+</blockquote>
+<h2 id="criando-tensors-com-tfvariable">Criando Tensors com tf.Variable()</h2>
+<hr>
+<p>WIP</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../contents/ml-sklearn.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Scikit-Learn">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"TensorFlow","level":"1.3.3","depth":2,"previous":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]},{"title":"Feature importance","level":"1.3.2.10","depth":3,"anchor":"#feature-importance","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#feature-importance","articles":[]}]},"articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"ml/intro-tensorflow.md","ref":"ml/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"ml/intro-tensorflow.md","ref":"ml/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"ml/intro-tensorflow.md","ref":"ml/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]}],"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"ml/intro-tensorflow.md","mtime":"2022-02-18T14:14:16.391Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-18T14:33:15.818Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
