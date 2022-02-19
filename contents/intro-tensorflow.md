@@ -238,10 +238,48 @@ array([[ 2,  5],
 
 ## Outras formas de criar Tensors
 
+Assim como no NumPy, TensorFlow disponibiliza funções para gerar arrays de 1 e 0 (nesse caso tensors). Embora raramente você utilize isso:
+
+```python
+tf.ones(shape=(3, 2))
+
+<tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[1., 1.],
+       [1., 1.],
+       [1., 1.]], dtype=float32)>
 
 
+tf.zeros(shape=(3, 2))
+
+<tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[0., 0.],
+       [0., 0.],
+       [0., 0.]], dtype=float32)>
+```
+
+Também podemos transformar matrizes NumPy em tensors, lembre-se que a principal diferença entre matrizes NumPy e tensors é que o segundo pode ser ser executado em GPUs.
+
+```python
+import numpy as np
+numpy_A = np.arange(1, 25, dtype=np.int32)
+A = tf.constant(numpy_A,  
+                shape=[2, 4, 3])
+A
 
 
+<tf.Tensor: shape=(2, 4, 3), dtype=int32, numpy=
+array([[[ 1,  2,  3],
+        [ 4,  5,  6],
+        [ 7,  8,  9],
+        [10, 11, 12]],
+
+       [[13, 14, 15],
+        [16, 17, 18],
+        [19, 20, 21],
+        [22, 23, 24]]], dtype=int32)>
+```
+
+## Listando informações de Tensors
 
 
 
