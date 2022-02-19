@@ -143,9 +143,100 @@ A escolha de qual utilizar, `tf.Variable()` ou `tf.constant()` vai depender do t
 ## Criando Tensors aleatórios
 
 Tensors aleatórios possuem algum tamanho arbitrário com números aleatórios. Isso é bastante utilizado em redes neurais para inicializar as configurações (*pesos padrões*) que estão tentando aprender nos dados.
-O processo de aprendizado de uma rede neural geralmente envolve o uso de uma matriz aleatória `n-dimensional` de números e refiná-los até que representem algum tipo de padrão (uma forma compacta de representar os dados originais).
+O processo de aprendizado de uma rede neural geralmente envolve o uso de uma matriz aleatória `n-dimensional`e refiná-los até que representem algum tipo de padrão (uma forma compacta de representar os dados originais).
 
+### Como uma rede neural aprende ?
 
+![rede neural aprendizado](images/neural-network.png)
+
+No exemplo acima, de forma simplificada a primeira etapa é converter as imagens em números, os números agora são tensors (no TensorFlow), então a rede neural busca por padrões que identifiquem as imagens, para no final classificar se é uma coisa ou  outra.Em detalhes o aprendizado começa com padrões aleatórios e depois passa para exemplos demonstrativos de dados, ao mesmo tempo em que tenta atualizar seus padrões aleatórios para representar os exemplos (pizza ou carne).
+
+Podemos criar tensors, aleatórios utilizando a classe `tf.random.Generator`:
+
+```python
+random_1 = tf.random.Generator.from_seed(42)
+random_1 = random_1.normal(shape=(3, 2))
+random_1
+
+<tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[-0.7565803 , -0.06854702],
+       [ 0.07595026, -1.2573844 ],
+       [-0.23193763, -1.8107855 ]], dtype=float32)>
+```
+
+O tensor aleatório criado, na verdade é pseudoaleatório. Se criarmos outro tensor aleatório e definirmos o mesmo valor de `seed` teremos os mesmos números aleatórios (lembre do NumPy, é bem semelhante `np.random.seed(42)`):
+
+```python
+random_2 = tf.random.Generator.from_seed(42)
+random_2 = random_2.normal(shape=(3, 2))
+random_2
+
+<tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[-0.7565803 , -0.06854702],
+       [ 0.07595026, -1.2573844 ],
+       [-0.23193763, -1.8107855 ]], dtype=float32)>
+```
+
+Comparando:
+
+```python
+random_1 == random_2
+
+<tf.Tensor: shape=(3, 2), dtype=bool, numpy=
+array([[ True,  True],
+       [ True,  True],
+       [ True,  True]])>
+```
+
+E se trocarmos o valor do `seed` ?
+
+```python
+random_3 = tf.random.Generator.from_seed(11)
+random_3 = random_3.normal(shape=(3, 2))
+random_3
+
+<tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[ 0.27305737, -0.29925638],
+       [-0.3652325 ,  0.61883307],
+       [-1.0130816 ,  0.28291714]], dtype=float32)>
+```
+
+```python
+random_1 == random_3
+
+<tf.Tensor: shape=(3, 2), dtype=bool, numpy=
+array([[False, False],
+       [False, False],
+       [False, False]])>
+```
+
+Ok, e se você quiser embaralhar a ordem de um tensor ? Digamos que você esteja em um projeto com 20.000 imagens de pizzas e carnes e as primeiras 15.000 imagens são de pizzas e as próximas 5.000 são de carnes. Essa distribuição pode afetar a forma como uma rede neural aprende ou seja, pode ser induzida a aprender pela ordem dos dados, em vez disso, pode ser uma boa estratégia embaralhar os dados.
+
+```python
+nao_embaralhado = tf.constant([[10, 7],
+                            [3, 4],
+                            [2, 5]])
+
+tf.random.shuffle(nao_embaralhado)
+
+<tf.Tensor: shape=(3, 2), dtype=int32, numpy=
+array([[10,  7],
+       [ 2,  5],
+       [ 3,  4]], dtype=int32)>
+```
+
+Agora vamos embaralhar:
+
+```python
+tf.random.shuffle(nao_embaralhado, seed=42)
+
+<tf.Tensor: shape=(3, 2), dtype=int32, numpy=
+array([[ 2,  5],
+       [ 3,  4],
+       [10,  7]], dtype=int32)>
+```
+
+## Outras formas de criar Tensors
 
 
 
