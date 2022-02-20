@@ -78,3 +78,4 @@
     * [Criando Tensors com tf.Variable()](contents/intro-tensorflow.md#criando-tensors-com-tfvariable)
     * [Outras formas de criar Tensors](contents/intro-tensorflow.md#outras-formas-de-criar-tensors)
     * [Manipulando Tensors](contents/intro-tensorflow.md#manipulando-tensors)
+  * [Transfer Learning com TensorFlow](contents/transfer-learning-tensorflow.md)
