@@ -1,6 +1,9 @@
 # Configurando o Ambiente
 
-Google Colab ou Jupyter Notebook
-
 ---
-WIP
+
+# WIP
+
+- ## Tutorial Google Colab
+
+- ## Tutorial Jupyter Notebook

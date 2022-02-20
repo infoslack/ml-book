@@ -76,3 +76,5 @@
     * [Tensors](contents/intro-tensorflow.md#tensors)
     * [Criando Tensors com tf.constant()](contents/intro-tensorflow.md#criando-tensors-com-tfconstant)
     * [Criando Tensors com tf.Variable()](contents/intro-tensorflow.md#criando-tensors-com-tfvariable)
+    * [Outras formas de criar Tensors](contents/intro-tensorflow.md#outras-formas-de-criar-tensors)
+    * [Manipulando Tensors](contents/intro-tensorflow.md#manipulando-tensors)

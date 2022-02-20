@@ -6,4 +6,12 @@ Você pode baixar os exemplos utilizados no livro a qualquer momento pelo link: 
 
 ---
 
-WIP
+# WIP
+
+- ## O qué Machine Learning
+
+- ## Problemas que resolve
+
+- ## Tipos e soluções
+
+- ## Principais algoritmos

@@ -809,4 +809,7 @@ Podemos ver que, quando `sex` é 0 (*feminino*), há 3 vezes mais pessoas com do
 
 ---
 
-WIP
+# WIP
+
+- add exemplo prático com regressão
+- revisar

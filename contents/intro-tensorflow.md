@@ -398,16 +398,14 @@ array([[70, 30],
        [40, 50]], dtype=int32)>
 ```
 
-### Multiplicação de Matriz
-
-
-
-
-
-
-
-
-
 ---
 
-WIP
+# WIP
+
+- ## Multiplicação de Matriz
+
+- ## Alterando o tipo de dados de um Tensor
+
+- ## Tensors e NumPy
+
+- ## Acessando GPUs
