@@ -1386,6 +1386,106 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
         [<span class="hljs-number">22</span>, <span class="hljs-number">23</span>, <span class="hljs-number">24</span>]]], dtype=int32)&gt;
 </code></pre>
 <h2 id="listando-informações-de-tensors">Listando informações de Tensors</h2>
+<p>Em algum momento vamos precisar obter informações diferentes sobre os tensors, as principais formas:</p>
+<ul>
+<li><strong>Shape</strong> número de elementos de cada dimensão de um tensor.</li>
+<li><strong>Rank</strong> número de dimensões de um tensor.</li>
+<li><strong>Axis</strong> uma dimensão particular de um tensor.</li>
+<li><strong>Size</strong> número total de elementos no tensor.</li>
+</ul>
+<p>Vamos criar um novo tensor com zeros e obter todas essas informações:</p>
+<pre><code class="lang-python">rank_tensor_4 = tf.zeros([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+rank_tensor_4
+
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>), dtype=float32, numpy=
+array([[[[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+        [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+        [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]]],
+
+
+       [[[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+        [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]],
+
+        [[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>],
+         [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>]]]], dtype=float32)&gt;
+</code></pre>
+<p>Exemplificando as principais funções para coletar informações sobre o tensor que criamos:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Tipo de dados de cada elemento:&quot;</span>, rank_tensor_4.dtype)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Número de dimensões:&quot;</span>, rank_tensor_4.ndim)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Shape (forma) do tensor:&quot;</span>, rank_tensor_4.shape)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Elementos no eixo 0 do tensor:&quot;</span>, rank_tensor_4.shape[<span class="hljs-number">0</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Elementos ao longo do último eixo do tensor:&quot;</span>, rank_tensor_4.shape[-<span class="hljs-number">1</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Número total de elementos:&quot;</span>, tf.size(rank_tensor_4).numpy())
+
+
+Tipo de dados de cada elemento: &lt;dtype: <span class="hljs-string">&apos;float32&apos;</span>&gt;
+Número de dimensões: <span class="hljs-number">4</span>
+Shape (forma) do tensor: (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
+Elementos no eixo <span class="hljs-number">0</span> do tensor: <span class="hljs-number">2</span>
+Elementos ao longo do último eixo do tensor: <span class="hljs-number">5</span>
+Número total de elementos: <span class="hljs-number">120</span>
+</code></pre>
+<h2 id="manipulando-tensors">Manipulando Tensors</h2>
+<p>Para encontrar padrões nos dados (tensors) é necessário manipulá-los. Ao criar modelos no TensorFlow, grande parte da descoberta de padrões é feita automaticamente, veremos apenas algumas das instruções que ocorrem por baixo dos panos.</p>
+<h3 id="operações-básicas">Operações básicas</h3>
+<p>Podemos executar várias das operações matemáticas básicas diretamente em um tensor utilizando operadores Python <code>+</code>, <code>-</code>, <code>*</code>:</p>
+<pre><code class="lang-python">tensor = tf.constant([[<span class="hljs-number">7</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]])
+tensor
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[<span class="hljs-number">7</span>, <span class="hljs-number">3</span>],
+       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]], dtype=int32)&gt;
+
+
+tensor + <span class="hljs-number">10</span>
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[<span class="hljs-number">17</span>, <span class="hljs-number">13</span>],
+       [<span class="hljs-number">14</span>, <span class="hljs-number">15</span>]], dtype=int32)&gt;
+</code></pre>
+<p>Agora com os outros operadores:</p>
+<pre><code class="lang-python">tensor * <span class="hljs-number">10</span>
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[<span class="hljs-number">70</span>, <span class="hljs-number">30</span>],
+       [<span class="hljs-number">40</span>, <span class="hljs-number">50</span>]], dtype=int32)&gt;
+
+tensor - <span class="hljs-number">10</span>
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[-<span class="hljs-number">3</span>, -<span class="hljs-number">7</span>],
+       [-<span class="hljs-number">6</span>, -<span class="hljs-number">5</span>]], dtype=int32)&gt;
+</code></pre>
+<p>Outra forma seria utilizando uma função do TensorFlow:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># equivalente ao operador &quot;*&quot;</span>
+tf.multiply(tensor, <span class="hljs-number">10</span>)
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=int32, numpy=
+array([[<span class="hljs-number">70</span>, <span class="hljs-number">30</span>],
+       [<span class="hljs-number">40</span>, <span class="hljs-number">50</span>]], dtype=int32)&gt;
+</code></pre>
+<h3 id="multiplicação-de-matriz">Multiplicação de Matriz</h3>
 <hr>
 <p>WIP</p>
 
@@ -1427,7 +1527,7 @@ array([[[ <span class="hljs-number">1</span>,  <span class="hljs-number">2</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"TensorFlow","level":"1.3.3","depth":2,"previous":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]},{"title":"Feature importance","level":"1.3.2.10","depth":3,"anchor":"#feature-importance","path":"contents/contents-sklearn.md","ref":"contents/contents-sklearn.md#feature-importance","articles":[]}]},"articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]}],"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/intro-tensorflow.md","mtime":"2022-02-19T12:07:33.435Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-19T12:08:21.740Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"TensorFlow","level":"1.3.3","depth":2,"previous":{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]},{"title":"Feature importance","level":"1.3.2.10","depth":3,"anchor":"#feature-importance","path":"contents/contents-sklearn.md","ref":"contents/contents-sklearn.md#feature-importance","articles":[]}]},"articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]}],"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/intro-tensorflow.md","mtime":"2022-02-20T12:11:53.041Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-20T12:12:42.866Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

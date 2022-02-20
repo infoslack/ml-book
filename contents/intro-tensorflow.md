@@ -281,6 +281,125 @@ array([[[ 1,  2,  3],
 
 ## Listando informações de Tensors
 
+Em algum momento vamos precisar obter informações diferentes sobre os tensors, as principais formas:
+
+- **Shape** número de elementos de cada dimensão de um tensor.
+- **Rank** número de dimensões de um tensor.
+- **Axis** uma dimensão particular de um tensor.
+- **Size** número total de elementos no tensor.
+
+Vamos criar um novo tensor com zeros e obter todas essas informações:
+
+```python
+rank_tensor_4 = tf.zeros([2, 3, 4, 5])
+rank_tensor_4
+
+
+<tf.Tensor: shape=(2, 3, 4, 5), dtype=float32, numpy=
+array([[[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]],
+
+
+       [[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]]], dtype=float32)>
+```
+
+Exemplificando as principais funções para coletar informações sobre o tensor que criamos:
+
+```python
+print("Tipo de dados de cada elemento:", rank_tensor_4.dtype)
+print("Número de dimensões:", rank_tensor_4.ndim)
+print("Shape (forma) do tensor:", rank_tensor_4.shape)
+print("Elementos no eixo 0 do tensor:", rank_tensor_4.shape[0])
+print("Elementos ao longo do último eixo do tensor:", rank_tensor_4.shape[-1])
+print("Número total de elementos:", tf.size(rank_tensor_4).numpy())
+
+
+Tipo de dados de cada elemento: <dtype: 'float32'>
+Número de dimensões: 4
+Shape (forma) do tensor: (2, 3, 4, 5)
+Elementos no eixo 0 do tensor: 2
+Elementos ao longo do último eixo do tensor: 5
+Número total de elementos: 120
+```
+
+## Manipulando Tensors
+
+Para encontrar padrões nos dados (tensors) é necessário manipulá-los. Ao criar modelos no TensorFlow, grande parte da descoberta de padrões é feita automaticamente, veremos apenas algumas das instruções que ocorrem por baixo dos panos.
+
+### Operações básicas
+
+Podemos executar várias das operações matemáticas básicas diretamente em um tensor utilizando operadores Python `+`, `-`, `*`:
+
+```python
+tensor = tf.constant([[7, 3], [4, 5]])
+tensor
+
+<tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[7, 3],
+       [4, 5]], dtype=int32)>
+
+
+tensor + 10
+
+<tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[17, 13],
+       [14, 15]], dtype=int32)>
+```
+
+Agora com os outros operadores:
+
+```python
+tensor * 10
+
+<tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[70, 30],
+       [40, 50]], dtype=int32)>
+
+tensor - 10
+
+<tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[-3, -7],
+       [-6, -5]], dtype=int32)>
+```
+
+Outra forma seria utilizando uma função do TensorFlow:
+
+```python
+# equivalente ao operador "*"
+tf.multiply(tensor, 10)
+
+<tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[70, 30],
+       [40, 50]], dtype=int32)>
+```
+
+### Multiplicação de Matriz
+
 
 
 
