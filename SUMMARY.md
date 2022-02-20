@@ -72,7 +72,7 @@
     * [GridSearchCV](contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv)
     * [ROC Curve e AUC Scores](contents/ml-sklearn.md#roc-curve-e-auc-scores)
     * [Feature importance](contents/contents-sklearn.md#feature-importance)
-  * [TensorFlow](contents/intro-tensorflow.md)
+  * [Introdução ao TensorFlow](contents/intro-tensorflow.md)
     * [Tensors](contents/intro-tensorflow.md#tensors)
     * [Criando Tensors com tf.constant()](contents/intro-tensorflow.md#criando-tensors-com-tfconstant)
     * [Criando Tensors com tf.Variable()](contents/intro-tensorflow.md#criando-tensors-com-tfvariable)

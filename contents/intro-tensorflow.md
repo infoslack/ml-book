@@ -1,4 +1,4 @@
-# TensorFlow
+# Introdução ao TensorFlow
 
 TensorFlow é uma biblioteca de Machine Learning *open-source* para pré-processamento de dados, modelagem de dados e criação de modelos. Em vez de criar modelos de `ML` do zero, podemos utilizar TensorFlow que contém muitas funções de `ML` (*principalmente as mais utilizadas*). Ok, TensorFlow é vasto, mas o foco principal é simples: transformar dados em números que são chamados de (`tensors`) e construir algoritmos de `ML` para encontrar padrões neles.
 
