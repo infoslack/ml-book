@@ -567,6 +567,263 @@ O callback `early_stopping` entrou em ação e parou de treinar após 25 verific
 
 ## Fazendo previsões e avaliando os resultados
 
+Bem, antes de aumentarmos o número de imagens para treinar o modelo com mais dados, veremos outras formas de avaliar o nosso modelo. Embora a precisão seja um bom indicador e como o nosso modelo está performando, seria ainda melhor poder ver ele em ação. Para isso podemos fazer previsões por meio da função `predict()`, passando os dados no mesmo formato em que o modelo foi treinado.
+
+```
+predictions = model.predict(val_data, verbose=1)
+predictions
+
+7/7 [==============================] - 2s 177ms/step
+array([[6.1289142e-03, 4.9413438e-04, 1.8335391e-04, ..., 5.0873416e-03,
+        1.0212163e-03, 1.8342169e-03],
+       [2.9808136e-03, 3.8091789e-03, 1.7363916e-03, ..., 1.0431294e-03,
+        1.7300938e-04, 4.0559638e-03],
+       [9.8665347e-05, 4.7748103e-06, 9.3761346e-06, ..., 5.6768484e-05,
+        9.2058966e-05, 2.0925076e-04],
+       ...,
+       [2.4115643e-05, 5.0457241e-04, 3.6022495e-04, ..., 3.2151077e-04,
+        1.6623015e-03, 5.2641069e-05],
+       [3.1822168e-05, 9.7815809e-04, 9.4177556e-04, ..., 7.8174734e-04,
+        9.3225291e-04, 1.5031500e-05],
+       [2.1962752e-03, 7.2391253e-05, 5.9957849e-04, ..., 2.1881016e-04,
+        5.3851202e-04, 2.3197865e-03]], dtype=float32)
+```
+
+```python
+predictions.shape
+
+(200, 120)
+```
+
+Fazer previsões sobre os dados de validação (200 imagens) retorna uma matriz com um valor diferente para cada rótulo. Cada matriz contém 120 valores diferentes (um para cada raça de cão). Esses valores diferentes são as probabilidades de o modelo prever que uma determinada imagem é uma raça específica de cachorro. Quanto maior o valor, maior a probabilidade de o modelo relacionar que determinada imagem pertence a uma raça. Vamos converter uma matriz de probabilidades em um rótulo real:
+
+```python
+print(predictions[0])
+print(f"Valor Máximo (probabilidade de previsão): {np.max(predictions[0])}")
+print(f"Soma total: {np.sum(predictions[0])}")
+print(f"Max index: {np.argmax(predictions[0])}")
+print(f"Rótulo previsto: {racas[np.argmax(predictions[0])]}")
+```
+
+```
+[6.12891419e-03 4.94134380e-04 1.83353914e-04 2.29427358e-04
+ 3.73498560e-03 6.29680348e-04 1.21862011e-03 5.69027266e-04
+ 5.72043791e-06 3.57908453e-03 2.28679317e-04 5.76176644e-05
+ 7.43210781e-04 6.54693213e-05 6.88183354e-04 2.73649484e-01
+ 2.04424170e-04 7.35868467e-04 1.87200130e-05 1.86801379e-04
+ 7.96007749e-04 3.71084618e-03 7.78313435e-04 1.21078745e-04
+ 1.79169734e-03 2.10062994e-04 6.47211345e-05 3.92607108e-05
+ 1.71959680e-02 9.54358838e-04 1.46281358e-03 5.85304631e-04
+ 2.20437490e-04 1.95942863e-04 3.64659145e-03 1.46316524e-04
+ 1.61483200e-04 4.42342076e-04 8.39865825e-04 7.80218223e-04
+ 1.91953883e-03 3.57783213e-03 1.95646053e-03 2.01559713e-04
+ 4.62555065e-04 1.78337761e-03 1.97481131e-05 5.32588303e-01
+ 5.08746707e-05 1.55199913e-03 1.01689156e-03 1.28392398e-03
+ 1.91731509e-04 5.89729811e-04 4.80399649e-05 2.92319944e-03
+ 4.93563311e-05 6.99758355e-04 1.33902836e-03 1.97827048e-03
+ 2.35292478e-03 2.23126786e-04 4.09513537e-04 2.40915819e-04
+ 8.94229510e-04 3.35462246e-04 1.45765400e-04 6.22630911e-03
+ 5.60026165e-05 6.55528856e-04 1.75896916e-03 5.94771009e-05
+ 4.95163724e-04 9.60865640e-04 8.21350981e-03 2.42739008e-03
+ 1.49727776e-03 2.79009313e-04 2.25998392e-05 7.21598553e-05
+ 2.00509187e-03 6.27041009e-05 2.57713371e-04 1.19005432e-04
+ 2.29247264e-04 2.88886193e-04 1.10973348e-03 6.52837101e-04
+ 5.14724117e-04 1.59008149e-03 2.06289100e-04 6.29047805e-04
+ 8.09656412e-05 2.13349325e-04 8.35536281e-04 4.90781385e-03
+ 2.14187196e-03 3.24452703e-04 8.27542535e-05 1.16136371e-05
+ 1.94864441e-03 7.23455974e-04 3.59507569e-04 9.97863826e-04
+ 4.22419806e-04 1.53413648e-03 5.75519865e-04 2.55084451e-04
+ 1.23032616e-04 5.00681235e-05 2.36897580e-02 1.00696562e-02
+ 2.20857211e-03 2.17336584e-02 7.59088784e-04 9.01289808e-04
+ 3.88310174e-04 5.08734165e-03 1.02121627e-03 1.83421688e-03]
+Valor Máximo (probabilidade de previsão): 0.5325883030891418
+Soma total: 1.0
+Max index: 47
+Rótulo previsto: german_short-haired_pointer
+```
+
+Para melhorar, seria interessante poder comparar uma previsão com o seu verdadeiro rótulo e imagem original. Vamos escrever uma pequena função para converter probabilidades de previsão em rótulos previstos (também conhecidos por níveis de confiança).
+
+```python
+def get_pred_label(prediction_probabilities):
+  return racas[np.argmax(prediction_probabilities)]
+
+pred_label = get_pred_label(predictions[0])
+pred_label
+
+
+'german_short-haired_pointer'
+```
+
+Temos uma lista de todas as diferentes previsões que nosso modelo fez, faremos o mesmo para as imagens de validação e rótulos de validação.
+
+Lembre-se o modelo não treinou nos dados de validação, apenas os utilizou para se avaliar. Podemos utilizar as imagens de validação para comparar visualmente as previsões do nosso modelo e de modelos futuros com os rótulos de validação.
+
+```python
+def unbatchify(data):
+  images = []
+  labels = []
+  # Loop para extrair os dados do lote
+  for image, label in data.unbatch().as_numpy_iterator():
+    images.append(image)
+    labels.append(racas[np.argmax(label)])
+  return images, labels
+
+# desagrupa os dados de validação do lote
+val_images, val_labels = unbatchify(val_data)
+val_images[0], val_labels[0]
+```
+
+```
+(array([[[0.30199423, 0.17258248, 0.13728836],
+         [0.2740196 , 0.14460786, 0.10931374],
+         [0.31081027, 0.1813985 , 0.14610438],
+         ...,
+         [0.1727071 , 0.09924757, 0.09284008],
+         [0.15458685, 0.10815825, 0.08462884],
+         [0.1589285 , 0.11579124, 0.09226183]],
+ 
+        [[0.2646662 , 0.13525441, 0.0999603 ],
+         [0.28669468, 0.15728292, 0.12198881],
+         [0.29741678, 0.16800502, 0.1327109 ],
+         ...,
+         [0.16822693, 0.09476741, 0.08835991],
+         [0.15711254, 0.1028408 , 0.08095706],
+         [0.16344531, 0.1124649 , 0.08893549]],
+ 
+        [[0.27388737, 0.14447562, 0.1091815 ],
+         [0.28355125, 0.15413947, 0.11884536],
+         [0.29154727, 0.16213548, 0.12684137],
+         ...,
+         [0.17158315, 0.09812362, 0.09171613],
+         [0.15312406, 0.09607842, 0.08525909],
+         [0.15924363, 0.1037114 , 0.09289208]],
+ 
+        ...,
+ 
+        [[0.45745805, 0.37902668, 0.34373254],
+         [0.4576253 , 0.3791939 , 0.3438998 ],
+         [0.4664319 , 0.38800052, 0.35270637],
+         ...,
+         [0.38155785, 0.30312645, 0.26783234],
+         [0.42671952, 0.33233738, 0.30305785],
+         [0.4091662 , 0.31175718, 0.2839911 ]],
+ 
+        [[0.4911461 , 0.41271472, 0.3774206 ],
+         [0.4567228 , 0.3782914 , 0.34299728],
+         [0.46088153, 0.38245016, 0.34715602],
+         ...,
+         [0.35559455, 0.2850063 , 0.24579063],
+         [0.37254903, 0.2953082 , 0.25941882],
+         [0.37647063, 0.29922977, 0.26334038]],
+ 
+        [[0.4597125 , 0.38128114, 0.345987  ],
+         [0.47902521, 0.40059385, 0.3652997 ],
+         [0.44550127, 0.36706987, 0.33177575],
+         ...,
+         [0.36276323, 0.292175  , 0.2529593 ],
+         [0.3834035 , 0.31281525, 0.27359957],
+         [0.38661253, 0.31602427, 0.2768086 ]]], dtype=float32),
+ 'german_short-haired_pointer')
+```
+
+Agora é possível obter os rótulos de previsão, rótulos de validação e as imagens de validação. Podemos visualizar uma imagem e seu rótulo previsto, bem como o rótulo verdadeiro.
+
+```python
+def plot_pred(prediction_probabilities, labels, images, n=1):
+  pred_prob, true_label, image = prediction_probabilities[n], labels[n], images[n]
+  
+  # pega o rótulo previsto
+  pred_label = get_pred_label(pred_prob)
+  
+  # plotando a imagem
+  plt.imshow(image)
+  plt.xticks([])
+  plt.yticks([])
+
+  # altera a cor do título dependendo da previsão estar certa ou errada
+  if pred_label == true_label:
+    color = "green"
+  else:
+    color = "red"
+
+  plt.title("{} {:2.0f}% ({})".format(pred_label,
+                                      np.max(pred_prob)*100,
+                                      true_label),
+                                      color=color)
+```
+
+```python
+# exemplo de previsão
+plot_pred(prediction_probabilities=predictions,
+          labels=val_labels,
+          images=val_images)
+```
+
+![predict tf sample](images/tf-predict-1.png)
+
+Visualizar os resultados dos nossos modelos é realmente útil para entender como o modelo está se saindo. Como este é um problema multiclasse (120 raças de cães diferentes), seria interessante também ver outras suposições que o modelo está fazendo. Para isso criaremos outra função:
+
+```python
+def plot_pred_conf(prediction_probabilities, labels, n=1):
+
+  pred_prob, true_label = prediction_probabilities[n], labels[n]
+
+  # pega o rótulo previsto
+  pred_label = get_pred_label(pred_prob)
+
+  # encontra o top 10 para previsões
+  top_10_pred_indexes = pred_prob.argsort()[-10:][::-1]
+  top_10_pred_values = pred_prob[top_10_pred_indexes]
+  top_10_pred_labels = racas[top_10_pred_indexes]
+
+  # configura o plot
+  top_plot = plt.bar(np.arange(len(top_10_pred_labels)), 
+                     top_10_pred_values, 
+                     color="grey")
+  plt.xticks(np.arange(len(top_10_pred_labels)),
+             labels=top_10_pred_labels,
+             rotation="vertical")
+
+  # altera a cor do título conforme a previsão (certa/errada)
+  if np.isin(true_label, top_10_pred_labels):
+    top_plot[np.argmax(top_10_pred_labels == true_label)].set_color("green")
+  else:
+    pass
+```
+
+```python
+plot_pred_conf(prediction_probabilities=predictions, labels=val_labels, n=9)
+```
+
+![top 10 predictions](images/tf-top-10-pred.png)
+
+Agora podemos executar algumas funções para visualizar nossas previsões e ajudar na avaliação do modelo, vamos conferir:
+
+```python
+i_multiplier = 0
+num_rows = 3
+num_cols = 2
+num_images = num_rows*num_cols
+plt.figure(figsize=(5*2*num_cols, 5*num_rows))
+for i in range(num_images):
+  plt.subplot(num_rows, 2*num_cols, 2*i+1)
+  plot_pred(prediction_probabilities=predictions,
+            labels=val_labels,
+            images=val_images,
+            n=i+i_multiplier)
+  plt.subplot(num_rows, 2*num_cols, 2*i+2)
+  plot_pred_conf(prediction_probabilities=predictions,
+                labels=val_labels,
+                n=i+i_multiplier)
+plt.tight_layout(h_pad=1.0)
+plt.show()
+```
+
+![top 6 preds](images/tf-top-6.png)
+
+## Salvando e carregando um modelo
+
 ---
 
 ## WIP
