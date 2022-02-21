@@ -824,6 +824,43 @@ plt.show()
 
 ## Salvando e carregando um modelo
 
+É uma boa prática salvar um modelo logo depois de treiná-lo. Ao salvar significa que você pode compartilhar com outros desenvolvedores, ou utilizar em um aplicativo. O formato de um modelo Keras salvo é `h5`, faremos uma função com o método `save()` para salvar um arquivo `h5` em um diretório.
+
+```python
+def save_model(model, suffix=None):
+  
+  # criando o diretório onde o modelo sera salvo
+  modeldir = os.path.join("drive/MyDrive/Data/models",
+                          datetime.datetime.now().strftime("%Y%m%d-%H%M%s"))
+  model_path = modeldir + "-" + suffix + ".h5" # formato do modelo
+  print(f"Saving model to: {model_path}...")
+  model.save(model_path)
+  return model_path
+```
+
+E caso você precise carregar o modelo, teremos uma função que utiliza o caminho para o arquivo `h5` salvo, `tf.keras.models.load_model()` vai carregar o modelo no notebook.
+
+> Como estamos utilizando um modelo do TensorFlow Hub, teremos que passar a instrução `hub.KerasLayer` como parâmetro.
+
+```python
+def load_model(model_path):
+  print(f"Loading saved model from: {model_path}")
+  model = tf.keras.models.load_model(model_path,
+                                     custom_objects={"KerasLayer":hub.KerasLayer})
+  return model
+```
+
+Agora vamos ao teste:
+
+```python
+save_model(model, suffix="1000-images-Adam")
+
+Saving model to: drive/MyDrive/Data/models/20220221-20161645474573-1000-images-Adam.h5...
+'drive/MyDrive/Data/models/20220221-20161645474573-1000-images-Adam.h5'
+```
+
+## Treinando um modelo com todos os dados
+
 ---
 
 ## WIP
