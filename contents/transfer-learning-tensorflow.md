@@ -404,8 +404,83 @@ show_images(val_images, val_labels)
 
 ## Criando e treinando um modelo
 
+Agora que os dados estão prontos, precisamos preparar a próxima etapa, a modelagem. Como o nosso objetivo nesse momento é realizar um experimento de `Transfer Learning` (aprendizagem por transferência), usaremos um modelo existente do [TensorFlow Hub (ou TensorHub)](https://tfhub.dev/). TensorFlow Hub é uma plataforma onde podemos encontrar modelos de Machine Learning pré-treinados para o problema que estamos trabalhando.
 
+Como dito antes, construir um modelo de `ML` do zero e treiná-lo em lotes pode ser demorado (veremos em outros capítulos como fazer isso).
+Transfer Learning ajuda a reduzir boa parte do tempo nesse processo, uma vez que o modelo vai pegar as instruções que outro modelo aprendeu e utilizar isso na resolução de seu próprio problema.
 
+Sabemos que nosso problema é de classificação de imagens, podemos pesquisar no TensorFlow Hub pelo domínio do problema (imagem).
+Isso resulta em uma lista de diferentes modelos pré-treinados que podemos escolher e aplicar para nossa tarefa. Por exemplo, o modelo [mobilenet_v2_130_224](https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5) nos mostra que pode receber como entrada imagens no formato (`224,224`) e que o modelo foi bastante treinado para classificação de imagens. Vamos utilizá-lo!
+
+```python
+# configurando o formato de entrada para o modelo
+INPUT_SHAPE = [None, IMG_SIZE, IMG_SIZE, 3] # lote, altura, largura, RGB
+
+# configurado o formato de saída do modelo
+OUTPUT_SHAPE = len(racas) # número labels únicos, as 120 raças
+
+# url do modelo que escolhemos no TensorFlow Hub
+MODEL_URL = "https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5"
+```
+
+Agora que temos as entradas e saídas definidas, bem como o modelo que iremos utilizar, podemos começar a juntar as partes. Há muitas formas de se criar um modelo no TensorFlow, uma das formas de começar é utilizando a [API Keras](https://www.tensorflow.org/guide/keras/sequential_model).
+
+Vamos criar uma função que recebe a forma da entrada, a saída e a url do modelo como parâmetros. Na função vamos definir as camadas em um modelo Keras de forma sequencial, para em seguida compilar o modelo (informando como ele deve ser avaliado e melhorado) e construindo o modelo (informando qual formato de entrada de dados ele deve receber).
+
+```python
+# função para criar modelo Keras
+def create_model(input_shape=INPUT_SHAPE, output_shape=OUTPUT_SHAPE, model_url=MODEL_URL):
+  print("Criando modelo com:", MODEL_URL) # url do modelo escolhido no tensorhub
+
+  # configurando as camadas do modelo
+  model = tf.keras.Sequential([
+    hub.KerasLayer(MODEL_URL), # 1 (camada de entrada)
+    tf.keras.layers.Dense(units=OUTPUT_SHAPE, 
+                          activation="softmax") # 2 (camada de saída)
+  ])
+
+  # compilando o modelo
+  model.compile(
+      # o modelo quer reduzir o percentual de suas suposições
+      loss=tf.keras.losses.CategoricalCrossentropy(),
+      # essa função diz ao modelo como melhorar os palpites
+      optimizer=tf.keras.optimizers.Adam(),
+      metrics=["accuracy"] # o objetivo final é fazer esse valor subir
+  )
+
+  # construindo o modelo
+  model.build(INPUT_SHAPE)
+  
+  return model
+```
+
+Para configurar as camadas do modelo, existem duas formas de se fazer isso no `Keras`, a forma funcional e a sequencial, estamos utilizando a sequencial. A documentação diz que a API funcional é o melhor caminho para definir modelos complexos, já a API sequencial é perfeitamente adequada para começar, que é justamente o que estamos fazendo.
+
+A primeira camada que adicionamos é o modelo do TensorFlow Huyb: `hub.KerasLayer(MODEL_URL)`. Em outras palavras a nossa primeira camada é na verdade um modelo inteiro (*contendo muito mais camadas*). Essa camada de entrada recebe as imagens e busca por padrões nelas com base nos padrões que `mobilenet_v2_130_224` encontrou.
+
+Na próxima camada `tf.keras.layers.Dense()` é a camada de saída do nosso modelo. Aqui fica disponível todas as informações descobertas na camada de entrada. O parâmetro `activation="softmax"` informa à camada de saída que queremos atribuir um valor de probabilidade a cada um dos 120 rótulos (raças de cães) em algum lugar entre 0 e 1. Quanto maior for o valor, mais o modelo acredita que a imagem de entrada deve receber o rótulo atribuído.
+
+E a compilação do modelo ? Bem, digamos que você esteja em uma competição de natação em mar aberto. O problema é que você está com os olhos vendados. Felizmente você tem um amigo, `Adam`, que está areia observando e gritando as instruções de direção para você concluir a prova. Ao lado de Adam encontra-se um juiz que está avaliando o seu desempenho na prova. O juiz sabe onde você precisa chegar, então ele fica comparando como você está indo com onde você deveria estar. Essa comparação é a forma que você é pontuado. De volta para as terminologias:
+
+- **loss** - é a função de perda, o objetivo do modelo é minimizar isso, fazendo chegar a 0 (*nadar até a linha de chegada sem errar o caminho*).
+- **optimizer** - é o seu amigo Adam, ele é o responsável em dizer como navegar no mar (reduzindo a função de perda) com base no que você já foi feito.
+- **metrics** - esse é o juiz que fica avaliando o seu desempenho. Ou no caso do nosso problema, fornece a precisão de quão bem o modelo está prevendo o rótulo correto da imagem.
+
+Sempre que estivermos utilizando uma camada do TensorFlow Hub, usaremos `model.build()` para informar ao modelo qual formato de entrada ele pode esperar. No nosso exemplo, a forma de entrada é `[None, 224, 224, 3]`. O tamanho do lote é representado como `None` pois essa informação é inferida a partir dos dados que estamos passando ao modelo (32 nesse caso, pois foi assim que configuramos). Agora que vimos cada etapa da função, vamos utilizá-la para criar um modelo.
+
+```python
+model = create_model()
+model.summary()
+```
+
+![criando um modelo com tf](images/tf-criando-modelo.png)
+
+> Utilizamos a função `summary()` para ter uma ideia de como é o modelo.
+
+Os parâmetros não treináveis (*Non-trainable params*) são os padrões aprendidos por `mobilenet_v2_130_224` e os parâmetros treináveis (*Trainable params*) são os que adicionamos em `tf.keras.layers.Dense()`.
+Esse resultado mostra que a maior parte das informações em nosso modelo, já foram aprendidas e só precisamos pegar isso e adaptar para o nosso problema.
+
+## Criando Callbacks
 
 ---
 
