@@ -482,6 +482,91 @@ Esse resultado mostra que a maior parte das informações em nosso modelo, já f
 
 ## Criando Callbacks
 
+O nosso modelos está pronto para ser treinado, mas antes de prosseguir faremos alguns `Callbacks`. São funções auxiliares que um modelo pode usar durante o treino para fazer tarefas como salvar o progresso, verificar o progresso ou interromper o processo de treinamento de forma antecipada.
+Criaremos dois callbacks para adicionar uma chamada ao [TensorBoard](https://www.tensorflow.org/tensorboard/get_started) e outra chamada de parada antecipada.
+
+O `TensorBoard` fornece uma maneira visual de monitorar o progresso do modelo, durante e após o treinamento. Pode ser utilizado diretamente no notebook para rastrear métricas de desempenho de um modelo, como score de perda e precisão.
+
+### WIP
+  - configurar o tensorboard
+
+```python
+%load_ext tensorboard
+
+import os
+import datetime
+def create_tensorboard_callback():
+  # cria diretório para armazenar os logs do TensorBoard
+  logdir = os.path.join("drive/MyDrive/Data/logs",
+                        datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+  return tf.keras.callbacks.TensorBoard(logdir)
+```
+
+Temos ainda a [interrupção antecipada (*Early stopping*)](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping) que ajuda a evitar o `overfitting`, interrompendo um modelo quando uma determinada métrica de avaliação para de melhorar. Basicamente vamos dizer para o modelo: procure por padrões até que a qualidade desses padrões comece a cair.
+
+```python
+# criando chamada de interrupção antecipada
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_accuracy",
+                                                  patience=3)
+```
+
+Como discutido antes, vamos treinar o nosso modelo em apenas 1000 imagens. Em outras palavras, treinaremos em 800 imagens e utilizaremos as outras 200 para validação, totalizando 1000. Faremos isso para garantir que tudo esteja funcionando, depois de confirmar isso poderemos treinar em todo o conjunto de dados.
+
+Antes de treinar precisamos definir mais um parâmetro `NUM_EPOCHS` que define quantas passagens dos dados gostaríamos que nosso modelo fizesse. Um passe equivale ao nosso modelo tentando encontrar padrões em cada imagem e verificar quais padrões se relacionam com cada rótulo.
+
+Por exemplo `NUM_EPOCHS=1`, o modelo vai examinar os dados apenas uma única vez e provavelmente terá uma pontuação ruim, pois não tem chance de se corrigir. Um bom valor é difícil de definir, 10 pode ser um bom começo, mas 100 pode ser melhor. Esse é um dos motivos pelos quais criamos um `callback` de parada antecipada, se definirmos `NUM_EPOCHS=100` e o modelo parou de melhorar após 22, o treinamento será interrompido.
+
+Bem, vamos verificar rapidamente se estamos utilizando uma GPU:
+
+```python
+print("GPU", "disponível!!!!)" if tf.config.list_physical_devices("GPU") else "not configurada :(")
+
+GPU disponível!!!!)
+```
+
+Perfeito, temos uma GPU disponível para execução, agora vamos configurar `NUM_EPOCHS` e criar uma função simples para treinar um modelo.
+
+```python
+NUM_EPOCHS = 100
+
+# função para treinar um modelo
+def train_model():
+  # criando o modelo
+  model = create_model()
+
+  # cria uma sessão do TensorBoard toda vez que um modelo for treinado
+  tensorboard = create_tensorboard_callback()
+
+  # treina o modelo com os dados e callbacks que criamos
+  model.fit(x=train_data,
+            epochs=NUM_EPOCHS,
+            validation_data=val_data,
+            validation_freq=1, # verifica a validação de métricas a cada epoch
+            callbacks=[tensorboard, early_stopping])
+  
+  return model
+```
+
+Finalmente, ao treinar um modelo pela primeira vez, levará um tempo para carregar os dados. Como estamos utilizando uma GPU esse processo pode levar alguns minutos (no nosso caso).
+
+```python
+model = train_model()
+```
+
+![train model fit](images/fit-model-1.png)
+
+Agora que nosso modelo foi trainado, vamos verificar os logs no TensorBoard e ver o seu desempenho de maneira visual.
+
+```python
+%tensorboard --logdir drive/MyDrive/Data/logs
+```
+
+![logs tensorboard](images/tf-board-1.png)
+
+O callback `early_stopping` entrou em ação e parou de treinar após 25 verificações. Isso ocorreu pois a precisão de validação não melhorou depois de 4 verificações. Podemos ver que o nosso modelo está aprendendo alguma coisa, a precisão da validação chegou a 66% em apenas alguns minutos. Isso significa que se aumentarmos o número de imagens, talvez possamos ver um aumento na precisão.
+
+## Fazendo previsões e avaliando os resultados
+
 ---
 
 ## WIP
