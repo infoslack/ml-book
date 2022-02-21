@@ -366,6 +366,45 @@ Agora temos os dados em lotes, em pares de tensors (imagens e rótulos) prontos 
 
 ## Visualizando os lotes de dados
 
+Vamos criar uma função para "plotar" 25 imagens:
+
+```python
+import matplotlib.pyplot as plt
+
+def show_images(images, labels):
+  plt.figure(figsize=(10, 10))
+  # loop para exibir 25 imagens
+  for i in range(25):
+    # cria subplots 5 x 5
+    ax = plt.subplot(5, 5, i+1)
+    # mostra imagem
+    plt.imshow(images[i])
+    # adiciona label da imagem como título
+    plt.title(racas[labels[i].argmax()])
+    plt.axis("off")
+```
+
+Já sabemos que um lote (aqui no nosso caso) é uma coleção de tensors. Ou seja, para visualizar os dados em um lote é preciso desfazer o lote primeiro. Isso pode ser feito por meio da função `as_numpy_iterator()` em um lote de dados. Dessa forma vamos transformar um lote em algo que possa ser iterado. Esse processo pode demorar um pouco:
+
+```python
+train_images, train_labels = next(train_data.as_numpy_iterator())
+show_images(train_images, train_labels)
+```
+
+![lote imagens tensors](images/lote-tensor.png)
+
+Podemos fazer o mesmo para dados de validação:
+
+```python
+val_images, val_labels = next(val_data.as_numpy_iterator())
+show_images(val_images, val_labels)
+```
+
+![lote imagens validação tensors](images/lote-tensor-val.png)
+
+## Criando e treinando um modelo
+
+
 
 
 ---
