@@ -1224,8 +1224,806 @@
 </li>
 </ul>
 <h2 id="preparando-os-dados">Preparando os dados</h2>
+<ul>
+<li><h3 id="wip">WIP</h3>
+<ul>
+<li>upload dos dados do kaggle para google drive</li>
+<li>explicar o processo de montagem do drive no colab<blockquote>
+<p>Os dados: <a href="https://www.kaggle.com/c/dog-breed-identification/data" target="_blank">https://www.kaggle.com/c/dog-breed-identification/data</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="acessando-os-dados">Acessando os dados</h3>
+<p>Agora que temos os dados que iremos trabalhar disponíveis no Google Drive, podemos começar a verificação dos mesmos. Começando com o arquivo <code>labels.csv</code> que contém todos os <code>IDs</code> de imagem associada com as raças dos cães, ou seja (dados e rótulos).</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+labels = pd.read_csv(<span class="hljs-string">&quot;drive/MyDrive/Dog Vision/labels.csv&quot;</span>)
+<span class="hljs-built_in">print</span>(labels.describe())
+<span class="hljs-built_in">print</span>(labels.head())
+</code></pre>
+<pre><code>count                              10222               10222
+unique                             10222                 120
+top     000bec180eb18c7604dcecc8fe0dba07  scottish_deerhound
+freq                                   1                 126
+                                 id             breed
+0  000bec180eb18c7604dcecc8fe0dba07       boston_bull
+1  001513dfcb2ffafc82cccf4d8bbaba97             dingo
+2  001cdf01b096e06d78e9e5112d419397          pekinese
+3  00214f311d5d2247d5dfe4fe24b2303d          bluetick
+4  0021f9ceb3235effd7fcde7f7538ed62  golden_retriever
+</code></pre><p>Existem 10.222 IDs diferentes (ou seja imagens diferentes) e 120 raças diferentes. Como temos os IDs das imagens e os rótulos (labels) em um DataFrame, precisamos criar:</p>
+<ul>
+<li>Uma lista com os caminhos dos arquivos para imagens de treino</li>
+<li>Uma matriz com todos os rótulos únicos</li>
+<li>Uma matriz geral de todos os rótulos</li>
+</ul>
+<pre><code class="lang-python">filenames = [<span class="hljs-string">&quot;drive/MyDrive/Dog Vision/train/&quot;</span> + fname + <span class="hljs-string">&quot;.jpg&quot;</span> <span class="hljs-keyword">for</span> fname <span class="hljs-keyword">in</span> labels[<span class="hljs-string">&quot;id&quot;</span>]]
+
+<span class="hljs-comment"># listando os 10 primeiros</span>
+filenames[:<span class="hljs-number">10</span>]
+</code></pre>
+<pre><code>[&apos;drive/MyDrive/Dog Vision/train/000bec180eb18c7604dcecc8fe0dba07.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/001513dfcb2ffafc82cccf4d8bbaba97.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/001cdf01b096e06d78e9e5112d419397.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/00214f311d5d2247d5dfe4fe24b2303d.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/0021f9ceb3235effd7fcde7f7538ed62.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/002211c81b498ef88e1b40b9abf84e1d.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/00290d3e1fdd27226ba27a8ce248ce85.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/002a283a315af96eaea0e28e7163b21b.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/003df8b8a8b05244b1d920bb6cf451f9.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/train/0042188c895a2f14ef64a918ed9c7b64.jpg&apos;]
+</code></pre><p>Criamos uma lista de caminhos de arquivo para as imagens em vez de importá-las para começar. Trabalhar com os caminhos dos arquivos (<em>nesse caso strings</em>) é bem mais eficiente do que trabalhar diretamente com as imagens.</p>
+<p>Bem, agora que temos os caminhos de arquivo em uma lista, vamos obter os rótulos. Vamos pegar os rótulos de <code>labels</code> e transformá-los em uma array NumPy:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+labels_array = labels[<span class="hljs-string">&quot;breed&quot;</span>].to_numpy()
+labels_array[:<span class="hljs-number">10</span>]
+</code></pre>
+<pre><code>array([&apos;boston_bull&apos;, &apos;dingo&apos;, &apos;pekinese&apos;, &apos;bluetick&apos;, &apos;golden_retriever&apos;,
+       &apos;bedlington_terrier&apos;, &apos;bedlington_terrier&apos;, &apos;borzoi&apos;, &apos;basenji&apos;,
+       &apos;scottish_deerhound&apos;], dtype=object)
+</code></pre><p>Agora é possível verificar se a quantidade de rótulos é igual a quantidade de arquivos:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(labels_array) == <span class="hljs-built_in">len</span>(filenames):
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Número de labels é igual ao número de arquivos!&quot;</span>)
+<span class="hljs-keyword">else</span>:
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Número de labels não bate com o número de arquivos, verifique os dados!&quot;</span>)
+</code></pre>
+<blockquote>
+<p>Número de labels é igual ao número de arquivos!</p>
+</blockquote>
+<p>Tudo parece em ordem, agora podemos começar, primeiro encontraremos todos os nomes únicos de raças de cães:</p>
+<pre><code class="lang-python">racas = np.unique(labels_array)
+<span class="hljs-built_in">len</span>(racas)
+
+<span class="hljs-number">120</span>
+</code></pre>
+<p>Estamos trabalhando com imagens de 120 raças diferentes de cães. Agora podemos utilizar <code>racas</code> para transformar o array de rótulos em um array de booleans, assim criaremos uma lista indicando qual é o rótulo real (True) e qual não é (False).</p>
+<pre><code class="lang-python">boolean_labels = [label == np.array(racas) <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> labels_array]
+boolean_labels[:<span class="hljs-number">2</span>]
+
+
+[array([<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>]),
+ array([<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+        <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>])]
+</code></pre>
+<p>Mas pra que fazer isso? Lembre-se que em <code>ML</code> é importante converter os dados em números antes de entregá-los para um modelo. Nesse caso estamos transformando os nomes das 120 raças de cães em um array. Vamos ver um exemplo com uma única raça para entender os que houve com essa transformação:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Ex: transformando um array de boolenas de uma raça em inteiros</span>
+<span class="hljs-built_in">print</span>(labels_array[<span class="hljs-number">0</span>]) <span class="hljs-comment"># label de uma raça</span>
+<span class="hljs-built_in">print</span>(np.where(racas == labels_array[<span class="hljs-number">0</span>])[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]) <span class="hljs-comment"># index referente ao label</span>
+<span class="hljs-built_in">print</span>(boolean_labels[<span class="hljs-number">0</span>].argmax()) <span class="hljs-comment"># index onde o label aparece na matriz booleana</span>
+<span class="hljs-built_in">print</span>(boolean_labels[<span class="hljs-number">0</span>].astype(<span class="hljs-built_in">int</span>)) <span class="hljs-comment"># convertendo os booleans em inteiros</span>
+</code></pre>
+<pre><code>boston_bull
+19
+19
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0]
+</code></pre><p>Perceba que agora temos os rótulos em formato numérico, hora de dividir os dados.</p>
+<h2 id="criando-um-conjunto-de-validação">Criando um conjunto de validação</h2>
+<p>A base de dados do Kaggle não separa um conjunto de validação (dados que podemos utilizar para testar o modelo antes de fazer previsões no conjunto de teste). Poderíamos utilizar a função <code>train_test_split</code> do <code>Scikit-Learn</code> ou apenas fazer divisões manuais nos dados. Vamos começar definindo nossas variáveis <code>X</code> e <code>y</code> como <code>dados</code> e <code>rótulos</code> respectivamente:</p>
+<pre><code class="lang-python">X = filenames
+y = boolean_labels
+</code></pre>
+<p>Como estamos trabalhando com uma base de dados com mais de 10.000 imagens, uma boa abordagem seria trabalhar com apenas uma parte delas para garantir que tudo esteja funcionando antes de treinar o modelo com toda a base. Isso porque os cálculos envolvendo mais de 10.000 imagens pode levar muito tempo. E um dos nossos objetivos em projetos de <code>ML</code> é reduzir o tempo entre os experimentos. Vamos começar um experimento com apenas 1000 imagens e aumentar esse valor conforme necessário.</p>
+<pre><code class="lang-python">NUMERO_IMAGENS = <span class="hljs-number">1000</span>
+NUMERO_IMAGENS
+
+<span class="hljs-number">1000</span>
+</code></pre>
+<p>Agora faremos a divisão dos dados em conjuntos de treino e validação. Usaremos o mesmo padrão de divisão visto anteriormente no capítulo de <code>Scikit-Learn</code>, uma divisão 80/20 (80% dos dados para treinamento e 20% para validação).</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+
+X_train, X_val, y_train, y_val = train_test_split(X[:NUMERO_IMAGENS],
+                                                  y[:NUMERO_IMAGENS],
+                                                  test_size=<span class="hljs-number">0.2</span>,
+                                                  random_state=<span class="hljs-number">13</span>)
+
+<span class="hljs-built_in">len</span>(X_train), <span class="hljs-built_in">len</span>(y_train), <span class="hljs-built_in">len</span>(X_val), <span class="hljs-built_in">len</span>(y_val)
+
+(<span class="hljs-number">800</span>, <span class="hljs-number">800</span>, <span class="hljs-number">200</span>, <span class="hljs-number">200</span>)
+</code></pre>
+<p>Reservamos 800 imagens para treino e 200 para validação, vamos verificar uma amostra dos dados:</p>
+<pre><code class="lang-python">X_train[:<span class="hljs-number">3</span>], y_train[:<span class="hljs-number">2</span>]
+
+
+([<span class="hljs-string">&apos;drive/MyDrive/Dog Vision/train/032620ae0f847d957d94d1fd76cb17e8.jpg&apos;</span>,
+  <span class="hljs-string">&apos;drive/MyDrive/Dog Vision/train/056b535b441278e83839984f1b1da0a6.jpg&apos;</span>,
+  <span class="hljs-string">&apos;drive/MyDrive/Dog Vision/train/0fbacbbdb4ad588598757b6d4bd111f1.jpg&apos;</span>],
+ [array([<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+          <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>]),
+  array([<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,
+         <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>])])
+</code></pre>
+<h2 id="pré-processamento-de-imagens">Pré-processamento de imagens</h2>
+<p>Até aqui apenas os rótulos estão no formato numérico, as imagens ainda são apenas caminhos de arquivo. Precisamos transformar as imagens em <code>tensors</code>.
+Lembre-se um <code>tensor</code> é uma forma de representar informações em números. Pense em um Tensor como uma combinação de matrizes NumPy, que pode ser processado em uma GPU. Vamos converter uma imagem em um array NumPy para entender o restante do processo:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> matplotlib.pyplot <span class="hljs-keyword">import</span> imread
+image = imread(filenames[<span class="hljs-number">20</span>]) <span class="hljs-comment"># lendo uma imagen, no caso de ID 20</span>
+image.shape
+
+(<span class="hljs-number">375</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>)
+</code></pre>
+<p>Perceba o shape (forma) da imagem, que é (375, 500, 3), ou seja altura, largura e cor (RGB). Podemos converter facilmente em um tensor utilizando <code>tf.constant()</code>:</p>
+<pre><code class="lang-python">tf.constant(image)[:<span class="hljs-number">2</span>]
+
+&lt;tf.Tensor: shape=(<span class="hljs-number">2</span>, <span class="hljs-number">500</span>, <span class="hljs-number">3</span>), dtype=uint8, numpy=
+array([[[<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">120</span>],
+        [<span class="hljs-number">123</span>, <span class="hljs-number">124</span>, <span class="hljs-number">116</span>],
+        [<span class="hljs-number">117</span>, <span class="hljs-number">120</span>, <span class="hljs-number">111</span>],
+        ...,
+        [ <span class="hljs-number">98</span>, <span class="hljs-number">123</span>,  <span class="hljs-number">65</span>],
+        [ <span class="hljs-number">97</span>, <span class="hljs-number">122</span>,  <span class="hljs-number">64</span>],
+        [<span class="hljs-number">102</span>, <span class="hljs-number">127</span>,  <span class="hljs-number">69</span>]],
+
+       [[<span class="hljs-number">117</span>, <span class="hljs-number">120</span>, <span class="hljs-number">111</span>],
+        [<span class="hljs-number">114</span>, <span class="hljs-number">117</span>, <span class="hljs-number">108</span>],
+        [<span class="hljs-number">112</span>, <span class="hljs-number">115</span>, <span class="hljs-number">106</span>],
+        ...,
+        [ <span class="hljs-number">97</span>, <span class="hljs-number">122</span>,  <span class="hljs-number">64</span>],
+        [ <span class="hljs-number">94</span>, <span class="hljs-number">119</span>,  <span class="hljs-number">61</span>],
+        [ <span class="hljs-number">98</span>, <span class="hljs-number">123</span>,  <span class="hljs-number">65</span>]]], dtype=uint8)&gt;
+</code></pre>
+<blockquote>
+<p>Por padrão vamos redimensionar as imagens para um shape (<code>224,224</code>), veremos mais detalhes dessa escolha adiante.</p>
+</blockquote>
+<p>Para converter todas as imagens em tensors criaremos uma função:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># definindo o tamanho padrão das imagens</span>
+IMG_SIZE = <span class="hljs-number">224</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">processa_imagem</span>(<span class="hljs-params">image_path</span>):</span>
+
+  <span class="hljs-comment"># lendo o arquivo de imagem</span>
+  image = tf.io.read_file(image_path)
+  <span class="hljs-comment"># transforma a imagem em um tensor com 3 canais de cores (Red, Green, Blue)</span>
+  image = tf.image.decode_jpeg(image, channels=<span class="hljs-number">3</span>)
+  <span class="hljs-comment"># converte os valores do canal de cor de 0-255 para valores entre 0-1</span>
+  image = tf.image.convert_image_dtype(image, tf.float32)
+  <span class="hljs-comment"># redimensiona a imagem para o novo shape (224,224)</span>
+  image = tf.image.resize(image, size=[IMG_SIZE, IMG_SIZE])
+  <span class="hljs-keyword">return</span> image
+</code></pre>
+<p>Agora temos uma função que converte as imagens em <code>Tensors</code>, precisamos construir agora uma outra função para transformar os dados em lotes (TensorFlow BatchDataset). Por exemplo, estamos trabalhando com uma base de 10.000 imagens, somados esses arquivos podem ocupar toda a memória da GPU, tentar calcular todo o conjunto de dados ao mesmo tempo poderia resultar em erro. Em vez disso é mais eficiente criar lotes menores dos dados e computar um lote por vez. Antes, precisamos de uma função simples para transformar os nomes dos caminhos dos arquivos de imagem e os rótulos em tuplas:</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">image_label</span>(<span class="hljs-params">image_path, label</span>):</span>
+  image = processa_imagem(image_path)
+  <span class="hljs-keyword">return</span> image, label
+</code></pre>
+<p>Agora criaremos uma função para gerar os lotes de dados. Como estamos trabalhando com 3 conjuntos diferentes de dados (treino, validação e teste), vamos garantir que a função possa trabalhar com cada conjunto. Por padrão vamos definir um tamanho de lote de <code>32</code>.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># tamanho do lote</span>
+BATCH_SIZE = <span class="hljs-number">32</span>
+
+<span class="hljs-comment"># função que retorna os dados em lotes</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_data_batches</span>(<span class="hljs-params">x, y=<span class="hljs-literal">None</span>, batch_size=BATCH_SIZE, valid_data=<span class="hljs-literal">False</span>, test_data=<span class="hljs-literal">False</span></span>):</span>
+
+  <span class="hljs-comment"># se os dados forem de teste, não temos rótulos (provavelmente)</span>
+  <span class="hljs-keyword">if</span> test_data:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Criando lotes de dados de teste...&quot;</span>)
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(x)))
+    data_batch = data.<span class="hljs-built_in">map</span>(processa_imagem).batch(BATCH_SIZE)
+    <span class="hljs-keyword">return</span> data_batch
+
+  <span class="hljs-comment"># se os dados forem de um conjunto válido, não precisamos embaralhar</span>
+  <span class="hljs-keyword">elif</span> valid_data:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Criando lotes de dados de validação...&quot;</span>)
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(x),
+                                               tf.constant(y)))
+    data_batch = data.<span class="hljs-built_in">map</span>(image_label).batch(BATCH_SIZE)
+    <span class="hljs-keyword">return</span> data_batch
+
+  <span class="hljs-keyword">else</span>:
+    <span class="hljs-comment"># se os dados forem de treino, embaralhe</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Criando lotes de dados de treino...&quot;</span>)
+    <span class="hljs-comment"># transformando caminhos de arquivos e rótulos em tensors</span>
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(x),
+                                              tf.constant(y)))
+
+    <span class="hljs-comment"># embaralha os caminhos de arquivos e rótulos</span>
+    data = data.shuffle(buffer_size=<span class="hljs-built_in">len</span>(x))
+
+    <span class="hljs-comment"># cria tuplas (imagem, rótulo)</span>
+    data = data.<span class="hljs-built_in">map</span>(image_label)
+
+    <span class="hljs-comment"># transforma os dados em lotes</span>
+    data_batch = data.batch(BATCH_SIZE)
+  <span class="hljs-keyword">return</span> data_batch
+</code></pre>
+<pre><code class="lang-python">train_data = create_data_batches(X_train, y_train)
+val_data = create_data_batches(X_val, y_val, valid_data=<span class="hljs-literal">True</span>)
+
+Criando lotes de dados de treino...
+Criando lotes de dados de validação...
+
+
+train_data.element_spec, val_data.element_spec
+
+((TensorSpec(shape=(<span class="hljs-literal">None</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>), dtype=tf.float32, name=<span class="hljs-literal">None</span>),
+  TensorSpec(shape=(<span class="hljs-literal">None</span>, <span class="hljs-number">120</span>), dtype=tf.<span class="hljs-built_in">bool</span>, name=<span class="hljs-literal">None</span>)),
+ (TensorSpec(shape=(<span class="hljs-literal">None</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>), dtype=tf.float32, name=<span class="hljs-literal">None</span>),
+  TensorSpec(shape=(<span class="hljs-literal">None</span>, <span class="hljs-number">120</span>), dtype=tf.<span class="hljs-built_in">bool</span>, name=<span class="hljs-literal">None</span>)))
+</code></pre>
+<p>Agora temos os dados em lotes, em pares de tensors (imagens e rótulos) prontos para serem utilizados em um GPU. Esse conceito pode ser um pouco difícil de entender, vamos tentar visualizar o que está acontecendo por baixo dos panos.</p>
+<h2 id="visualizando-os-lotes-de-dados">Visualizando os lotes de dados</h2>
+<p>Vamos criar uma função para &quot;plotar&quot; 25 imagens:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show_images</span>(<span class="hljs-params">images, labels</span>):</span>
+  plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>))
+  <span class="hljs-comment"># loop para exibir 25 imagens</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">25</span>):
+    <span class="hljs-comment"># cria subplots 5 x 5</span>
+    ax = plt.subplot(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>, i+<span class="hljs-number">1</span>)
+    <span class="hljs-comment"># mostra imagem</span>
+    plt.imshow(images[i])
+    <span class="hljs-comment"># adiciona label da imagem como título</span>
+    plt.title(racas[labels[i].argmax()])
+    plt.axis(<span class="hljs-string">&quot;off&quot;</span>)
+</code></pre>
+<p>Já sabemos que um lote (aqui no nosso caso) é uma coleção de tensors. Ou seja, para visualizar os dados em um lote é preciso desfazer o lote primeiro. Isso pode ser feito por meio da função <code>as_numpy_iterator()</code> em um lote de dados. Dessa forma vamos transformar um lote em algo que possa ser iterado. Esse processo pode demorar um pouco:</p>
+<pre><code class="lang-python">train_images, train_labels = <span class="hljs-built_in">next</span>(train_data.as_numpy_iterator())
+show_images(train_images, train_labels)
+</code></pre>
+<p><img src="images/lote-tensor.png" alt="lote imagens tensors"></p>
+<p>Podemos fazer o mesmo para dados de validação:</p>
+<pre><code class="lang-python">val_images, val_labels = <span class="hljs-built_in">next</span>(val_data.as_numpy_iterator())
+show_images(val_images, val_labels)
+</code></pre>
+<p><img src="images/lote-tensor-val.png" alt="lote imagens validação tensors"></p>
+<h2 id="criando-e-treinando-um-modelo">Criando e treinando um modelo</h2>
+<p>Agora que os dados estão prontos, precisamos preparar a próxima etapa, a modelagem. Como o nosso objetivo nesse momento é realizar um experimento de <code>Transfer Learning</code> (aprendizagem por transferência), usaremos um modelo existente do <a href="https://tfhub.dev/" target="_blank">TensorFlow Hub (ou TensorHub)</a>. TensorFlow Hub é uma plataforma onde podemos encontrar modelos de Machine Learning pré-treinados para o problema que estamos trabalhando.</p>
+<p>Como dito antes, construir um modelo de <code>ML</code> do zero e treiná-lo em lotes pode ser demorado (veremos em outros capítulos como fazer isso).
+Transfer Learning ajuda a reduzir boa parte do tempo nesse processo, uma vez que o modelo vai pegar as instruções que outro modelo aprendeu e utilizar isso na resolução de seu próprio problema.</p>
+<p>Sabemos que nosso problema é de classificação de imagens, podemos pesquisar no TensorFlow Hub pelo domínio do problema (imagem).
+Isso resulta em uma lista de diferentes modelos pré-treinados que podemos escolher e aplicar para nossa tarefa. Por exemplo, o modelo <a href="https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5" target="_blank">mobilenet_v2_130_224</a> nos mostra que pode receber como entrada imagens no formato (<code>224,224</code>) e que o modelo foi bastante treinado para classificação de imagens. Vamos utilizá-lo!</p>
+<pre><code class="lang-python"><span class="hljs-comment"># configurando o formato de entrada para o modelo</span>
+INPUT_SHAPE = [<span class="hljs-literal">None</span>, IMG_SIZE, IMG_SIZE, <span class="hljs-number">3</span>] <span class="hljs-comment"># lote, altura, largura, RGB</span>
+
+<span class="hljs-comment"># configurado o formato de saída do modelo</span>
+OUTPUT_SHAPE = <span class="hljs-built_in">len</span>(racas) <span class="hljs-comment"># número labels únicos, as 120 raças</span>
+
+<span class="hljs-comment"># url do modelo que escolhemos no TensorFlow Hub</span>
+MODEL_URL = <span class="hljs-string">&quot;https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5&quot;</span>
+</code></pre>
+<p>Agora que temos as entradas e saídas definidas, bem como o modelo que iremos utilizar, podemos começar a juntar as partes. Há muitas formas de se criar um modelo no TensorFlow, uma das formas de começar é utilizando a <a href="https://www.tensorflow.org/guide/keras/sequential_model" target="_blank">API Keras</a>.</p>
+<p>Vamos criar uma função que recebe a forma da entrada, a saída e a url do modelo como parâmetros. Na função vamos definir as camadas em um modelo Keras de forma sequencial, para em seguida compilar o modelo (informando como ele deve ser avaliado e melhorado) e construindo o modelo (informando qual formato de entrada de dados ele deve receber).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># função para criar modelo Keras</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_model</span>(<span class="hljs-params">input_shape=INPUT_SHAPE, output_shape=OUTPUT_SHAPE, model_url=MODEL_URL</span>):</span>
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Criando modelo com:&quot;</span>, MODEL_URL) <span class="hljs-comment"># url do modelo escolhido no tensorhub</span>
+
+  <span class="hljs-comment"># configurando as camadas do modelo</span>
+  model = tf.keras.Sequential([
+    hub.KerasLayer(MODEL_URL), <span class="hljs-comment"># 1 (camada de entrada)</span>
+    tf.keras.layers.Dense(units=OUTPUT_SHAPE, 
+                          activation=<span class="hljs-string">&quot;softmax&quot;</span>) <span class="hljs-comment"># 2 (camada de saída)</span>
+  ])
+
+  <span class="hljs-comment"># compilando o modelo</span>
+  model.<span class="hljs-built_in">compile</span>(
+      <span class="hljs-comment"># o modelo quer reduzir o percentual de suas suposições</span>
+      loss=tf.keras.losses.CategoricalCrossentropy(),
+      <span class="hljs-comment"># essa função diz ao modelo como melhorar os palpites</span>
+      optimizer=tf.keras.optimizers.Adam(),
+      metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>] <span class="hljs-comment"># o objetivo final é fazer esse valor subir</span>
+  )
+
+  <span class="hljs-comment"># construindo o modelo</span>
+  model.build(INPUT_SHAPE)
+
+  <span class="hljs-keyword">return</span> model
+</code></pre>
+<p>Para configurar as camadas do modelo, existem duas formas de se fazer isso no <code>Keras</code>, a forma funcional e a sequencial, estamos utilizando a sequencial. A documentação diz que a API funcional é o melhor caminho para definir modelos complexos, já a API sequencial é perfeitamente adequada para começar, que é justamente o que estamos fazendo.</p>
+<p>A primeira camada que adicionamos é o modelo do TensorFlow Huyb: <code>hub.KerasLayer(MODEL_URL)</code>. Em outras palavras a nossa primeira camada é na verdade um modelo inteiro (<em>contendo muito mais camadas</em>). Essa camada de entrada recebe as imagens e busca por padrões nelas com base nos padrões que <code>mobilenet_v2_130_224</code> encontrou.</p>
+<p>Na próxima camada <code>tf.keras.layers.Dense()</code> é a camada de saída do nosso modelo. Aqui fica disponível todas as informações descobertas na camada de entrada. O parâmetro <code>activation=&quot;softmax&quot;</code> informa à camada de saída que queremos atribuir um valor de probabilidade a cada um dos 120 rótulos (raças de cães) em algum lugar entre 0 e 1. Quanto maior for o valor, mais o modelo acredita que a imagem de entrada deve receber o rótulo atribuído.</p>
+<p>E a compilação do modelo ? Bem, digamos que você esteja em uma competição de natação em mar aberto. O problema é que você está com os olhos vendados. Felizmente você tem um amigo, <code>Adam</code>, que está areia observando e gritando as instruções de direção para você concluir a prova. Ao lado de Adam encontra-se um juiz que está avaliando o seu desempenho na prova. O juiz sabe onde você precisa chegar, então ele fica comparando como você está indo com onde você deveria estar. Essa comparação é a forma que você é pontuado. De volta para as terminologias:</p>
+<ul>
+<li><strong>loss</strong> - é a função de perda, o objetivo do modelo é minimizar isso, fazendo chegar a 0 (<em>nadar até a linha de chegada sem errar o caminho</em>).</li>
+<li><strong>optimizer</strong> - é o seu amigo Adam, ele é o responsável em dizer como navegar no mar (reduzindo a função de perda) com base no que você já foi feito.</li>
+<li><strong>metrics</strong> - esse é o juiz que fica avaliando o seu desempenho. Ou no caso do nosso problema, fornece a precisão de quão bem o modelo está prevendo o rótulo correto da imagem.</li>
+</ul>
+<p>Sempre que estivermos utilizando uma camada do TensorFlow Hub, usaremos <code>model.build()</code> para informar ao modelo qual formato de entrada ele pode esperar. No nosso exemplo, a forma de entrada é <code>[None, 224, 224, 3]</code>. O tamanho do lote é representado como <code>None</code> pois essa informação é inferida a partir dos dados que estamos passando ao modelo (32 nesse caso, pois foi assim que configuramos). Agora que vimos cada etapa da função, vamos utilizá-la para criar um modelo.</p>
+<pre><code class="lang-python">model = create_model()
+model.summary()
+</code></pre>
+<p><img src="images/tf-criando-modelo.png" alt="criando um modelo com tf"></p>
+<blockquote>
+<p>Utilizamos a função <code>summary()</code> para ter uma ideia de como é o modelo.</p>
+</blockquote>
+<p>Os parâmetros não treináveis (<em>Non-trainable params</em>) são os padrões aprendidos por <code>mobilenet_v2_130_224</code> e os parâmetros treináveis (<em>Trainable params</em>) são os que adicionamos em <code>tf.keras.layers.Dense()</code>.
+Esse resultado mostra que a maior parte das informações em nosso modelo, já foram aprendidas e só precisamos pegar isso e adaptar para o nosso problema.</p>
+<h2 id="criando-callbacks">Criando Callbacks</h2>
+<p>O nosso modelos está pronto para ser treinado, mas antes de prosseguir faremos alguns <code>Callbacks</code>. São funções auxiliares que um modelo pode usar durante o treino para fazer tarefas como salvar o progresso, verificar o progresso ou interromper o processo de treinamento de forma antecipada.
+Criaremos dois callbacks para adicionar uma chamada ao <a href="https://www.tensorflow.org/tensorboard/get_started" target="_blank">TensorBoard</a> e outra chamada de parada antecipada.</p>
+<p>O <code>TensorBoard</code> fornece uma maneira visual de monitorar o progresso do modelo, durante e após o treinamento. Pode ser utilizado diretamente no notebook para rastrear métricas de desempenho de um modelo, como score de perda e precisão.</p>
+<h3 id="wip">WIP</h3>
+<ul>
+<li>configurar o tensorboard</li>
+</ul>
+<pre><code class="lang-python">%load_ext tensorboard
+
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> datetime
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_tensorboard_callback</span>():</span>
+  <span class="hljs-comment"># cria diretório para armazenar os logs do TensorBoard</span>
+  logdir = os.path.join(<span class="hljs-string">&quot;drive/MyDrive/Data/logs&quot;</span>,
+                        datetime.datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d-%H%M%S&quot;</span>))
+  <span class="hljs-keyword">return</span> tf.keras.callbacks.TensorBoard(logdir)
+</code></pre>
+<p>Temos ainda a <a href="https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping" target="_blank">interrupção antecipada (<em>Early stopping</em>)</a> que ajuda a evitar o <code>overfitting</code>, interrompendo um modelo quando uma determinada métrica de avaliação para de melhorar. Basicamente vamos dizer para o modelo: procure por padrões até que a qualidade desses padrões comece a cair.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># criando chamada de interrupção antecipada</span>
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor=<span class="hljs-string">&quot;val_accuracy&quot;</span>,
+                                                  patience=<span class="hljs-number">3</span>)
+</code></pre>
+<p>Como discutido antes, vamos treinar o nosso modelo em apenas 1000 imagens. Em outras palavras, treinaremos em 800 imagens e utilizaremos as outras 200 para validação, totalizando 1000. Faremos isso para garantir que tudo esteja funcionando, depois de confirmar isso poderemos treinar em todo o conjunto de dados.</p>
+<p>Antes de treinar precisamos definir mais um parâmetro <code>NUM_EPOCHS</code> que define quantas passagens dos dados gostaríamos que nosso modelo fizesse. Um passe equivale ao nosso modelo tentando encontrar padrões em cada imagem e verificar quais padrões se relacionam com cada rótulo.</p>
+<p>Por exemplo <code>NUM_EPOCHS=1</code>, o modelo vai examinar os dados apenas uma única vez e provavelmente terá uma pontuação ruim, pois não tem chance de se corrigir. Um bom valor é difícil de definir, 10 pode ser um bom começo, mas 100 pode ser melhor. Esse é um dos motivos pelos quais criamos um <code>callback</code> de parada antecipada, se definirmos <code>NUM_EPOCHS=100</code> e o modelo parou de melhorar após 22, o treinamento será interrompido.</p>
+<p>Bem, vamos verificar rapidamente se estamos utilizando uma GPU:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;GPU&quot;</span>, <span class="hljs-string">&quot;disponível!!!!)&quot;</span> <span class="hljs-keyword">if</span> tf.config.list_physical_devices(<span class="hljs-string">&quot;GPU&quot;</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;not configurada :(&quot;</span>)
+
+GPU disponível!!!!)
+</code></pre>
+<p>Perfeito, temos uma GPU disponível para execução, agora vamos configurar <code>NUM_EPOCHS</code> e criar uma função simples para treinar um modelo.</p>
+<pre><code class="lang-python">NUM_EPOCHS = <span class="hljs-number">100</span>
+
+<span class="hljs-comment"># função para treinar um modelo</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">train_model</span>():</span>
+  <span class="hljs-comment"># criando o modelo</span>
+  model = create_model()
+
+  <span class="hljs-comment"># cria uma sessão do TensorBoard toda vez que um modelo for treinado</span>
+  tensorboard = create_tensorboard_callback()
+
+  <span class="hljs-comment"># treina o modelo com os dados e callbacks que criamos</span>
+  model.fit(x=train_data,
+            epochs=NUM_EPOCHS,
+            validation_data=val_data,
+            validation_freq=<span class="hljs-number">1</span>, <span class="hljs-comment"># verifica a validação de métricas a cada epoch</span>
+            callbacks=[tensorboard, early_stopping])
+
+  <span class="hljs-keyword">return</span> model
+</code></pre>
+<p>Finalmente, ao treinar um modelo pela primeira vez, levará um tempo para carregar os dados. Como estamos utilizando uma GPU esse processo pode levar alguns minutos (no nosso caso).</p>
+<pre><code class="lang-python">model = train_model()
+</code></pre>
+<p><img src="images/fit-model-1.png" alt="train model fit"></p>
+<p>Agora que nosso modelo foi trainado, vamos verificar os logs no TensorBoard e ver o seu desempenho de maneira visual.</p>
+<pre><code class="lang-python">%tensorboard --logdir drive/MyDrive/Data/logs
+</code></pre>
+<p><img src="images/tf-board-1.png" alt="logs tensorboard"></p>
+<p>O callback <code>early_stopping</code> entrou em ação e parou de treinar após 25 verificações. Isso ocorreu pois a precisão de validação não melhorou depois de 4 verificações. Podemos ver que o nosso modelo está aprendendo alguma coisa, a precisão da validação chegou a 66% em apenas alguns minutos. Isso significa que se aumentarmos o número de imagens, talvez possamos ver um aumento na precisão.</p>
+<h2 id="fazendo-previsões-e-avaliando-os-resultados">Fazendo previsões e avaliando os resultados</h2>
+<p>Bem, antes de aumentarmos o número de imagens para treinar o modelo com mais dados, veremos outras formas de avaliar o nosso modelo. Embora a precisão seja um bom indicador e como o nosso modelo está performando, seria ainda melhor poder ver ele em ação. Para isso podemos fazer previsões por meio da função <code>predict()</code>, passando os dados no mesmo formato em que o modelo foi treinado.</p>
+<pre><code>predictions = model.predict(val_data, verbose=1)
+predictions
+
+7/7 [==============================] - 2s 177ms/step
+array([[6.1289142e-03, 4.9413438e-04, 1.8335391e-04, ..., 5.0873416e-03,
+        1.0212163e-03, 1.8342169e-03],
+       [2.9808136e-03, 3.8091789e-03, 1.7363916e-03, ..., 1.0431294e-03,
+        1.7300938e-04, 4.0559638e-03],
+       [9.8665347e-05, 4.7748103e-06, 9.3761346e-06, ..., 5.6768484e-05,
+        9.2058966e-05, 2.0925076e-04],
+       ...,
+       [2.4115643e-05, 5.0457241e-04, 3.6022495e-04, ..., 3.2151077e-04,
+        1.6623015e-03, 5.2641069e-05],
+       [3.1822168e-05, 9.7815809e-04, 9.4177556e-04, ..., 7.8174734e-04,
+        9.3225291e-04, 1.5031500e-05],
+       [2.1962752e-03, 7.2391253e-05, 5.9957849e-04, ..., 2.1881016e-04,
+        5.3851202e-04, 2.3197865e-03]], dtype=float32)
+</code></pre><pre><code class="lang-python">predictions.shape
+
+(<span class="hljs-number">200</span>, <span class="hljs-number">120</span>)
+</code></pre>
+<p>Fazer previsões sobre os dados de validação (200 imagens) retorna uma matriz com um valor diferente para cada rótulo. Cada matriz contém 120 valores diferentes (um para cada raça de cão). Esses valores diferentes são as probabilidades de o modelo prever que uma determinada imagem é uma raça específica de cachorro. Quanto maior o valor, maior a probabilidade de o modelo relacionar que determinada imagem pertence a uma raça. Vamos converter uma matriz de probabilidades em um rótulo real:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">print</span>(predictions[<span class="hljs-number">0</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Valor Máximo (probabilidade de previsão): <span class="hljs-subst">{np.<span class="hljs-built_in">max</span>(predictions[<span class="hljs-number">0</span>])}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Soma total: <span class="hljs-subst">{np.<span class="hljs-built_in">sum</span>(predictions[<span class="hljs-number">0</span>])}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Max index: <span class="hljs-subst">{np.argmax(predictions[<span class="hljs-number">0</span>])}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Rótulo previsto: <span class="hljs-subst">{racas[np.argmax(predictions[<span class="hljs-number">0</span>])]}</span>&quot;</span>)
+</code></pre>
+<pre><code>[6.12891419e-03 4.94134380e-04 1.83353914e-04 2.29427358e-04
+ 3.73498560e-03 6.29680348e-04 1.21862011e-03 5.69027266e-04
+ 5.72043791e-06 3.57908453e-03 2.28679317e-04 5.76176644e-05
+ 7.43210781e-04 6.54693213e-05 6.88183354e-04 2.73649484e-01
+ 2.04424170e-04 7.35868467e-04 1.87200130e-05 1.86801379e-04
+ 7.96007749e-04 3.71084618e-03 7.78313435e-04 1.21078745e-04
+ 1.79169734e-03 2.10062994e-04 6.47211345e-05 3.92607108e-05
+ 1.71959680e-02 9.54358838e-04 1.46281358e-03 5.85304631e-04
+ 2.20437490e-04 1.95942863e-04 3.64659145e-03 1.46316524e-04
+ 1.61483200e-04 4.42342076e-04 8.39865825e-04 7.80218223e-04
+ 1.91953883e-03 3.57783213e-03 1.95646053e-03 2.01559713e-04
+ 4.62555065e-04 1.78337761e-03 1.97481131e-05 5.32588303e-01
+ 5.08746707e-05 1.55199913e-03 1.01689156e-03 1.28392398e-03
+ 1.91731509e-04 5.89729811e-04 4.80399649e-05 2.92319944e-03
+ 4.93563311e-05 6.99758355e-04 1.33902836e-03 1.97827048e-03
+ 2.35292478e-03 2.23126786e-04 4.09513537e-04 2.40915819e-04
+ 8.94229510e-04 3.35462246e-04 1.45765400e-04 6.22630911e-03
+ 5.60026165e-05 6.55528856e-04 1.75896916e-03 5.94771009e-05
+ 4.95163724e-04 9.60865640e-04 8.21350981e-03 2.42739008e-03
+ 1.49727776e-03 2.79009313e-04 2.25998392e-05 7.21598553e-05
+ 2.00509187e-03 6.27041009e-05 2.57713371e-04 1.19005432e-04
+ 2.29247264e-04 2.88886193e-04 1.10973348e-03 6.52837101e-04
+ 5.14724117e-04 1.59008149e-03 2.06289100e-04 6.29047805e-04
+ 8.09656412e-05 2.13349325e-04 8.35536281e-04 4.90781385e-03
+ 2.14187196e-03 3.24452703e-04 8.27542535e-05 1.16136371e-05
+ 1.94864441e-03 7.23455974e-04 3.59507569e-04 9.97863826e-04
+ 4.22419806e-04 1.53413648e-03 5.75519865e-04 2.55084451e-04
+ 1.23032616e-04 5.00681235e-05 2.36897580e-02 1.00696562e-02
+ 2.20857211e-03 2.17336584e-02 7.59088784e-04 9.01289808e-04
+ 3.88310174e-04 5.08734165e-03 1.02121627e-03 1.83421688e-03]
+Valor Máximo (probabilidade de previsão): 0.5325883030891418
+Soma total: 1.0
+Max index: 47
+Rótulo previsto: german_short-haired_pointer
+</code></pre><p>Para melhorar, seria interessante poder comparar uma previsão com o seu verdadeiro rótulo e imagem original. Vamos escrever uma pequena função para converter probabilidades de previsão em rótulos previstos (também conhecidos por níveis de confiança).</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pred_label</span>(<span class="hljs-params">prediction_probabilities</span>):</span>
+  <span class="hljs-keyword">return</span> racas[np.argmax(prediction_probabilities)]
+
+pred_label = get_pred_label(predictions[<span class="hljs-number">0</span>])
+pred_label
+
+
+<span class="hljs-string">&apos;german_short-haired_pointer&apos;</span>
+</code></pre>
+<p>Temos uma lista de todas as diferentes previsões que nosso modelo fez, faremos o mesmo para as imagens de validação e rótulos de validação.</p>
+<p>Lembre-se o modelo não treinou nos dados de validação, apenas os utilizou para se avaliar. Podemos utilizar as imagens de validação para comparar visualmente as previsões do nosso modelo e de modelos futuros com os rótulos de validação.</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unbatchify</span>(<span class="hljs-params">data</span>):</span>
+  images = []
+  labels = []
+  <span class="hljs-comment"># Loop para extrair os dados do lote</span>
+  <span class="hljs-keyword">for</span> image, label <span class="hljs-keyword">in</span> data.unbatch().as_numpy_iterator():
+    images.append(image)
+    labels.append(racas[np.argmax(label)])
+  <span class="hljs-keyword">return</span> images, labels
+
+<span class="hljs-comment"># desagrupa os dados de validação do lote</span>
+val_images, val_labels = unbatchify(val_data)
+val_images[<span class="hljs-number">0</span>], val_labels[<span class="hljs-number">0</span>]
+</code></pre>
+<pre><code>(array([[[0.30199423, 0.17258248, 0.13728836],
+         [0.2740196 , 0.14460786, 0.10931374],
+         [0.31081027, 0.1813985 , 0.14610438],
+         ...,
+         [0.1727071 , 0.09924757, 0.09284008],
+         [0.15458685, 0.10815825, 0.08462884],
+         [0.1589285 , 0.11579124, 0.09226183]],
+
+        [[0.2646662 , 0.13525441, 0.0999603 ],
+         [0.28669468, 0.15728292, 0.12198881],
+         [0.29741678, 0.16800502, 0.1327109 ],
+         ...,
+         [0.16822693, 0.09476741, 0.08835991],
+         [0.15711254, 0.1028408 , 0.08095706],
+         [0.16344531, 0.1124649 , 0.08893549]],
+
+        [[0.27388737, 0.14447562, 0.1091815 ],
+         [0.28355125, 0.15413947, 0.11884536],
+         [0.29154727, 0.16213548, 0.12684137],
+         ...,
+         [0.17158315, 0.09812362, 0.09171613],
+         [0.15312406, 0.09607842, 0.08525909],
+         [0.15924363, 0.1037114 , 0.09289208]],
+
+        ...,
+
+        [[0.45745805, 0.37902668, 0.34373254],
+         [0.4576253 , 0.3791939 , 0.3438998 ],
+         [0.4664319 , 0.38800052, 0.35270637],
+         ...,
+         [0.38155785, 0.30312645, 0.26783234],
+         [0.42671952, 0.33233738, 0.30305785],
+         [0.4091662 , 0.31175718, 0.2839911 ]],
+
+        [[0.4911461 , 0.41271472, 0.3774206 ],
+         [0.4567228 , 0.3782914 , 0.34299728],
+         [0.46088153, 0.38245016, 0.34715602],
+         ...,
+         [0.35559455, 0.2850063 , 0.24579063],
+         [0.37254903, 0.2953082 , 0.25941882],
+         [0.37647063, 0.29922977, 0.26334038]],
+
+        [[0.4597125 , 0.38128114, 0.345987  ],
+         [0.47902521, 0.40059385, 0.3652997 ],
+         [0.44550127, 0.36706987, 0.33177575],
+         ...,
+         [0.36276323, 0.292175  , 0.2529593 ],
+         [0.3834035 , 0.31281525, 0.27359957],
+         [0.38661253, 0.31602427, 0.2768086 ]]], dtype=float32),
+ &apos;german_short-haired_pointer&apos;)
+</code></pre><p>Agora é possível obter os rótulos de previsão, rótulos de validação e as imagens de validação. Podemos visualizar uma imagem e seu rótulo previsto, bem como o rótulo verdadeiro.</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_pred</span>(<span class="hljs-params">prediction_probabilities, labels, images, n=<span class="hljs-number">1</span></span>):</span>
+  pred_prob, true_label, image = prediction_probabilities[n], labels[n], images[n]
+
+  <span class="hljs-comment"># pega o rótulo previsto</span>
+  pred_label = get_pred_label(pred_prob)
+
+  <span class="hljs-comment"># plotando a imagem</span>
+  plt.imshow(image)
+  plt.xticks([])
+  plt.yticks([])
+
+  <span class="hljs-comment"># altera a cor do título dependendo da previsão estar certa ou errada</span>
+  <span class="hljs-keyword">if</span> pred_label == true_label:
+    color = <span class="hljs-string">&quot;green&quot;</span>
+  <span class="hljs-keyword">else</span>:
+    color = <span class="hljs-string">&quot;red&quot;</span>
+
+  plt.title(<span class="hljs-string">&quot;{} {:2.0f}% ({})&quot;</span>.<span class="hljs-built_in">format</span>(pred_label,
+                                      np.<span class="hljs-built_in">max</span>(pred_prob)*<span class="hljs-number">100</span>,
+                                      true_label),
+                                      color=color)
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># exemplo de previsão</span>
+plot_pred(prediction_probabilities=predictions,
+          labels=val_labels,
+          images=val_images)
+</code></pre>
+<p><img src="images/tf-predict-1.png" alt="predict tf sample"></p>
+<p>Visualizar os resultados dos nossos modelos é realmente útil para entender como o modelo está se saindo. Como este é um problema multiclasse (120 raças de cães diferentes), seria interessante também ver outras suposições que o modelo está fazendo. Para isso criaremos outra função:</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_pred_conf</span>(<span class="hljs-params">prediction_probabilities, labels, n=<span class="hljs-number">1</span></span>):</span>
+
+  pred_prob, true_label = prediction_probabilities[n], labels[n]
+
+  <span class="hljs-comment"># pega o rótulo previsto</span>
+  pred_label = get_pred_label(pred_prob)
+
+  <span class="hljs-comment"># encontra o top 10 para previsões</span>
+  top_10_pred_indexes = pred_prob.argsort()[-<span class="hljs-number">10</span>:][::-<span class="hljs-number">1</span>]
+  top_10_pred_values = pred_prob[top_10_pred_indexes]
+  top_10_pred_labels = racas[top_10_pred_indexes]
+
+  <span class="hljs-comment"># configura o plot</span>
+  top_plot = plt.bar(np.arange(<span class="hljs-built_in">len</span>(top_10_pred_labels)), 
+                     top_10_pred_values, 
+                     color=<span class="hljs-string">&quot;grey&quot;</span>)
+  plt.xticks(np.arange(<span class="hljs-built_in">len</span>(top_10_pred_labels)),
+             labels=top_10_pred_labels,
+             rotation=<span class="hljs-string">&quot;vertical&quot;</span>)
+
+  <span class="hljs-comment"># altera a cor do título conforme a previsão (certa/errada)</span>
+  <span class="hljs-keyword">if</span> np.isin(true_label, top_10_pred_labels):
+    top_plot[np.argmax(top_10_pred_labels == true_label)].set_color(<span class="hljs-string">&quot;green&quot;</span>)
+  <span class="hljs-keyword">else</span>:
+    <span class="hljs-keyword">pass</span>
+</code></pre>
+<pre><code class="lang-python">plot_pred_conf(prediction_probabilities=predictions, labels=val_labels, n=<span class="hljs-number">9</span>)
+</code></pre>
+<p><img src="images/tf-top-10-pred.png" alt="top 10 predictions"></p>
+<p>Agora podemos executar algumas funções para visualizar nossas previsões e ajudar na avaliação do modelo, vamos conferir:</p>
+<pre><code class="lang-python">i_multiplier = <span class="hljs-number">0</span>
+num_rows = <span class="hljs-number">3</span>
+num_cols = <span class="hljs-number">2</span>
+num_images = num_rows*num_cols
+plt.figure(figsize=(<span class="hljs-number">5</span>*<span class="hljs-number">2</span>*num_cols, <span class="hljs-number">5</span>*num_rows))
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_images):
+  plt.subplot(num_rows, <span class="hljs-number">2</span>*num_cols, <span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>)
+  plot_pred(prediction_probabilities=predictions,
+            labels=val_labels,
+            images=val_images,
+            n=i+i_multiplier)
+  plt.subplot(num_rows, <span class="hljs-number">2</span>*num_cols, <span class="hljs-number">2</span>*i+<span class="hljs-number">2</span>)
+  plot_pred_conf(prediction_probabilities=predictions,
+                labels=val_labels,
+                n=i+i_multiplier)
+plt.tight_layout(h_pad=<span class="hljs-number">1.0</span>)
+plt.show()
+</code></pre>
+<p><img src="images/tf-top-6.png" alt="top 6 preds"></p>
+<h2 id="salvando-e-carregando-um-modelo">Salvando e carregando um modelo</h2>
+<p>É uma boa prática salvar um modelo logo depois de treiná-lo. Ao salvar significa que você pode compartilhar com outros desenvolvedores, ou utilizar em um aplicativo. O formato de um modelo Keras salvo é <code>h5</code>, faremos uma função com o método <code>save()</code> para salvar um arquivo <code>h5</code> em um diretório.</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">save_model</span>(<span class="hljs-params">model, suffix=<span class="hljs-literal">None</span></span>):</span>
+
+  <span class="hljs-comment"># criando o diretório onde o modelo sera salvo</span>
+  modeldir = os.path.join(<span class="hljs-string">&quot;drive/MyDrive/Data/models&quot;</span>,
+                          datetime.datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d-%H%M%s&quot;</span>))
+  model_path = modeldir + <span class="hljs-string">&quot;-&quot;</span> + suffix + <span class="hljs-string">&quot;.h5&quot;</span> <span class="hljs-comment"># formato do modelo</span>
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Saving model to: <span class="hljs-subst">{model_path}</span>...&quot;</span>)
+  model.save(model_path)
+  <span class="hljs-keyword">return</span> model_path
+</code></pre>
+<p>E caso você precise carregar o modelo, teremos uma função que utiliza o caminho para o arquivo <code>h5</code> salvo, <code>tf.keras.models.load_model()</code> vai carregar o modelo no notebook.</p>
+<blockquote>
+<p>Como estamos utilizando um modelo do TensorFlow Hub, teremos que passar a instrução <code>hub.KerasLayer</code> como parâmetro.</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_model</span>(<span class="hljs-params">model_path</span>):</span>
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Loading saved model from: <span class="hljs-subst">{model_path}</span>&quot;</span>)
+  model = tf.keras.models.load_model(model_path,
+                                     custom_objects={<span class="hljs-string">&quot;KerasLayer&quot;</span>:hub.KerasLayer})
+  <span class="hljs-keyword">return</span> model
+</code></pre>
+<p>Agora vamos ao teste:</p>
+<pre><code class="lang-python">save_model(model, suffix=<span class="hljs-string">&quot;1000-images-Adam&quot;</span>)
+
+Saving model to: drive/MyDrive/Data/models/<span class="hljs-number">20220221</span>-<span class="hljs-number">20161645474573</span>-<span class="hljs-number">1000</span>-images-Adam.h5...
+<span class="hljs-string">&apos;drive/MyDrive/Data/models/20220221-20161645474573-1000-images-Adam.h5&apos;</span>
+</code></pre>
+<h2 id="treinando-um-modelo-com-todos-os-dados">Treinando um modelo com todos os dados</h2>
+<p>Já vimos que o modelo funciona em um subconjunto dos dados, podemos avançar e treinar um novo modelos com os dados completos. Vamos verificar os dados em <code>X</code> e os rótulos em <code>y</code>:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">len</span>(X), <span class="hljs-built_in">len</span>(y)
+
+(<span class="hljs-number">10222</span>, <span class="hljs-number">10222</span>)
+</code></pre>
+<p>Temos mais de 10.000 imagens e rótulos em nosso conjunto de dados de treinamento. Antes de treinar, teremos que transformá-los em lotes de dados. Dessa vez não precisaremos escrever muito código, usaremos a função criada no inicio do projeto <code>create_data_batches()</code>:</p>
+<pre><code class="lang-python">full_data = create_data_batches(X, y)
+
+Criando lotes de dados de treino...
+</code></pre>
+<p>Pronto, agora que os dados estão em um lote de dados, tudo que precisamos  agora é criar um modelo. Usaremos a função criada anteriormente <code>create_model()</code>:</p>
+<pre><code class="lang-python">full_model = create_model()
+
+Criando modelo com: https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/<span class="hljs-number">5</span>
+</code></pre>
+<p>Agora alguns callbacks:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># TensorBoard</span>
+full_model_tensorboard = create_tensorboard_callback()
+
+<span class="hljs-comment"># Early stopping</span>
+full_model_early_stopping = tf.keras.callbacks.EarlyStopping(monitor=<span class="hljs-string">&quot;accuracy&quot;</span>,
+                                                             patience=<span class="hljs-number">3</span>)
+</code></pre>
+<blockquote>
+<p>Treinar o modelo com mais de 10.000 imagens pode levar bastante tempo para terminar.</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># treinando o modelo com todos os dados de treino</span>
+full_model.fit(x=full_data,
+               epochs=NUM_EPOCHS,
+               callbacks=[full_model_tensorboard, 
+                          full_model_early_stopping])
+</code></pre>
+<p><img src="images/tf-full-data-fit.png" alt="tf full data fit"></p>
+<h2 id="previsões-nos-dados-de-teste-completo">Previsões nos dados de teste (completo)</h2>
+<p>Usaremos a função <code>create_data_batches()</code> para colocar os dados de previsões da base de teste em lotes:</p>
+<pre><code class="lang-python">test_path = <span class="hljs-string">&quot;drive/MyDrive/Dog Vision/test/&quot;</span>
+test_filenames = [test_path + fname <span class="hljs-keyword">for</span> fname <span class="hljs-keyword">in</span> os.listdir(test_path)]
+
+test_filenames[:<span class="hljs-number">10</span>]
+</code></pre>
+<pre><code>[&apos;drive/MyDrive/Dog Vision/test/e1deaf47925c840d804d7ff0324ee1fe.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e0a6b866af64299ecf76f7cb11c80674.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e4b7ff61849485992246c0f2ab7e8804.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e699b20911a55abda3558c5bcd37443d.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/de5496c6b58f66ab890ab24087d9e220.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e219af838e1d6a18224eb9b478944778.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e73dc6a8f2d7c941f28c0a5298bc5bdc.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e0a21cb0d8d3014b6c56230350a9362f.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e47bc25097050ba689b64de02c725837.jpg&apos;,
+ &apos;drive/MyDrive/Dog Vision/test/e09f4ff3f7acee994812650a2fc7edef.jpg&apos;]
+</code></pre><pre><code class="lang-python">test_data = create_data_batches(test_filenames, test_data=<span class="hljs-literal">True</span>)
+
+Criando lotes de dados de teste...
+</code></pre>
+<blockquote>
+<p>Como existem mais de 10.000 imagens de teste, fazer previsões em toda a base pode demorar um pouco, mesmo em uma GPU.</p>
+</blockquote>
+<pre><code class="lang-python">test_predictions = full_model.predict(test_data,
+                                             verbose=<span class="hljs-number">1</span>)
+
+<span class="hljs-number">324</span>/<span class="hljs-number">324</span> [==============================] - 208s 622ms/step
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># verificando as previsões nos dados de teste</span>
+test_predictions[:<span class="hljs-number">10</span>]
+</code></pre>
+<pre><code>array([[4.0301520e-06, 4.1828032e-05, 1.5791221e-09, ..., 3.9228894e-06,
+        3.4770914e-10, 2.3396865e-10],
+       [2.7395019e-11, 7.6133766e-08, 1.5362861e-09, ..., 2.7218279e-05,
+        8.2300048e-06, 5.3789286e-11],
+       [7.5121376e-12, 2.1255443e-10, 3.2456470e-13, ..., 9.6879893e-10,
+        1.4016718e-09, 2.6680713e-09],
+       ...,
+       [7.0882045e-08, 5.0273874e-10, 2.3055667e-11, ..., 7.0060409e-11,
+        4.2239805e-15, 5.2385742e-14],
+       [1.6729247e-07, 3.7636589e-08, 2.7725382e-09, ..., 6.2566934e-09,
+        1.7995176e-06, 3.9208203e-07],
+       [3.8880444e-11, 1.5927676e-11, 1.9205317e-09, ..., 2.9934097e-10,
+        6.6410523e-11, 6.0468192e-10]], dtype=float32)
+</code></pre><h2 id="previsões-em-imagens-personalizadas">Previsões em imagens personalizadas</h2>
+<p>Realizar previsões em uma base de testes já fornecida é ótimo! Mas queremos poder utilizar o nosso modelo em nossas próprias imagens. Para isso, precisamos do caminho de arquivo para nossa própria imagem, em seguida transformar esse caminho em lotes usando <code>create_data_batches()</code>. Como essa imagem personalizada não terá um rótulo, precisamos definir o parâmetro <code>test_data</code> como <code>True</code>. Então enviaremos o lote de dados da imagem personalizada para o método <code>predict()</code> do nosso modelo.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># pegando o caminho de arquivo para a imagem personalizada</span>
+custom_path = <span class="hljs-string">&quot;drive/MyDrive/Data/dogs/&quot;</span>
+custom_image_paths = [custom_path + fname <span class="hljs-keyword">for</span> fname <span class="hljs-keyword">in</span> os.listdir(custom_path)]
+
+<span class="hljs-comment"># transforma a imagem personalizada em lote</span>
+custom_data = create_data_batches(custom_image_paths, test_data=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># faz previsões com os dados personalizados</span>
+custom_preds = full_model.predict(custom_data)
+</code></pre>
+<p>Agora que temos alguns arrays de previsões, precisamos convertê-los em rótulos para compará-los com cada imagem.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># lista rótulos de previsão de imagem personalizados</span>
+custom_pred_labels = [get_pred_label(custom_preds[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(custom_preds))]
+custom_pred_labels
+
+[<span class="hljs-string">&apos;chow&apos;</span>]
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># pega a imagem personalizada</span>
+custom_images = []
+<span class="hljs-comment"># loop para percorrer os dados fora de lote</span>
+<span class="hljs-keyword">for</span> image <span class="hljs-keyword">in</span> custom_data.unbatch().as_numpy_iterator():
+  custom_images.append(image)
+</code></pre>
+<p>Finalmente vamos ver o resultado da previsão do modelo em uma imagem personalizada:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># plotando a imagem</span>
+plot_pred(prediction_probabilities=custom_preds,
+          labels=custom_pred_labels,
+          images=custom_images, n=<span class="hljs-number">0</span>)
+</code></pre>
+<p><img src="images/chow.png" alt="chow teo"></p>
+<p>O modelo foi capaz de classificar o meu cachorro corretamente.</p>
 <hr>
 <h2 id="wip">WIP</h2>
+<ul>
+<li>revisões</li>
+<li>melhorias</li>
+<li>dicas</li>
+</ul>
 
                                 
                                 </section>
@@ -1265,7 +2063,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Transfer Learning com TensorFlow","level":"1.3.4","depth":2,"previous":{"title":"Introdução ao TensorFlow","level":"1.3.3","depth":2,"path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md","articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]},{"title":"Outras formas de criar Tensors","level":"1.3.3.4","depth":3,"anchor":"#outras-formas-de-criar-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#outras-formas-de-criar-tensors","articles":[]},{"title":"Manipulando Tensors","level":"1.3.3.5","depth":3,"anchor":"#manipulando-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#manipulando-tensors","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/transfer-learning-tensorflow.md","mtime":"2022-02-20T15:25:11.938Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-20T15:25:27.984Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Transfer Learning com TensorFlow","level":"1.3.4","depth":2,"previous":{"title":"Introdução ao TensorFlow","level":"1.3.3","depth":2,"path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md","articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]},{"title":"Outras formas de criar Tensors","level":"1.3.3.4","depth":3,"anchor":"#outras-formas-de-criar-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#outras-formas-de-criar-tensors","articles":[]},{"title":"Manipulando Tensors","level":"1.3.3.5","depth":3,"anchor":"#manipulando-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#manipulando-tensors","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/transfer-learning-tensorflow.md","mtime":"2022-02-21T21:58:48.535Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-21T22:00:07.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

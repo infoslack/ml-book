@@ -861,6 +861,165 @@ Saving model to: drive/MyDrive/Data/models/20220221-20161645474573-1000-images-A
 
 ## Treinando um modelo com todos os dados
 
+Já vimos que o modelo funciona em um subconjunto dos dados, podemos avançar e treinar um novo modelos com os dados completos. Vamos verificar os dados em `X` e os rótulos em `y`:
+
+```python
+len(X), len(y)
+
+(10222, 10222)
+```
+
+Temos mais de 10.000 imagens e rótulos em nosso conjunto de dados de treinamento. Antes de treinar, teremos que transformá-los em lotes de dados. Dessa vez não precisaremos escrever muito código, usaremos a função criada no inicio do projeto `create_data_batches()`:
+
+```python
+full_data = create_data_batches(X, y)
+
+Criando lotes de dados de treino...
+```
+
+Pronto, agora que os dados estão em um lote de dados, tudo que precisamos  agora é criar um modelo. Usaremos a função criada anteriormente `create_model()`:
+
+```python
+full_model = create_model()
+
+Criando modelo com: https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/5
+```
+
+Agora alguns callbacks:
+
+```python
+# TensorBoard
+full_model_tensorboard = create_tensorboard_callback()
+
+# Early stopping
+full_model_early_stopping = tf.keras.callbacks.EarlyStopping(monitor="accuracy",
+                                                             patience=3)
+```
+
+> Treinar o modelo com mais de 10.000 imagens pode levar bastante tempo para terminar.
+
+```python
+# treinando o modelo com todos os dados de treino
+full_model.fit(x=full_data,
+               epochs=NUM_EPOCHS,
+               callbacks=[full_model_tensorboard, 
+                          full_model_early_stopping])
+```
+
+![tf full data fit](images/tf-full-data-fit.png)
+
+## Previsões nos dados de teste (completo)
+
+Usaremos a função `create_data_batches()` para colocar os dados de previsões da base de teste em lotes:
+
+```python
+test_path = "drive/MyDrive/Dog Vision/test/"
+test_filenames = [test_path + fname for fname in os.listdir(test_path)]
+
+test_filenames[:10]
+```
+
+```
+['drive/MyDrive/Dog Vision/test/e1deaf47925c840d804d7ff0324ee1fe.jpg',
+ 'drive/MyDrive/Dog Vision/test/e0a6b866af64299ecf76f7cb11c80674.jpg',
+ 'drive/MyDrive/Dog Vision/test/e4b7ff61849485992246c0f2ab7e8804.jpg',
+ 'drive/MyDrive/Dog Vision/test/e699b20911a55abda3558c5bcd37443d.jpg',
+ 'drive/MyDrive/Dog Vision/test/de5496c6b58f66ab890ab24087d9e220.jpg',
+ 'drive/MyDrive/Dog Vision/test/e219af838e1d6a18224eb9b478944778.jpg',
+ 'drive/MyDrive/Dog Vision/test/e73dc6a8f2d7c941f28c0a5298bc5bdc.jpg',
+ 'drive/MyDrive/Dog Vision/test/e0a21cb0d8d3014b6c56230350a9362f.jpg',
+ 'drive/MyDrive/Dog Vision/test/e47bc25097050ba689b64de02c725837.jpg',
+ 'drive/MyDrive/Dog Vision/test/e09f4ff3f7acee994812650a2fc7edef.jpg']
+ ```
+
+ ```python
+test_data = create_data_batches(test_filenames, test_data=True)
+
+Criando lotes de dados de teste...
+```
+
+> Como existem mais de 10.000 imagens de teste, fazer previsões em toda a base pode demorar um pouco, mesmo em uma GPU.
+
+```python
+test_predictions = full_model.predict(test_data,
+                                             verbose=1)
+
+324/324 [==============================] - 208s 622ms/step
+```
+
+```python
+# verificando as previsões nos dados de teste
+test_predictions[:10]
+```
+
+```
+array([[4.0301520e-06, 4.1828032e-05, 1.5791221e-09, ..., 3.9228894e-06,
+        3.4770914e-10, 2.3396865e-10],
+       [2.7395019e-11, 7.6133766e-08, 1.5362861e-09, ..., 2.7218279e-05,
+        8.2300048e-06, 5.3789286e-11],
+       [7.5121376e-12, 2.1255443e-10, 3.2456470e-13, ..., 9.6879893e-10,
+        1.4016718e-09, 2.6680713e-09],
+       ...,
+       [7.0882045e-08, 5.0273874e-10, 2.3055667e-11, ..., 7.0060409e-11,
+        4.2239805e-15, 5.2385742e-14],
+       [1.6729247e-07, 3.7636589e-08, 2.7725382e-09, ..., 6.2566934e-09,
+        1.7995176e-06, 3.9208203e-07],
+       [3.8880444e-11, 1.5927676e-11, 1.9205317e-09, ..., 2.9934097e-10,
+        6.6410523e-11, 6.0468192e-10]], dtype=float32)
+```
+
+## Previsões em imagens personalizadas
+
+Realizar previsões em uma base de testes já fornecida é ótimo! Mas queremos poder utilizar o nosso modelo em nossas próprias imagens. Para isso, precisamos do caminho de arquivo para nossa própria imagem, em seguida transformar esse caminho em lotes usando `create_data_batches()`. Como essa imagem personalizada não terá um rótulo, precisamos definir o parâmetro `test_data` como `True`. Então enviaremos o lote de dados da imagem personalizada para o método `predict()` do nosso modelo.
+
+```python
+# pegando o caminho de arquivo para a imagem personalizada
+custom_path = "drive/MyDrive/Data/dogs/"
+custom_image_paths = [custom_path + fname for fname in os.listdir(custom_path)]
+
+# transforma a imagem personalizada em lote
+custom_data = create_data_batches(custom_image_paths, test_data=True)
+
+# faz previsões com os dados personalizados
+custom_preds = full_model.predict(custom_data)
+```
+
+Agora que temos alguns arrays de previsões, precisamos convertê-los em rótulos para compará-los com cada imagem.
+
+```python
+# lista rótulos de previsão de imagem personalizados
+custom_pred_labels = [get_pred_label(custom_preds[i]) for i in range(len(custom_preds))]
+custom_pred_labels
+
+['chow']
+```
+
+```python
+# pega a imagem personalizada
+custom_images = []
+# loop para percorrer os dados fora de lote
+for image in custom_data.unbatch().as_numpy_iterator():
+  custom_images.append(image)
+```
+
+Finalmente vamos ver o resultado da previsão do modelo em uma imagem personalizada:
+
+```python
+# plotando a imagem
+plot_pred(prediction_probabilities=custom_preds,
+          labels=custom_pred_labels,
+          images=custom_images, n=0)
+```
+
+![chow teo](images/chow.png)
+
+O modelo foi capaz de classificar o meu cachorro corretamente.
+
 ---
 
 ## WIP
+
+  - revisões
+  - melhorias
+  - dicas
+
