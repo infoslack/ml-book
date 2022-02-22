@@ -29,6 +29,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+sns.set()
 ```
 
 Utilizaremos a biblioteca [Seaborn](https://seaborn.pydata.org/), uma opção de biblioteca para visualização baseada na `Matplotlib` que fornece uma interface mais simples para plotar os gráficos (escreveremos menos código).
@@ -276,3 +277,209 @@ memory usage: 8.3+ MB
 > Agora nosso DataFrame está sem nulos e pronto para a etapa de análise!
 
 ## Análise exploratória
+
+Sempre que houver dúvidas por onde começar, visualize os dados! Vamos olhar para a distribuição dos pontos dados durante as avaliações dos vinhos, parece um bom ponto de partida.
+
+```python
+plt.figure(figsize=(10, 7))
+plt.hist(data=df1, x='points',
+         bins=np.arange (80, df1['points'].max()+1, 1),
+         color = 'purple')
+plt.xlim(80,100)
+plt.title('Distribuição dos pontos', fontsize=16)
+plt.xlabel('Pontos')
+plt.ylabel('Frequência');
+```
+
+![eda vinhos pontos](images/eda-vinhos-1.png)
+
+Existe uma distribuição quase normal dos pontos variando a escala entre `80` e `100`. Vamos ver quais países estão no `Top 10` que mais produzem vinhos.
+
+```python
+country_top_10 = df1["country"].value_counts()[:10]
+country_top_10
+
+US           54265
+France       17776
+Italy        16914
+Spain         6573
+Portugal      4875
+Chile         4415
+Argentina     3756
+Austria       2799
+Australia     2294
+Germany       2120
+Name: country, dtype: int64
+```
+
+Com base nesse filtro podemos gerar um gráfico para comparar os países que mais tiveram vinhos avaliados:
+
+```python
+plt.figure(figsize=(10, 7))
+country_top_10.plot(kind='bar', color = 'purple')
+plt.title('Número de classificações de vinhos por país', fontsize = 16)
+plt.xlabel('País')
+plt.ylabel('Total de avaliações');
+```
+
+![eda class vinhos país](images/eda-vinhos-2.png)
+
+Com base nessa ordenação do gráfico acima, vamos investigar quantos países produzem vinho de melhor qualidade de acordo com as classificações.
+
+```python
+melhor_qualidade = df1.groupby("country").agg("mean")
+melhor_qualidade = melhor_qualidade.sort_values(by="points", ascending=False)[:10]
+melhor_qualidade.style.background_gradient(cmap='Purples',high=0.5, subset=["points"])
+```
+
+![melhor qualidade de vinhos por país](images/eda-vinhos-3.png)
+
+Podemos gerar um gráfico desse filtro:
+
+```python
+y = melhor_qualidade.index.to_series()
+x = melhor_qualidade["points"]
+
+plt.figure(figsize=(10, 7))
+plt.xlim(80, 92)
+sns.barplot(x=x, y=y, palette='Purples_r')
+plt.title('Top 10 média de vinhos de melhor qualidade por país', fontsize = 16)
+plt.xlabel('Média de pontos')
+plt.ylabel('País');
+```
+
+![top 10 media de pontos por país](images/eda-vinhos-4.png)
+
+Ao verificar a média de pontos, podemos perceber que o país com melhor avaliação (que produziu o vinho de melhor qualidade) foi a Inglaterra. Isso ocorre, porque talvez haja menos vinhos da Inglaterra no nosso DataFrame e eles tenham uma pontuação alta, representando um aumento na média. Vale a pena investigarmos isso mais a fundo, podemos olhar para os países com pontuação máxima acima de `95` (vinhos excelentes).
+
+```python
+# número de vinhos por país com classificações mais altas 95-100
+high_scores = df1[df1["points"]>=95]
+high_scores["country"].value_counts()
+
+US              991
+France          509
+Italy           326
+Austria         103
+Portugal         96
+Germany          62
+Spain            51
+Australia        47
+Argentina        11
+Hungary           5
+England           3
+South Africa      3
+Chile             2
+New Zealand       2
+Name: country, dtype: int64
+```
+
+Os países com classificação mais alta `95-100` pontos, diferem do nosso gráfico de pontuações mais altas com base nas médias. Podemos criar um gráfico do tipo `boxplot` que nos permitirá ver o máximo, o mínimo e a média das pontuações por cada país. Como essa base de dados apresenta mais vinhos avaliados dos EUA, é provável que haja uma grande variedade de vinhos do país, enquanto a Inglaterra, que teve a melhor pontuação média, apresenta menos vinhos na base de dados, o que resulta em uma comparação injusta.
+
+```python
+plt.figure(figsize=(20, 18))
+sns.boxplot(data=df1, x='points', y='country', color = 'Purple')
+plt.title('Pontos por país', fontsize = 16)
+plt.xlabel('Pontos')
+plt.ylabel('País');
+```
+
+![pontos por país boxplot](images/eda-vinhos-5.png)
+
+Embora os vinhos da Inglaterra tenham os pontos mais altos em média, os vinhos de Portugal, EUA, Itália, França e Austrália, receberam uma pontuação perfeita de `100`. Há mais vinhos desses países na base de dados, por tanto eles receberam uma gama maior de pontos.
+
+Ok, agora que vimos as distribuições de pontos por cada país, vamos investigar o preço do vinho nos países:
+
+```python
+average_price = df1.groupby("country").agg("mean")
+average_price = average_price.sort_values(by="price", ascending=False)
+y = average_price.index.to_series()
+x = average_price["price"]
+
+plt.figure(figsize=(12, 8))
+sns.barplot(x=x, y=y, palette='Purples_r')
+plt.title('Preço médio da garrafa de vinho por país', fontsize = 16)
+plt.xlabel('Preço médio ($)')
+plt.ylabel('País');
+```
+
+![preço médio da garrafa por país](images/eda-vinhos-6.png)
+
+A Suíça, produz o vinho mais caro, com o preço médio da garrafa de mais de $80. Já o vinho da Ucrânia, está no outro extremo, com o preço médio mais baixo, $10 a garrafa. Vamos investigar se o preço está relacionado a qualidade do vinho. A utilização de histogramas para essa tarefa parece um bom plano:
+
+```python
+plt.figure(figsize=(10, 7))
+bins = np.arange (0, df1["price"].max()+5, 5)
+plt.hist(data=df1, x='price', bins=bins, color = 'Purple')
+plt.xlim(0,200)
+plt.title('Distribuição dos preços dos vinhos', fontsize=16)
+plt.xlabel('Preço($)')
+plt.ylabel('Frequência');
+```
+
+![hist preço dos vinhos](images/eda-vinhos-7.png)
+
+Interessante, os dados de preço dos vinhos apresentam uma distorção grande para a direita. Nesse caso precisamos de uma transformação logarítmica nos dados.
+
+```python
+# distribuição normal
+df1["price"].describe()
+
+count    120915.000000
+mean         35.368796
+std          41.031188
+min           4.000000
+25%          17.000000
+50%          25.000000
+75%          42.000000
+max        3300.000000
+Name: price, dtype: float64
+
+# distribuição logarítmica
+np.log10(df1["price"].describe())
+
+count    5.082480
+mean     1.548620
+std      1.613114
+min      0.602060
+25%      1.230449
+50%      1.397940
+75%      1.623249
+max      3.518514
+Name: price, dtype: float64
+```
+
+Agora utilizando os dados com a transformação logarítmica para o nosso histograma:
+
+```python
+plt.figure(figsize=(12, 8))
+bins = 10 ** np.arange(0.5, 3.5 + 0.05, 0.05)
+ticks = [1, 3, 10, 30, 100, 300, 1000, 3000, 10000]
+plt.hist(data=df1, x='price', bins=bins, color='Purple')
+plt.title('Distribuição dos preços dos vinhos', fontsize=16)
+plt.xscale('log')
+plt.xticks(ticks, ticks)
+plt.xlabel('Preço($)')
+plt.ylabel('Frequência');
+```
+
+![preço vinhos log hist](images/eda-vinhos-8.png)
+
+Bem melhor! Agora é possível ver uma distribuição (*quase normal*). Existe um salto na região dos 10 dólares e um pico mais visível em pouco mais de 20 dólares. Depois temos outro pico acima de $50. Agora podemos plotar um gráfico do tipo `scatter` para visualizar se existe uma correlação entre a pontuação e o valor da garrafa.
+
+```python
+x = [1, 3, 10, 30, 100, 300, 1000, 3000, 10000]
+
+plt.figure(figsize=(12, 8))
+sns.regplot(x='price', y='points', data=df1, color='Purple', logx=True, scatter_kws={'alpha':0.3})
+plt.title("Pontos vs. Preço", fontsize=14)
+plt.xscale('log')
+plt.xticks(x, x)
+plt.xlabel("Preço($)")
+plt.ylabel("Pontos");
+```
+
+![pontos vs preço scatter plot](images/eda-vinhos-9.png)
+
+O gráfico nos mostra uma relação positiva entre as duas variáveis (*pontos e preços*), ou seja, vinhos mais caros tendem a receber melhores avaliações.
+
