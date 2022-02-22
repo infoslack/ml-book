@@ -1,0 +1,1923 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Análise exploratória de dados · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="part-ii-ml.html" />
+    
+    
+    <link rel="prev" href="matplotlib-exercicios.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
+            
+                <a href="sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
+            
+                <a href="ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Um pouco de Python para Data Science
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="part-i-data-science.html">
+            
+                <a href="part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html#importando-o-pandas">
+            
+                    
+                    Importando o Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#series">
+            
+                    
+                    Series
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#dataframe">
+            
+                    
+                    DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#anatomia-de-um-dataframe">
+            
+                    
+                    Anatomia de um DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#explorando-os-dados">
+            
+                    
+                    Explorando os dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dtypes">
+            
+                    
+                    dtypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#describe">
+            
+                    
+                    describe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#info">
+            
+                    
+                    info
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#mean-e-sum">
+            
+                    
+                    mean, sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#columns">
+            
+                    
+                    columns
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.13" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#head">
+            
+                    
+                    head
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.14" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#tail">
+            
+                    
+                    tail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.15" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#loc-e-iloc">
+            
+                    
+                    loc, iloc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.16" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#groupby">
+            
+                    
+                    groupby
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.17" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#replace">
+            
+                    
+                    str.replace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.18" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#numeric">
+            
+                    
+                    to_numeric
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.19" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#fillna">
+            
+                    
+                    fillna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.20" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dropna">
+            
+                    
+                    dropna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.21" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#drop">
+            
+                    
+                    drop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.22" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#sample">
+            
+                    
+                    sample
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.23" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#reset-index">
+            
+                    
+                    reset_index
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.24" data-path="pandas-exercicios.html">
+            
+                <a href="pandas-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html">
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html#importando-a-biblioteca-numpy">
+            
+                    
+                    Importando a biblioteca NumPy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="np-tipos-de-dados.html">
+            
+                <a href="np-tipos-de-dados.html">
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html">
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#selecionando-e-visualizando-elementos">
+            
+                    
+                    Selecionando e visualizando elementos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#manipulando-e-comparando-arrays">
+            
+                    
+                    Manipulando e comparando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#aggregations">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#reshaping-e-transpose">
+            
+                    
+                    Reshaping e Transpose
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#comparando-e-ordenando-arrays">
+            
+                    
+                    Comparando e ordenando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="numpy-exercicios.html">
+            
+                <a href="numpy-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html">
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#plot">
+            
+                    
+                    plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#figure">
+            
+                    
+                    plt.figure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#subplots">
+            
+                    
+                    plt.subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="anatomia-matplotlib.html">
+            
+                <a href="anatomia-matplotlib.html">
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html">
+            
+                    
+                    Tipos de plots mais utilizados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#line">
+            
+                    
+                    Line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#scatter">
+            
+                    
+                    Scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#bar">
+            
+                    
+                    Bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#hist">
+            
+                    
+                    Hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#subplots">
+            
+                    
+                    Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="matplotlib-exercicios.html">
+            
+                <a href="matplotlib-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.4" data-path="analise-exploratoria.html">
+            
+                <a href="analise-exploratoria.html">
+            
+                    
+                    Análise exploratória de dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="part-ii-ml.html">
+            
+                <a href="part-ii-ml.html">
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="ml-101.html">
+            
+                <a href="ml-101.html">
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html">
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#sklearn-de-ponta-a-ponta">
+            
+                    
+                    Sklearn de ponta a ponta
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#eda">
+            
+                    
+                    EDA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#modelagem-dos-dados">
+            
+                    
+                    Modelagem dos dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#treino-e-teste">
+            
+                    
+                    Treino e Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#escolha-de-modelos">
+            
+                    
+                    Escolha de modelos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-kneighborsclassifier-knn">
+            
+                    
+                    KNeighborsClassifier
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-randomizedsearchcv">
+            
+                    
+                    RandomizedSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-gridsearchcv">
+            
+                    
+                    GridSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#roc-curve-e-auc-scores">
+            
+                    
+                    ROC Curve e AUC Scores
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="contents-sklearn.md">
+            
+                <span>
+            
+                    
+                    Feature importance
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html">
+            
+                    
+                    Introdução ao TensorFlow
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#tensors">
+            
+                    
+                    Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfconstant">
+            
+                    
+                    Criando Tensors com tf.constant()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfvariable">
+            
+                    
+                    Criando Tensors com tf.Variable()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#outras-formas-de-criar-tensors">
+            
+                    
+                    Outras formas de criar Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#manipulando-tensors">
+            
+                    
+                    Manipulando Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="transfer-learning-tensorflow.html">
+            
+                <a href="transfer-learning-tensorflow.html">
+            
+                    
+                    Transfer Learning com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Análise exploratória de dados</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="análise-exploratória-de-dados">Análise exploratória de dados</h1>
+<p>Fomos contratados por uma grande empresa distribuidora de vinhos. Nosso cliente deseja melhorar as vendas entregando produtos que agradem os diversos perfis de clientes. O foco do nosso projeto aqui é desenvolver uma análise exploratória nos <a href="https://www.kaggle.com/zynicide/wine-reviews" target="_blank">dados de avaliações de vinhos</a>.</p>
+<p>Uma análise exploratória bem elaborada consiste em algumas etapas:</p>
+<ul>
+<li>Compreensão do negócio</li>
+<li>Compreensão dos dados</li>
+<li>Preparar os dados (limpeza e tratamento)</li>
+<li>Análise de dados (extrair informações relevantes e responder perguntas)</li>
+<li>Avaliação dos resultados</li>
+</ul>
+<p>Nosso objetivo ao concluir esse projeto é responder as seguintes perguntas:</p>
+<ol>
+<li>De onde vem o melhor vinho ?</li>
+<li>O preço do vinho está relacionado com a qualidade ?</li>
+<li>Certas variedades de uvas são de maior qualidade ?</li>
+<li>Qual é o melhor vinho em cada faixa de preço ?</li>
+<li>Que palavras são mais utilizadas para descrever um vinho ?</li>
+</ol>
+<p>Vamos começar!</p>
+<h2 id="verificando-os-dados">Verificando os dados</h2>
+<p>Agora que já sabemos que perguntas devemos responder durante a análise, vamos dar uma olhada nos dados. Começaremos com alguns imports:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+sns.<span class="hljs-built_in">set</span>()
+</code></pre>
+<p>Utilizaremos a biblioteca <a href="https://seaborn.pydata.org/" target="_blank">Seaborn</a>, uma opção de biblioteca para visualização baseada na <code>Matplotlib</code> que fornece uma interface mais simples para plotar os gráficos (escreveremos menos código).</p>
+<p>Vamos examinar o dataset:</p>
+<pre><code class="lang-python">df = pd.read_csv(<span class="hljs-string">&quot;winemag-data-130k-v2.csv&quot;</span>)
+df.head()
+</code></pre>
+<p><img src="images/dataset-vinhos-2.png" alt="eda dataset vinhos"></p>
+<pre><code class="lang-python">df.columns
+
+Index([<span class="hljs-string">&apos;Unnamed: 0&apos;</span>, <span class="hljs-string">&apos;country&apos;</span>, <span class="hljs-string">&apos;description&apos;</span>, <span class="hljs-string">&apos;designation&apos;</span>, <span class="hljs-string">&apos;points&apos;</span>,
+       <span class="hljs-string">&apos;price&apos;</span>, <span class="hljs-string">&apos;province&apos;</span>, <span class="hljs-string">&apos;region_1&apos;</span>, <span class="hljs-string">&apos;region_2&apos;</span>, <span class="hljs-string">&apos;taster_name&apos;</span>,
+       <span class="hljs-string">&apos;taster_twitter_handle&apos;</span>, <span class="hljs-string">&apos;title&apos;</span>, <span class="hljs-string">&apos;variety&apos;</span>, <span class="hljs-string">&apos;winery&apos;</span>],
+      dtype=<span class="hljs-string">&apos;object&apos;</span>)
+</code></pre>
+<p>Vamos elaborar um pequeno sumário para essas colunas e ver o que iremos utilizar em nossa análise:</p>
+<ul>
+<li><strong>unnamed</strong> - parece ser uma coluna de índice que podemos remover</li>
+<li><strong>country</strong> - país onde o vinho foi feito (interessante)</li>
+<li><strong>description</strong> - descrição do vinho</li>
+<li><strong>designation</strong> - vinhedo dentro da adega de onde as uvas que fizeram o vinho foram coletadas.</li>
+<li><strong>points</strong> - é o número de pontos que o vinho obteve em sua avaliação (precisamos entender a escala de pontos)</li>
+<li><strong>price</strong> - preço da garrafa de vinho</li>
+<li><strong>province</strong> - é a província (estado) onde o vinho foi feito</li>
+<li><strong>region_1</strong> - é a região onde o vinho foi feito</li>
+<li><strong>region_2</strong> - região mais específica dentro de uma vitícola (podemos remover isso)</li>
+<li><strong>taster_name</strong> - nome do revisor</li>
+<li><strong>taster_twitter_handle</strong> - perfil do Twitter do avaliador</li>
+<li><strong>title</strong> - nome do vinho analisado (o ano de fabricação está no título)</li>
+<li><strong>variety</strong> - tipo de uvas utilizadas na fabricação do vinho</li>
+<li><strong>winery</strong> - adega onde o vinho foi feito.</li>
+</ul>
+<p>Agora, uma olhada rápida nos tipos de dados:</p>
+<pre><code>df.info()
+
+&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+RangeIndex: 129971 entries, 0 to 129970
+Data columns (total 14 columns):
+ #   Column                 Non-Null Count   Dtype  
+---  ------                 --------------   -----  
+ 0   Unnamed: 0             129971 non-null  int64  
+ 1   country                129908 non-null  object 
+ 2   description            129971 non-null  object 
+ 3   designation            92506 non-null   object 
+ 4   points                 129971 non-null  int64  
+ 5   price                  120975 non-null  float64
+ 6   province               129908 non-null  object 
+ 7   region_1               108724 non-null  object 
+ 8   region_2               50511 non-null   object 
+ 9   taster_name            103727 non-null  object 
+ 10  taster_twitter_handle  98758 non-null   object 
+ 11  title                  129971 non-null  object 
+ 12  variety                129970 non-null  object 
+ 13  winery                 129971 non-null  object 
+dtypes: float64(1), int64(2), object(11)
+memory usage: 13.9+ MB
+</code></pre><p>Ao todo temos 129.971 linhas e 14 colunas no dataset. Existem algumas colunas com dados ausentes e podemos descartar algumas dessas colunas, como por exemplo <code>region_2</code>, <code>taster_name</code> e <code>taster_twitter_handle</code>.</p>
+<pre><code class="lang-python">df.describe()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:right">Unnamed: 0</th>
+<th style="text-align:right">points</th>
+<th style="text-align:right">price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">count</td>
+<td style="text-align:right">129971.000000</td>
+<td style="text-align:right">129971.000000</td>
+<td style="text-align:right">120975.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">mean</td>
+<td style="text-align:right">64985.000000</td>
+<td style="text-align:right">88.447138</td>
+<td style="text-align:right">35.363389</td>
+</tr>
+<tr>
+<td style="text-align:right">std</td>
+<td style="text-align:right">37519.540256</td>
+<td style="text-align:right">3.039730</td>
+<td style="text-align:right">41.022218</td>
+</tr>
+<tr>
+<td style="text-align:right">min</td>
+<td style="text-align:right">0.000000</td>
+<td style="text-align:right">80.000000</td>
+<td style="text-align:right">4.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">25%</td>
+<td style="text-align:right">32492.500000</td>
+<td style="text-align:right">86.000000</td>
+<td style="text-align:right">17.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">50%</td>
+<td style="text-align:right">64985.000000</td>
+<td style="text-align:right">88.000000</td>
+<td style="text-align:right">25.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">75%</td>
+<td style="text-align:right">97477.500000</td>
+<td style="text-align:right">91.000000</td>
+<td style="text-align:right">42.000000</td>
+</tr>
+<tr>
+<td style="text-align:right">max</td>
+<td style="text-align:right">129970.000000</td>
+<td style="text-align:right">100.000000</td>
+<td style="text-align:right">3300.000000</td>
+</tr>
+</tbody>
+</table>
+<p>O <code>describe()</code> nos mostra uma distribuição de pontos para uma garrafa de vinho, onde o mínimo é <code>80</code> e o máximo é <code>100</code>. Também é possível notar que a garrafa de vinho mais barata custa <code>$4</code> e a mais cara <code>$3.300</code>. Segundo <a href="https://www.wine-searcher.com/critics-17-wine+enthusiast" target="_blank">esse site</a> temos a seguinte classificação por pontos:</p>
+<ul>
+<li><strong>98-100</strong> - Clássico</li>
+<li><strong>94-97</strong>- Soberbo</li>
+<li><strong>90-93</strong>- Excelente</li>
+<li><strong>87-89</strong>- Muito bom</li>
+<li><strong>83-86</strong>- Bom</li>
+<li><strong>80-82</strong>- Aceitável</li>
+</ul>
+<p>Por meio da função <code>value_counts()</code> podemos contar quantos vinhos foram avaliados por cada país:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;country&quot;</span>].value_counts()
+</code></pre>
+<pre><code>US                        54504
+France                    22093
+Italy                     19540
+Spain                      6645
+Portugal                   5691
+Chile                      4472
+Argentina                  3800
+Austria                    3345
+Australia                  2329
+Germany                    2165
+New Zealand                1419
+South Africa               1401
+Israel                      505
+Greece                      466
+Canada                      257
+Hungary                     146
+Bulgaria                    141
+Romania                     120
+Uruguay                     109
+Turkey                       90
+Slovenia                     87
+Georgia                      86
+England                      74
+Croatia                      73
+Mexico                       70
+Moldova                      59
+Brazil                       52
+Lebanon                      35
+Morocco                      28
+Peru                         16
+Ukraine                      14
+Serbia                       12
+Czech Republic               12
+Macedonia                    12
+Cyprus                       11
+India                         9
+Switzerland                   7
+Luxembourg                    6
+Bosnia and Herzegovina        2
+Armenia                       2
+Slovakia                      1
+China                         1
+Egypt                         1
+Name: country, dtype: int64
+</code></pre><blockquote>
+<p>Note que a maioria dos vinhos avaliados é dos EUA, França, Itália, Espanha e Portugal.</p>
+</blockquote>
+<p>Também podemos utilizar <code>value_counts()</code> para verificar quais tipos de uva foram mais utilizadas na fabricação dos vinhos avaliados:</p>
+<pre><code class="lang-python">df[<span class="hljs-string">&quot;variety&quot;</span>].value_counts()
+
+Pinot Noir                    <span class="hljs-number">13272</span>
+Chardonnay                    <span class="hljs-number">11753</span>
+Cabernet Sauvignon             <span class="hljs-number">9472</span>
+Red Blend                      <span class="hljs-number">8946</span>
+Bordeaux-style Red Blend       <span class="hljs-number">6915</span>
+                              ...  
+Cabernet Sauvignon-Barbera        <span class="hljs-number">1</span>
+Sauvignonasse                     <span class="hljs-number">1</span>
+Forcallà                          <span class="hljs-number">1</span>
+Meseguera                         <span class="hljs-number">1</span>
+Bobal-Cabernet Sauvignon          <span class="hljs-number">1</span>
+Name: variety, Length: <span class="hljs-number">707</span>, dtype: int64
+</code></pre>
+<p>Nossa próxima tarefa é limpar os dados, agora que verificamos podemos concluir que os campos: <code>Unamed: 0</code>, <code>designation</code>, <code>region_1</code>, <code>region_2</code>, <code>taster_name</code> e <code>taster_twitter_handle</code> podem ser removidos, pois não fornecem dados úteis para nossa análise.</p>
+<h2 id="limpando-os-dados">Limpando os dados</h2>
+<p>A primeira coisa a ser feita no processo de limpeza dos dados é uma cópia do DataFrame. Em seguida vamos remover as colunas que não iremos utilizar e tratar os problemas identificados.</p>
+<p>A função <code>copy()</code> faz uma cópia do DataFrame:</p>
+<pre><code class="lang-python">df1 = df.copy()
+</code></pre>
+<p>Agora que fizemos a cópia, vamos começar removendo as colunas que não vamos precisar para nossa análise:</p>
+<pre><code class="lang-python">df1 = df1.drop([<span class="hljs-string">&quot;Unnamed: 0&quot;</span>, <span class="hljs-string">&quot;designation&quot;</span>, <span class="hljs-string">&quot;region_1&quot;</span>, <span class="hljs-string">&quot;region_2&quot;</span>, <span class="hljs-string">&quot;taster_name&quot;</span>, <span class="hljs-string">&quot;taster_twitter_handle&quot;</span>], axis=<span class="hljs-number">1</span>)
+df1.head()
+</code></pre>
+<p><img src="images/dataset-vinhos-3.png" alt="dataset vinhos drop"></p>
+<p>Aida temos o problema dos dados ausentes para resolver:</p>
+<pre><code class="lang-python">df1.info()
+
+&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+RangeIndex: 129971 entries, 0 to 129970
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   country      129908 non-null  object 
+ 1   description  129971 non-null  object 
+ 2   points       129971 non-null  int64  
+ 3   price        120975 non-null  float64
+ 4   province     129908 non-null  object 
+ 5   title        129971 non-null  object 
+ 6   variety      129970 non-null  object 
+ 7   winery       129971 non-null  object 
+dtypes: float64(1), int64(1), object(6)
+memory usage: 7.9+ MB
+</code></pre>
+<p>Podemos fazer alguns cálculos de proporção na coluna de preço (que é bastante importante para nossa análise) e apresenta dados ausentes:</p>
+<pre><code class="lang-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;{:.0%}&quot;</span>.<span class="hljs-built_in">format</span>(df1[<span class="hljs-string">&quot;price&quot;</span>].count() / df1.shape[<span class="hljs-number">0</span>]))
+
+<span class="hljs-number">93</span>%
+</code></pre>
+<p>Ok, se removermos as linhas com valores nulos da coluna preço (<code>price</code>), ficaremos com <code>93%</code> das linhas restantes. Como a base de dados é suficientemente grande, podemos remover essas linhas filtrando também por país e uvas (<code>country</code> e <code>variety</code>) que também contém dados nulos.</p>
+<pre><code class="lang-python">df1 = df1.dropna(subset=[<span class="hljs-string">&quot;country&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>, <span class="hljs-string">&quot;variety&quot;</span>])
+
+df1.info()
+</code></pre>
+<pre><code>&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+Int64Index: 120915 entries, 1 to 129970
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   country      120915 non-null  object 
+ 1   description  120915 non-null  object 
+ 2   points       120915 non-null  int64  
+ 3   price        120915 non-null  float64
+ 4   province     120915 non-null  object 
+ 5   title        120915 non-null  object 
+ 6   variety      120915 non-null  object 
+ 7   winery       120915 non-null  object 
+dtypes: float64(1), int64(1), object(6)
+memory usage: 8.3+ MB
+</code></pre><blockquote>
+<p>Agora nosso DataFrame está sem nulos e pronto para a etapa de análise!</p>
+</blockquote>
+<h2 id="análise-exploratória">Análise exploratória</h2>
+<p>Sempre que houver dúvidas por onde começar, visualize os dados! Vamos olhar para a distribuição dos pontos dados durante as avaliações dos vinhos, parece um bom ponto de partida.</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>))
+plt.hist(data=df1, x=<span class="hljs-string">&apos;points&apos;</span>,
+         bins=np.arange (<span class="hljs-number">80</span>, df1[<span class="hljs-string">&apos;points&apos;</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">1</span>, <span class="hljs-number">1</span>),
+         color = <span class="hljs-string">&apos;purple&apos;</span>)
+plt.xlim(<span class="hljs-number">80</span>,<span class="hljs-number">100</span>)
+plt.title(<span class="hljs-string">&apos;Distribuição dos pontos&apos;</span>, fontsize=<span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Pontos&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;Frequência&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-1.png" alt="eda vinhos pontos"></p>
+<p>Existe uma distribuição quase normal dos pontos variando a escala entre <code>80</code> e <code>100</code>. Vamos ver quais países estão no <code>Top 10</code> que mais produzem vinhos.</p>
+<pre><code class="lang-python">country_top_10 = df1[<span class="hljs-string">&quot;country&quot;</span>].value_counts()[:<span class="hljs-number">10</span>]
+country_top_10
+
+US           <span class="hljs-number">54265</span>
+France       <span class="hljs-number">17776</span>
+Italy        <span class="hljs-number">16914</span>
+Spain         <span class="hljs-number">6573</span>
+Portugal      <span class="hljs-number">4875</span>
+Chile         <span class="hljs-number">4415</span>
+Argentina     <span class="hljs-number">3756</span>
+Austria       <span class="hljs-number">2799</span>
+Australia     <span class="hljs-number">2294</span>
+Germany       <span class="hljs-number">2120</span>
+Name: country, dtype: int64
+</code></pre>
+<p>Com base nesse filtro podemos gerar um gráfico para comparar os países que mais tiveram vinhos avaliados:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>))
+country_top_10.plot(kind=<span class="hljs-string">&apos;bar&apos;</span>, color = <span class="hljs-string">&apos;purple&apos;</span>)
+plt.title(<span class="hljs-string">&apos;Número de classificações de vinhos por país&apos;</span>, fontsize = <span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;País&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;Total de avaliações&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-2.png" alt="eda class vinhos país"></p>
+<p>Com base nessa ordenação do gráfico acima, vamos investigar quantos países produzem vinho de melhor qualidade de acordo com as classificações.</p>
+<pre><code class="lang-python">melhor_qualidade = df1.groupby(<span class="hljs-string">&quot;country&quot;</span>).agg(<span class="hljs-string">&quot;mean&quot;</span>)
+melhor_qualidade = melhor_qualidade.sort_values(by=<span class="hljs-string">&quot;points&quot;</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">10</span>]
+melhor_qualidade.style.background_gradient(cmap=<span class="hljs-string">&apos;Purples&apos;</span>,high=<span class="hljs-number">0.5</span>, subset=[<span class="hljs-string">&quot;points&quot;</span>])
+</code></pre>
+<p><img src="images/eda-vinhos-3.png" alt="melhor qualidade de vinhos por país"></p>
+<p>Podemos gerar um gráfico desse filtro:</p>
+<pre><code class="lang-python">y = melhor_qualidade.index.to_series()
+x = melhor_qualidade[<span class="hljs-string">&quot;points&quot;</span>]
+
+plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>))
+plt.xlim(<span class="hljs-number">80</span>, <span class="hljs-number">92</span>)
+sns.barplot(x=x, y=y, palette=<span class="hljs-string">&apos;Purples_r&apos;</span>)
+plt.title(<span class="hljs-string">&apos;Top 10 média de vinhos de melhor qualidade por país&apos;</span>, fontsize = <span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Média de pontos&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;País&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-4.png" alt="top 10 media de pontos por país"></p>
+<p>Ao verificar a média de pontos, podemos perceber que o país com melhor avaliação (que produziu o vinho de melhor qualidade) foi a Inglaterra. Isso ocorre, porque talvez haja menos vinhos da Inglaterra no nosso DataFrame e eles tenham uma pontuação alta, representando um aumento na média. Vale a pena investigarmos isso mais a fundo, podemos olhar para os países com pontuação máxima acima de <code>95</code> (vinhos excelentes).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># número de vinhos por país com classificações mais altas 95-100</span>
+high_scores = df1[df1[<span class="hljs-string">&quot;points&quot;</span>]&gt;=<span class="hljs-number">95</span>]
+high_scores[<span class="hljs-string">&quot;country&quot;</span>].value_counts()
+
+US              <span class="hljs-number">991</span>
+France          <span class="hljs-number">509</span>
+Italy           <span class="hljs-number">326</span>
+Austria         <span class="hljs-number">103</span>
+Portugal         <span class="hljs-number">96</span>
+Germany          <span class="hljs-number">62</span>
+Spain            <span class="hljs-number">51</span>
+Australia        <span class="hljs-number">47</span>
+Argentina        <span class="hljs-number">11</span>
+Hungary           <span class="hljs-number">5</span>
+England           <span class="hljs-number">3</span>
+South Africa      <span class="hljs-number">3</span>
+Chile             <span class="hljs-number">2</span>
+New Zealand       <span class="hljs-number">2</span>
+Name: country, dtype: int64
+</code></pre>
+<p>Os países com classificação mais alta <code>95-100</code> pontos, diferem do nosso gráfico de pontuações mais altas com base nas médias. Podemos criar um gráfico do tipo <code>boxplot</code> que nos permitirá ver o máximo, o mínimo e a média das pontuações por cada país. Como essa base de dados apresenta mais vinhos avaliados dos EUA, é provável que haja uma grande variedade de vinhos do país, enquanto a Inglaterra, que teve a melhor pontuação média, apresenta menos vinhos na base de dados, o que resulta em uma comparação injusta.</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">18</span>))
+sns.boxplot(data=df1, x=<span class="hljs-string">&apos;points&apos;</span>, y=<span class="hljs-string">&apos;country&apos;</span>, color = <span class="hljs-string">&apos;Purple&apos;</span>)
+plt.title(<span class="hljs-string">&apos;Pontos por país&apos;</span>, fontsize = <span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Pontos&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;País&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-5.png" alt="pontos por país boxplot"></p>
+<p>Embora os vinhos da Inglaterra tenham os pontos mais altos em média, os vinhos de Portugal, EUA, Itália, França e Austrália, receberam uma pontuação perfeita de <code>100</code>. Há mais vinhos desses países na base de dados, por tanto eles receberam uma gama maior de pontos.</p>
+<p>Ok, agora que vimos as distribuições de pontos por cada país, vamos investigar o preço do vinho nos países:</p>
+<pre><code class="lang-python">average_price = df1.groupby(<span class="hljs-string">&quot;country&quot;</span>).agg(<span class="hljs-string">&quot;mean&quot;</span>)
+average_price = average_price.sort_values(by=<span class="hljs-string">&quot;price&quot;</span>, ascending=<span class="hljs-literal">False</span>)
+y = average_price.index.to_series()
+x = average_price[<span class="hljs-string">&quot;price&quot;</span>]
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))
+sns.barplot(x=x, y=y, palette=<span class="hljs-string">&apos;Purples_r&apos;</span>)
+plt.title(<span class="hljs-string">&apos;Preço médio da garrafa de vinho por país&apos;</span>, fontsize = <span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Preço médio ($)&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;País&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-6.png" alt="preço médio da garrafa por país"></p>
+<p>A Suíça, produz o vinho mais caro, com o preço médio da garrafa de mais de $80. Já o vinho da Ucrânia, está no outro extremo, com o preço médio mais baixo, $10 a garrafa. Vamos investigar se o preço está relacionado a qualidade do vinho. A utilização de histogramas para essa tarefa parece um bom plano:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>))
+bins = np.arange (<span class="hljs-number">0</span>, df1[<span class="hljs-string">&quot;price&quot;</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+plt.hist(data=df1, x=<span class="hljs-string">&apos;price&apos;</span>, bins=bins, color = <span class="hljs-string">&apos;Purple&apos;</span>)
+plt.xlim(<span class="hljs-number">0</span>,<span class="hljs-number">200</span>)
+plt.title(<span class="hljs-string">&apos;Distribuição dos preços dos vinhos&apos;</span>, fontsize=<span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Preço($)&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;Frequência&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-7.png" alt="hist preço dos vinhos"></p>
+<p>Interessante, os dados de preço dos vinhos apresentam uma distorção grande para a direita. Nesse caso precisamos de uma transformação logarítmica nos dados.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># distribuição normal</span>
+df1[<span class="hljs-string">&quot;price&quot;</span>].describe()
+
+count    <span class="hljs-number">120915.000000</span>
+mean         <span class="hljs-number">35.368796</span>
+std          <span class="hljs-number">41.031188</span>
+<span class="hljs-built_in">min</span>           <span class="hljs-number">4.000000</span>
+<span class="hljs-number">25</span>%          <span class="hljs-number">17.000000</span>
+<span class="hljs-number">50</span>%          <span class="hljs-number">25.000000</span>
+<span class="hljs-number">75</span>%          <span class="hljs-number">42.000000</span>
+<span class="hljs-built_in">max</span>        <span class="hljs-number">3300.000000</span>
+Name: price, dtype: float64
+
+<span class="hljs-comment"># distribuição logarítmica</span>
+np.log10(df1[<span class="hljs-string">&quot;price&quot;</span>].describe())
+
+count    <span class="hljs-number">5.082480</span>
+mean     <span class="hljs-number">1.548620</span>
+std      <span class="hljs-number">1.613114</span>
+<span class="hljs-built_in">min</span>      <span class="hljs-number">0.602060</span>
+<span class="hljs-number">25</span>%      <span class="hljs-number">1.230449</span>
+<span class="hljs-number">50</span>%      <span class="hljs-number">1.397940</span>
+<span class="hljs-number">75</span>%      <span class="hljs-number">1.623249</span>
+<span class="hljs-built_in">max</span>      <span class="hljs-number">3.518514</span>
+Name: price, dtype: float64
+</code></pre>
+<p>Agora utilizando os dados com a transformação logarítmica para o nosso histograma:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))
+bins = <span class="hljs-number">10</span> ** np.arange(<span class="hljs-number">0.5</span>, <span class="hljs-number">3.5</span> + <span class="hljs-number">0.05</span>, <span class="hljs-number">0.05</span>)
+ticks = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">100</span>, <span class="hljs-number">300</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">3000</span>, <span class="hljs-number">10000</span>]
+plt.hist(data=df1, x=<span class="hljs-string">&apos;price&apos;</span>, bins=bins, color=<span class="hljs-string">&apos;Purple&apos;</span>)
+plt.title(<span class="hljs-string">&apos;Distribuição dos preços dos vinhos&apos;</span>, fontsize=<span class="hljs-number">16</span>)
+plt.xscale(<span class="hljs-string">&apos;log&apos;</span>)
+plt.xticks(ticks, ticks)
+plt.xlabel(<span class="hljs-string">&apos;Preço($)&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;Frequência&apos;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-8.png" alt="preço vinhos log hist"></p>
+<p>Bem melhor! Agora é possível ver uma distribuição (<em>quase normal</em>). Existe um salto na região dos 10 dólares e um pico mais visível em pouco mais de 20 dólares. Depois temos outro pico acima de $50. Agora podemos plotar um gráfico do tipo <code>scatter</code> para visualizar se existe uma correlação entre a pontuação e o valor da garrafa.</p>
+<pre><code class="lang-python">x = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">100</span>, <span class="hljs-number">300</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">3000</span>, <span class="hljs-number">10000</span>]
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))
+sns.regplot(x=<span class="hljs-string">&apos;price&apos;</span>, y=<span class="hljs-string">&apos;points&apos;</span>, data=df1, color=<span class="hljs-string">&apos;Purple&apos;</span>, logx=<span class="hljs-literal">True</span>, scatter_kws={<span class="hljs-string">&apos;alpha&apos;</span>:<span class="hljs-number">0.3</span>})
+plt.title(<span class="hljs-string">&quot;Pontos vs. Preço&quot;</span>, fontsize=<span class="hljs-number">14</span>)
+plt.xscale(<span class="hljs-string">&apos;log&apos;</span>)
+plt.xticks(x, x)
+plt.xlabel(<span class="hljs-string">&quot;Preço($)&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Pontos&quot;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-9.png" alt="pontos vs preço scatter plot"></p>
+<p>O gráfico nos mostra uma relação positiva entre as duas variáveis (<em>pontuação e preços</em>), ou seja, vinhos mais caros tendem a receber melhores avaliações. Também é possível observar dois pontos mais afastados, um na região dos $4 e outro pouco depois de $3000. Vamos listar esses dois valores para descobrir quais vinhos são esses, buscando pelo valor máximo e mínimo:</p>
+<pre><code class="lang-python">df1[df1[<span class="hljs-string">&quot;price&quot;</span>] == df1[<span class="hljs-string">&quot;price&quot;</span>].<span class="hljs-built_in">min</span>()][:<span class="hljs-number">1</span>]
+</code></pre>
+<p><img src="images/eda-vinhos-10.png" alt="listando vinho mais barato"></p>
+<pre><code class="lang-python">df1[df1[<span class="hljs-string">&quot;price&quot;</span>] == df1[<span class="hljs-string">&quot;price&quot;</span>].<span class="hljs-built_in">max</span>()][:<span class="hljs-number">1</span>]
+</code></pre>
+<p><img src="images/eda-vinhos-11.png" alt="listando vinho mais caro"></p>
+<p>Temos um vinho Espanhol com 85 pontos de classificação que custa $4 a garrafa e um vinho Francês de 88 pontos que custa $3.300.</p>
+<p>Agora vamos investigar se certas variedades de vinhos (tipos de uva) são de melhor qualidade. Para isso podemos filtrar uma amostra de 20 melhores vinhos e ver como eles pontuam.</p>
+<pre><code class="lang-python">df1[<span class="hljs-string">&quot;variety&quot;</span>].value_counts()[:<span class="hljs-number">20</span>]
+
+Pinot Noir                  <span class="hljs-number">12785</span>
+Chardonnay                  <span class="hljs-number">11077</span>
+Cabernet Sauvignon           <span class="hljs-number">9384</span>
+Red Blend                    <span class="hljs-number">8466</span>
+Bordeaux-style Red Blend     <span class="hljs-number">5340</span>
+Riesling                     <span class="hljs-number">4971</span>
+Sauvignon Blanc              <span class="hljs-number">4780</span>
+Syrah                        <span class="hljs-number">4086</span>
+Rosé                         <span class="hljs-number">3261</span>
+Merlot                       <span class="hljs-number">3061</span>
+Zinfandel                    <span class="hljs-number">2708</span>
+Malbec                       <span class="hljs-number">2593</span>
+Sangiovese                   <span class="hljs-number">2377</span>
+Nebbiolo                     <span class="hljs-number">2331</span>
+Portuguese Red               <span class="hljs-number">2196</span>
+White Blend                  <span class="hljs-number">2167</span>
+Sparkling Blend              <span class="hljs-number">2027</span>
+Tempranillo                  <span class="hljs-number">1788</span>
+Rhône-style Red Blend        <span class="hljs-number">1404</span>
+Pinot Gris                   <span class="hljs-number">1388</span>
+Name: variety, dtype: int64
+</code></pre>
+<blockquote>
+<p>Lembre-se: visualize os dados!</p>
+</blockquote>
+<p>Vamos ao gráfico com <code>boxplot</code>:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">18</span>))
+sns.boxplot(data=df1,
+            x=<span class="hljs-string">&apos;variety&apos;</span>,
+            y=<span class="hljs-string">&apos;points&apos;</span>,
+            color=<span class="hljs-string">&quot;Purple&quot;</span>,
+            order=df1[<span class="hljs-string">&quot;variety&quot;</span>].value_counts().iloc[:<span class="hljs-number">20</span>].index)
+
+plt.title(<span class="hljs-string">&apos;Distribuição de pontos por variedade&apos;</span>, fontsize = <span class="hljs-number">16</span>)
+plt.xlabel(<span class="hljs-string">&apos;Variedade (uvas)&apos;</span>)
+plt.ylabel(<span class="hljs-string">&apos;Pontos&apos;</span>)
+plt.xticks(rotation=<span class="hljs-number">90</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-12.png" alt="variedade de uvas por pontos"></p>
+<p>Listando o <strong>Top 20</strong> melhores vinhos (com melhor classificação) na base de dados, vemos que a variedade <code>Pinot Noir</code> tende a ter o melhor desempenho, com a pontuação média mais alta.</p>
+<p>Já sabemos que a qualidade está fortemente relacionada ao preço, mas nem todos os clientes podem gastar 3000 dólares em uma garrafa de vinho toda semana. Nossa tarefa agora é descobrir o melhor custo-benefício em algumas faixas de preço.</p>
+<ul>
+<li>Até <em>$15</em></li>
+<li>Entre <em>$15</em> e <em>$30</em></li>
+<li>Entre <em>$30</em> e <em>$50</em></li>
+<li>Acima de <em>$50</em></li>
+</ul>
+<pre><code class="lang-python"><span class="hljs-comment"># top 10 custando até $15</span>
+under_15 = df1.drop([<span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-string">&quot;province&quot;</span>, <span class="hljs-string">&quot;winery&quot;</span>], axis=<span class="hljs-number">1</span>)
+under_15 = under_15[under_15[<span class="hljs-string">&quot;price&quot;</span>] &lt;= <span class="hljs-number">15</span>]
+under_15 = under_15.sort_values(by=<span class="hljs-string">&quot;points&quot;</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">10</span>]
+under_15.style.background_gradient(cmap=<span class="hljs-string">&apos;YlOrRd&apos;</span>,high=<span class="hljs-number">0.5</span>, subset=[<span class="hljs-string">&quot;price&quot;</span>])
+</code></pre>
+<p><img src="images/eda-vinhos-13.png" alt="top 10 vinhos até $15"></p>
+<blockquote>
+<p><em>Com base nos dados, uma boa escolha aqui seria um vinho Português de 94 pontos por $13, <code>Quinta dos Murças 2011 Assobio Red (Douro)</code>.</em></p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># top 10 com valor entre $15 e $30</span>
+between_15_and_30 = df1.drop([<span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-string">&quot;province&quot;</span>, <span class="hljs-string">&quot;winery&quot;</span>], axis=<span class="hljs-number">1</span>)
+between_15_and_30 = between_15_and_30.query(<span class="hljs-string">&quot;price &gt; 15 and price &lt;= 30&quot;</span>)
+between_15_and_30 = between_15_and_30.sort_values(by=<span class="hljs-string">&quot;points&quot;</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">10</span>]
+between_15_and_30.style.background_gradient(cmap=<span class="hljs-string">&apos;YlOrRd&apos;</span>,high=<span class="hljs-number">0.5</span>, subset=[<span class="hljs-string">&quot;price&quot;</span>])
+</code></pre>
+<p><img src="images/eda-vinhos-14.png" alt="top 10 vinhos com valor entre $15 e $30"></p>
+<blockquote>
+<p><em>Já nessa lista, se o cliente estiver disposto a gastar um pouco mais. A melhor opção seria um vinho dos EUA de 96 pontos por $20.</em></p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># top 10 com valor entre $30 e $50</span>
+between_30_and_50 = df1.drop([<span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-string">&quot;province&quot;</span>, <span class="hljs-string">&quot;winery&quot;</span>], axis=<span class="hljs-number">1</span>)
+between_30_and_50 = between_30_and_50.query(<span class="hljs-string">&quot;price &gt; 30 and price &lt;= 50&quot;</span>)
+between_30_and_50 = between_30_and_50.sort_values(by=<span class="hljs-string">&quot;points&quot;</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">10</span>]
+between_30_and_50.style.background_gradient(cmap=<span class="hljs-string">&apos;YlOrRd&apos;</span>,high=<span class="hljs-number">0.5</span>, subset=[<span class="hljs-string">&quot;price&quot;</span>])
+</code></pre>
+<p><img src="images/eda-vinhos-15.png" alt="top 10 vinhos com valor entre $30 e $50"></p>
+<blockquote>
+<p><em>Se a preferência do cliente for da variedade <code>Chardonnay</code>, nesse filtro é possível levar um vinho de 99 pontos por $44.</em></p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># top 10 com valor acima de $50</span>
+above_50 = df1.drop([<span class="hljs-string">&quot;description&quot;</span>, <span class="hljs-string">&quot;province&quot;</span>, <span class="hljs-string">&quot;winery&quot;</span>], axis=<span class="hljs-number">1</span>)
+above_50 = above_50.query(<span class="hljs-string">&quot;price &gt; 50&quot;</span>)
+above_50 = above_50.sort_values(by=<span class="hljs-string">&quot;points&quot;</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">10</span>]
+above_50.style.background_gradient(cmap=<span class="hljs-string">&apos;YlOrRd&apos;</span>,high=<span class="hljs-number">0.5</span>, subset=[<span class="hljs-string">&quot;price&quot;</span>])
+</code></pre>
+<p><img src="images/eda-vinhos-16.png" alt="top 10 vinhos com valor acima de $50"></p>
+<blockquote>
+<p><em>Por $80 é possível experimentar o sabor de um vinho de 100 pontos, com duas opções: <code>Charles Smith 2006 Royal City Syrah</code> e <code>Cayuse 2008 Bionic Frog Syrah</code>, ambos dos EUA.</em></p>
+</blockquote>
+<p>Nossa última tarefa na análise é descobrir quais palavras são mais utilizadas para descrever um vinho. Para isso podemos utilizar a biblioteca <code>wordcloud</code> que separa cada palavra em um texto e nos permite filtrar as de maior ocorrência, gerando uma nuvem de palavras.</p>
+<p>Primeiro vamos importar a biblioteca e combinar todas as descrições das avaliações em um só texto:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+<span class="hljs-keyword">from</span> wordcloud <span class="hljs-keyword">import</span> WordCloud, STOPWORDS
+
+text = df1[<span class="hljs-string">&quot;description&quot;</span>][<span class="hljs-number">1</span>]
+text = <span class="hljs-string">&quot; &quot;</span>.join(i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> df1[<span class="hljs-string">&quot;description&quot;</span>])
+<span class="hljs-built_in">len</span>(text)
+
+<span class="hljs-number">29653210</span>
+</code></pre>
+<p>Temos agora um imenso texto agrupado. A biblioteca disponibiliza uma funcionalidade chamada <code>stopwords</code> que são uma lista de palavras que serão eliminadas no processo de criação da nossa nuvem de palavras.</p>
+<pre><code class="lang-python">stopwords = <span class="hljs-built_in">set</span>(STOPWORDS)
+stopwords.update([<span class="hljs-string">&quot;drink&quot;</span>, <span class="hljs-string">&quot;now&quot;</span>, <span class="hljs-string">&quot;wine&quot;</span>, <span class="hljs-string">&quot;flavor&quot;</span>, <span class="hljs-string">&quot;flavors&quot;</span>])
+wordcloud = WordCloud(stopwords=stopwords,
+                      background_color=<span class="hljs-string">&quot;white&quot;</span>,
+                      width=<span class="hljs-number">2048</span>,
+                      height=<span class="hljs-number">1024</span>,
+                      max_words=<span class="hljs-number">1000</span>).generate(text)
+</code></pre>
+<p>Com a nuvem de palavras pronta, agora só precisamos plotar uma imagem exibindo as palavras mais utilizadas nas descrições de vinhos:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">20</span>,<span class="hljs-number">18</span>))
+plt.imshow(wordcloud, interpolation=<span class="hljs-string">&quot;bilinear&quot;</span>)
+plt.axis(<span class="hljs-string">&quot;off&quot;</span>);
+</code></pre>
+<p><img src="images/eda-vinhos-17.png" alt="palavras mais usadas nas descrições"></p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Agora podemos finalmente responder as perguntas que recebemos no começo deste projeto.</p>
+<ol>
+<li><p><strong>De onde vem o melhor vinho ?</strong></p>
+<p>   R: <em>A Inglaterra é quem em média produz vinhos soberbos. Mas se você quiser uma garrafa com pontuação perfeita de <code>100</code> deve observar os vinhos de outros países: França, Itália, EUA, Portugal ou Austrália.</em></p>
+</li>
+<li><p><strong>O preço do vinho está relacionado com a qualidade ?</strong></p>
+<p>   R: <em>É nítido que o preço do vinho está relacionado com a qualidade. Mas se você souber onde procurar, pode encontrar um vinho de $4 que possui apenas 3 pontos abaixo de uma garrafa que custa $3.300.</em></p>
+</li>
+</ol>
+<ol>
+<li><p><strong>Certas variedades de uvas são de maior qualidade ?</strong></p>
+<p>   R: <em>Todas as variedades estão na mesma situação (niveladas). A maior aposta com base nos dados é <code>Pinot Noir</code>.</em></p>
+</li>
+<li><p><strong>Qual é o melhor vinho em cada faixa de preço ?</strong></p>
+<p>   R: <em>Encontramos um vinho perfeito para cada orçamento. Com alguns destaques.</em></p>
+</li>
+<li><p><strong>Que palavras são mais utilizadas para descrever um vinho ?</strong></p>
+<p>   R: <em>Como pudemos ver na nuvem de palavras, certos termos aparecem uma vez ou outra nas descrições, termos como <code>finish</code> e <code>palate</code> aparecem em boa parte das avaliações.</em></p>
+</li>
+</ol>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="matplotlib-exercicios.html" class="navigation navigation-prev " aria-label="Previous page: Exercícios">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="part-ii-ml.html" class="navigation navigation-next " aria-label="Next page: Parte II: Machine Learning">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Análise exploratória de dados","level":"1.2.4","depth":2,"next":{"title":"Parte II: Machine Learning","level":"1.3","depth":1,"path":"contents/part-ii-ml.md","ref":"contents/part-ii-ml.md","articles":[{"title":"O que é Machine Learning?","level":"1.3.1","depth":2,"path":"contents/ml-101.md","ref":"contents/ml-101.md","articles":[]},{"title":"Scikit-Learn","level":"1.3.2","depth":2,"path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md","articles":[{"title":"Sklearn de ponta a ponta","level":"1.3.2.1","depth":3,"anchor":"#sklearn-de-ponta-a-ponta","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#sklearn-de-ponta-a-ponta","articles":[]},{"title":"EDA","level":"1.3.2.2","depth":3,"anchor":"#eda","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#eda","articles":[]},{"title":"Modelagem dos dados","level":"1.3.2.3","depth":3,"anchor":"#modelagem-dos-dados","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#modelagem-dos-dados","articles":[]},{"title":"Treino e Teste","level":"1.3.2.4","depth":3,"anchor":"#treino-e-teste","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#treino-e-teste","articles":[]},{"title":"Escolha de modelos","level":"1.3.2.5","depth":3,"anchor":"#escolha-de-modelos","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#escolha-de-modelos","articles":[]},{"title":"KNeighborsClassifier","level":"1.3.2.6","depth":3,"anchor":"#ajustando-kneighborsclassifier-knn","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-kneighborsclassifier-knn","articles":[]},{"title":"RandomizedSearchCV","level":"1.3.2.7","depth":3,"anchor":"#ajustando-modelos-com-randomizedsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-randomizedsearchcv","articles":[]},{"title":"GridSearchCV","level":"1.3.2.8","depth":3,"anchor":"#ajustando-modelos-com-gridsearchcv","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#ajustando-modelos-com-gridsearchcv","articles":[]},{"title":"ROC Curve e AUC Scores","level":"1.3.2.9","depth":3,"anchor":"#roc-curve-e-auc-scores","path":"contents/ml-sklearn.md","ref":"contents/ml-sklearn.md#roc-curve-e-auc-scores","articles":[]},{"title":"Feature importance","level":"1.3.2.10","depth":3,"anchor":"#feature-importance","path":"contents/contents-sklearn.md","ref":"contents/contents-sklearn.md#feature-importance","articles":[]}]},{"title":"Introdução ao TensorFlow","level":"1.3.3","depth":2,"path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md","articles":[{"title":"Tensors","level":"1.3.3.1","depth":3,"anchor":"#tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#tensors","articles":[]},{"title":"Criando Tensors com tf.constant()","level":"1.3.3.2","depth":3,"anchor":"#criando-tensors-com-tfconstant","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfconstant","articles":[]},{"title":"Criando Tensors com tf.Variable()","level":"1.3.3.3","depth":3,"anchor":"#criando-tensors-com-tfvariable","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#criando-tensors-com-tfvariable","articles":[]},{"title":"Outras formas de criar Tensors","level":"1.3.3.4","depth":3,"anchor":"#outras-formas-de-criar-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#outras-formas-de-criar-tensors","articles":[]},{"title":"Manipulando Tensors","level":"1.3.3.5","depth":3,"anchor":"#manipulando-tensors","path":"contents/intro-tensorflow.md","ref":"contents/intro-tensorflow.md#manipulando-tensors","articles":[]}]},{"title":"Transfer Learning com TensorFlow","level":"1.3.4","depth":2,"path":"contents/transfer-learning-tensorflow.md","ref":"contents/transfer-learning-tensorflow.md","articles":[]}]},"previous":{"title":"Exercícios","level":"1.2.3.18","depth":3,"path":"contents/matplotlib-exercicios.md","ref":"contents/matplotlib-exercicios.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/analise-exploratoria.md","mtime":"2022-02-22T19:05:05.028Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-22T19:08:04.200Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

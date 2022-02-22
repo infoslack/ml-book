@@ -14,7 +14,7 @@ Nosso objetivo ao concluir esse projeto é responder as seguintes perguntas:
 
 1. De onde vem o melhor vinho ?
 2. O preço do vinho está relacionado com a qualidade ?
-3. Certos variedades de uvas são de maior qualidade ?
+3. Certas variedades de uvas são de maior qualidade ?
 4. Qual é o melhor vinho em cada faixa de preço ?
 5. Que palavras são mais utilizadas para descrever um vinho ?
 
@@ -481,5 +481,185 @@ plt.ylabel("Pontos");
 
 ![pontos vs preço scatter plot](images/eda-vinhos-9.png)
 
-O gráfico nos mostra uma relação positiva entre as duas variáveis (*pontos e preços*), ou seja, vinhos mais caros tendem a receber melhores avaliações.
+O gráfico nos mostra uma relação positiva entre as duas variáveis (*pontuação e preços*), ou seja, vinhos mais caros tendem a receber melhores avaliações. Também é possível observar dois pontos mais afastados, um na região dos $4 e outro pouco depois de $3000. Vamos listar esses dois valores para descobrir quais vinhos são esses, buscando pelo valor máximo e mínimo:
 
+```python
+df1[df1["price"] == df1["price"].min()][:1]
+```
+
+![listando vinho mais barato](images/eda-vinhos-10.png)
+
+```python
+df1[df1["price"] == df1["price"].max()][:1]
+```
+
+![listando vinho mais caro](images/eda-vinhos-11.png)
+
+Temos um vinho Espanhol com 85 pontos de classificação que custa $4 a garrafa e um vinho Francês de 88 pontos que custa $3.300.
+
+Agora vamos investigar se certas variedades de vinhos (tipos de uva) são de melhor qualidade. Para isso podemos filtrar uma amostra de 20 melhores vinhos e ver como eles pontuam.
+
+```python
+df1["variety"].value_counts()[:20]
+
+Pinot Noir                  12785
+Chardonnay                  11077
+Cabernet Sauvignon           9384
+Red Blend                    8466
+Bordeaux-style Red Blend     5340
+Riesling                     4971
+Sauvignon Blanc              4780
+Syrah                        4086
+Rosé                         3261
+Merlot                       3061
+Zinfandel                    2708
+Malbec                       2593
+Sangiovese                   2377
+Nebbiolo                     2331
+Portuguese Red               2196
+White Blend                  2167
+Sparkling Blend              2027
+Tempranillo                  1788
+Rhône-style Red Blend        1404
+Pinot Gris                   1388
+Name: variety, dtype: int64
+```
+
+> Lembre-se: visualize os dados!
+
+Vamos ao gráfico com `boxplot`:
+
+```python
+plt.figure(figsize=(20, 18))
+sns.boxplot(data=df1,
+            x='variety',
+            y='points',
+            color="Purple",
+            order=df1["variety"].value_counts().iloc[:20].index)
+
+plt.title('Distribuição de pontos por variedade', fontsize = 16)
+plt.xlabel('Variedade (uvas)')
+plt.ylabel('Pontos')
+plt.xticks(rotation=90);
+```
+
+![variedade de uvas por pontos](images/eda-vinhos-12.png)
+
+Listando o **Top 20** melhores vinhos (com melhor classificação) na base de dados, vemos que a variedade `Pinot Noir` tende a ter o melhor desempenho, com a pontuação média mais alta.
+
+Já sabemos que a qualidade está fortemente relacionada ao preço, mas nem todos os clientes podem gastar 3000 dólares em uma garrafa de vinho toda semana. Nossa tarefa agora é descobrir o melhor custo-benefício em algumas faixas de preço.
+
+- Até *$15*
+- Entre *$15* e *$30*
+- Entre *$30* e *$50*
+- Acima de *$50*
+
+```python
+# top 10 custando até $15
+under_15 = df1.drop(["description", "province", "winery"], axis=1)
+under_15 = under_15[under_15["price"] <= 15]
+under_15 = under_15.sort_values(by="points", ascending=False)[:10]
+under_15.style.background_gradient(cmap='YlOrRd',high=0.5, subset=["price"])
+```
+
+![top 10 vinhos até $15](images/eda-vinhos-13.png)
+
+> *Com base nos dados, uma boa escolha aqui seria um vinho Português de 94 pontos por $13, `Quinta dos Murças 2011 Assobio Red (Douro)`.*
+
+```python
+# top 10 com valor entre $15 e $30
+between_15_and_30 = df1.drop(["description", "province", "winery"], axis=1)
+between_15_and_30 = between_15_and_30.query("price > 15 and price <= 30")
+between_15_and_30 = between_15_and_30.sort_values(by="points", ascending=False)[:10]
+between_15_and_30.style.background_gradient(cmap='YlOrRd',high=0.5, subset=["price"])
+```
+
+![top 10 vinhos com valor entre $15 e $30](images/eda-vinhos-14.png)
+
+> *Já nessa lista, se o cliente estiver disposto a gastar um pouco mais. A melhor opção seria um vinho dos EUA de 96 pontos por $20.*
+
+```python
+# top 10 com valor entre $30 e $50
+between_30_and_50 = df1.drop(["description", "province", "winery"], axis=1)
+between_30_and_50 = between_30_and_50.query("price > 30 and price <= 50")
+between_30_and_50 = between_30_and_50.sort_values(by="points", ascending=False)[:10]
+between_30_and_50.style.background_gradient(cmap='YlOrRd',high=0.5, subset=["price"])
+```
+
+![top 10 vinhos com valor entre $30 e $50](images/eda-vinhos-15.png)
+
+> *Se a preferência do cliente for da variedade `Chardonnay`, nesse filtro é possível levar um vinho de 99 pontos por $44.*
+
+```python
+# top 10 com valor acima de $50
+above_50 = df1.drop(["description", "province", "winery"], axis=1)
+above_50 = above_50.query("price > 50")
+above_50 = above_50.sort_values(by="points", ascending=False)[:10]
+above_50.style.background_gradient(cmap='YlOrRd',high=0.5, subset=["price"])
+```
+
+![top 10 vinhos com valor acima de $50](images/eda-vinhos-16.png)
+
+> *Por $80 é possível experimentar o sabor de um vinho de 100 pontos, com duas opções: `Charles Smith 2006 Royal City Syrah` e `Cayuse 2008 Bionic Frog Syrah`, ambos dos EUA.*
+
+Nossa última tarefa na análise é descobrir quais palavras são mais utilizadas para descrever um vinho. Para isso podemos utilizar a biblioteca `wordcloud` que separa cada palavra em um texto e nos permite filtrar as de maior ocorrência, gerando uma nuvem de palavras.
+
+Primeiro vamos importar a biblioteca e combinar todas as descrições das avaliações em um só texto:
+
+```python
+from PIL import Image
+from wordcloud import WordCloud, STOPWORDS
+
+text = df1["description"][1]
+text = " ".join(i for i in df1["description"])
+len(text)
+
+29653210
+```
+
+Temos agora um imenso texto agrupado. A biblioteca disponibiliza uma funcionalidade chamada `stopwords` que são uma lista de palavras que serão eliminadas no processo de criação da nossa nuvem de palavras.
+
+```python
+stopwords = set(STOPWORDS)
+stopwords.update(["drink", "now", "wine", "flavor", "flavors"])
+wordcloud = WordCloud(stopwords=stopwords,
+                      background_color="white",
+                      width=2048,
+                      height=1024,
+                      max_words=1000).generate(text)
+```
+
+Com a nuvem de palavras pronta, agora só precisamos plotar uma imagem exibindo as palavras mais utilizadas nas descrições de vinhos:
+
+```python
+plt.figure(figsize=(20,18))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off");
+```
+
+![palavras mais usadas nas descrições](images/eda-vinhos-17.png)
+
+## Conclusão
+
+Agora podemos finalmente responder as perguntas que recebemos no começo deste projeto.
+
+1. **De onde vem o melhor vinho ?**
+
+      R: *A Inglaterra é quem em média produz vinhos soberbos. Mas se você quiser uma garrafa com pontuação perfeita de `100` deve observar os vinhos de outros países: França, Itália, EUA, Portugal ou Austrália.*
+
+2. **O preço do vinho está relacionado com a qualidade ?**
+
+      R: *É nítido que o preço do vinho está relacionado com a qualidade. Mas se você souber onde procurar, pode encontrar um vinho de $4 que possui apenas 3 pontos abaixo de uma garrafa que custa $3.300.*
+
+
+3. **Certas variedades de uvas são de maior qualidade ?**
+
+      R: *Todas as variedades estão na mesma situação (niveladas). A maior aposta com base nos dados é `Pinot Noir`.*
+
+4. **Qual é o melhor vinho em cada faixa de preço ?**
+
+      R: *Encontramos um vinho perfeito para cada orçamento. Com alguns destaques.*
+
+5. **Que palavras são mais utilizadas para descrever um vinho ?**
+
+      R: *Como pudemos ver na nuvem de palavras, certos termos aparecem uma vez ou outra nas descrições, termos como `finish` e `palate` aparecem em boa parte das avaliações.*
