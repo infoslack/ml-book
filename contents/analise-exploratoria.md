@@ -643,23 +643,26 @@ plt.axis("off");
 
 Agora podemos finalmente responder as perguntas que recebemos no começo deste projeto.
 
-1. **De onde vem o melhor vinho ?**
+- **De onde vem o melhor vinho ?**
 
-      R: *A Inglaterra é quem em média produz vinhos soberbos. Mas se você quiser uma garrafa com pontuação perfeita de `100` deve observar os vinhos de outros países: França, Itália, EUA, Portugal ou Austrália.*
+  R: *A Inglaterra é quem em média produz vinhos soberbos. Mas se você quiser uma garrafa com pontuação perfeita de `100` deve observar os vinhos de outros países: França, Itália, EUA, Portugal ou Austrália.*
 
-2. **O preço do vinho está relacionado com a qualidade ?**
+- **O preço do vinho está relacionado com a qualidade ?**
 
-      R: *É nítido que o preço do vinho está relacionado com a qualidade. Mas se você souber onde procurar, pode encontrar um vinho de $4 que possui apenas 3 pontos abaixo de uma garrafa que custa $3.300.*
+  R: *É nítido que o preço do vinho está relacionado com a qualidade. Mas se você souber onde procurar, pode encontrar um vinho de $4 que possui apenas 3 pontos abaixo de uma garrafa que custa $3.300.*
 
 
-3. **Certas variedades de uvas são de maior qualidade ?**
+- **Certas variedades de uvas são de maior qualidade ?**
 
-      R: *Todas as variedades estão na mesma situação (niveladas). A maior aposta com base nos dados é `Pinot Noir`.*
+  R: *Todas as variedades estão na mesma situação (niveladas). A maior aposta com base nos dados é `Pinot Noir`.*
 
-4. **Qual é o melhor vinho em cada faixa de preço ?**
+- **Qual é o melhor vinho em cada faixa de preço ?**
 
-      R: *Encontramos um vinho perfeito para cada orçamento. Com alguns destaques.*
+  R: *Encontramos um vinho perfeito para cada orçamento. Com alguns destaques.*
 
-5. **Que palavras são mais utilizadas para descrever um vinho ?**
+- **Que palavras são mais utilizadas para descrever um vinho ?**
 
-      R: *Como pudemos ver na nuvem de palavras, certos termos aparecem uma vez ou outra nas descrições, termos como `finish` e `palate` aparecem em boa parte das avaliações.*
+  R: *Como pudemos ver na nuvem de palavras, certos termos aparecem uma vez ou outra nas descrições, termos como `finish` e `palate` aparecem em boa parte das avaliações.*
+
+---
+WIP
