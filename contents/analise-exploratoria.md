@@ -199,3 +199,80 @@ Name: variety, Length: 707, dtype: int64
 Nossa próxima tarefa é limpar os dados, agora que verificamos podemos concluir que os campos: `Unamed: 0`, `designation`, `region_1`, `region_2`, `taster_name` e `taster_twitter_handle` podem ser removidos, pois não fornecem dados úteis para nossa análise.
 
 ## Limpando os dados
+
+A primeira coisa a ser feita no processo de limpeza dos dados é uma cópia do DataFrame. Em seguida vamos remover as colunas que não iremos utilizar e tratar os problemas identificados.
+
+A função `copy()` faz uma cópia do DataFrame:
+
+```python
+df1 = df.copy()
+```
+
+Agora que fizemos a cópia, vamos começar removendo as colunas que não vamos precisar para nossa análise:
+
+```python
+df1 = df1.drop(["Unnamed: 0", "designation", "region_1", "region_2", "taster_name", "taster_twitter_handle"], axis=1)
+df1.head()
+```
+
+![dataset vinhos drop](images/dataset-vinhos-3.png)
+
+Aida temos o problema dos dados ausentes para resolver:
+
+```python
+df1.info()
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 129971 entries, 0 to 129970
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   country      129908 non-null  object 
+ 1   description  129971 non-null  object 
+ 2   points       129971 non-null  int64  
+ 3   price        120975 non-null  float64
+ 4   province     129908 non-null  object 
+ 5   title        129971 non-null  object 
+ 6   variety      129970 non-null  object 
+ 7   winery       129971 non-null  object 
+dtypes: float64(1), int64(1), object(6)
+memory usage: 7.9+ MB
+```
+
+Podemos fazer alguns cálculos de proporção na coluna de preço (que é bastante importante para nossa análise) e apresenta dados ausentes:
+
+```python
+print("{:.0%}".format(df1["price"].count() / df1.shape[0]))
+
+93%
+```
+
+Ok, se removermos as linhas com valores nulos da coluna preço (`price`), ficaremos com `93%` das linhas restantes. Como a base de dados é suficientemente grande, podemos remover essas linhas filtrando também por país e uvas (`country` e `variety`) que também contém dados nulos.
+
+```python
+df1 = df1.dropna(subset=["country", "price", "variety"])
+
+df1.info()
+```
+
+```
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 120915 entries, 1 to 129970
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   country      120915 non-null  object 
+ 1   description  120915 non-null  object 
+ 2   points       120915 non-null  int64  
+ 3   price        120915 non-null  float64
+ 4   province     120915 non-null  object 
+ 5   title        120915 non-null  object 
+ 6   variety      120915 non-null  object 
+ 7   winery       120915 non-null  object 
+dtypes: float64(1), int64(1), object(6)
+memory usage: 8.3+ MB
+```
+
+> Agora nosso DataFrame está sem nulos e pronto para a etapa de análise!
+
+## Análise exploratória
