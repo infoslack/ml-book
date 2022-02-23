@@ -160,5 +160,119 @@ array([[[0.71372549, 0.58823529, 0.40392157],
 
 ## Arquitetura de uma rede neural convolucional
 
+Redes neurais convolucionais não são diferentes de outros tipos de redes neurais de `Deep Learning`, pois podem ser criadas de muitas maneiras diferentes. Vejamos um exemplo dos componentes normalmente encontrados em uma `CNN` tradicional:
+
+![CNN tradicional componentes](images/cnn/cnn-tabela.png)
+
+Juntando tudo isso, teríamos várias camadas empilhadas (stack) formando uma rede convolucional:
+
+![cnn rgb stack](images/cnn/tensors-rgb.png)
+
+Vamos a um exemplo prático!
+
+Como visto antes, verificamos os dados e descobrimos que temos 750 imagens para treinamento e 250 imagens para teste, sendo que todas elas têm formas diferentes. Os criadores deste conjunto de dados, [originalmente escreveram que eles utilizaram um modelo de `ML` Random Forest](https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d) obtendo uma precisão média de `50,76%` nas previsões. Para o nosso projeto esses 50,76% são a nossa linha base, ou seja a nossa métrica de avaliação que tentaremos superar.
+
+O código que veremos agora, replica exatamente um modelo com uma rede neural convolucional (CNN) usando os componentes que foram mencionados acima. Muitos trechos de código você provavelmente ainda não viu (mas não se preocupe) leia os comentários para se familiarizar e tente descobrir o que cada trecho está fazendo. Este é um bom ponto de partida para avançarmos nos detalhes em cada uma das etapas ao longo deste capítulo.
+
+```python
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# Configurando o seed
+tf.random.set_seed(13)
+
+# Dados de pré-processamento (queremos os valores de pixel entre 0 e 1)
+train_datagen = ImageDataGenerator(rescale=1./255)
+valid_datagen = ImageDataGenerator(rescale=1./255)
+
+# Configurando diretórios de treino e teste
+train_dir = "pizza_steak/train/"
+test_dir = "pizza_steak/test/"
+
+# Importando os dados dos diretórios e transformando em lotes
+train_data = train_datagen.flow_from_directory(train_dir,
+                                               batch_size=32,
+                                               target_size=(224, 224),
+                                               class_mode="binary",
+                                               seed=42)
+
+valid_data = valid_datagen.flow_from_directory(test_dir,
+                                               batch_size=32,
+                                               target_size=(224, 224),
+                                               class_mode="binary",
+                                               seed=42)
+
+# Criando um modelo CNN
+model_1 = tf.keras.models.Sequential([
+  tf.keras.layers.Conv2D(filters=10, 
+                         kernel_size=3,
+                         activation="relu",
+                         # Primeira camada, especificando a forma de entrada
+                         # altura, largura e rgb
+                         input_shape=(224, 224, 3)),
+  tf.keras.layers.Conv2D(10, 3, activation="relu"),
+  tf.keras.layers.MaxPool2D(pool_size=2,
+                            padding="valid"),
+  tf.keras.layers.Conv2D(10, 3, activation="relu"),
+  tf.keras.layers.Conv2D(10, 3, activation="relu"),
+  tf.keras.layers.MaxPool2D(2),
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(1, activation="sigmoid") # output activation
+])
+
+# Compila o modelo
+model_1.compile(loss="binary_crossentropy",
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=["accuracy"])
+
+# Treina o modelo
+history_1 = model_1.fit(train_data,
+                        epochs=5,
+                        steps_per_epoch=len(train_data),
+                        validation_data=valid_data,
+                        validation_steps=len(valid_data))
+```
+
+![output fit modelo 1](images/cnn/output-modelo-1.png)
+
+Depois de 5 `epochs`, o modelo superou a pontuação inicial de `50,76%` de precisão (tivemos aproximadamente pouco mais de 81% de precisão). Mas, vale lembrar que o nosso modelo passou apenas por um só problema de classificação binária em vez de todas as 101 classes do dataset `Food 101`. Dito isso, não podemos comparar diretamente essas métricas. Os resultados mostraram apenas que nosso modelo aprendeu alguma coisa. Vamos verificar a arquitetura que foi construída:
+
+```
+model_1.summary()
+
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 222, 222, 10)      280       
+                                                                 
+ conv2d_1 (Conv2D)           (None, 220, 220, 10)      910       
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 110, 110, 10)     0  )                                                               
+                                                                 
+ conv2d_2 (Conv2D)           (None, 108, 108, 10)      910       
+                                                                 
+ conv2d_3 (Conv2D)           (None, 106, 106, 10)      910       
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 53, 53, 10)       0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 28090)             0         
+                                                                 
+ dense (Dense)               (None, 1)                 28091     
+                                                                 
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+```
+
+O que fizemos aqui foi replicar a arquitetura exata que o [site CNN Explainer](https://poloclub.github.io/cnn-explainer/) utiliza para demonstrar um modelo.
+Antes de nos aprofundarmos nos detalhes do código de exemplo, vamos ver o que acontece quando fazemos alguns ajustes no modelo.
+
 ---
-WIP
+## WIP
+  
+  - adicionar cap. sobre redes neurais do zero
+  - exemplo com cnn explainer
+  - exemplo com tensorflow playground
