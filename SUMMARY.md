@@ -80,3 +80,4 @@
     * [Outras formas de criar Tensors](contents/intro-tensorflow.md#outras-formas-de-criar-tensors)
     * [Manipulando Tensors](contents/intro-tensorflow.md#manipulando-tensors)
   * [Transfer Learning com TensorFlow](contents/transfer-learning-tensorflow.md)
+  * [Redes neurais convolucionais e Visão computacional com TensorFlow](contents/cnn-tensorflow.md)
