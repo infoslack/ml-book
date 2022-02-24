@@ -92,3 +92,102 @@ plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdYlBu);
 > Com base nos dados, vamos desenvolver um modelo para classificar o pontos azuis ou vermelhos.
 
 ## Formas de entrada e saída
+
+Um dos principais problemas ao construir redes neurais são as incompatibilidades de forma. Ou seja a forma dos dados de entrada e a forma dos dados de saída. No nosso exemplo, queremos inserir `X` e fazer com que o modelo consiga prever `y`. Precisamos verificar as formas de `X` e `y`:
+
+```python
+X.shape, y.shape
+
+((1000, 2), (1000,))
+
+X[0], y[0]
+
+(array([0.75424625, 0.23148074]), 1)
+```
+
+Aparentemente `X` disponibiliza de 2 recursos que combinados levam a um valor `y`. Isso quer dizer que a forma de entrada da rede neural precisa aceitar um `tensor` com pelo menos uma dimensão com dois valores e outro de saída com pelo menos uma dimensão e um valor.
+
+Agora que sabemos quais dados temos, bem como as formas de entrada e saída, vamos iniciar a etapa de modelagem para desenvolver uma rede neural. Utilizando o TensorFlow, geralmente temos 3 etapas fundamentais para criar e treinar um modelo: criar o modelo, compilar o modelo e ajustar o modelo. Veremos isso em ação utilizando a [API Sequential](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential):
+
+```python
+# Seed aleatório
+tf.random.set_seed(42)
+
+# 1. Cria o modelo usando a API Sequential
+model_1 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+# 2. Compila o modelo
+# escolhemos BinaryCrossentropy(), já que o problema envolve 2 classes (0 e 1)
+model_1.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['accuracy'])
+
+# 3. Treina o modelo
+model_1.fit(X, y, epochs=5)
+```
+
+```
+Epoch 1/5
+32/32 [==============================] - 1s 1ms/step - loss: 2.8544 - accuracy: 0.4600
+Epoch 2/5
+32/32 [==============================] - 0s 2ms/step - loss: 0.7131 - accuracy: 0.5430
+Epoch 3/5
+32/32 [==============================] - 0s 1ms/step - loss: 0.6973 - accuracy: 0.5090
+Epoch 4/5
+32/32 [==============================] - 0s 1ms/step - loss: 0.6950 - accuracy: 0.5010
+Epoch 5/5
+32/32 [==============================] - 0s 2ms/step - loss: 0.6942 - accuracy: 0.4830
+<keras.callbacks.History at 0x7f57aeb03350>
+```
+
+Observando a métrica de precisão (`accuracy`), o modelo tem um péssimo desempenho (*50% de precisão em um problema de classificação é o mesmo que adivinhar*). Podemos dar mais tempo para o modelo treinar:
+
+```python
+# Treinando o modelo por mais tempo
+# (resulta em mais chances de analisar os dados)
+model_1.fit(X, y, epochs=200, verbose=0)
+model_1.evaluate(X, y)
+```
+
+```
+32/32 [==============================] - 0s 2ms/step - loss: 0.6935 - accuracy: 0.5000
+[0.6934831142425537, 0.5]
+```
+
+Bem, o modelo funciona como se estivesse adivinhando, mesmo com 200 passes (`epochs`). Vamos tentar melhorar isso adicionando uma camada extra e treinar por um pouco mais de tempo (superior ao total da primeira tentativa):
+
+```python
+# Seed aleatório
+tf.random.set_seed(42)
+
+# 1. Mesmo modelo que model_1, dessa vez com uma camada extra
+model_2 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1), # camada extra
+  tf.keras.layers.Dense(1) 
+])
+
+# 2. Compila o modelo
+model_2.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['accuracy'])
+
+# 3. Treina o modelo
+model_2.fit(X, y, epochs=100, verbose=0)
+```
+
+Com o modelo treinado, vamos avaliar o desempenho:
+
+```
+model_2.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6933 - accuracy: 0.5000
+[0.6933314800262451, 0.5]
+```
+
+Não melhorou muito, continua em 50% de precisão. A seguir veremos como melhorar um modelo.
+
+## Melhorando um modelo
+
+
