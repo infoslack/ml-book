@@ -190,4 +190,92 @@ Não melhorou muito, continua em 50% de precisão. A seguir veremos como melhora
 
 ## Melhorando um modelo
 
+Para melhorar um modelo, podemos alterar quase todas as partes das etapas que passamos anteriormente.
 
+1. Criando o modelo - é onde podemos adicionar as camadas, aumentando o número de unidades ocultas (*neurônios*) em cada camada, alterando as funções de ativação de cada camada.
+
+2. Compilando o modelo - onde podemos escolher funções de otimização diferentes (*Ex: Adam*) ou talvez alterar a taxa de aprendizado na função de otimização.
+
+3. Treinando o modelo - podemos fazer ajustes em um modelo para ajustar os (*epochs*), deixando o modelo treinar por mais tempo.
+
+![improving a model](images/cnn/cnn-model.png)
+
+Temos muitas formas diferentes de melhorar o desempenho de uma rede neural. Algumas das formas mais comuns incluem: aumentar o número de camadas (*o que torna a rede mais profunda*) e alterando a taxa de aprendizado. Como podemos ajustar esses valores manualmente, são chamados de hiperparâmetros. Vamos ao teste:
+
+```python
+# Seed aleatório
+tf.random.set_seed(42)
+
+# 1. Criação do modelo (dessa vez com 3 camadas)
+model_3 = tf.keras.Sequential([
+  # 1 camada com 100 neuronios
+  tf.keras.layers.Dense(100, input_shape=(None, 1)),
+  tf.keras.layers.Dense(10), # outra camada com 10 neuronios
+  tf.keras.layers.Dense(1)
+])
+
+# 2. Compila o modelo
+model_3.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.Adam(), # Adam em vez de SGD
+                metrics=['accuracy'])
+
+# 3. Treina o modelo
+model_3.fit(X, y, epochs=100, verbose=0)
+```
+
+```
+model_3.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6939 - accuracy: 0.5000
+[0.6939496994018555, 0.5]
+```
+
+Mesmo com as alterações feitas, inserindo novos truques, o nosso modelo não está conseguindo melhorar. Quando isso acontece a melhor alternativa para investigar é `visualizar`. Vamos fazer agora algumas visualizações para identificar o que está acontecendo.
+
+Para visualizar as previsões do modelo, vamos implementar uma função `plot_decision()` que recebe um modelo treinado (recursos `X` e rótulos `y`), cria uma tabela dos diferentes valores de `X`, realiza as previsões em toda a "tabela" e marca as previsões traçando uma linha entre as diferentes zonas (onde cada classe única aparece). Sei que parece confuso, então veremos o código e em seguida o resultado do plot.
+
+```python
+import numpy as np
+
+def plot_decision(model, X, y):
+  
+  # Define os limites dos eixos do gráfico
+  # e cria uma "tabela", grade de malha
+  x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
+  y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
+  xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100),
+                       np.linspace(y_min, y_max, 100))
+  
+  # Adiciona os valores de X (que vamos prever)
+  x_in = np.c_[xx.ravel(), yy.ravel()]
+  
+  # Faz previsões utilizando o modelo treinado
+  y_pred = model.predict(x_in)
+
+  # Verifica se o problema é multiclasse
+  if len(y_pred[0]) > 1:
+    print("aplicando classificação multiclasse...")
+    # Faz um "reshape" nas previsões para a plotagem
+    y_pred = np.argmax(y_pred, axis=1).reshape(xx.shape)
+  else:
+    print("aplicando classificação binária...")
+    y_pred = np.round(y_pred).reshape(xx.shape)
+  
+  # Limite de decisão de plotagem
+  plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=0.7)
+  plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
+  plt.xlim(xx.min(), xx.max())
+  plt.ylim(yy.min(), yy.max())
+  ```
+
+Agora, com a função para traçar o limite de decisão do modelo, ou seja, identificar o ponto de corte entre os pontos vermelhos e azuis, vamos testar:
+
+```python
+plot_decision(model_3, X, y)
+
+aplicando classificação multiclasse...
+```
+
+![limite de decisão 1](images/cnn/cnn-plot-1.png)
+
+O gráfico revela que o modelo está tentando traçar uma linha reta através dos dados. E o problema é que esses dados não são separáveis por uma linha reta. A arquitetura do nosso modelo pode funcionar melhor em um problema de regressão.
