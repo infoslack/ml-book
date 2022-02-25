@@ -445,3 +445,77 @@ O modelo está treinando quase que perfeitamente agora, com exceção de poucos 
 
 Estamos avaliando o modelo com os mesmos dados em que ele foi treinado (*utilizando dados de treino para teste*). O ideal seria dividir nossos dados em grupos de treino e teste. Faremos isso agora, então treinaremos o modelo no conjunto de dados de treino e em seguida, veremos como ele aprendeu utilizando-o para fazer previsões no conjunto de dados de teste.
 
+Como temos 1000 exemplos no dataset criado, vamos separar 80% para treino e reservar os outros 20% para teste:
+
+```python
+# Separando os dados em conjuntos de treino e teste
+X_train, y_train = X[:800], y[:800] # 80% para treino
+X_test, y_test = X[800:], y[800:] # 20% para teste
+
+# Agora temos 800 exemplos de treino e 200 de teste
+X_train.shape, X_test.shape
+
+((800, 2), (200, 2))
+```
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando o modelo
+model_8 = tf.keras.Sequential([
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(1, activation="sigmoid")
+])
+
+# Compila
+model_8.compile(loss=tf.keras.losses.binary_crossentropy,
+                # aumentando a taxa de aprendizado de 0.001 para 0.01
+                # isso faz o modelo aprender mais rápido
+                optimizer=tf.keras.optimizers.Adam(learning_rate=0.01),
+                metrics=['accuracy'])
+
+# Fit
+history = model_8.fit(X_train, y_train, epochs=25, verbose=0)
+```
+
+Chegou o momento de avaliar o modelo novamente, dessa vez com uma base de testes:
+
+```python
+loss, accuracy = model_8.evaluate(X_test, y_test)
+print(f"Perda no conjunto de teste: {loss}")
+print(f"Precisão no conjunto de teste: {100*accuracy:.2f}%")
+```
+
+```
+7/7 [==============================] - 0s 4ms/step - loss: 0.1247 - accuracy: 1.0000
+Perda no conjunto de teste: 0.12468849867582321
+Precisão no conjunto de teste: 100.00%
+```
+
+Criamos nosso último modelo `model_8` quase da mesma forma que o anterior `model_7`, adicionando algumas pequenas alterações:
+
+- **Parâmetro de ativação** - utilizamos `relu` e `sigmoid` na forma abreviada em vez de inserir todo o caminho da biblioteca `tf.keras.activations.relu`.
+- **Parâmetro `learning_rate`** - ajustamos a taxa de aprendizado no otimizador `Adam` de 0.001 para 0.01 (*isso equivale a um aumento de 10x*) Esse parâmetro determina a rapidez com que um modelo aprende, quanto maior a taxa de aprendizado, mais rápida é a capacidade do modelo aprender, mas, se aumentamos esse valor sem encontrar um ajuste ideal o modelo pode não aprender nada.
+- **Número de epochs** - esse valor foi reduzido de 100 para 25, mesmo assim o modelo obteve um bom resultado em ambos os conjuntos, treino e teste.
+
+Falta analisar o desempenho do modelo visualmente!
+
+```python
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.title("Treino")
+plot_decision(model_8, X=X_train, y=y_train)
+plt.subplot(1, 2, 2)
+plt.title("Teste")
+plot_decision(model_8, X=X_test, y=y_test)
+plt.show()
+
+'aplicando classificação binária...'
+'aplicando classificação binária...'
+```
+
+![cnn plot 5](images/cnn/cnn-plot-5.png)
+
+Depois de alguns ajustes, finalmente nosso modelo agora está prevendo os círculos azuis e vermelhos "quase que perfeitamente".
