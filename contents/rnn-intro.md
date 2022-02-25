@@ -279,3 +279,169 @@ aplicando classificação multiclasse...
 ![limite de decisão 1](images/cnn/cnn-plot-1.png)
 
 O gráfico revela que o modelo está tentando traçar uma linha reta através dos dados. E o problema é que esses dados não são separáveis por uma linha reta. A arquitetura do nosso modelo pode funcionar melhor em um problema de regressão.
+
+## Não linearidade
+
+Como vimos o modelo esta separando os círculos azuis e vermelhos de maneira linear, para resolver o nosso problema de classificação precisamos de linhas não lineares. Antes de continuar, vamos explorar um pouco o [TensorFlow PLayground](https://playground.tensorflow.org/#activation=linear&batchSize=1&dataset=circle&regDataset=reg-plane&learningRate=0.01&regularizationRate=0&noise=0&networkShape=1&seed=0.09561&showTestData=false&discretize=false&percTrainData=70&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false&regularizationRate_hide=true&discretize_hide=true&regularization_hide=true&dataset_hide=true&noise_hide=true&batchSize_hide=true) note como os dados se parecem com os do nosso problema de classificação.
+
+![tensorflow playground](images/cnn/tensorflow-playground-1.png)
+
+A mudança principal que adicionaremos ao modelo é o uso da palavra-chave de ativação (*explore o campo `activation` no playground*).
+
+```python
+# Seed aleatório
+tf.random.set_seed(42)
+
+# Cria o modelo
+model_4 = tf.keras.Sequential([
+  # camada oculta com ativação "linear"
+  tf.keras.layers.Dense(1, activation=tf.keras.activations.linear),
+  tf.keras.layers.Dense(1) # camada de saída
+])
+
+# Compila o modelo
+model_4.compile(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+                metrics=["accuracy"])
+
+# Treina
+history = model_4.fit(X, y, epochs=100, verbose=0)
+```
+
+```
+model_4.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.7178 - accuracy: 0.4860
+[0.7177660465240479, 0.4860000014305115]
+```
+
+A situação ficou pior, vamos visualizar:
+
+```python
+plot_decision(model_4, X, y)
+```
+
+![cnn plot 2](images/cnn/cnn-plot-2.png)
+
+O modelo continua fazendo previsões lineares (traçando uma linha reta para separar os dados). Como já sabemos, nossos dados não são lineares, o que vamos fazer agora é adicionar uma `não-linearidade` ao modelo. Para fazer isso, ajustaremos o parâmetro de ativação em uma das camadas:
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando modelo com ativação não linear
+model_5 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1, activation=tf.keras.activations.relu),
+  tf.keras.layers.Dense(1) # saída
+])
+
+# Compilando
+model_5.compile(loss=tf.keras.losses.binary_crossentropy,
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=["accuracy"])
+
+# Fit
+history = model_5.fit(X, y, epochs=100, verbose=0)
+```
+
+```
+model_5.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6932 - accuracy: 0.5000
+[0.6931846141815186, 0.5]
+```
+
+O resultado não mudou muito, talvez se adicionarmos um número maior de camadas as coisas melhorem. Por exemplo, 2 camadas ocultas com [ReLU](https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu) (*unidade linear retificada*). Vamos explorar essa ideia no [TensorFlow Playground](https://playground.tensorflow.org/#activation=relu&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.001&regularizationRate=0&noise=0&networkShape=4,4&seed=0.93799&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false&regularization_hide=true&regularizationRate_hide=true&batchSize_hide=true&dataset_hide=true):
+
+![tensorflow playground 2](images/cnn/tensorflow-playground-2.png)
+
+Acima temos 2 camadas ocultas com `ReLU`, e 4 neurônios em cada, vamos implementar isso:
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando o modelo
+model_6 = tf.keras.Sequential([
+  # camada 1, 4 neurônios, ReLU activation
+  tf.keras.layers.Dense(4, activation=tf.keras.activations.relu),
+  # camada 2, 4 neurônios, ReLU activation
+  tf.keras.layers.Dense(4, activation=tf.keras.activations.relu),
+  tf.keras.layers.Dense(1) # camada de saída
+])
+
+# Compila
+model_6.compile(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+                metrics=['accuracy'])
+
+# Fit
+history = model_6.fit(X, y, epochs=100, verbose=0)
+```
+
+```
+model_6.evaluate(X, y)
+
+32/32 [==============================] - 0s 2ms/step - loss: 7.7125 - accuracy: 0.5000
+[7.712474346160889, 0.5]
+```
+
+O modelo ainda está atingindo apenas 50% de precisão (o mesmo que adivinhar).
+Vamos visualizar outra vez:
+
+```python
+plot_decision(model_6, X, y)
+```
+
+![cnn plot 3](images/cnn/cnn-plot-3.png)
+
+Implementamos o mesmo modelo projetado no TensorFlow Playground, mas o modelo ainda está desenhando retas. Vamos alterar agora a camada de saída também!
+
+> Para problemas de classificação binária, a camada de saída geralmente utiliza a função de ativação [Sigmoid](https://www.tensorflow.org/api_docs/python/tf/math/sigmoid).
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando o modelo
+model_7 = tf.keras.Sequential([
+  # camada 1, 4 neurônios, ReLU activation
+  tf.keras.layers.Dense(4, activation=tf.keras.activations.relu),
+  # camada 2, 4 neurônios, ReLU activation
+  tf.keras.layers.Dense(4, activation=tf.keras.activations.relu),
+  # camada de saída, sigmoid activation
+  tf.keras.layers.Dense(1, activation=tf.keras.activations.sigmoid)
+])
+
+# Compila
+model_7.compile(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(),
+                metrics=['accuracy'])
+
+# Fit
+history = model_7.fit(X, y, epochs=100, verbose=0)
+```
+
+```
+model_7.evaluate(X, y)
+
+32/32 [==============================] - 0s 2ms/step - loss: 0.2948 - accuracy: 0.9910
+[0.2948004901409149, 0.9909999966621399]
+```
+
+Finalmente um resultado satisfatório! Vamos verificar a visualização:
+
+```python
+plot_decision(model_7, X, y)
+```
+
+![cnn plot 4](images/cnn/cnn-plot-4.png)
+
+O modelo está treinando quase que perfeitamente agora, com exceção de poucos círculos que estão dividindo os dois conjuntos. Além da função `sigmoid` na camada de saída, o que mais fizemos de errado ?
+
+> Lembrete: *a combinação de funções lineares e não lineares é um dos principais fundamentos das redes neurais.*
+
+## Avaliando e melhorando o modelo
+
+Estamos avaliando o modelo com os mesmos dados em que ele foi treinado (*utilizando dados de treino para teste*). O ideal seria dividir nossos dados em grupos de treino e teste. Faremos isso agora, então treinaremos o modelo no conjunto de dados de treino e em seguida, veremos como ele aprendeu utilizando-o para fazer previsões no conjunto de dados de teste.
+
