@@ -549,3 +549,114 @@ plt.title("Model_8 curvas de aprendizado");
 
 > Este é o gráfico ideal! A perda diminui enquanto a precisão aumenta.
 
+## Encontrando a melhor taxa de aprendizado (learning_rate)
+
+Um dos hiperparâmetros mais importantes que podemos ajustar para os modelos de rede neural é a taxa de aprendizado. No `model_8`, reduzimos a taxa de aprendizado do otimizador `Adam` de 0.001 para 0.01. Isso foi um palpite de sorte, apenas tentamos uma taxa mais baixa para ver como o modelo iria se comportar. Lembre-se que `ML` é um campo de experimentos.
+
+Ok, ajustamos esse parâmetro com base em um chute e tivemos sorte de ter um bom resultado. Veremos agora uma forma de como encontrar a taxa de aprendizado ideal. Criaremos uma função de taxa de aprendizado como `callback` que será utilizada no modelo durante o treino (alterando o valor da taxa). Vamos ao experimento para entender melhor:
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando o modelo (igual ao último model_8)
+model_9 = tf.keras.Sequential([
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(1, activation="sigmoid")
+])
+
+# Compilando
+model_9.compile(loss="binary_crossentropy",
+              optimizer="Adam",
+              metrics=["accuracy"]) 
+
+# Criando um callback para "learning_rate"
+# o objetivo aqui é percorrer um conjunto de valores de taxa de aprendizado
+# começando em 1e-4 e aumentando para 10**(epoch/20) "para cada epoch"
+lr_scheduler = tf.keras.callbacks.LearningRateScheduler(lambda epoch: 1e-4 * 10**(epoch/20))
+
+# Fit (agora passando o callback que foi criado)
+history = model_9.fit(X_train, 
+                      y_train, 
+                      epochs=100,
+                      verbose=0,
+                      callbacks=[lr_scheduler])
+```
+
+Agora só precisamos olhar o histórico de treino em um gráfico:
+
+```python
+pd.DataFrame(history.history).plot(figsize=(10,7), xlabel="epochs");
+```
+
+![cnn plot 7](images/cnn/cnn-plot-7.png)
+
+Como podemos ver, a taxa de aprendizado aumenta de forma exponencial à medida que o número de `epochs` aumenta. Observe que a precisão do modelo aumenta e a perda diminui apenas em um ponto específico, quando a taxa de aprendizado aumenta lentamente. Para descobrir onde está esse ponto ideal, podemos plotar a perda vs taxa de aprendizado em escala logarítmica.
+
+```python
+lrs = 1e-4 * (10 ** (np.arange(100)/20))
+plt.figure(figsize=(10, 7))
+plt.semilogx(lrs, history.history["loss"])
+plt.xlabel("Taxa de aprendizado")
+plt.ylabel("Perda")
+plt.title("Aprendizado vs Perda");
+```
+
+![cnn plot 8](images/cnn/cnn-plot-8.png)
+
+Para descobrir o valor ideal da taxa de aprendizado, a regra geral é pegar o valor da taxa de aprendizado onde a perda ainda está diminuindo (*geralmente é 10x menor que a parte inferior da curva*), nesse caso, nossa taxa ideal fica entre 0.01 $(10^{-2})$ e 0.02.
+
+Agora que verificamos a taxa de aprendizado ideal, usaremos (0.02) para o modelo, vamos ao teste:
+
+```python
+# Sed
+tf.random.set_seed(42)
+
+# Criando o modelo
+model_10 = tf.keras.Sequential([
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(4, activation="relu"),
+  tf.keras.layers.Dense(1, activation="sigmoid")
+])
+
+# Compilando o modelo, dessa vez com a taxa ideal
+model_10.compile(loss="binary_crossentropy",
+                optimizer=tf.keras.optimizers.Adam(learning_rate=0.02),
+                metrics=["accuracy"])
+
+# Fit
+history = model_10.fit(X_train, y_train, epochs=20, verbose=0)
+```
+
+```
+model_10.evaluate(X_test, y_test)
+
+7/7 [==============================] - 0s 3ms/step - loss: 0.0574 - accuracy: 0.9900
+[0.05740184709429741, 0.9900000095367432]
+```
+
+Com uma taxa de aprendizado um pouco mais alta (0.02 em vez de 0.01), tivemos uma precisão maior que a do último modelo (`model_8`), dessa vez utilizando menos `epochs`, 20 em vez de 25. Vamos visualizar:
+
+```python
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.title("Treino")
+plot_decision(model_10, X=X_train, y=y_train)
+plt.subplot(1, 2, 2)
+plt.title("Teste")
+plot_decision(model_10, X=X_test, y=y_test)
+plt.show();
+```
+
+![cnn plot 9](images/cnn/cnn-plot-9.png)
+
+Outra vez, quase perfeito! Esses são os experimentos que vamos executar com frequência quando estivermos construindo modelos de `ML` para resolver problemas. Lembre-se de começar com as configurações padrão, observar como elas funcionam nos dados e só ajustar os parâmetros se as configurações não apresentarem um resultado satisfatório.
+
+---
+
+## WIP
+
+  - revisar
+  - talvez adicionar um exemplo com dataset grande
+  - adicionar mais métodos de avaliação de modelos

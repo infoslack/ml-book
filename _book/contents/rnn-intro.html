@@ -1,0 +1,1934 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Redes neurais com TensorFlow · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../xx" />
+    
+    
+    <link rel="prev" href="transfer-learning-tensorflow.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
+            
+                <a href="sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
+            
+                <a href="ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Um pouco de Python para Data Science
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="part-i-data-science.html">
+            
+                <a href="part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html#importando-o-pandas">
+            
+                    
+                    Importando o Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#series">
+            
+                    
+                    Series
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#dataframe">
+            
+                    
+                    DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#anatomia-de-um-dataframe">
+            
+                    
+                    Anatomia de um DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#explorando-os-dados">
+            
+                    
+                    Explorando os dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dtypes">
+            
+                    
+                    dtypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#describe">
+            
+                    
+                    describe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#info">
+            
+                    
+                    info
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#mean-e-sum">
+            
+                    
+                    mean, sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#columns">
+            
+                    
+                    columns
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.13" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#head">
+            
+                    
+                    head
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.14" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#tail">
+            
+                    
+                    tail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.15" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#loc-e-iloc">
+            
+                    
+                    loc, iloc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.16" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#groupby">
+            
+                    
+                    groupby
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.17" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#replace">
+            
+                    
+                    str.replace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.18" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#numeric">
+            
+                    
+                    to_numeric
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.19" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#fillna">
+            
+                    
+                    fillna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.20" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dropna">
+            
+                    
+                    dropna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.21" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#drop">
+            
+                    
+                    drop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.22" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#sample">
+            
+                    
+                    sample
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.23" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#reset-index">
+            
+                    
+                    reset_index
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.24" data-path="pandas-exercicios.html">
+            
+                <a href="pandas-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html">
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html#importando-a-biblioteca-numpy">
+            
+                    
+                    Importando a biblioteca NumPy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="np-tipos-de-dados.html">
+            
+                <a href="np-tipos-de-dados.html">
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html">
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#selecionando-e-visualizando-elementos">
+            
+                    
+                    Selecionando e visualizando elementos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#manipulando-e-comparando-arrays">
+            
+                    
+                    Manipulando e comparando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#aggregations">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#reshaping-e-transpose">
+            
+                    
+                    Reshaping e Transpose
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#comparando-e-ordenando-arrays">
+            
+                    
+                    Comparando e ordenando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="numpy-exercicios.html">
+            
+                <a href="numpy-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html">
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#plot">
+            
+                    
+                    plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#figure">
+            
+                    
+                    plt.figure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#subplots">
+            
+                    
+                    plt.subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="anatomia-matplotlib.html">
+            
+                <a href="anatomia-matplotlib.html">
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html">
+            
+                    
+                    Tipos de plots mais utilizados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#line">
+            
+                    
+                    Line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#scatter">
+            
+                    
+                    Scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#bar">
+            
+                    
+                    Bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#hist">
+            
+                    
+                    Hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#subplots">
+            
+                    
+                    Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="matplotlib-exercicios.html">
+            
+                <a href="matplotlib-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="analise-exploratoria.html">
+            
+                <a href="analise-exploratoria.html">
+            
+                    
+                    Análise exploratória de dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="part-ii-ml.html">
+            
+                <a href="part-ii-ml.html">
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="ml-101.html">
+            
+                <a href="ml-101.html">
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html">
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#sklearn-de-ponta-a-ponta">
+            
+                    
+                    Sklearn de ponta a ponta
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#eda">
+            
+                    
+                    EDA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#modelagem-dos-dados">
+            
+                    
+                    Modelagem dos dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#treino-e-teste">
+            
+                    
+                    Treino e Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#escolha-de-modelos">
+            
+                    
+                    Escolha de modelos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-kneighborsclassifier-knn">
+            
+                    
+                    KNeighborsClassifier
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-randomizedsearchcv">
+            
+                    
+                    RandomizedSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-gridsearchcv">
+            
+                    
+                    GridSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#roc-curve-e-auc-scores">
+            
+                    
+                    ROC Curve e AUC Scores
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="contents-sklearn.md">
+            
+                <span>
+            
+                    
+                    Feature importance
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html">
+            
+                    
+                    Introdução ao TensorFlow
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#tensors">
+            
+                    
+                    Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfconstant">
+            
+                    
+                    Criando Tensors com tf.constant()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfvariable">
+            
+                    
+                    Criando Tensors com tf.Variable()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#outras-formas-de-criar-tensors">
+            
+                    
+                    Outras formas de criar Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#manipulando-tensors">
+            
+                    
+                    Manipulando Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="transfer-learning-tensorflow.html">
+            
+                <a href="transfer-learning-tensorflow.html">
+            
+                    
+                    Transfer Learning com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.5" data-path="rnn-intro.html">
+            
+                <a href="rnn-intro.html">
+            
+                    
+                    Redes neurais com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Redes neurais convolucionais e Visão computacional com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redes neurais com TensorFlow</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redes-neurais-com-tensorflow">Redes neurais com TensorFlow</h1>
+<p>Para entender como funciona uma rede neural, vamos resolver alguns problemas de classificação. Pegaremos alguns conjuntos de dados para tentar prever a que classe os dados de entrada pertencem.</p>
+<p>A arquitetura de uma rede neural de classificação pode variar bastante, dependendo do problema que você estiver trabalhando. Porém, existem alguns fundamentos que todas as redes neurais utilizam:</p>
+<ul>
+<li>Camada de entrada de dados</li>
+<li>Camadas ocultas (pré-processamento de dados)</li>
+<li>Camada de saída</li>
+</ul>
+<p>Abaixo temos alguns padrões que veremos com frequência nas redes neurais de classificação.</p>
+<p><img src="images/cnn/cnn-intro-tabela.png" alt="cnn intro table"></p>
+<p>Não se preocupe se nada do que foi visto acima fizer sentido, faremos muitos experimentos no decorrer do capítulo para entender. Vamos começar importando o TensorFlow com o alias <code>tf</code> como visto antes.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+</code></pre>
+<h2 id="criando-os-dados">Criando os dados</h2>
+<p>Vamos começar criando um conjunto de dados simples para utilizar em nossos experimentos. Como o problema de classificação está tentando prever se algo é uma coisa ou outra, criaremos alguns dados para refletir isso. Usaremos a função <code>make_circles()</code> do <code>Scikit-Learn</code>.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> make_circles
+
+<span class="hljs-comment"># Cria 1000 exemplos</span>
+n_samples = <span class="hljs-number">1000</span>
+
+<span class="hljs-comment"># Criando os círculos</span>
+X, y = make_circles(n_samples, 
+                    noise=<span class="hljs-number">0.03</span>, 
+                    random_state=<span class="hljs-number">42</span>)
+</code></pre>
+<p>Vamos olhar os valores de <code>X</code> e <code>y</code>:</p>
+<pre><code>X
+array([[ 0.75424625,  0.23148074],
+       [-0.75615888,  0.15325888],
+       [-0.81539193,  0.17328203],
+       ...,
+       [-0.13690036, -0.81001183],
+       [ 0.67036156, -0.76750154],
+       [ 0.28105665,  0.96382443]])
+</code></pre><pre><code>y[:10]
+
+array([1, 1, 1, 1, 0, 1, 1, 1, 1, 0])
+</code></pre><p>Já temos nossos dados e rótulos, hora de avançarmos para as visualizações.
+Começando com um DataFrame:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+circles = pd.DataFrame({<span class="hljs-string">&quot;X0&quot;</span>:X[:, <span class="hljs-number">0</span>], <span class="hljs-string">&quot;X1&quot;</span>:X[:, <span class="hljs-number">1</span>], <span class="hljs-string">&quot;label&quot;</span>:y})
+circles.head()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:right">X0</th>
+<th style="text-align:right">X1</th>
+<th style="text-align:right">label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.754246</td>
+<td style="text-align:right">0.231481</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">-0.756159</td>
+<td style="text-align:right">0.153259</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">-0.815392</td>
+<td style="text-align:right">0.173282</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">-0.393731</td>
+<td style="text-align:right">0.692883</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.442208</td>
+<td style="text-align:right">-0.896723</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p>O conjunto de dados criado representa um problema de classificação binária. É binário porque possui apenas dois rótulos (0 e 1). Podemos contabilizar o total criado para cada rótulo com <code>value_counts()</code>:</p>
+<pre><code class="lang-python">circles.label.value_counts()
+
+<span class="hljs-number">1</span>    <span class="hljs-number">500</span>
+<span class="hljs-number">0</span>    <span class="hljs-number">500</span>
+Name: label, dtype: int64
+</code></pre>
+<p>Ok, agora vamos adiante e dar mai um passo nas visualizações, hora de plotar os dados:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+plt.scatter(X[:, <span class="hljs-number">0</span>], X[:, <span class="hljs-number">1</span>], c=y, cmap=plt.cm.RdYlBu);
+</code></pre>
+<p><img src="images/cnn/cnn-circle-1.png" alt="plot cnn circle"></p>
+<blockquote>
+<p>Com base nos dados, vamos desenvolver um modelo para classificar o pontos azuis ou vermelhos.</p>
+</blockquote>
+<h2 id="formas-de-entrada-e-saída">Formas de entrada e saída</h2>
+<p>Um dos principais problemas ao construir redes neurais são as incompatibilidades de forma. Ou seja a forma dos dados de entrada e a forma dos dados de saída. No nosso exemplo, queremos inserir <code>X</code> e fazer com que o modelo consiga prever <code>y</code>. Precisamos verificar as formas de <code>X</code> e <code>y</code>:</p>
+<pre><code class="lang-python">X.shape, y.shape
+
+((<span class="hljs-number">1000</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">1000</span>,))
+
+X[<span class="hljs-number">0</span>], y[<span class="hljs-number">0</span>]
+
+(array([<span class="hljs-number">0.75424625</span>, <span class="hljs-number">0.23148074</span>]), <span class="hljs-number">1</span>)
+</code></pre>
+<p>Aparentemente <code>X</code> disponibiliza de 2 recursos que combinados levam a um valor <code>y</code>. Isso quer dizer que a forma de entrada da rede neural precisa aceitar um <code>tensor</code> com pelo menos uma dimensão com dois valores e outro de saída com pelo menos uma dimensão e um valor.</p>
+<p>Agora que sabemos quais dados temos, bem como as formas de entrada e saída, vamos iniciar a etapa de modelagem para desenvolver uma rede neural. Utilizando o TensorFlow, geralmente temos 3 etapas fundamentais para criar e treinar um modelo: criar o modelo, compilar o modelo e ajustar o modelo. Veremos isso em ação utilizando a <a href="https://www.tensorflow.org/api_docs/python/tf/keras/Sequential" target="_blank">API Sequential</a>:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed aleatório</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># 1. Cria o modelo usando a API Sequential</span>
+model_1 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>)
+])
+
+<span class="hljs-comment"># 2. Compila o modelo</span>
+<span class="hljs-comment"># escolhemos BinaryCrossentropy(), já que o problema envolve 2 classes (0 e 1)</span>
+model_1.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># 3. Treina o modelo</span>
+model_1.fit(X, y, epochs=<span class="hljs-number">5</span>)
+</code></pre>
+<pre><code>Epoch 1/5
+32/32 [==============================] - 1s 1ms/step - loss: 2.8544 - accuracy: 0.4600
+Epoch 2/5
+32/32 [==============================] - 0s 2ms/step - loss: 0.7131 - accuracy: 0.5430
+Epoch 3/5
+32/32 [==============================] - 0s 1ms/step - loss: 0.6973 - accuracy: 0.5090
+Epoch 4/5
+32/32 [==============================] - 0s 1ms/step - loss: 0.6950 - accuracy: 0.5010
+Epoch 5/5
+32/32 [==============================] - 0s 2ms/step - loss: 0.6942 - accuracy: 0.4830
+&lt;keras.callbacks.History at 0x7f57aeb03350&gt;
+</code></pre><p>Observando a métrica de precisão (<code>accuracy</code>), o modelo tem um péssimo desempenho (<em>50% de precisão em um problema de classificação é o mesmo que adivinhar</em>). Podemos dar mais tempo para o modelo treinar:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Treinando o modelo por mais tempo</span>
+<span class="hljs-comment"># (resulta em mais chances de analisar os dados)</span>
+model_1.fit(X, y, epochs=<span class="hljs-number">200</span>, verbose=<span class="hljs-number">0</span>)
+model_1.evaluate(X, y)
+</code></pre>
+<pre><code>32/32 [==============================] - 0s 2ms/step - loss: 0.6935 - accuracy: 0.5000
+[0.6934831142425537, 0.5]
+</code></pre><p>Bem, o modelo funciona como se estivesse adivinhando, mesmo com 200 passes (<code>epochs</code>). Vamos tentar melhorar isso adicionando uma camada extra e treinar por um pouco mais de tempo (superior ao total da primeira tentativa):</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed aleatório</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># 1. Mesmo modelo que model_1, dessa vez com uma camada extra</span>
+model_2 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>), <span class="hljs-comment"># camada extra</span>
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>) 
+])
+
+<span class="hljs-comment"># 2. Compila o modelo</span>
+model_2.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># 3. Treina o modelo</span>
+model_2.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<p>Com o modelo treinado, vamos avaliar o desempenho:</p>
+<pre><code>model_2.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6933 - accuracy: 0.5000
+[0.6933314800262451, 0.5]
+</code></pre><p>Não melhorou muito, continua em 50% de precisão. A seguir veremos como melhorar um modelo.</p>
+<h2 id="melhorando-um-modelo">Melhorando um modelo</h2>
+<p>Para melhorar um modelo, podemos alterar quase todas as partes das etapas que passamos anteriormente.</p>
+<ol>
+<li><p>Criando o modelo - é onde podemos adicionar as camadas, aumentando o número de unidades ocultas (<em>neurônios</em>) em cada camada, alterando as funções de ativação de cada camada.</p>
+</li>
+<li><p>Compilando o modelo - onde podemos escolher funções de otimização diferentes (<em>Ex: Adam</em>) ou talvez alterar a taxa de aprendizado na função de otimização.</p>
+</li>
+<li><p>Treinando o modelo - podemos fazer ajustes em um modelo para ajustar os (<em>epochs</em>), deixando o modelo treinar por mais tempo.</p>
+</li>
+</ol>
+<p><img src="images/cnn/cnn-model.png" alt="improving a model"></p>
+<p>Temos muitas formas diferentes de melhorar o desempenho de uma rede neural. Algumas das formas mais comuns incluem: aumentar o número de camadas (<em>o que torna a rede mais profunda</em>) e alterando a taxa de aprendizado. Como podemos ajustar esses valores manualmente, são chamados de hiperparâmetros. Vamos ao teste:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed aleatório</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># 1. Criação do modelo (dessa vez com 3 camadas)</span>
+model_3 = tf.keras.Sequential([
+  <span class="hljs-comment"># 1 camada com 100 neuronios</span>
+  tf.keras.layers.Dense(<span class="hljs-number">100</span>, input_shape=(<span class="hljs-literal">None</span>, <span class="hljs-number">1</span>)),
+  tf.keras.layers.Dense(<span class="hljs-number">10</span>), <span class="hljs-comment"># outra camada com 10 neuronios</span>
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>)
+])
+
+<span class="hljs-comment"># 2. Compila o modelo</span>
+model_3.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.BinaryCrossentropy(),
+                optimizer=tf.keras.optimizers.Adam(), <span class="hljs-comment"># Adam em vez de SGD</span>
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># 3. Treina o modelo</span>
+model_3.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_3.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6939 - accuracy: 0.5000
+[0.6939496994018555, 0.5]
+</code></pre><p>Mesmo com as alterações feitas, inserindo novos truques, o nosso modelo não está conseguindo melhorar. Quando isso acontece a melhor alternativa para investigar é <code>visualizar</code>. Vamos fazer agora algumas visualizações para identificar o que está acontecendo.</p>
+<p>Para visualizar as previsões do modelo, vamos implementar uma função <code>plot_decision()</code> que recebe um modelo treinado (recursos <code>X</code> e rótulos <code>y</code>), cria uma tabela dos diferentes valores de <code>X</code>, realiza as previsões em toda a &quot;tabela&quot; e marca as previsões traçando uma linha entre as diferentes zonas (onde cada classe única aparece). Sei que parece confuso, então veremos o código e em seguida o resultado do plot.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_decision</span>(<span class="hljs-params">model, X, y</span>):</span>
+
+  <span class="hljs-comment"># Define os limites dos eixos do gráfico</span>
+  <span class="hljs-comment"># e cria uma &quot;tabela&quot;, grade de malha</span>
+  x_min, x_max = X[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">min</span>() - <span class="hljs-number">0.1</span>, X[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">max</span>() + <span class="hljs-number">0.1</span>
+  y_min, y_max = X[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">min</span>() - <span class="hljs-number">0.1</span>, X[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">max</span>() + <span class="hljs-number">0.1</span>
+  xx, yy = np.meshgrid(np.linspace(x_min, x_max, <span class="hljs-number">100</span>),
+                       np.linspace(y_min, y_max, <span class="hljs-number">100</span>))
+
+  <span class="hljs-comment"># Adiciona os valores de X (que vamos prever)</span>
+  x_in = np.c_[xx.ravel(), yy.ravel()]
+
+  <span class="hljs-comment"># Faz previsões utilizando o modelo treinado</span>
+  y_pred = model.predict(x_in)
+
+  <span class="hljs-comment"># Verifica se o problema é multiclasse</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(y_pred[<span class="hljs-number">0</span>]) &gt; <span class="hljs-number">1</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;aplicando classificação multiclasse...&quot;</span>)
+    <span class="hljs-comment"># Faz um &quot;reshape&quot; nas previsões para a plotagem</span>
+    y_pred = np.argmax(y_pred, axis=<span class="hljs-number">1</span>).reshape(xx.shape)
+  <span class="hljs-keyword">else</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;aplicando classificação binária...&quot;</span>)
+    y_pred = np.<span class="hljs-built_in">round</span>(y_pred).reshape(xx.shape)
+
+  <span class="hljs-comment"># Limite de decisão de plotagem</span>
+  plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=<span class="hljs-number">0.7</span>)
+  plt.scatter(X[:, <span class="hljs-number">0</span>], X[:, <span class="hljs-number">1</span>], c=y, s=<span class="hljs-number">40</span>, cmap=plt.cm.RdYlBu)
+  plt.xlim(xx.<span class="hljs-built_in">min</span>(), xx.<span class="hljs-built_in">max</span>())
+  plt.ylim(yy.<span class="hljs-built_in">min</span>(), yy.<span class="hljs-built_in">max</span>())
+</code></pre>
+<p>Agora, com a função para traçar o limite de decisão do modelo, ou seja, identificar o ponto de corte entre os pontos vermelhos e azuis, vamos testar:</p>
+<pre><code class="lang-python">plot_decision(model_3, X, y)
+
+aplicando classificação multiclasse...
+</code></pre>
+<p><img src="images/cnn/cnn-plot-1.png" alt="limite de decisão 1"></p>
+<p>O gráfico revela que o modelo está tentando traçar uma linha reta através dos dados. E o problema é que esses dados não são separáveis por uma linha reta. A arquitetura do nosso modelo pode funcionar melhor em um problema de regressão.</p>
+<h2 id="não-linearidade">Não linearidade</h2>
+<p>Como vimos o modelo esta separando os círculos azuis e vermelhos de maneira linear, para resolver o nosso problema de classificação precisamos de linhas não lineares. Antes de continuar, vamos explorar um pouco o <a href="https://playground.tensorflow.org/#activation=linear&amp;batchSize=1&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.01&amp;regularizationRate=0&amp;noise=0&amp;networkShape=1&amp;seed=0.09561&amp;showTestData=false&amp;discretize=false&amp;percTrainData=70&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false&amp;regularizationRate_hide=true&amp;discretize_hide=true&amp;regularization_hide=true&amp;dataset_hide=true&amp;noise_hide=true&amp;batchSize_hide=true" target="_blank">TensorFlow PLayground</a> note como os dados se parecem com os do nosso problema de classificação.</p>
+<p><img src="images/cnn/tensorflow-playground-1.png" alt="tensorflow playground"></p>
+<p>A mudança principal que adicionaremos ao modelo é o uso da palavra-chave de ativação (<em>explore o campo <code>activation</code> no playground</em>).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed aleatório</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Cria o modelo</span>
+model_4 = tf.keras.Sequential([
+  <span class="hljs-comment"># camada oculta com ativação &quot;linear&quot;</span>
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=tf.keras.activations.linear),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>) <span class="hljs-comment"># camada de saída</span>
+])
+
+<span class="hljs-comment"># Compila o modelo</span>
+model_4.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="hljs-number">0.001</span>),
+                metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Treina</span>
+history = model_4.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_4.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.7178 - accuracy: 0.4860
+[0.7177660465240479, 0.4860000014305115]
+</code></pre><p>A situação ficou pior, vamos visualizar:</p>
+<pre><code class="lang-python">plot_decision(model_4, X, y)
+</code></pre>
+<p><img src="images/cnn/cnn-plot-2.png" alt="cnn plot 2"></p>
+<p>O modelo continua fazendo previsões lineares (traçando uma linha reta para separar os dados). Como já sabemos, nossos dados não são lineares, o que vamos fazer agora é adicionar uma <code>não-linearidade</code> ao modelo. Para fazer isso, ajustaremos o parâmetro de ativação em uma das camadas:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando modelo com ativação não linear</span>
+model_5 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=tf.keras.activations.relu),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>) <span class="hljs-comment"># saída</span>
+])
+
+<span class="hljs-comment"># Compilando</span>
+model_5.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.binary_crossentropy,
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history = model_5.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_5.evaluate(X, y)
+
+32/32 [==============================] - 0s 3ms/step - loss: 0.6932 - accuracy: 0.5000
+[0.6931846141815186, 0.5]
+</code></pre><p>O resultado não mudou muito, talvez se adicionarmos um número maior de camadas as coisas melhorem. Por exemplo, 2 camadas ocultas com <a href="https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu" target="_blank">ReLU</a> (<em>unidade linear retificada</em>). Vamos explorar essa ideia no <a href="https://playground.tensorflow.org/#activation=relu&amp;batchSize=10&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.001&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4,4&amp;seed=0.93799&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false&amp;regularization_hide=true&amp;regularizationRate_hide=true&amp;batchSize_hide=true&amp;dataset_hide=true" target="_blank">TensorFlow Playground</a>:</p>
+<p><img src="images/cnn/tensorflow-playground-2.png" alt="tensorflow playground 2"></p>
+<p>Acima temos 2 camadas ocultas com <code>ReLU</code>, e 4 neurônios em cada, vamos implementar isso:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando o modelo</span>
+model_6 = tf.keras.Sequential([
+  <span class="hljs-comment"># camada 1, 4 neurônios, ReLU activation</span>
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=tf.keras.activations.relu),
+  <span class="hljs-comment"># camada 2, 4 neurônios, ReLU activation</span>
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=tf.keras.activations.relu),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>) <span class="hljs-comment"># camada de saída</span>
+])
+
+<span class="hljs-comment"># Compila</span>
+model_6.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="hljs-number">0.001</span>),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history = model_6.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_6.evaluate(X, y)
+
+32/32 [==============================] - 0s 2ms/step - loss: 7.7125 - accuracy: 0.5000
+[7.712474346160889, 0.5]
+</code></pre><p>O modelo ainda está atingindo apenas 50% de precisão (o mesmo que adivinhar).
+Vamos visualizar outra vez:</p>
+<pre><code class="lang-python">plot_decision(model_6, X, y)
+</code></pre>
+<p><img src="images/cnn/cnn-plot-3.png" alt="cnn plot 3"></p>
+<p>Implementamos o mesmo modelo projetado no TensorFlow Playground, mas o modelo ainda está desenhando retas. Vamos alterar agora a camada de saída também!</p>
+<blockquote>
+<p>Para problemas de classificação binária, a camada de saída geralmente utiliza a função de ativação <a href="https://www.tensorflow.org/api_docs/python/tf/math/sigmoid" target="_blank">Sigmoid</a>.</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando o modelo</span>
+model_7 = tf.keras.Sequential([
+  <span class="hljs-comment"># camada 1, 4 neurônios, ReLU activation</span>
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=tf.keras.activations.relu),
+  <span class="hljs-comment"># camada 2, 4 neurônios, ReLU activation</span>
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=tf.keras.activations.relu),
+  <span class="hljs-comment"># camada de saída, sigmoid activation</span>
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=tf.keras.activations.sigmoid)
+])
+
+<span class="hljs-comment"># Compila</span>
+model_7.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.binary_crossentropy,
+                optimizer=tf.keras.optimizers.Adam(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history = model_7.fit(X, y, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_7.evaluate(X, y)
+
+32/32 [==============================] - 0s 2ms/step - loss: 0.2948 - accuracy: 0.9910
+[0.2948004901409149, 0.9909999966621399]
+</code></pre><p>Finalmente um resultado satisfatório! Vamos verificar a visualização:</p>
+<pre><code class="lang-python">plot_decision(model_7, X, y)
+</code></pre>
+<p><img src="images/cnn/cnn-plot-4.png" alt="cnn plot 4"></p>
+<p>O modelo está treinando quase que perfeitamente agora, com exceção de poucos círculos que estão dividindo os dois conjuntos. Além da função <code>sigmoid</code> na camada de saída, o que mais fizemos de errado ?</p>
+<blockquote>
+<p>Lembrete: <em>a combinação de funções lineares e não lineares é um dos principais fundamentos das redes neurais.</em></p>
+</blockquote>
+<h2 id="avaliando-e-melhorando-o-modelo">Avaliando e melhorando o modelo</h2>
+<p>Estamos avaliando o modelo com os mesmos dados em que ele foi treinado (<em>utilizando dados de treino para teste</em>). O ideal seria dividir nossos dados em grupos de treino e teste. Faremos isso agora, então treinaremos o modelo no conjunto de dados de treino e em seguida, veremos como ele aprendeu utilizando-o para fazer previsões no conjunto de dados de teste.</p>
+<p>Como temos 1000 exemplos no dataset criado, vamos separar 80% para treino e reservar os outros 20% para teste:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Separando os dados em conjuntos de treino e teste</span>
+X_train, y_train = X[:<span class="hljs-number">800</span>], y[:<span class="hljs-number">800</span>] <span class="hljs-comment"># 80% para treino</span>
+X_test, y_test = X[<span class="hljs-number">800</span>:], y[<span class="hljs-number">800</span>:] <span class="hljs-comment"># 20% para teste</span>
+
+<span class="hljs-comment"># Agora temos 800 exemplos de treino e 200 de teste</span>
+X_train.shape, X_test.shape
+
+((<span class="hljs-number">800</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">200</span>, <span class="hljs-number">2</span>))
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando o modelo</span>
+model_8 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&quot;sigmoid&quot;</span>)
+])
+
+<span class="hljs-comment"># Compila</span>
+model_8.<span class="hljs-built_in">compile</span>(loss=tf.keras.losses.binary_crossentropy,
+                <span class="hljs-comment"># aumentando a taxa de aprendizado de 0.001 para 0.01</span>
+                <span class="hljs-comment"># isso faz o modelo aprender mais rápido</span>
+                optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="hljs-number">0.01</span>),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history = model_8.fit(X_train, y_train, epochs=<span class="hljs-number">25</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<p>Chegou o momento de avaliar o modelo novamente, dessa vez com uma base de testes:</p>
+<pre><code class="lang-python">loss, accuracy = model_8.evaluate(X_test, y_test)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Perda no conjunto de teste: <span class="hljs-subst">{loss}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Precisão no conjunto de teste: <span class="hljs-subst">{<span class="hljs-number">100</span>*accuracy:<span class="hljs-number">.2</span>f}</span>%&quot;</span>)
+</code></pre>
+<pre><code>7/7 [==============================] - 0s 4ms/step - loss: 0.1247 - accuracy: 1.0000
+Perda no conjunto de teste: 0.12468849867582321
+Precisão no conjunto de teste: 100.00%
+</code></pre><p>Criamos nosso último modelo <code>model_8</code> quase da mesma forma que o anterior <code>model_7</code>, adicionando algumas pequenas alterações:</p>
+<ul>
+<li><strong>Parâmetro de ativação</strong> - utilizamos <code>relu</code> e <code>sigmoid</code> na forma abreviada em vez de inserir todo o caminho da biblioteca <code>tf.keras.activations.relu</code>.</li>
+<li><strong>Parâmetro <code>learning_rate</code></strong> - ajustamos a taxa de aprendizado no otimizador <code>Adam</code> de 0.001 para 0.01 (<em>isso equivale a um aumento de 10x</em>) Esse parâmetro determina a rapidez com que um modelo aprende, quanto maior a taxa de aprendizado, mais rápida é a capacidade do modelo aprender, mas, se aumentamos esse valor sem encontrar um ajuste ideal o modelo pode não aprender nada.</li>
+<li><strong>Número de epochs</strong> - esse valor foi reduzido de 100 para 25, mesmo assim o modelo obteve um bom resultado em ambos os conjuntos, treino e teste.</li>
+</ul>
+<p>Falta analisar o desempenho do modelo visualmente!</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">6</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+plt.title(<span class="hljs-string">&quot;Treino&quot;</span>)
+plot_decision(model_8, X=X_train, y=y_train)
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+plt.title(<span class="hljs-string">&quot;Teste&quot;</span>)
+plot_decision(model_8, X=X_test, y=y_test)
+plt.show()
+
+<span class="hljs-string">&apos;aplicando classificação binária...&apos;</span>
+<span class="hljs-string">&apos;aplicando classificação binária...&apos;</span>
+</code></pre>
+<p><img src="images/cnn/cnn-plot-5.png" alt="cnn plot 5"></p>
+<p>Depois de alguns ajustes, finalmente nosso modelo agora está prevendo os círculos azuis e vermelhos &quot;quase que perfeitamente&quot;.</p>
+<h2 id="loss-curves-curvas-de-perda">Loss curves (curvas de perda)</h2>
+<p>Tivemos um bom resultado com o modelo, mas como ele se saiu enquanto estava aprendendo ? Como o desempenho mudou a cada vez que o modelo olhava para os dados a cada <code>epoch</code> ?</p>
+<p>Para descobrir, podemos verificar as curvas de perda (<em>também são chamadas de curvas de aprendizado</em>). Você provavelmente percebeu que a cada modelo construído estamos utilizando a variável <code>history</code> para armazenar o retorno da função <code>fit()</code>. É justamente aqui que estão armazenadas as informações sobre o desempenho do modelo. Veremos agora como utilizar:</p>
+<pre><code class="lang-python">pd.DataFrame(history.history).head()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:right">loss</th>
+<th style="text-align:right">accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.684651</td>
+<td style="text-align:right">0.54250</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.677721</td>
+<td style="text-align:right">0.55250</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0.673595</td>
+<td style="text-align:right">0.55125</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.668149</td>
+<td style="text-align:right">0.57750</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.663269</td>
+<td style="text-align:right">0.58500</td>
+</tr>
+</tbody>
+</table>
+<p>Visualizar por DataFrame não é uma boa opção, mas podemos perceber que os valores de perda estão diminuindo enquanto a precisão aumenta. Plotar um gráfico para visualizar vai ser melhor:</p>
+<pre><code class="lang-python">pd.DataFrame(history.history).plot()
+plt.title(<span class="hljs-string">&quot;Model_8 curvas de aprendizado&quot;</span>);
+</code></pre>
+<p><img src="images/cnn/cnn-plot-6.png" alt="cnn plot 6"></p>
+<blockquote>
+<p>Este é o gráfico ideal! A perda diminui enquanto a precisão aumenta.</p>
+</blockquote>
+<h2 id="encontrando-a-melhor-taxa-de-aprendizado-learningrate">Encontrando a melhor taxa de aprendizado (learning_rate)</h2>
+<p>Um dos hiperparâmetros mais importantes que podemos ajustar para os modelos de rede neural é a taxa de aprendizado. No <code>model_8</code>, reduzimos a taxa de aprendizado do otimizador <code>Adam</code> de 0.001 para 0.01. Isso foi um palpite de sorte, apenas tentamos uma taxa mais baixa para ver como o modelo iria se comportar. Lembre-se que <code>ML</code> é um campo de experimentos.</p>
+<p>Ok, ajustamos esse parâmetro com base em um chute e tivemos sorte de ter um bom resultado. Veremos agora uma forma de como encontrar a taxa de aprendizado ideal. Criaremos uma função de taxa de aprendizado como <code>callback</code> que será utilizada no modelo durante o treino (alterando o valor da taxa). Vamos ao experimento para entender melhor:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando o modelo (igual ao último model_8)</span>
+model_9 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&quot;sigmoid&quot;</span>)
+])
+
+<span class="hljs-comment"># Compilando</span>
+model_9.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&quot;binary_crossentropy&quot;</span>,
+              optimizer=<span class="hljs-string">&quot;Adam&quot;</span>,
+              metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>]) 
+
+<span class="hljs-comment"># Criando um callback para &quot;learning_rate&quot;</span>
+<span class="hljs-comment"># o objetivo aqui é percorrer um conjunto de valores de taxa de aprendizado</span>
+<span class="hljs-comment"># começando em 1e-4 e aumentando para 10**(epoch/20) &quot;para cada epoch&quot;</span>
+lr_scheduler = tf.keras.callbacks.LearningRateScheduler(<span class="hljs-keyword">lambda</span> epoch: <span class="hljs-number">1e-4</span> * <span class="hljs-number">10</span>**(epoch/<span class="hljs-number">20</span>))
+
+<span class="hljs-comment"># Fit (agora passando o callback que foi criado)</span>
+history = model_9.fit(X_train, 
+                      y_train, 
+                      epochs=<span class="hljs-number">100</span>,
+                      verbose=<span class="hljs-number">0</span>,
+                      callbacks=[lr_scheduler])
+</code></pre>
+<p>Agora só precisamos olhar o histórico de treino em um gráfico:</p>
+<pre><code class="lang-python">pd.DataFrame(history.history).plot(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">7</span>), xlabel=<span class="hljs-string">&quot;epochs&quot;</span>);
+</code></pre>
+<p><img src="images/cnn/cnn-plot-7.png" alt="cnn plot 7"></p>
+<p>Como podemos ver, a taxa de aprendizado aumenta de forma exponencial à medida que o número de <code>epochs</code> aumenta. Observe que a precisão do modelo aumenta e a perda diminui apenas em um ponto específico, quando a taxa de aprendizado aumenta lentamente. Para descobrir onde está esse ponto ideal, podemos plotar a perda vs taxa de aprendizado em escala logarítmica.</p>
+<pre><code class="lang-python">lrs = <span class="hljs-number">1e-4</span> * (<span class="hljs-number">10</span> ** (np.arange(<span class="hljs-number">100</span>)/<span class="hljs-number">20</span>))
+plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>))
+plt.semilogx(lrs, history.history[<span class="hljs-string">&quot;loss&quot;</span>])
+plt.xlabel(<span class="hljs-string">&quot;Taxa de aprendizado&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Perda&quot;</span>)
+plt.title(<span class="hljs-string">&quot;Aprendizado vs Perda&quot;</span>);
+</code></pre>
+<p><img src="images/cnn/cnn-plot-8.png" alt="cnn plot 8"></p>
+<p>Para descobrir o valor ideal da taxa de aprendizado, a regra geral é pegar o valor da taxa de aprendizado onde a perda ainda está diminuindo (<em>geralmente é 10x menor que a parte inferior da curva</em>), nesse caso, nossa taxa ideal fica entre 0.01 $(10^{-2})$ e 0.02.</p>
+<p>Agora que verificamos a taxa de aprendizado ideal, usaremos (0.02) para o modelo, vamos ao teste:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Sed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando o modelo</span>
+model_10 = tf.keras.Sequential([
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&quot;sigmoid&quot;</span>)
+])
+
+<span class="hljs-comment"># Compilando o modelo, dessa vez com a taxa ideal</span>
+model_10.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&quot;binary_crossentropy&quot;</span>,
+                optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="hljs-number">0.02</span>),
+                metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history = model_10.fit(X_train, y_train, epochs=<span class="hljs-number">20</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<pre><code>model_10.evaluate(X_test, y_test)
+
+7/7 [==============================] - 0s 3ms/step - loss: 0.0574 - accuracy: 0.9900
+[0.05740184709429741, 0.9900000095367432]
+</code></pre><p>Com uma taxa de aprendizado um pouco mais alta (0.02 em vez de 0.01), tivemos uma precisão maior que a do último modelo (<code>model_8</code>), dessa vez utilizando menos <code>epochs</code>, 20 em vez de 25. Vamos visualizar:</p>
+<pre><code class="lang-python">plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">6</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+plt.title(<span class="hljs-string">&quot;Treino&quot;</span>)
+plot_decision(model_10, X=X_train, y=y_train)
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+plt.title(<span class="hljs-string">&quot;Teste&quot;</span>)
+plot_decision(model_10, X=X_test, y=y_test)
+plt.show();
+</code></pre>
+<p><img src="images/cnn/cnn-plot-9.png" alt="cnn plot 9"></p>
+<p>Outra vez, quase perfeito! Esses são os experimentos que vamos executar com frequência quando estivermos construindo modelos de <code>ML</code> para resolver problemas. Lembre-se de começar com as configurações padrão, observar como elas funcionam nos dados e só ajustar os parâmetros se as configurações não apresentarem um resultado satisfatório.</p>
+<hr>
+<h2 id="wip">WIP</h2>
+<ul>
+<li>revisar</li>
+<li>talvez adicionar um exemplo com dataset grande</li>
+<li>adicionar mais métodos de avaliação de modelos</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="transfer-learning-tensorflow.html" class="navigation navigation-prev " aria-label="Previous page: Transfer Learning com TensorFlow">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../xx" class="navigation navigation-next " aria-label="Next page: Redes neurais convolucionais e Visão computacional com TensorFlow">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redes neurais com TensorFlow","level":"1.3.5","depth":2,"next":{"title":"Redes neurais convolucionais e Visão computacional com TensorFlow","level":"1.3.6","depth":2,"path":"xx","ref":"xx","articles":[]},"previous":{"title":"Transfer Learning com TensorFlow","level":"1.3.4","depth":2,"path":"contents/transfer-learning-tensorflow.md","ref":"contents/transfer-learning-tensorflow.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/rnn-intro.md","mtime":"2022-02-25T13:34:21.717Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-25T13:36:21.660Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
