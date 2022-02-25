@@ -519,3 +519,33 @@ plt.show()
 ![cnn plot 5](images/cnn/cnn-plot-5.png)
 
 Depois de alguns ajustes, finalmente nosso modelo agora está prevendo os círculos azuis e vermelhos "quase que perfeitamente".
+
+## Loss curves (curvas de perda)
+
+Tivemos um bom resultado com o modelo, mas como ele se saiu enquanto estava aprendendo ? Como o desempenho mudou a cada vez que o modelo olhava para os dados a cada `epoch` ?
+
+Para descobrir, podemos verificar as curvas de perda (*também são chamadas de curvas de aprendizado*). Você provavelmente percebeu que a cada modelo construído estamos utilizando a variável `history` para armazenar o retorno da função `fit()`. É justamente aqui que estão armazenadas as informações sobre o desempenho do modelo. Veremos agora como utilizar:
+
+```python
+pd.DataFrame(history.history).head()
+```
+
+|     |     loss | accuracy |
+| --: | -------: | -------: |
+|   0 | 0.684651 |  0.54250 |
+|   1 | 0.677721 |  0.55250 |
+|   2 | 0.673595 |  0.55125 |
+|   3 | 0.668149 |  0.57750 |
+|   4 | 0.663269 |  0.58500 |
+
+Visualizar por DataFrame não é uma boa opção, mas podemos perceber que os valores de perda estão diminuindo enquanto a precisão aumenta. Plotar um gráfico para visualizar vai ser melhor:
+
+```python
+pd.DataFrame(history.history).plot()
+plt.title("Model_8 curvas de aprendizado");
+```
+
+![cnn plot 6](images/cnn/cnn-plot-6.png)
+
+> Este é o gráfico ideal! A perda diminui enquanto a precisão aumenta.
+
