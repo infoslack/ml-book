@@ -267,12 +267,29 @@ Trainable params: 31,101
 Non-trainable params: 0
 ```
 
-O que fizemos aqui foi replicar a arquitetura exata que o [site CNN Explainer](https://poloclub.github.io/cnn-explainer/) utiliza para demonstrar um modelo.
-Antes de nos aprofundarmos nos detalhes do código de exemplo, vamos ver o que acontece quando fazemos alguns ajustes no modelo.
+> O que fizemos aqui foi replicar a arquitetura exata que o [site CNN Explainer](https://poloclub.github.io/cnn-explainer/) utiliza para demonstrar modelos.
+
+Existem algumas novidades aqui que ainda não foram mencionadas:
+
+- ImageDataGenerator
+- O método `flow_from_directory()`
+- Os parâmetros `batch_size` e `target_size`
+- As camadas `Conv2D` e os parâmetros
+- Camadas `MaxPool2D`
+- Parâmetros na função `fit()`: `steps_per_epoch` e `validation_steps`
+
+
+Antes de nos aprofundarmos em cada um dos detalhes mencionados, vamos ver o que acontece quando fazemos alguns ajustes no modelo que utilizamos no capítulo passado.
+
+Para exemplificar o poder que as redes neurais em serem adaptadas a muitos problemas diferentes, vamos utilizar um modelo de classificação binária que desenvolvemos anteriormente para funcionar com os dados atuais.
+
+Utilizaremos todos os parâmetros do modelo anterior, exceto que vamos alterar duas coisas:
+
+- Os **dados**, que agora são imagens em vez de pontos.
+- A **forma de entrada**, agora precisamos dizer para a rede neural qual é a forma das imagens que queremos classificar.
+
+É comum a prática de remodelar as imagens para um tamanho único. Nesse caso, vamos redimensionar as imagens para (*224, 224, 3*) ou seja, largura e altura de 224 pixels e uma profundidade de 3 (*para os canais de cores, RGB*).
+
 
 ---
 ## WIP
-  
-  - adicionar cap. sobre redes neurais do zero
-  - exemplo com cnn explainer
-  - exemplo com tensorflow playground
