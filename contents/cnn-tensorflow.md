@@ -290,6 +290,117 @@ Utilizaremos todos os parâmetros do modelo anterior, exceto que vamos alterar d
 
 É comum a prática de remodelar as imagens para um tamanho único. Nesse caso, vamos redimensionar as imagens para (*224, 224, 3*) ou seja, largura e altura de 224 pixels e uma profundidade de 3 (*para os canais de cores, RGB*).
 
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando um modelo (réplica do TensorFlow Playground)
+model_2 = tf.keras.Sequential([
+  # dense layers esperam um vetor unidimensional como entrada
+  tf.keras.layers.Flatten(input_shape=(224, 224, 3)),
+  tf.keras.layers.Dense(4, activation='relu'),
+  tf.keras.layers.Dense(4, activation='relu'),
+  tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+# Compila
+model_2.compile(loss='binary_crossentropy',
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=["accuracy"])
+
+# Fit
+history_2 = model_2.fit(train_data, # utilizando os nossos dados agora
+                        epochs=5,
+                        steps_per_epoch=len(train_data),
+                        validation_data=valid_data,
+                        validation_steps=len(valid_data))
+```
+
+![cnn model_2 output](images/cnn/cnn-food-1.png)
+
+Este modelo funciona, mas parece que não aprendeu nada, pois está obtendo apenas 50% de precisão no nosso conjunto de dados. Vejamos a arquitetura:
+
+```
+model_2.summary()
+
+Model: "sequential_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_1 (Flatten)         (None, 150528)            0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 602116    
+                                                                 
+ dense_2 (Dense)             (None, 4)                 20        
+                                                                 
+ dense_3 (Dense)             (None, 1)                 5         
+                                                                 
+=================================================================
+Total params: 602,141
+Trainable params: 602,141
+Non-trainable params: 0
+```
+
+A quantidade de parâmetros no `model_2` é muito maior, 602.141 vs 31.101. Apesar da diferença o primeiro modelo tem um resultado melhor. Vamos tentar melhorar esse resultado, aumentando a complexidade do modelo ou seja aumentando o número de camadas e a quantidade de neurônios em cada camada.
+
+```python
+# Seed
+tf.random.set_seed(42)
+
+# Criando um modelo (réplica do TensorFlow Playground)
+model_3 = tf.keras.Sequential([
+  tf.keras.layers.Flatten(input_shape=(224, 224, 3)),
+  # aumenta o número de neurônios de 4 para 100 em cada camada
+  tf.keras.layers.Dense(100, activation='relu'),
+  tf.keras.layers.Dense(100, activation='relu'),
+  tf.keras.layers.Dense(100, activation='relu'), # adiciona camada extra
+  tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+# Compila
+model_3.compile(loss='binary_crossentropy',
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=["accuracy"])
+
+# Fit
+history_3 = model_3.fit(train_data,
+                        epochs=5,
+                        steps_per_epoch=len(train_data),
+                        validation_data=valid_data,
+                        validation_steps=len(valid_data))
+```
+
+![cnn output 3](images/cnn/cnn-food-2.png)
+
+Tivemos uma melhora significativa com aproximadamente 70% de precisão!
+Vamos olhar a arquitetura:
+
+```
+model_3.summary()
+
+Model: "sequential_2"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_2 (Flatten)         (None, 150528)            0         
+                                                                 
+ dense_4 (Dense)             (None, 100)               15052900  
+                                                                 
+ dense_5 (Dense)             (None, 100)               10100     
+                                                                 
+ dense_6 (Dense)             (None, 100)               10100     
+                                                                 
+ dense_7 (Dense)             (None, 1)                 101       
+                                                                 
+=================================================================
+Total params: 15,073,201
+Trainable params: 15,073,201
+Non-trainable params: 0
+```
+
+O número de parâmetros treináveis aumentou ainda mais. E mesmo com 500x mais (*15.000.000 vs 31.000*), ainda não conseguimos nos aproximar do resultado de `model_1`. Isso revela o poder das redes neurais convolucionais e a capacidade de aprender padrões com menos parâmetros.
+
+## Classificação binária em detalhes
 
 ---
-## WIP
+WIP
