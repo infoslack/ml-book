@@ -525,7 +525,77 @@ model_4.compile(loss='binary_crossentropy',
 
 Como o problema que estamos resolvendo é de classificação binária, a função de perda que estamos usando é `binary_crossentropy`, se fosse um problema multiclasse, utilizaríamos `categorical_crossentropy`. E o nosso otimizador é o `Adam` com todas as configurações padrão e para métricas de avaliação escolhemos `accuracy`.
 
-### 3. Treinando o modelo
+### 4. Treinando o modelo
+
+Com o modelo compilado, hora de treinar. Dessa vez teremos dois novos parâmetros:
+
+- **steps_per_epoch** - número de lotes que um modelo passará por `epoch`, nesse caso queremos que o modelo passe por todos os lotes, então é igual ao comprimento de `train_data` (*1500 imagens em lotes de 32, ou seja 1500/32 = ~47*).
+
+- **validation_steps** - o mesmo que acima, coma diferença para o parâmetro `validation_data` (*500 imagens de teste em lotes de 32, 500/32 = ~16*).
+
+```python
+# Fit
+history_4 = model_4.fit(train_data,
+                        epochs=5,
+                        steps_per_epoch=len(train_data),
+                        validation_data=test_data,
+                        validation_steps=len(test_data))
+```
+
+![treinando o modelo fit()](images/cnn/cnn-food-3.png)
+
+### 5. Avaliando o modelo
+
+Pelo output da função `fit()`, vemos que o modelo está aprendendo alguma coisa. Vamos verificar o desempenho do treino:
+
+```python
+import pandas as pd
+pd.DataFrame(history_4.history).plot(figsize=(10, 7));
+```
+
+![training curves plot 1](images/cnn/cnn-curves-1.png)
+
+Observe as curvas de perda, parece que o modelo está superajustando (com `overfitting`) o conjunto de dados de treinamento. Quando a perda de validação de um modelo (`val_loss`) começa a aumentar, provavelmente que ele esteja superajustando os dados de treino. Isso significa que ele está aprendendo muito bem os padrões, por tanto sua capacidade de generalizar para os dados que não foram vistos será reduzida. Vamos inspecionar ainda mais o desempenho do modelo, separando as curvas de precisão e perda:
+
+```python
+# Função para plotar os dados de validação e treino separadamente
+def plot_loss_curves(history):
+  loss = history.history['loss']
+  val_loss = history.history['val_loss']
+
+  accuracy = history.history['accuracy']
+  val_accuracy = history.history['val_accuracy']
+
+  epochs = range(len(history.history['loss']))
+
+  # Plot loss
+  plt.plot(epochs, loss, label='training_loss')
+  plt.plot(epochs, val_loss, label='val_loss')
+  plt.title('Loss')
+  plt.xlabel('Epochs')
+  plt.legend()
+
+  # Plot accuracy
+  plt.figure()
+  plt.plot(epochs, accuracy, label='training_accuracy')
+  plt.plot(epochs, val_accuracy, label='val_accuracy')
+  plt.title('Accuracy')
+  plt.xlabel('Epochs')
+  plt.legend();
+```
+
+```python
+plot_loss_curves(history_4)
+```
+
+![cnn loss curve](images/cnn/cnn-loss-curve.png)
+
+![cnn accuracy curve](images/cnn/cnn-accuracy-curve.png)
+
+O ideal para essas curvas seria uma seguir a outra (*validação seguir treino*). Ou, a curva de validação deve estar ligeiramente abaixo da curva de treino, se houve um grande espaço entre elas, significa que o modelo provavelmente está com `overfitting`.
+
+
+
 
 
 ---
