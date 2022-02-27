@@ -472,6 +472,60 @@ O parâmetro `batch_size` define quantas imagens serão inseridas em cada lote, 
 
 ### 3. Criando o modelo
 
+Na hora de criar um modelo, qual deve ser a arquitetura padrão ? Por onde começar ? Bem, temos muitas possibilidades aqui, uma forma simples seria utilizar a arquitetura de modelo com melhor desempenho no [ImageNet](https://www.image-net.org/), no entanto, um bom ponto de partida é construir um modelo menor para obter um resultado básico para então você tentar melhorar.
+
+> Um modelo menor refere-se a um modelo com menos camadas.
+
+No nosso caso, vamos utilizar uma versão menor do modelo que pode ser visto no site [CNN Explainer](https://poloclub.github.io/cnn-explainer/) e construir uma rede neural convolucional de 3 camadas.
+
+```python
+# imports
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Activation
+from tensorflow.keras import Sequential
+
+# criando o modelo que será usado como linha de base
+# gerando uma rede neural convolucional de 3 camadas
+model_4 = Sequential([
+  Conv2D(filters=10, 
+         kernel_size=3, 
+         strides=1,
+         padding='valid',
+         activation='relu', 
+         input_shape=(224, 224, 3)), # input  layer
+  Conv2D(10, 3, activation='relu'),
+  Conv2D(10, 3, activation='relu'),
+  Flatten(),
+  Dense(1, activation='sigmoid') # output layer
+])
+```
+
+Agora temos uma arquitetura de rede neural convolucional simples e pronta para uso. Vejamos alguns componentes da camada `Conv2D`:
+
+- **2D** - significa que nossas entradas são bidimensionais, ou seja (*altura e largura*) das imagens, embora tenham 3 canais de cores (RGB), as convoluções são executadas em cada canal individualmente.
+
+- **filters** - valor numérico de (*extratores de recurso*) que serão movidos sobre as imagens.
+  
+- **kernel_size** - o tamanho dos filtros, por exemplo `3`, significa que cada filtro terá o tamanho `3x3`, ou seja, será observado um espaço de `3x3` pixels por vez. Quanto menor o kernel, mais recursos refinados serão extraídos.
+
+- **strides** - número de pixels que um filtro se move enquanto cobre a imagem. Um `stride` de 1 significa que o filtro se move de 1 em 1 pixel.
+
+- **padding** - trabalha com dois valores `valid` ou `same`, onde `same` adiciona zeros fora da imagem para igualar a saída resultante da camada convolucional igual ao valor de entrada. Já `valid` (*usado por padrão*) corta pixels em excesso onde o filtro não se encaixa. Por exemplo (*224 pixels de largura divididos por um kernel de valor iguala a 3, 224/3 = 74,6*) isso significa que um único pixel será cortado no final.
+
+> O termo `recurso` foi mencionado nas explicações várias vezes, é importante entender que um `recurso` pode ser considerado qualquer parte significativa de uma imagem. Por exemplo, uma característica como a forma circular de uma pizza ou as bordas ásperas de um bife. Lembre-se que esses `recursos` não são definidos por nós, são características que o modelo aprende à medida que aplica filtros nas imagens.
+
+Agora que criamos o modelo, vamos compila-lo:
+
+```python
+# Compila o modelo
+model_4.compile(loss='binary_crossentropy',
+                optimizer=Adam(),
+                metrics=['accuracy'])
+```
+
+Como o problema que estamos resolvendo é de classificação binária, a função de perda que estamos usando é `binary_crossentropy`, se fosse um problema multiclasse, utilizaríamos `categorical_crossentropy`. E o nosso otimizador é o `Adam` com todas as configurações padrão e para métricas de avaliação escolhemos `accuracy`.
+
+### 3. Treinando o modelo
 
 
 ---
