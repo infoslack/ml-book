@@ -795,6 +795,131 @@ plot_loss_curves(history_6)
 
 O modelo foi capaz de ver exemplos de imagens aumentadas de pizza e carne, e, por sua vez aplicar o que aprendeu nos dados de validação apresentando um resultado melhor. Além disso, nossas curvas de perda parecem bem mais suaves se compararmos com os modelos anteriores.
 
+## Repetir os processos até obter um resultado satisfatório
+
+Treinamos alguns modelos e até aqui eles estão apresentando um desempenho muito bom. Como já superamos a linha de base, existem algumas coisas que podemos tentar para continuar a melhorar o modelo:
+
+- Aumentar o número de camadas de modelo (adicionando mais camadas convolucionais).
+- Aumentar o número de filtros em cada camada convolucional.
+- Treinar o modelo por mais tempo (`epoch` maior).
+- Encontrar uma taxa de aprendizado ideal (`learning_rate`).
+- Obter mais dados (quanto mais dados, mais oportunidade o modelo tem para aprender).
+
+Ajustar cada uma dessas configurações durante o desenvolvimento do modelo é chamado de *ajuste de hiperparâmetro*. Vamos voltar ao ponto inicial e tentar a arquitetura `TinyVGG` do [CNN Explainer](https://poloclub.github.io/cnn-explainer/).
+
+```python
+# Cria um modelo CNN com arquitetura Tiny VGG para classificação binária
+model_7 = Sequential([
+  Conv2D(10, 3, activation='relu', input_shape=(224, 224, 3)),
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Conv2D(10, 3, activation='relu'),
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Flatten(),
+  Dense(1, activation='sigmoid')
+])
+
+# Compila o modelo
+model_7.compile(loss="binary_crossentropy",
+                optimizer=tf.keras.optimizers.Adam(),
+                metrics=["accuracy"])
+
+# Fit
+history_7 = model_7.fit(train_data_augmented_shuffled,
+                        epochs=5,
+                        steps_per_epoch=len(train_data_augmented_shuffled),
+                        validation_data=test_data,
+                        validation_steps=len(test_data))
+```
+
+![output model 7](images/cnn/cnn-food-6.png)
+
+Perceba que utilizamos um código ligeiramente diferente, para construir o `model_8` em comparação com o `model_1`. Isso se deve as importações que fizemos antes, como de `Conv2D` que reduziu a quantidade de código que tivemos que escrever. Embora o código seja diferente, as arquiteturas são as mesmas:
+
+```
+model_1.summary()
+
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 222, 222, 10)      280       
+                                                                 
+ conv2d_1 (Conv2D)           (None, 220, 220, 10)      910       
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 110, 110, 10)     0         
+ )                                                               
+                                                                 
+ conv2d_2 (Conv2D)           (None, 108, 108, 10)      910       
+                                                                 
+ conv2d_3 (Conv2D)           (None, 106, 106, 10)      910       
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 53, 53, 10)       0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 28090)             0         
+                                                                 
+ dense (Dense)               (None, 1)                 28091     
+                                                                 
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+```
+
+```
+model_7.summary()
+
+Model: "sequential_7"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_19 (Conv2D)          (None, 222, 222, 10)      280       
+                                                                 
+ conv2d_20 (Conv2D)          (None, 220, 220, 10)      910       
+                                                                 
+ max_pooling2d_14 (MaxPoolin  (None, 110, 110, 10)     0         
+ g2D)                                                            
+                                                                 
+ conv2d_21 (Conv2D)          (None, 108, 108, 10)      910       
+                                                                 
+ conv2d_22 (Conv2D)          (None, 106, 106, 10)      910       
+                                                                 
+ max_pooling2d_15 (MaxPoolin  (None, 53, 53, 10)       0         
+ g2D)                                                            
+                                                                 
+ flatten_8 (Flatten)         (None, 28090)             0         
+                                                                 
+ dense_13 (Dense)            (None, 1)                 28091     
+                                                                 
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+```
+
+Vamos comparar a performance, primeiro as curvas do último modelo:
+
+```python
+plot_loss_curves(history_7)
+```
+
+![loss curve model 7](images/cnn/cnn-loss-curve-4.png)
+
+![accuracy curve model 7](images/cnn/cnn-accuracy-curve-4.png)
+
+Agora do nosso primeiro modelo:
+
+```python
+plot_loss_curves(history_1)
+```
+
+![loss curve model 1](images/cnn/cnn-loss-curve-5.png)
+
+![accuracy curve model 1](images/cnn/cnn-accuracy-curve-5.png)
+
+As curvas de treinamento parecem boas, mas o desempenho do modelo no conjunto de teste não melhorou muito em comparação com o modelo anterior. Observando as curvas, parece que o desempenho do modelo pode melhorar se treinarmos por um pouco mais de tempo (mais `epochs`).
 
 
 ---
