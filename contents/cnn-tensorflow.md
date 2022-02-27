@@ -439,6 +439,40 @@ train_dir = "pizza_steak/train/"
 test_dir = "pizza_steak/test/"
 ```
 
+O próximo passo é transformar os dados em lotes (*batches*).
+Cada lote é um pequeno subconjunto do conjunto de dados que o modelo vai analisar durante o treinamento. Por exemplo, em vez de observar 10.000 imagens de uma vez e tentar aprender os padrões, o modelo vai olhar apenas 32 imagens por vez. Os principais motivos para se usar lotes são: 10.000 imagens ou até mais que isso podem não caber na memória da `GPU`, tentar aprender padrões em 10.000 imagens de uma só vez pode fazer com que o modelo não aprenda muito bem. O tamanho 32 para o lote foi provado ser muito eficaz em muitos casos de uso diferentes.
+
+Vamos transformar nossos dados em lotes, primeiro precisamos criar uma instância de `ImageDataGenerator` para cada um dos nossos conjuntos de dados:
+
+```python
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+train_datagen = ImageDataGenerator(rescale=1/255.)
+test_datagen = ImageDataGenerator(rescale=1/255.)
+```
+
+`ImageDataGenerator` nos ajuda a preparar as imagens em lotes, bem como realizar a transformação delas à medida que são carregadas no modelo. Note o parâmetro `rescale`, este é um exemplo das transformações que precisamos fazer. Esse parâmetro é responsável por dividir os valore de pixel por `255`, fazendo com que toda imagem importada tenha seus valores de pixel normalizados (*convertidos em uma escala entre 0 e 1*). Agora que temos a instâncias de `ImageDataGenerator`, podemos carregar as imagens dos respectivos diretórios usando o método `flow_from_directory`:
+
+```python
+train_data = train_datagen.flow_from_directory(directory=train_dir,
+                                               target_size=(224, 224),
+                                               class_mode='binary',
+                                               batch_size=32)
+
+test_data = test_datagen.flow_from_directory(directory=test_dir,
+                                             target_size=(224, 224),
+                                             class_mode='binary',
+                                             batch_size=32)
+```
+
+Nosso conjunto de dados de treino tem 1.500 imagens separadas em 2 classes (*pizza e carne*) enquanto que o conjunto de teste tem 500 imagens também separadas em 2 classes. Devido o formato em como os diretórios são estruturados, as classes são inferidas pelos nomes dos subdiretórios `train_dir` e `test_dir`.
+
+O parâmetro `target_size` ajusta o tamanho de entrada das nossas imagens, ou seja, o formato (*altura e largura*). Já `class_mode='binary'` define o nosso tipo de problema de classificação, nesse caso, classificação binária.
+
+O parâmetro `batch_size` define quantas imagens serão inseridas em cada lote, por padrão 32.
+
+### 3. Criando o modelo
+
+
 
 ---
 WIP
