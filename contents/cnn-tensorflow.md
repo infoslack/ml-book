@@ -402,5 +402,43 @@ O número de parâmetros treináveis aumentou ainda mais. E mesmo com 500x mais 
 
 ## Classificação binária em detalhes
 
+Veremos em detalhes agora, cada uma das etapas que fizeram parte da construção do nosso modelo de classificação binária:
+
+- Importe e familiarização com os dados
+- Pré-processamento (*preparando os dados para um modelo*)
+- Criando um modelo
+- Ajuste e treino (*Fit*)
+- Avaliando o modelo
+- Ajuste de parâmetros para melhorar o modelo
+
+### 1. Importe e familiarização com os dados
+
+Independente do tipo de dados com os quais você vai trabalhar, é sempre uma boa ideia começar pela visualização. No nosso caso atual, visualizar as imagens de carne e pizza.
+
+```python
+plt.figure()
+plt.subplot(1, 2, 1)
+steak_img = view_random_image("pizza_steak/train/", "steak")
+plt.subplot(1, 2, 2)
+pizza_img = view_random_image("pizza_steak/train/", "pizza");
+
+Image shape: (343, 512, 3)
+Image shape: (384, 512, 3)
+```
+
+![familiarização com os dados, visualizando as imagens](images/cnn/pizza-steak-1.png)
+
+Podemos observar que as imagens dos pratos de carne apresentam cores mais escuras, enquanto as imagens de pizza tendem a ter uma forma circular no meio. Esses podem ser alguns padrões que a rede neural vai identificar.
+
+### 2. Pré-processando os dados
+
+Essa é uma das etapas mais importantes para um projeto de Machine Learning, criar um conjunto de dados para treinamento e teste. No nosso caso, os dados já estão separados nesses conjuntos. Em um projeto de classificação de imagens, é padrão ter os dados separados em diretórios de treino e teste com subdiretórios em cada para os tipos de classe (*imagens de pizza, imagens de pratos de carne*). Vamos começar definindo os caminhos dos diretórios de treino e teste:
+
+```python
+train_dir = "pizza_steak/train/"
+test_dir = "pizza_steak/test/"
+```
+
+
 ---
 WIP
