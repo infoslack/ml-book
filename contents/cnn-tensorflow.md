@@ -594,7 +594,206 @@ plot_loss_curves(history_4)
 
 O ideal para essas curvas seria uma seguir a outra (*validação seguir treino*). Ou, a curva de validação deve estar ligeiramente abaixo da curva de treino, se houve um grande espaço entre elas, significa que o modelo provavelmente está com `overfitting`.
 
+### 6. Ajustando os parâmetros do modelo
 
+O ajuste um modelo de `ML` é composto de 3 etapas:
+
+- Criar uma linha de base
+- Alcançar a linha de base (*gerando `overfitting` em um modelo maior*)
+- Reduzir o `overfitting`
+
+Até agora já passamos pelas duas primeiras etapas, ainda há mais algumas coisas que poderíamos tentar para refinar o ajuste do nosso modelo:
+
+- *Aumentar o número de camadas convolucionais.*
+- *Aumentar o número defiltros convolucionais*
+- *Adicionar outra camada densa de saída (dense layer)*
+  
+O que faremos agora é focar em alinhar as curvas de treinamento do modelo, em outras palavras, reduziremos o overfitting.
+
+Quando um modelo apresenta um desempenho muito bom nos dados de treino e ruim nos dados não vistos, ele acaba se tornando inútil se quisermos usá-lo em um problema real. Nos próximos modelos que vamos construir, ajustaremos vários parâmetros a medida que inspecionamos as curvas de treino ao longo do caminho.
+
+Para o primeiro ajuste, faremos um modelo com a mesma estrutura do anterior, mas com uma camada `MaxPool2D()` após cada camada convolucional (uma [ConvNet com max pooling](https://deeplizard.com/learn/video/ZjM_XQa5s6s)):
+
+```python
+# criando o modelo que será usado como linha de base
+# gerando uma rede neural convolucional de 3 camadas
+model_5 = Sequential([
+  Conv2D(10, 3, activation='relu', input_shape=(224, 224, 3)),
+  MaxPool2D(pool_size=2), # reduce number of features by half
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Flatten(),
+  Dense(1, activation='sigmoid')
+])
+```
+
+Se as camadas convolucionais aprendem os recursos de uma imagem, imagine a camada `Max Pooling` como a responsável por descobrir os mais importantes desses recursos.
+
+```python
+# Compila
+model_5.compile(loss='binary_crossentropy',
+                optimizer=Adam(),
+                metrics=['accuracy'])
+# Fit
+history_5 = model_5.fit(train_data,
+                        epochs=5,
+                        steps_per_epoch=len(train_data),
+                        validation_data=test_data,
+                        validation_steps=len(test_data))
+```
+
+![fit model 5 cnn](images/cnn/cnn-food-4.png)
+
+Parece que o modelo implementando `max pooling` está apresentando um desempenho pior nos dados de treino, mas ligeiramente melhor nos dados de validação.
+
+```python
+plot_loss_curves(history_5)
+```
+
+![model 5 loss curve](images/cnn/cnn-loss-curve-2.png)
+
+![model 5 accuracy curve](images/cnn/cnn-accuracy-curve-2.png)
+
+Observe nas curvas de treinamento que agora elas estão bem mais próximas umas das outras. No entanto, nossa perda de validação parece aumentar no final, potencialmente levando ao overfitting. Vamos tentar implementar agora mais um método na prevenção de overfitting (`data augmentation`).
+
+Para implementar `data augmentation`, precisamos instanciar novamente os valores de `ImageDataGenerator`:
+
+```python
+# ImageDataGenerator com data augmentation
+train_datagen_augmented = ImageDataGenerator(rescale=1/255.,
+                                             # rotaciona ligeiramente a 20 graus
+                                             rotation_range=20,
+                                             # corta a imagem
+                                             shear_range=0.2,
+                                             # zoom na imagem
+                                             zoom_range=0.2,
+                                             # altera a largura da imagem
+                                             width_shift_range=0.2,
+                                             # muda a altura da imagem
+                                             height_shift_range=0.2,
+                                             # vira a imagem no eixo horizontal
+                                             horizontal_flip=True)
+
+# Instância de treino ImageDataGenerator sem data augmentation
+train_datagen = ImageDataGenerator(rescale=1/255.) 
+
+# Instância de teste ImageDataGenerator sem data augmentation
+test_datagen = ImageDataGenerator(rescale=1/255.)
+```
+
+`Data augmentation` (aumento de dados) é o processo de alterar os dados de treinamento, criando várias versões para ter mais diversidade e, por sua vez, permitindo que os modelos aprendam padrões cada vez mais generalizáveis. Essas alterações representam uma rotação em uma imagem, invertê-la ou cortá-la ou aplicar um zoom, ou algo do tipo. Isso ajuda a simular dados que um modelo pode se deparar no mundo real.
+
+> `Data augmentation` é aplicado geralmente apenas nos dados de treinamento. Usando os parâmetros em `ImageDataGenerator`, as imagens são mantidas como estão nos diretórios, são manipuladas aleatoriamente apenas quando carregadas no modelo (*em memória*).
+
+```python
+# Importa os dados e aumenta
+print("Imagens de treino aumentadas:")
+train_data_augmented = train_datagen_augmented.flow_from_directory(
+    train_dir,
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='binary',
+    shuffle=False)
+
+# Cria lotes de dados não aumentados
+print("Imagens de treino não aumentadas:")
+train_data = train_datagen.flow_from_directory(train_dir,
+                                               target_size=(224, 224),
+                                               batch_size=32,
+                                               class_mode='binary',
+                                               shuffle=False)
+
+print("Imagens de teste inalteradas:")
+test_data = test_datagen.flow_from_directory(test_dir,
+                                             target_size=(224, 224),
+                                             batch_size=32,
+                                             class_mode='binary')
+```
+
+```
+Imagens de treino aumentadas:
+Found 1500 images belonging to 2 classes.
+Imagens de treino não aumentadas:
+Found 1500 images belonging to 2 classes.
+Imagens de teste inalteradas:
+Found 500 images belonging to 2 classes.
+```
+
+Vamos visualizar para ver o que está acontecendo aqui:
+
+```python
+# Pegando lote de dados de exemplo
+images, labels = train_data.next()
+augmented_images, augmented_labels = train_data_augmented.next()
+
+# Plota imagem original e aumentada
+random_number = random.randint(0, 32)
+plt.imshow(images[random_number])
+plt.title(f"Original image")
+plt.axis(False)
+plt.figure()
+plt.imshow(augmented_images[random_number])
+plt.title(f"Augmented image")
+plt.axis(False);
+```
+
+![mostra imagem de pizza original](images/cnn/pizza-original.png)
+
+![mostra imagem de pizza aumentada](images/cnn/pizza-aumentada.png)
+
+Perceba as transformações na segunda imagem. Observe como a imagem aumentada parece ligeiramente distorcida da original. Isso significa que o modelo será forçado a tentar aprender padrões em imagens não tão boas, o que pode acontecer com facilidade no mundo real.
+
+Agora que temos dados aumentados, vamos tentar reajustar um modelo com eles e ver como isso afeta o desempenho.
+
+```python
+# Importa os dados e aumenta
+print("Imagens de treino aumentadas:")
+train_data_augmented_shuffled = train_datagen_augmented.flow_from_directory(
+    train_dir,
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='binary',
+    shuffle=True) # ativando o shuffle para ter dados aleatórios
+
+# Criando um modelo (mesmo que model_5)
+model_6 = Sequential([
+  Conv2D(10, 3, activation='relu', input_shape=(224, 224, 3)),
+  MaxPool2D(pool_size=2),
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Conv2D(10, 3, activation='relu'),
+  MaxPool2D(),
+  Flatten(),
+  Dense(1, activation='sigmoid')
+])
+
+# Compila o modelo
+model_6.compile(loss='binary_crossentropy',
+                optimizer=Adam(),
+                metrics=['accuracy'])
+
+# Fit
+# trocando para dados aumentados
+history_6 = model_6.fit(train_data_augmented_shuffled,
+                        epochs=5,
+                        steps_per_epoch=len(train_data_augmented_shuffled),
+                        validation_data=test_data,
+                        validation_steps=len(test_data))
+```
+
+![fit model 6 output](images/cnn/cnn-food-5.png)
+
+```python
+plot_loss_curves(history_6)
+```
+
+![loss curve model 6](images/cnn/cnn-loss-curve-3.png)
+
+![accuracy curve model 6](images/cnn/cnn-accuracy-curve-3.png)
+
+O modelo foi capaz de ver exemplos de imagens aumentadas de pizza e carne, e, por sua vez aplicar o que aprendeu nos dados de validação apresentando um resultado melhor. Além disso, nossas curvas de perda parecem bem mais suaves se compararmos com os modelos anteriores.
 
 
 
