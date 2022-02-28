@@ -1,4 +1,10 @@
 {
   "honkit": ">= 3.0.0",
-  "root": "./"
+    "root": "./",
+  "plugins": ["ga"],
+  "pluginsConfig": {
+    "ga": {
+      "token": "UA-44190365-2"
+    }
+  }
 }

@@ -1,4 +1,7 @@
 .vscode/*
 node_modules/*
+.ipynb_checkpoints/
+.DS_Store
 package-lock.json
 _book/gitbook/gitbook-plugin-livereload/*
+_book/ga_tag*
