@@ -1,0 +1,2301 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Redes neurais convolucionais e Visão computacional com TensorFlow · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="rnn-intro.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Entendendo Machine Learning com Scikit-Learn e TensorFlow na prática
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="sobre-o-livro.html">
+            
+                <a href="sobre-o-livro.html">
+            
+                    
+                    Para quem é este livro?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="ambiente.html">
+            
+                <a href="ambiente.html">
+            
+                    
+                    Configurando o ambiente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../xx">
+            
+                <span>
+            
+                    
+                    Um pouco de Python para Data Science
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="part-i-data-science.html">
+            
+                <a href="part-i-data-science.html">
+            
+                    
+                    Parte I: Data Science
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html">
+            
+                    
+                    Conhecendo o Pandas
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="conhecendo-o-pandas.html">
+            
+                <a href="conhecendo-o-pandas.html#importando-o-pandas">
+            
+                    
+                    Importando o Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html">
+            
+                    
+                    Series e DataFrames
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#series">
+            
+                    
+                    Series
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="series-dataframe.html">
+            
+                <a href="series-dataframe.html#dataframe">
+            
+                    
+                    DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html">
+            
+                    
+                    Manipulando dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#anatomia-de-um-dataframe">
+            
+                    
+                    Anatomia de um DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#explorando-os-dados">
+            
+                    
+                    Explorando os dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dtypes">
+            
+                    
+                    dtypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#describe">
+            
+                    
+                    describe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#info">
+            
+                    
+                    info
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#mean-e-sum">
+            
+                    
+                    mean, sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#columns">
+            
+                    
+                    columns
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.13" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#head">
+            
+                    
+                    head
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.14" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#tail">
+            
+                    
+                    tail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.15" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#loc-e-iloc">
+            
+                    
+                    loc, iloc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.16" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#groupby">
+            
+                    
+                    groupby
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.17" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#replace">
+            
+                    
+                    str.replace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.18" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#numeric">
+            
+                    
+                    to_numeric
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.19" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#fillna">
+            
+                    
+                    fillna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.20" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#dropna">
+            
+                    
+                    dropna
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.21" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#drop">
+            
+                    
+                    drop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.22" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#sample">
+            
+                    
+                    sample
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.23" data-path="manipulando-dados.html">
+            
+                <a href="manipulando-dados.html#reset-index">
+            
+                    
+                    reset_index
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.24" data-path="pandas-exercicios.html">
+            
+                <a href="pandas-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html">
+            
+                    
+                    Introdução ao NumPy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="intro-numpy.html">
+            
+                <a href="intro-numpy.html#importando-a-biblioteca-numpy">
+            
+                    
+                    Importando a biblioteca NumPy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="np-tipos-de-dados.html">
+            
+                <a href="np-tipos-de-dados.html">
+            
+                    
+                    Tipos de dados e atributos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html">
+            
+                    
+                    Arrays, matrizes e operações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#selecionando-e-visualizando-elementos">
+            
+                    
+                    Selecionando e visualizando elementos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#manipulando-e-comparando-arrays">
+            
+                    
+                    Manipulando e comparando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#aggregations">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#reshaping-e-transpose">
+            
+                    
+                    Reshaping e Transpose
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="np-matrizes-e-operacoes.html">
+            
+                <a href="np-matrizes-e-operacoes.html#comparando-e-ordenando-arrays">
+            
+                    
+                    Comparando e ordenando arrays
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="numpy-exercicios.html">
+            
+                <a href="numpy-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html">
+            
+                    
+                    Gráficos com Matplotlib
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#plot">
+            
+                    
+                    plot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#figure">
+            
+                    
+                    plt.figure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="intro-matplotlib.html">
+            
+                <a href="intro-matplotlib.html#subplots">
+            
+                    
+                    plt.subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="anatomia-matplotlib.html">
+            
+                <a href="anatomia-matplotlib.html">
+            
+                    
+                    Anatomia de um gráfico
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html">
+            
+                    
+                    Tipos de plots mais utilizados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#line">
+            
+                    
+                    Line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#scatter">
+            
+                    
+                    Scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#bar">
+            
+                    
+                    Bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#hist">
+            
+                    
+                    Hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#subplots">
+            
+                    
+                    Subplots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#plotando-dados-com-pandas">
+            
+                    
+                    Plotando dados com Pandas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.12" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-line">
+            
+                    
+                    Pandas plot line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.13" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-scatter">
+            
+                    
+                    Pandas plot scatter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.14" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-bar">
+            
+                    
+                    Pandas plot bar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.15" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#pandas-plot-hist">
+            
+                    
+                    Pandas plot hist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.16" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#customizando-os-seus-plots">
+            
+                    
+                    Customizando os seus plots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.17" data-path="matplotlib-plots.html">
+            
+                <a href="matplotlib-plots.html#adicionando-outro-plot-ao-existente">
+            
+                    
+                    Adicionando outro plot ao existente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.18" data-path="matplotlib-exercicios.html">
+            
+                <a href="matplotlib-exercicios.html">
+            
+                    
+                    Exercícios
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="analise-exploratoria.html">
+            
+                <a href="analise-exploratoria.html">
+            
+                    
+                    Análise exploratória de dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="part-ii-ml.html">
+            
+                <a href="part-ii-ml.html">
+            
+                    
+                    Parte II: Machine Learning
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="ml-101.html">
+            
+                <a href="ml-101.html">
+            
+                    
+                    O que é Machine Learning?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html">
+            
+                    
+                    Scikit-Learn
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#sklearn-de-ponta-a-ponta">
+            
+                    
+                    Sklearn de ponta a ponta
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#eda">
+            
+                    
+                    EDA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#modelagem-dos-dados">
+            
+                    
+                    Modelagem dos dados
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#treino-e-teste">
+            
+                    
+                    Treino e Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#escolha-de-modelos">
+            
+                    
+                    Escolha de modelos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-kneighborsclassifier-knn">
+            
+                    
+                    KNeighborsClassifier
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-randomizedsearchcv">
+            
+                    
+                    RandomizedSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#ajustando-modelos-com-gridsearchcv">
+            
+                    
+                    GridSearchCV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="ml-sklearn.html">
+            
+                <a href="ml-sklearn.html#roc-curve-e-auc-scores">
+            
+                    
+                    ROC Curve e AUC Scores
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="contents-sklearn.md">
+            
+                <span>
+            
+                    
+                    Feature importance
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html">
+            
+                    
+                    Introdução ao TensorFlow
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#tensors">
+            
+                    
+                    Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfconstant">
+            
+                    
+                    Criando Tensors com tf.constant()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#criando-tensors-com-tfvariable">
+            
+                    
+                    Criando Tensors com tf.Variable()
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#outras-formas-de-criar-tensors">
+            
+                    
+                    Outras formas de criar Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="intro-tensorflow.html">
+            
+                <a href="intro-tensorflow.html#manipulando-tensors">
+            
+                    
+                    Manipulando Tensors
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="transfer-learning-tensorflow.html">
+            
+                <a href="transfer-learning-tensorflow.html">
+            
+                    
+                    Transfer Learning com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="rnn-intro.html">
+            
+                <a href="rnn-intro.html">
+            
+                    
+                    Redes neurais com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.6" data-path="cnn-tensorflow.html">
+            
+                <a href="cnn-tensorflow.html">
+            
+                    
+                    Redes neurais convolucionais e Visão computacional com TensorFlow
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redes neurais convolucionais e Visão computacional com TensorFlow</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redes-neurais-convolucionais-e-visão-computacional-com-tensorflow">Redes neurais convolucionais e visão computacional com TensorFlow</h1>
+<p>Vamos nos aprofundar em algo específico, veremos um tipo especial de rede neural, as redes neurais convolucionais (<code>CNNs</code>) que podem ser utilizadas para visão computacional (<em>detecção de padrões em dados visuais</em>).</p>
+<blockquote>
+<p>Em <code>Deep Learning</code>, vários tipos diferentes de arquiteturas de modelo podem ser utilizados para diferentes problemas. Podemos utilizar uma <code>CNNs</code> para realizar previsões em dados de imagem ou texto por exemplo. Na prática, algumas arquiteturas funcionam melhor que outras.</p>
+</blockquote>
+<p>Imagine poder classificar uma foto de comida se é pizza ou carne (<em>no capítulo passado fizemos algo parecido classificando raças de cães</em>). Detectar se um objeto está presente ou não em uma imagem ou ainda, se uma pessoa específica foi gravada por uma câmera de segurança. Neste capítulo, seguiremos com o workflow do TensorFlow que já vimos, ao mesmo tempo em que aprendemos sobre como construir e utilizar <code>CNNs</code>.</p>
+<p>As redes neurais convolucionais funcionam muito bem com imagens, para aprender sobre elas, vamos resolver um problema de classificação utilizando uma base de dados de imagens. Usaremos o <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" target="_blank">Food-101</a>, uma coleção composta por 101 categorias diferentes de 101.000 imagens reais de pratos de comida.
+Utilizaremos apenas duas categorias, pizza e carne para construir um classificado binário.</p>
+<p>No Google Colab, vamos baixar o arquivo <code>.zip</code> com as imagens e descompactá-lo.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> zipfile
+
+<span class="hljs-comment"># download dos arquivos de imagens zipados</span>
+!wget https://infoslack.pro/pizza_steak.<span class="hljs-built_in">zip</span>
+
+<span class="hljs-comment"># descompactando o zip</span>
+zip_ref = zipfile.ZipFile(<span class="hljs-string">&quot;pizza_steak.zip&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>)
+zip_ref.extractall()
+zip_ref.close()
+</code></pre>
+<pre><code>--2022-02-22 23:32:44--  https://infoslack.pro/pizza_steak.zip
+Resolving infoslack.pro (infoslack.pro)... 35.202.40.163
+Connecting to infoslack.pro (infoslack.pro)|35.202.40.163|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 109497985 (104M) [application/zip]
+Saving to: ‘pizza_steak.zip’
+
+pizza_steak.zip     100%[===================&gt;] 104.42M  25.6MB/s    in 4.3s    
+
+2022-02-22 23:32:49 (24.5 MB/s) - ‘pizza_steak.zip’ saved [109497985/109497985]
+</code></pre><p>Vamos dar uma olhada nos dados, queremos verificar quantas imagens temos para treinamento:</p>
+<pre><code class="lang-python">num_steak_images_train = <span class="hljs-built_in">len</span>(os.listdir(<span class="hljs-string">&quot;pizza_steak/train/steak&quot;</span>))
+num_steak_images_train
+
+<span class="hljs-number">750</span>
+</code></pre>
+<p>Uma boa ideia agora seria visualizar uma das imagens (<em>sempre que estiver trabalhando com dados é importante visualizá-los o máximo possível</em>):</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Visualiza uma imagem</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> matplotlib.image <span class="hljs-keyword">as</span> mpimg
+<span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view_random_image</span>(<span class="hljs-params">target_dir, target_class</span>):</span>
+  <span class="hljs-comment"># diretório de destino</span>
+  target_folder = target_dir+target_class
+
+  <span class="hljs-comment"># Pega um caminho de imagem aleatório</span>
+  random_image = random.sample(os.listdir(target_folder), <span class="hljs-number">1</span>)
+
+  <span class="hljs-comment"># lendo a imagem e plotando com matplotlib</span>
+  img = mpimg.imread(target_folder + <span class="hljs-string">&quot;/&quot;</span> + random_image[<span class="hljs-number">0</span>])
+  plt.imshow(img)
+  plt.title(target_class)
+  plt.axis(<span class="hljs-string">&quot;off&quot;</span>);
+
+  <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Image shape: <span class="hljs-subst">{img.shape}</span>&quot;</span>) <span class="hljs-comment"># mostra o formato da imagem (tamanho)</span>
+
+  <span class="hljs-keyword">return</span> img
+</code></pre>
+<p>Criamos uma função para visualizar uma imagem aleatório, agora vamos utilizá-la:</p>
+<pre><code class="lang-python">img = view_random_image(target_dir=<span class="hljs-string">&quot;pizza_steak/train/&quot;</span>, target_class=<span class="hljs-string">&quot;steak&quot;</span>)
+</code></pre>
+<pre><code>Image shape: (512, 508, 3)
+</code></pre><p><img src="images/cnn/steak-1.png" alt="cnn visualizando uma imagem aleatório do dataset"></p>
+<p>Agora que temos ideia do tipo de imagem que vamos trabalhar, todo o conjunto é composto por imagens semelhantes, no nosso caso em 2 classes.</p>
+<pre><code class="lang-python">img.shape
+
+(<span class="hljs-number">512</span>, <span class="hljs-number">512</span>, <span class="hljs-number">3</span>)
+</code></pre>
+<p>Observe a forma (shape) da imagem, temos a largura, altura e os canais de cores (RGB). No nosso caso, a largura e altura variam entre as imagens da base de dados, já o valor do <code>RGB</code> é sempre igual a 3. Note os valores da matriz <code>img</code> abaixo:</p>
+<pre><code>img
+
+array([[[182, 150, 103],
+        [171, 138,  93],
+        [175, 141,  96],
+        ...,
+        [155, 122,  89],
+        [162, 129,  98],
+        [169, 136, 105]],
+
+       [[174, 142,  95],
+        [166, 132,  87],
+        [170, 136,  91],
+
+       ...,
+
+       [[118, 106,  68],
+        [117, 105,  67],
+        [131, 117,  80],
+        ...,
+        [ 85,  59,  46],
+        [ 91,  68,  54],
+        [122,  98,  86]],
+        ...,
+        [ 95,  67,  55],
+        [101,  72,  64],
+        [124,  95,  87]]], dtype=uint8)
+</code></pre><p>Os valores da matriz estão entre 0 e 255. Isso acontece porque esse é o intervalo possível para os valores de vermelho, verde e azul (<code>RGB</code>). Imagine um pixel com um valor vermelho=0, verde=0, azul=255, esse pixel será muito azul! Quando desenvolvermos um modelo para diferenciar entre as imagens de pizza e carne, encontraremos padrões nesses diferentes valores de pixel, que determinam a aparência de cada classe.</p>
+<p>Como vimos no capítulo passado, os modelos de <code>ML</code>, preferem trabalhar com valores entre 0 e 1. Ou seja, uma das etapas de pré-processamento mais comuns para trabalhar com imagens é normalizar os valores de pixel, dividindo as matrizes de imagens por <code>255</code>. Por exemplo:</p>
+<pre><code>img/255.
+
+array([[[0.71372549, 0.58823529, 0.40392157],
+        [0.67058824, 0.54117647, 0.36470588],
+        [0.68627451, 0.55294118, 0.37647059],
+        ...,
+        [0.60784314, 0.47843137, 0.34901961],
+        [0.63529412, 0.50588235, 0.38431373],
+        [0.6627451 , 0.53333333, 0.41176471]],
+
+       [[0.68235294, 0.55686275, 0.37254902],
+        [0.65098039, 0.51764706, 0.34117647],
+        [0.66666667, 0.53333333, 0.35686275],
+
+       ...,
+
+       [[0.4627451 , 0.41568627, 0.26666667],
+        [0.45882353, 0.41176471, 0.2627451 ],
+        [0.51372549, 0.45882353, 0.31372549],
+        ...,
+        [0.33333333, 0.23137255, 0.18039216],
+        [0.35686275, 0.26666667, 0.21176471],
+        [0.47843137, 0.38431373, 0.3372549 ]],
+
+       [[0.47058824, 0.42352941, 0.2745098 ],
+        [0.49019608, 0.43921569, 0.30196078],
+        [0.54509804, 0.49019608, 0.35294118],
+</code></pre><h2 id="arquitetura-de-uma-rede-neural-convolucional">Arquitetura de uma rede neural convolucional</h2>
+<p>Redes neurais convolucionais não são diferentes de outros tipos de redes neurais de <code>Deep Learning</code>, pois podem ser criadas de muitas maneiras diferentes. Vejamos um exemplo dos componentes normalmente encontrados em uma <code>CNN</code> tradicional:</p>
+<p><img src="images/cnn/cnn-tabela.png" alt="CNN tradicional componentes"></p>
+<p>Juntando tudo isso, teríamos várias camadas empilhadas (stack) formando uma rede convolucional:</p>
+<p><img src="images/cnn/tensors-rgb.png" alt="cnn rgb stack"></p>
+<p>Vamos a um exemplo prático!</p>
+<p>Como visto antes, verificamos os dados e descobrimos que temos 750 imagens para treinamento e 250 imagens para teste, sendo que todas elas têm formas diferentes. Os criadores deste conjunto de dados, <a href="https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d" target="_blank">originalmente escreveram que eles utilizaram um modelo de <code>ML</code> Random Forest</a> obtendo uma precisão média de <code>50,76%</code> nas previsões. Para o nosso projeto esses 50,76% são a nossa linha base, ou seja a nossa métrica de avaliação que tentaremos superar.</p>
+<p>O código que veremos agora, replica exatamente um modelo com uma rede neural convolucional (CNN) usando os componentes que foram mencionados acima. Muitos trechos de código você provavelmente ainda não viu (mas não se preocupe) leia os comentários para se familiarizar e tente descobrir o que cada trecho está fazendo. Este é um bom ponto de partida para avançarmos nos detalhes em cada uma das etapas ao longo deste capítulo.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+<span class="hljs-keyword">from</span> tensorflow.keras.preprocessing.image <span class="hljs-keyword">import</span> ImageDataGenerator
+
+<span class="hljs-comment"># Configurando o seed</span>
+tf.random.set_seed(<span class="hljs-number">13</span>)
+
+<span class="hljs-comment"># Dados de pré-processamento (queremos os valores de pixel entre 0 e 1)</span>
+train_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1.</span>/<span class="hljs-number">255</span>)
+valid_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1.</span>/<span class="hljs-number">255</span>)
+
+<span class="hljs-comment"># Configurando diretórios de treino e teste</span>
+train_dir = <span class="hljs-string">&quot;pizza_steak/train/&quot;</span>
+test_dir = <span class="hljs-string">&quot;pizza_steak/test/&quot;</span>
+
+<span class="hljs-comment"># Importando os dados dos diretórios e transformando em lotes</span>
+train_data = train_datagen.flow_from_directory(train_dir,
+                                               batch_size=<span class="hljs-number">32</span>,
+                                               target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                               class_mode=<span class="hljs-string">&quot;binary&quot;</span>,
+                                               seed=<span class="hljs-number">42</span>)
+
+valid_data = valid_datagen.flow_from_directory(test_dir,
+                                               batch_size=<span class="hljs-number">32</span>,
+                                               target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                               class_mode=<span class="hljs-string">&quot;binary&quot;</span>,
+                                               seed=<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando um modelo CNN</span>
+model_1 = tf.keras.models.Sequential([
+  tf.keras.layers.Conv2D(filters=<span class="hljs-number">10</span>, 
+                         kernel_size=<span class="hljs-number">3</span>,
+                         activation=<span class="hljs-string">&quot;relu&quot;</span>,
+                         <span class="hljs-comment"># Primeira camada, especificando a forma de entrada</span>
+                         <span class="hljs-comment"># altura, largura e rgb</span>
+                         input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  tf.keras.layers.Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.MaxPool2D(pool_size=<span class="hljs-number">2</span>,
+                            padding=<span class="hljs-string">&quot;valid&quot;</span>),
+  tf.keras.layers.Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&quot;relu&quot;</span>),
+  tf.keras.layers.MaxPool2D(<span class="hljs-number">2</span>),
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&quot;sigmoid&quot;</span>) <span class="hljs-comment"># output activation</span>
+])
+
+<span class="hljs-comment"># Compila o modelo</span>
+model_1.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&quot;binary_crossentropy&quot;</span>,
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Treina o modelo</span>
+history_1 = model_1.fit(train_data,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data),
+                        validation_data=valid_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(valid_data))
+</code></pre>
+<p><img src="images/cnn/output-modelo-1.png" alt="output fit modelo 1"></p>
+<p>Depois de 5 <code>epochs</code>, o modelo superou a pontuação inicial de <code>50,76%</code> de precisão (tivemos aproximadamente pouco mais de 81% de precisão). Mas, vale lembrar que o nosso modelo passou apenas por um só problema de classificação binária em vez de todas as 101 classes do dataset <code>Food 101</code>. Dito isso, não podemos comparar diretamente essas métricas. Os resultados mostraram apenas que nosso modelo aprendeu alguma coisa. Vamos verificar a arquitetura que foi construída:</p>
+<pre><code>model_1.summary()
+
+Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 222, 222, 10)      280       
+
+ conv2d_1 (Conv2D)           (None, 220, 220, 10)      910       
+
+ max_pooling2d (MaxPooling2D  (None, 110, 110, 10)     0  )                                                               
+
+ conv2d_2 (Conv2D)           (None, 108, 108, 10)      910       
+
+ conv2d_3 (Conv2D)           (None, 106, 106, 10)      910       
+
+ max_pooling2d_1 (MaxPooling  (None, 53, 53, 10)       0         
+ 2D)                                                             
+
+ flatten (Flatten)           (None, 28090)             0         
+
+ dense (Dense)               (None, 1)                 28091     
+
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+</code></pre><blockquote>
+<p>O que fizemos aqui foi replicar a arquitetura exata que o <a href="https://poloclub.github.io/cnn-explainer/" target="_blank">site CNN Explainer</a> utiliza para demonstrar modelos.</p>
+</blockquote>
+<p>Existem algumas novidades aqui que ainda não foram mencionadas:</p>
+<ul>
+<li>ImageDataGenerator</li>
+<li>O método <code>flow_from_directory()</code></li>
+<li>Os parâmetros <code>batch_size</code> e <code>target_size</code></li>
+<li>As camadas <code>Conv2D</code> e os parâmetros</li>
+<li>Camadas <code>MaxPool2D</code></li>
+<li>Parâmetros na função <code>fit()</code>: <code>steps_per_epoch</code> e <code>validation_steps</code></li>
+</ul>
+<p>Antes de nos aprofundarmos em cada um dos detalhes mencionados, vamos ver o que acontece quando fazemos alguns ajustes no modelo que utilizamos no capítulo passado.</p>
+<p>Para exemplificar o poder que as redes neurais em serem adaptadas a muitos problemas diferentes, vamos utilizar um modelo de classificação binária que desenvolvemos anteriormente para funcionar com os dados atuais.</p>
+<p>Utilizaremos todos os parâmetros do modelo anterior, exceto que vamos alterar duas coisas:</p>
+<ul>
+<li>Os <strong>dados</strong>, que agora são imagens em vez de pontos.</li>
+<li>A <strong>forma de entrada</strong>, agora precisamos dizer para a rede neural qual é a forma das imagens que queremos classificar.</li>
+</ul>
+<p>É comum a prática de remodelar as imagens para um tamanho único. Nesse caso, vamos redimensionar as imagens para (<em>224, 224, 3</em>) ou seja, largura e altura de 224 pixels e uma profundidade de 3 (<em>para os canais de cores, RGB</em>).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando um modelo (réplica do TensorFlow Playground)</span>
+model_2 = tf.keras.Sequential([
+  <span class="hljs-comment"># dense layers esperam um vetor unidimensional como entrada</span>
+  tf.keras.layers.Flatten(input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+])
+
+<span class="hljs-comment"># Compila</span>
+model_2.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&apos;binary_crossentropy&apos;</span>,
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history_2 = model_2.fit(train_data, <span class="hljs-comment"># utilizando os nossos dados agora</span>
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data),
+                        validation_data=valid_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(valid_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-1.png" alt="cnn model_2 output"></p>
+<p>Este modelo funciona, mas parece que não aprendeu nada, pois está obtendo apenas 50% de precisão no nosso conjunto de dados. Vejamos a arquitetura:</p>
+<pre><code>model_2.summary()
+
+Model: &quot;sequential_1&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_1 (Flatten)         (None, 150528)            0         
+
+ dense_1 (Dense)             (None, 4)                 602116    
+
+ dense_2 (Dense)             (None, 4)                 20        
+
+ dense_3 (Dense)             (None, 1)                 5         
+
+=================================================================
+Total params: 602,141
+Trainable params: 602,141
+Non-trainable params: 0
+</code></pre><p>A quantidade de parâmetros no <code>model_2</code> é muito maior, 602.141 vs 31.101. Apesar da diferença o primeiro modelo tem um resultado melhor. Vamos tentar melhorar esse resultado, aumentando a complexidade do modelo ou seja aumentando o número de camadas e a quantidade de neurônios em cada camada.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Seed</span>
+tf.random.set_seed(<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Criando um modelo (réplica do TensorFlow Playground)</span>
+model_3 = tf.keras.Sequential([
+  tf.keras.layers.Flatten(input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  <span class="hljs-comment"># aumenta o número de neurônios de 4 para 100 em cada camada</span>
+  tf.keras.layers.Dense(<span class="hljs-number">100</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">100</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  tf.keras.layers.Dense(<span class="hljs-number">100</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>), <span class="hljs-comment"># adiciona camada extra</span>
+  tf.keras.layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+])
+
+<span class="hljs-comment"># Compila</span>
+model_3.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&apos;binary_crossentropy&apos;</span>,
+              optimizer=tf.keras.optimizers.Adam(),
+              metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history_3 = model_3.fit(train_data,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data),
+                        validation_data=valid_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(valid_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-2.png" alt="cnn output 3"></p>
+<p>Tivemos uma melhora significativa com aproximadamente 70% de precisão!
+Vamos olhar a arquitetura:</p>
+<pre><code>model_3.summary()
+
+Model: &quot;sequential_2&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_2 (Flatten)         (None, 150528)            0         
+
+ dense_4 (Dense)             (None, 100)               15052900  
+
+ dense_5 (Dense)             (None, 100)               10100     
+
+ dense_6 (Dense)             (None, 100)               10100     
+
+ dense_7 (Dense)             (None, 1)                 101       
+
+=================================================================
+Total params: 15,073,201
+Trainable params: 15,073,201
+Non-trainable params: 0
+</code></pre><p>O número de parâmetros treináveis aumentou ainda mais. E mesmo com 500x mais (<em>15.000.000 vs 31.000</em>), ainda não conseguimos nos aproximar do resultado de <code>model_1</code>. Isso revela o poder das redes neurais convolucionais e a capacidade de aprender padrões com menos parâmetros.</p>
+<h2 id="classificação-binária-em-detalhes">Classificação binária em detalhes</h2>
+<p>Veremos em detalhes agora, cada uma das etapas que fizeram parte da construção do nosso modelo de classificação binária:</p>
+<ul>
+<li>Importe e familiarização com os dados</li>
+<li>Pré-processamento (<em>preparando os dados para um modelo</em>)</li>
+<li>Criando um modelo</li>
+<li>Ajuste e treino (<em>Fit</em>)</li>
+<li>Avaliando o modelo</li>
+<li>Ajuste de parâmetros para melhorar o modelo</li>
+</ul>
+<h3 id="1-importe-e-familiarização-com-os-dados">1. Importe e familiarização com os dados</h3>
+<p>Independente do tipo de dados com os quais você vai trabalhar, é sempre uma boa ideia começar pela visualização. No nosso caso atual, visualizar as imagens de carne e pizza.</p>
+<pre><code class="lang-python">plt.figure()
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+steak_img = view_random_image(<span class="hljs-string">&quot;pizza_steak/train/&quot;</span>, <span class="hljs-string">&quot;steak&quot;</span>)
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+pizza_img = view_random_image(<span class="hljs-string">&quot;pizza_steak/train/&quot;</span>, <span class="hljs-string">&quot;pizza&quot;</span>);
+
+Image shape: (<span class="hljs-number">343</span>, <span class="hljs-number">512</span>, <span class="hljs-number">3</span>)
+Image shape: (<span class="hljs-number">384</span>, <span class="hljs-number">512</span>, <span class="hljs-number">3</span>)
+</code></pre>
+<p><img src="images/cnn/pizza-steak-1.png" alt="familiarização com os dados, visualizando as imagens"></p>
+<p>Podemos observar que as imagens dos pratos de carne apresentam cores mais escuras, enquanto as imagens de pizza tendem a ter uma forma circular no meio. Esses podem ser alguns padrões que a rede neural vai identificar.</p>
+<h3 id="2-pré-processando-os-dados">2. Pré-processando os dados</h3>
+<p>Essa é uma das etapas mais importantes para um projeto de Machine Learning, criar um conjunto de dados para treinamento e teste. No nosso caso, os dados já estão separados nesses conjuntos. Em um projeto de classificação de imagens, é padrão ter os dados separados em diretórios de treino e teste com subdiretórios em cada para os tipos de classe (<em>imagens de pizza, imagens de pratos de carne</em>). Vamos começar definindo os caminhos dos diretórios de treino e teste:</p>
+<pre><code class="lang-python">train_dir = <span class="hljs-string">&quot;pizza_steak/train/&quot;</span>
+test_dir = <span class="hljs-string">&quot;pizza_steak/test/&quot;</span>
+</code></pre>
+<p>O próximo passo é transformar os dados em lotes (<em>batches</em>).
+Cada lote é um pequeno subconjunto do conjunto de dados que o modelo vai analisar durante o treinamento. Por exemplo, em vez de observar 10.000 imagens de uma vez e tentar aprender os padrões, o modelo vai olhar apenas 32 imagens por vez. Os principais motivos para se usar lotes são: 10.000 imagens ou até mais que isso podem não caber na memória da <code>GPU</code>, tentar aprender padrões em 10.000 imagens de uma só vez pode fazer com que o modelo não aprenda muito bem. O tamanho 32 para o lote foi provado ser muito eficaz em muitos casos de uso diferentes.</p>
+<p>Vamos transformar nossos dados em lotes, primeiro precisamos criar uma instância de <code>ImageDataGenerator</code> para cada um dos nossos conjuntos de dados:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> tensorflow.keras.preprocessing.image <span class="hljs-keyword">import</span> ImageDataGenerator
+train_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1</span>/<span class="hljs-number">255.</span>)
+test_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1</span>/<span class="hljs-number">255.</span>)
+</code></pre>
+<p><code>ImageDataGenerator</code> nos ajuda a preparar as imagens em lotes, bem como realizar a transformação delas à medida que são carregadas no modelo. Note o parâmetro <code>rescale</code>, este é um exemplo das transformações que precisamos fazer. Esse parâmetro é responsável por dividir os valore de pixel por <code>255</code>, fazendo com que toda imagem importada tenha seus valores de pixel normalizados (<em>convertidos em uma escala entre 0 e 1</em>). Agora que temos a instâncias de <code>ImageDataGenerator</code>, podemos carregar as imagens dos respectivos diretórios usando o método <code>flow_from_directory</code>:</p>
+<pre><code class="lang-python">train_data = train_datagen.flow_from_directory(directory=train_dir,
+                                               target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                               class_mode=<span class="hljs-string">&apos;binary&apos;</span>,
+                                               batch_size=<span class="hljs-number">32</span>)
+
+test_data = test_datagen.flow_from_directory(directory=test_dir,
+                                             target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                             class_mode=<span class="hljs-string">&apos;binary&apos;</span>,
+                                             batch_size=<span class="hljs-number">32</span>)
+</code></pre>
+<p>Nosso conjunto de dados de treino tem 1.500 imagens separadas em 2 classes (<em>pizza e carne</em>) enquanto que o conjunto de teste tem 500 imagens também separadas em 2 classes. Devido o formato em como os diretórios são estruturados, as classes são inferidas pelos nomes dos subdiretórios <code>train_dir</code> e <code>test_dir</code>.</p>
+<p>O parâmetro <code>target_size</code> ajusta o tamanho de entrada das nossas imagens, ou seja, o formato (<em>altura e largura</em>). Já <code>class_mode=&apos;binary&apos;</code> define o nosso tipo de problema de classificação, nesse caso, classificação binária.</p>
+<p>O parâmetro <code>batch_size</code> define quantas imagens serão inseridas em cada lote, por padrão 32.</p>
+<h3 id="3-criando-o-modelo">3. Criando o modelo</h3>
+<p>Na hora de criar um modelo, qual deve ser a arquitetura padrão ? Por onde começar ? Bem, temos muitas possibilidades aqui, uma forma simples seria utilizar a arquitetura de modelo com melhor desempenho no <a href="https://www.image-net.org/" target="_blank">ImageNet</a>, no entanto, um bom ponto de partida é construir um modelo menor para obter um resultado básico para então você tentar melhorar.</p>
+<blockquote>
+<p>Um modelo menor refere-se a um modelo com menos camadas.</p>
+</blockquote>
+<p>No nosso caso, vamos utilizar uma versão menor do modelo que pode ser visto no site <a href="https://poloclub.github.io/cnn-explainer/" target="_blank">CNN Explainer</a> e construir uma rede neural convolucional de 3 camadas.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># imports</span>
+<span class="hljs-keyword">from</span> tensorflow.keras.optimizers <span class="hljs-keyword">import</span> Adam
+<span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> Dense, Flatten, Conv2D, MaxPool2D, Activation
+<span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Sequential
+
+<span class="hljs-comment"># criando o modelo que será usado como linha de base</span>
+<span class="hljs-comment"># gerando uma rede neural convolucional de 3 camadas</span>
+model_4 = Sequential([
+  Conv2D(filters=<span class="hljs-number">10</span>, 
+         kernel_size=<span class="hljs-number">3</span>, 
+         strides=<span class="hljs-number">1</span>,
+         padding=<span class="hljs-string">&apos;valid&apos;</span>,
+         activation=<span class="hljs-string">&apos;relu&apos;</span>, 
+         input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)), <span class="hljs-comment"># input  layer</span>
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  Flatten(),
+  Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>) <span class="hljs-comment"># output layer</span>
+])
+</code></pre>
+<p>Agora temos uma arquitetura de rede neural convolucional simples e pronta para uso. Vejamos alguns componentes da camada <code>Conv2D</code>:</p>
+<ul>
+<li><p><strong>2D</strong> - significa que nossas entradas são bidimensionais, ou seja (<em>altura e largura</em>) das imagens, embora tenham 3 canais de cores (RGB), as convoluções são executadas em cada canal individualmente.</p>
+</li>
+<li><p><strong>filters</strong> - valor numérico de (<em>extratores de recurso</em>) que serão movidos sobre as imagens.</p>
+</li>
+<li><p><strong>kernel_size</strong> - o tamanho dos filtros, por exemplo <code>3</code>, significa que cada filtro terá o tamanho <code>3x3</code>, ou seja, será observado um espaço de <code>3x3</code> pixels por vez. Quanto menor o kernel, mais recursos refinados serão extraídos.</p>
+</li>
+<li><p><strong>strides</strong> - número de pixels que um filtro se move enquanto cobre a imagem. Um <code>stride</code> de 1 significa que o filtro se move de 1 em 1 pixel.</p>
+</li>
+<li><p><strong>padding</strong> - trabalha com dois valores <code>valid</code> ou <code>same</code>, onde <code>same</code> adiciona zeros fora da imagem para igualar a saída resultante da camada convolucional igual ao valor de entrada. Já <code>valid</code> (<em>usado por padrão</em>) corta pixels em excesso onde o filtro não se encaixa. Por exemplo (<em>224 pixels de largura divididos por um kernel de valor iguala a 3, 224/3 = 74,6</em>) isso significa que um único pixel será cortado no final.</p>
+</li>
+</ul>
+<blockquote>
+<p>O termo <code>recurso</code> foi mencionado nas explicações várias vezes, é importante entender que um <code>recurso</code> pode ser considerado qualquer parte significativa de uma imagem. Por exemplo, uma característica como a forma circular de uma pizza ou as bordas ásperas de um bife. Lembre-se que esses <code>recursos</code> não são definidos por nós, são características que o modelo aprende à medida que aplica filtros nas imagens.</p>
+</blockquote>
+<p>Agora que criamos o modelo, vamos compila-lo:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Compila o modelo</span>
+model_4.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&apos;binary_crossentropy&apos;</span>,
+                optimizer=Adam(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+</code></pre>
+<p>Como o problema que estamos resolvendo é de classificação binária, a função de perda que estamos usando é <code>binary_crossentropy</code>, se fosse um problema multiclasse, utilizaríamos <code>categorical_crossentropy</code>. E o nosso otimizador é o <code>Adam</code> com todas as configurações padrão e para métricas de avaliação escolhemos <code>accuracy</code>.</p>
+<h3 id="4-treinando-o-modelo">4. Treinando o modelo</h3>
+<p>Com o modelo compilado, hora de treinar. Dessa vez teremos dois novos parâmetros:</p>
+<ul>
+<li><p><strong>steps_per_epoch</strong> - número de lotes que um modelo passará por <code>epoch</code>, nesse caso queremos que o modelo passe por todos os lotes, então é igual ao comprimento de <code>train_data</code> (<em>1500 imagens em lotes de 32, ou seja 1500/32 = ~47</em>).</p>
+</li>
+<li><p><strong>validation_steps</strong> - o mesmo que acima, coma diferença para o parâmetro <code>validation_data</code> (<em>500 imagens de teste em lotes de 32, 500/32 = ~16</em>).</p>
+</li>
+</ul>
+<pre><code class="lang-python"><span class="hljs-comment"># Fit</span>
+history_4 = model_4.fit(train_data,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data),
+                        validation_data=test_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(test_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-3.png" alt="treinando o modelo fit()"></p>
+<h3 id="5-avaliando-o-modelo">5. Avaliando o modelo</h3>
+<p>Pelo output da função <code>fit()</code>, vemos que o modelo está aprendendo alguma coisa. Vamos verificar o desempenho do treino:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+pd.DataFrame(history_4.history).plot(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">7</span>));
+</code></pre>
+<p><img src="images/cnn/cnn-curves-1.png" alt="training curves plot 1"></p>
+<p>Observe as curvas de perda, parece que o modelo está superajustando (com <code>overfitting</code>) o conjunto de dados de treinamento. Quando a perda de validação de um modelo (<code>val_loss</code>) começa a aumentar, provavelmente que ele esteja superajustando os dados de treino. Isso significa que ele está aprendendo muito bem os padrões, por tanto sua capacidade de generalizar para os dados que não foram vistos será reduzida. Vamos inspecionar ainda mais o desempenho do modelo, separando as curvas de precisão e perda:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Função para plotar os dados de validação e treino separadamente</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_loss_curves</span>(<span class="hljs-params">history</span>):</span>
+  loss = history.history[<span class="hljs-string">&apos;loss&apos;</span>]
+  val_loss = history.history[<span class="hljs-string">&apos;val_loss&apos;</span>]
+
+  accuracy = history.history[<span class="hljs-string">&apos;accuracy&apos;</span>]
+  val_accuracy = history.history[<span class="hljs-string">&apos;val_accuracy&apos;</span>]
+
+  epochs = <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(history.history[<span class="hljs-string">&apos;loss&apos;</span>]))
+
+  <span class="hljs-comment"># Plot loss</span>
+  plt.plot(epochs, loss, label=<span class="hljs-string">&apos;training_loss&apos;</span>)
+  plt.plot(epochs, val_loss, label=<span class="hljs-string">&apos;val_loss&apos;</span>)
+  plt.title(<span class="hljs-string">&apos;Loss&apos;</span>)
+  plt.xlabel(<span class="hljs-string">&apos;Epochs&apos;</span>)
+  plt.legend()
+
+  <span class="hljs-comment"># Plot accuracy</span>
+  plt.figure()
+  plt.plot(epochs, accuracy, label=<span class="hljs-string">&apos;training_accuracy&apos;</span>)
+  plt.plot(epochs, val_accuracy, label=<span class="hljs-string">&apos;val_accuracy&apos;</span>)
+  plt.title(<span class="hljs-string">&apos;Accuracy&apos;</span>)
+  plt.xlabel(<span class="hljs-string">&apos;Epochs&apos;</span>)
+  plt.legend();
+</code></pre>
+<pre><code class="lang-python">plot_loss_curves(history_4)
+</code></pre>
+<p><img src="images/cnn/cnn-loss-curve.png" alt="cnn loss curve"></p>
+<p><img src="images/cnn/cnn-accuracy-curve.png" alt="cnn accuracy curve"></p>
+<p>O ideal para essas curvas seria uma seguir a outra (<em>validação seguir treino</em>). Ou, a curva de validação deve estar ligeiramente abaixo da curva de treino, se houve um grande espaço entre elas, significa que o modelo provavelmente está com <code>overfitting</code>.</p>
+<h3 id="6-ajustando-os-parâmetros-do-modelo">6. Ajustando os parâmetros do modelo</h3>
+<p>O ajuste um modelo de <code>ML</code> é composto de 3 etapas:</p>
+<ul>
+<li>Criar uma linha de base</li>
+<li>Alcançar a linha de base (<em>gerando <code>overfitting</code> em um modelo maior</em>)</li>
+<li>Reduzir o <code>overfitting</code></li>
+</ul>
+<p>Até agora já passamos pelas duas primeiras etapas, ainda há mais algumas coisas que poderíamos tentar para refinar o ajuste do nosso modelo:</p>
+<ul>
+<li><em>Aumentar o número de camadas convolucionais.</em></li>
+<li><em>Aumentar o número defiltros convolucionais</em></li>
+<li><em>Adicionar outra camada densa de saída (dense layer)</em></li>
+</ul>
+<p>O que faremos agora é focar em alinhar as curvas de treinamento do modelo, em outras palavras, reduziremos o overfitting.</p>
+<p>Quando um modelo apresenta um desempenho muito bom nos dados de treino e ruim nos dados não vistos, ele acaba se tornando inútil se quisermos usá-lo em um problema real. Nos próximos modelos que vamos construir, ajustaremos vários parâmetros a medida que inspecionamos as curvas de treino ao longo do caminho.</p>
+<p>Para o primeiro ajuste, faremos um modelo com a mesma estrutura do anterior, mas com uma camada <code>MaxPool2D()</code> após cada camada convolucional (uma <a href="https://deeplizard.com/learn/video/ZjM_XQa5s6s" target="_blank">ConvNet com max pooling</a>):</p>
+<pre><code class="lang-python"><span class="hljs-comment"># criando o modelo que será usado como linha de base</span>
+<span class="hljs-comment"># gerando uma rede neural convolucional de 3 camadas</span>
+model_5 = Sequential([
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>, input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  MaxPool2D(pool_size=<span class="hljs-number">2</span>), <span class="hljs-comment"># reduce number of features by half</span>
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Flatten(),
+  Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+])
+</code></pre>
+<p>Se as camadas convolucionais aprendem os recursos de uma imagem, imagine a camada <code>Max Pooling</code> como a responsável por descobrir os mais importantes desses recursos.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Compila</span>
+model_5.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&apos;binary_crossentropy&apos;</span>,
+                optimizer=Adam(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+<span class="hljs-comment"># Fit</span>
+history_5 = model_5.fit(train_data,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data),
+                        validation_data=test_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(test_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-4.png" alt="fit model 5 cnn"></p>
+<p>Parece que o modelo implementando <code>max pooling</code> está apresentando um desempenho pior nos dados de treino, mas ligeiramente melhor nos dados de validação.</p>
+<pre><code class="lang-python">plot_loss_curves(history_5)
+</code></pre>
+<p><img src="images/cnn/cnn-loss-curve-2.png" alt="model 5 loss curve"></p>
+<p><img src="images/cnn/cnn-accuracy-curve-2.png" alt="model 5 accuracy curve"></p>
+<p>Observe nas curvas de treinamento que agora elas estão bem mais próximas umas das outras. No entanto, nossa perda de validação parece aumentar no final, potencialmente levando ao overfitting. Vamos tentar implementar agora mais um método na prevenção de overfitting (<code>data augmentation</code>).</p>
+<p>Para implementar <code>data augmentation</code>, precisamos instanciar novamente os valores de <code>ImageDataGenerator</code>:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># ImageDataGenerator com data augmentation</span>
+train_datagen_augmented = ImageDataGenerator(rescale=<span class="hljs-number">1</span>/<span class="hljs-number">255.</span>,
+                                             <span class="hljs-comment"># rotaciona ligeiramente a 20 graus</span>
+                                             rotation_range=<span class="hljs-number">20</span>,
+                                             <span class="hljs-comment"># corta a imagem</span>
+                                             shear_range=<span class="hljs-number">0.2</span>,
+                                             <span class="hljs-comment"># zoom na imagem</span>
+                                             zoom_range=<span class="hljs-number">0.2</span>,
+                                             <span class="hljs-comment"># altera a largura da imagem</span>
+                                             width_shift_range=<span class="hljs-number">0.2</span>,
+                                             <span class="hljs-comment"># muda a altura da imagem</span>
+                                             height_shift_range=<span class="hljs-number">0.2</span>,
+                                             <span class="hljs-comment"># vira a imagem no eixo horizontal</span>
+                                             horizontal_flip=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Instância de treino ImageDataGenerator sem data augmentation</span>
+train_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1</span>/<span class="hljs-number">255.</span>) 
+
+<span class="hljs-comment"># Instância de teste ImageDataGenerator sem data augmentation</span>
+test_datagen = ImageDataGenerator(rescale=<span class="hljs-number">1</span>/<span class="hljs-number">255.</span>)
+</code></pre>
+<p><code>Data augmentation</code> (aumento de dados) é o processo de alterar os dados de treinamento, criando várias versões para ter mais diversidade e, por sua vez, permitindo que os modelos aprendam padrões cada vez mais generalizáveis. Essas alterações representam uma rotação em uma imagem, invertê-la ou cortá-la ou aplicar um zoom, ou algo do tipo. Isso ajuda a simular dados que um modelo pode se deparar no mundo real.</p>
+<blockquote>
+<p><code>Data augmentation</code> é aplicado geralmente apenas nos dados de treinamento. Usando os parâmetros em <code>ImageDataGenerator</code>, as imagens são mantidas como estão nos diretórios, são manipuladas aleatoriamente apenas quando carregadas no modelo (<em>em memória</em>).</p>
+</blockquote>
+<pre><code class="lang-python"><span class="hljs-comment"># Importa os dados e aumenta</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Imagens de treino aumentadas:&quot;</span>)
+train_data_augmented = train_datagen_augmented.flow_from_directory(
+    train_dir,
+    target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+    batch_size=<span class="hljs-number">32</span>,
+    class_mode=<span class="hljs-string">&apos;binary&apos;</span>,
+    shuffle=<span class="hljs-literal">False</span>)
+
+<span class="hljs-comment"># Cria lotes de dados não aumentados</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Imagens de treino não aumentadas:&quot;</span>)
+train_data = train_datagen.flow_from_directory(train_dir,
+                                               target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                               batch_size=<span class="hljs-number">32</span>,
+                                               class_mode=<span class="hljs-string">&apos;binary&apos;</span>,
+                                               shuffle=<span class="hljs-literal">False</span>)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Imagens de teste inalteradas:&quot;</span>)
+test_data = test_datagen.flow_from_directory(test_dir,
+                                             target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+                                             batch_size=<span class="hljs-number">32</span>,
+                                             class_mode=<span class="hljs-string">&apos;binary&apos;</span>)
+</code></pre>
+<pre><code>Imagens de treino aumentadas:
+Found 1500 images belonging to 2 classes.
+Imagens de treino não aumentadas:
+Found 1500 images belonging to 2 classes.
+Imagens de teste inalteradas:
+Found 500 images belonging to 2 classes.
+</code></pre><p>Vamos visualizar para ver o que está acontecendo aqui:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Pegando lote de dados de exemplo</span>
+images, labels = train_data.<span class="hljs-built_in">next</span>()
+augmented_images, augmented_labels = train_data_augmented.<span class="hljs-built_in">next</span>()
+
+<span class="hljs-comment"># Plota imagem original e aumentada</span>
+random_number = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">32</span>)
+plt.imshow(images[random_number])
+plt.title(<span class="hljs-string">f&quot;Original image&quot;</span>)
+plt.axis(<span class="hljs-literal">False</span>)
+plt.figure()
+plt.imshow(augmented_images[random_number])
+plt.title(<span class="hljs-string">f&quot;Augmented image&quot;</span>)
+plt.axis(<span class="hljs-literal">False</span>);
+</code></pre>
+<p><img src="images/cnn/pizza-original.png" alt="mostra imagem de pizza original"></p>
+<p><img src="images/cnn/pizza-aumentada.png" alt="mostra imagem de pizza aumentada"></p>
+<p>Perceba as transformações na segunda imagem. Observe como a imagem aumentada parece ligeiramente distorcida da original. Isso significa que o modelo será forçado a tentar aprender padrões em imagens não tão boas, o que pode acontecer com facilidade no mundo real.</p>
+<p>Agora que temos dados aumentados, vamos tentar reajustar um modelo com eles e ver como isso afeta o desempenho.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Importa os dados e aumenta</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Imagens de treino aumentadas:&quot;</span>)
+train_data_augmented_shuffled = train_datagen_augmented.flow_from_directory(
+    train_dir,
+    target_size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>),
+    batch_size=<span class="hljs-number">32</span>,
+    class_mode=<span class="hljs-string">&apos;binary&apos;</span>,
+    shuffle=<span class="hljs-literal">True</span>) <span class="hljs-comment"># ativando o shuffle para ter dados aleatórios</span>
+
+<span class="hljs-comment"># Criando um modelo (mesmo que model_5)</span>
+model_6 = Sequential([
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>, input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  MaxPool2D(pool_size=<span class="hljs-number">2</span>),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Flatten(),
+  Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+])
+
+<span class="hljs-comment"># Compila o modelo</span>
+model_6.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&apos;binary_crossentropy&apos;</span>,
+                optimizer=Adam(),
+                metrics=[<span class="hljs-string">&apos;accuracy&apos;</span>])
+
+<span class="hljs-comment"># Fit</span>
+<span class="hljs-comment"># trocando para dados aumentados</span>
+history_6 = model_6.fit(train_data_augmented_shuffled,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data_augmented_shuffled),
+                        validation_data=test_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(test_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-5.png" alt="fit model 6 output"></p>
+<pre><code class="lang-python">plot_loss_curves(history_6)
+</code></pre>
+<p><img src="images/cnn/cnn-loss-curve-3.png" alt="loss curve model 6"></p>
+<p><img src="images/cnn/cnn-accuracy-curve-3.png" alt="accuracy curve model 6"></p>
+<p>O modelo foi capaz de ver exemplos de imagens aumentadas de pizza e carne, e, por sua vez aplicar o que aprendeu nos dados de validação apresentando um resultado melhor. Além disso, nossas curvas de perda parecem bem mais suaves se compararmos com os modelos anteriores.</p>
+<h2 id="repetir-os-processos-até-obter-um-resultado-satisfatório">Repetir os processos até obter um resultado satisfatório</h2>
+<p>Treinamos alguns modelos e até aqui eles estão apresentando um desempenho muito bom. Como já superamos a linha de base, existem algumas coisas que podemos tentar para continuar a melhorar o modelo:</p>
+<ul>
+<li>Aumentar o número de camadas de modelo (adicionando mais camadas convolucionais).</li>
+<li>Aumentar o número de filtros em cada camada convolucional.</li>
+<li>Treinar o modelo por mais tempo (<code>epoch</code> maior).</li>
+<li>Encontrar uma taxa de aprendizado ideal (<code>learning_rate</code>).</li>
+<li>Obter mais dados (quanto mais dados, mais oportunidade o modelo tem para aprender).</li>
+</ul>
+<p>Ajustar cada uma dessas configurações durante o desenvolvimento do modelo é chamado de <em>ajuste de hiperparâmetro</em>. Vamos voltar ao ponto inicial e tentar a arquitetura <code>TinyVGG</code> do <a href="https://poloclub.github.io/cnn-explainer/" target="_blank">CNN Explainer</a>.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Cria um modelo CNN com arquitetura Tiny VGG para classificação binária</span>
+model_7 = Sequential([
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>, input_shape=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>)),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  Conv2D(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">&apos;relu&apos;</span>),
+  MaxPool2D(),
+  Flatten(),
+  Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">&apos;sigmoid&apos;</span>)
+])
+
+<span class="hljs-comment"># Compila o modelo</span>
+model_7.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">&quot;binary_crossentropy&quot;</span>,
+                optimizer=tf.keras.optimizers.Adam(),
+                metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])
+
+<span class="hljs-comment"># Fit</span>
+history_7 = model_7.fit(train_data_augmented_shuffled,
+                        epochs=<span class="hljs-number">5</span>,
+                        steps_per_epoch=<span class="hljs-built_in">len</span>(train_data_augmented_shuffled),
+                        validation_data=test_data,
+                        validation_steps=<span class="hljs-built_in">len</span>(test_data))
+</code></pre>
+<p><img src="images/cnn/cnn-food-6.png" alt="output model 7"></p>
+<p>Perceba que utilizamos um código ligeiramente diferente, para construir o <code>model_8</code> em comparação com o <code>model_1</code>. Isso se deve as importações que fizemos antes, como de <code>Conv2D</code> que reduziu a quantidade de código que tivemos que escrever. Embora o código seja diferente, as arquiteturas são as mesmas:</p>
+<pre><code>model_1.summary()
+
+Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 222, 222, 10)      280       
+
+ conv2d_1 (Conv2D)           (None, 220, 220, 10)      910       
+
+ max_pooling2d (MaxPooling2D  (None, 110, 110, 10)     0         
+ )                                                               
+
+ conv2d_2 (Conv2D)           (None, 108, 108, 10)      910       
+
+ conv2d_3 (Conv2D)           (None, 106, 106, 10)      910       
+
+ max_pooling2d_1 (MaxPooling  (None, 53, 53, 10)       0         
+ 2D)                                                             
+
+ flatten (Flatten)           (None, 28090)             0         
+
+ dense (Dense)               (None, 1)                 28091     
+
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+</code></pre><pre><code>model_7.summary()
+
+Model: &quot;sequential_7&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_19 (Conv2D)          (None, 222, 222, 10)      280       
+
+ conv2d_20 (Conv2D)          (None, 220, 220, 10)      910       
+
+ max_pooling2d_14 (MaxPoolin  (None, 110, 110, 10)     0         
+ g2D)                                                            
+
+ conv2d_21 (Conv2D)          (None, 108, 108, 10)      910       
+
+ conv2d_22 (Conv2D)          (None, 106, 106, 10)      910       
+
+ max_pooling2d_15 (MaxPoolin  (None, 53, 53, 10)       0         
+ g2D)                                                            
+
+ flatten_8 (Flatten)         (None, 28090)             0         
+
+ dense_13 (Dense)            (None, 1)                 28091     
+
+=================================================================
+Total params: 31,101
+Trainable params: 31,101
+Non-trainable params: 0
+</code></pre><p>Vamos comparar a performance, primeiro as curvas do último modelo:</p>
+<pre><code class="lang-python">plot_loss_curves(history_7)
+</code></pre>
+<p><img src="images/cnn/cnn-loss-curve-4.png" alt="loss curve model 7"></p>
+<p><img src="images/cnn/cnn-accuracy-curve-4.png" alt="accuracy curve model 7"></p>
+<p>Agora do nosso primeiro modelo:</p>
+<pre><code class="lang-python">plot_loss_curves(history_1)
+</code></pre>
+<p><img src="images/cnn/cnn-loss-curve-5.png" alt="loss curve model 1"></p>
+<p><img src="images/cnn/cnn-accuracy-curve-5.png" alt="accuracy curve model 1"></p>
+<p>As curvas de treinamento parecem boas, mas o desempenho do modelo no conjunto de teste não melhorou muito em comparação com o modelo anterior. Observando as curvas, parece que o desempenho do modelo pode melhorar se treinarmos por um pouco mais de tempo (mais <code>epochs</code>). Faça esse experimento, aumentando o número de <code>epochs</code> e veja como o modelo se comporta.</p>
+<h2 id="fazendo-uma-previsão-com-o-modelo-treinado">Fazendo uma previsão com o modelo treinado</h2>
+<p>A melhor forma de avaliar um modelo treinado é fazendo previsões. Para isso enviaremos uma de nossas imagens próprias e veremos como o modelo se sai na hora de classificar. Lembre-se que temos duas classes <code>[&apos;pizza&apos; &apos;steak&apos;]</code>, veremos agora nossa imagem que queremos testar.</p>
+<p>Uma maravilhosa pizza que sofreu um acidente no meio do caminho:</p>
+<pre><code class="lang-python">!wget https://raw.githubusercontent.com/infoslack/food-vision/main/data/pred/04-pizza.png
+pizza = mpimg.imread(<span class="hljs-string">&quot;04-pizza.png&quot;</span>)
+plt.imshow(pizza)
+plt.axis(<span class="hljs-literal">False</span>);
+</code></pre>
+<p><img src="images/cnn/04-pizza.png" alt="pizza linda que recebi"></p>
+<pre><code>pizza.shape
+
+(1035, 1013, 4)
+</code></pre><p>Uma vez que o nosso modelo recebe imagens no formato (224, 224, 3), precisamos remodelar nossa imagem personalizada para utilizá-la com o modelo.
+Para isso podemos importar e decodificar a imagem utilizando <code>tf.io_read_file</code> (para ler arquivos) e <code>tf.image</code> (para redimensionar a imagem e transformá-la em um <code>tensor</code>).</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Função para importar imagem e redimensioná-la</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_and_prep_image</span>(<span class="hljs-params">filename, img_shape=<span class="hljs-number">224</span></span>):</span>
+  <span class="hljs-comment"># Faz a leitura de uma imagem</span>
+  img = tf.io.read_file(filename)
+
+  <span class="hljs-comment"># Decodifica o arquivo lido em um tensor</span>
+  img = tf.image.decode_image(img, channels=<span class="hljs-number">3</span>)
+
+  <span class="hljs-comment"># Redimensiona a imagem (para o tamanho que o modelo foi treinado)</span>
+  img = tf.image.resize(img, size = [img_shape, img_shape])
+
+  <span class="hljs-comment"># Converte a imagem para escala entre 0 e 1</span>
+  img = img/<span class="hljs-number">255.</span>
+  <span class="hljs-keyword">return</span> img
+</code></pre>
+<pre><code class="lang-python">pizza = load_and_prep_image(<span class="hljs-string">&quot;04-pizza.png&quot;</span>)
+pizza
+</code></pre>
+<pre><code>&lt;tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[0.76675683, 0.8222251 , 0.8321166 ],
+        [0.74965155, 0.80900824, 0.8364592 ],
+        [0.7734243 , 0.81416315, 0.8236739 ],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       [[0.7647059 , 0.8134637 , 0.8272767 ],
+        [0.7602504 , 0.8190739 , 0.8465249 ],
+        [0.7710259 , 0.81056964, 0.81644785],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       [[0.7656425 , 0.81479776, 0.82259274],
+        [0.76625985, 0.81724024, 0.8483544 ],
+        [0.78615195, 0.8184483 , 0.827451  ],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       ...,
+
+       [[0.30793068, 0.32753852, 0.3432248 ],
+        [0.334445  , 0.35405284, 0.36973912],
+        [0.34108895, 0.3606968 , 0.37638307],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ]],
+
+       [[0.31091562, 0.33052346, 0.34620973],
+        [0.34228814, 0.36252877, 0.37981448],
+        [0.3491334 , 0.37053996, 0.3866597 ],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ]],
+
+       [[0.3496061 , 0.37705708, 0.39721707],
+        [0.3635942 , 0.3966118 , 0.43211693],
+        [0.3726628 , 0.4087013 , 0.44399542],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.7176471 , 0.7607843 , 0.78431374]]], dtype=float32)&gt;
+</code></pre><p>Antes de prosseguir, lembre-se que o modelo foi treinado em lotes, precisamos adicionar uma dimensão extra para o tensor da nossa imagem personalizada utilizando <code>tf.expand_dims</code>:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Adicionando dimensão extra</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Shape antes da nova dimensão: <span class="hljs-subst">{pizza.shape}</span>&quot;</span>)
+pizza = tf.expand_dims(pizza, axis=<span class="hljs-number">0</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Shape depois da nova dimensão: <span class="hljs-subst">{pizza.shape}</span>&quot;</span>)
+pizza
+</code></pre>
+<pre><code>Shape antes da nova dimensão: (224, 224, 3)
+Shape depois da nova dimensão: (1, 224, 224, 3)
+&lt;tf.Tensor: shape=(1, 224, 224, 3), dtype=float32, numpy=
+array([[[[0.76675683, 0.8222251 , 0.8321166 ],
+         [0.74965155, 0.80900824, 0.8364592 ],
+         [0.7734243 , 0.81416315, 0.8236739 ],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        [[0.7647059 , 0.8134637 , 0.8272767 ],
+         [0.7602504 , 0.8190739 , 0.8465249 ],
+         [0.7710259 , 0.81056964, 0.81644785],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        [[0.7656425 , 0.81479776, 0.82259274],
+         [0.76625985, 0.81724024, 0.8483544 ],
+         [0.78615195, 0.8184483 , 0.827451  ],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        ...,
+
+        [[0.30793068, 0.32753852, 0.3432248 ],
+         [0.334445  , 0.35405284, 0.36973912],
+         [0.34108895, 0.3606968 , 0.37638307],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ]],
+
+        [[0.31091562, 0.33052346, 0.34620973],
+         [0.34228814, 0.36252877, 0.37981448],
+         [0.3491334 , 0.37053996, 0.3866597 ],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ]],
+
+        [[0.3496061 , 0.37705708, 0.39721707],
+         [0.3635942 , 0.3966118 , 0.43211693],
+         [0.3726628 , 0.4087013 , 0.44399542],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.7176471 , 0.7607843 , 0.78431374]]]], dtype=float32)&gt;
+</code></pre><p>Agora vamos a nossa previsão:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Fazendo uma previsão em um imagem personalizada</span>
+pred = model_7.predict(pizza)
+pred
+</code></pre>
+<blockquote>
+<p>array([[0.35808182]], dtype=float32)</p>
+</blockquote>
+<p>O resultado saiu em forma probabilística, ou seja, isso significa a probabilidade de a imagem ser de uma classe ou outra. Como estamos trabalhando com um problema de classificação binária, se a probabilidade for maior que <code>0.5</code>, de acordo com o modelo, é mais provável que seja de classe positiva ou (<em>classe 1</em>). Se a probabilidade for inferior a <code>0.5</code> então a classe prevista será a classe negativa ou (<em>classe 0</em>). Claro que dizer classe positiva ou negativa não faz muito sentido para o nosso caso. Por isso vamos escrever uma pequena função para converter as previsões em seus nomes de classe para em seguida, plotar a imagem prevista.</p>
+<p>Vamos começar armazenando os nomes das classes:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+class_names = np.array([<span class="hljs-string">&quot;pizza&quot;</span>, <span class="hljs-string">&quot;steak&quot;</span>])
+class_names
+</code></pre>
+<pre><code>array([&apos;pizza&apos;, &apos;steak&apos;], dtype=&apos;&lt;U5&apos;)
+</code></pre><p>Podemos indexar a classe prevista arredondando a probabilidade de previsão:</p>
+<pre><code class="lang-python">pred_class = class_names[<span class="hljs-built_in">int</span>(tf.<span class="hljs-built_in">round</span>(pred)[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])]
+pred_class
+
+<span class="hljs-string">&apos;pizza&apos;</span>
+</code></pre>
+<p>Até aqui tudo bem, a previsão se mostra correta, vamos escrever a função para obter o resultado final:</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pred_and_plot</span>(<span class="hljs-params">model, filename, class_names</span>):</span>
+  <span class="hljs-comment"># importa a imagem personalizada</span>
+  img = load_and_prep_image(filename)
+
+  <span class="hljs-comment"># realiza uma previsão</span>
+  pred = model.predict(tf.expand_dims(img, axis=<span class="hljs-number">0</span>))
+
+  <span class="hljs-comment"># captura a classe prevista</span>
+  pred_class = class_names[<span class="hljs-built_in">int</span>(tf.<span class="hljs-built_in">round</span>(pred)[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])]
+
+  <span class="hljs-comment"># Plota a imagem + nome da classe prevista</span>
+  plt.imshow(img)
+  plt.title(<span class="hljs-string">f&quot;Previsão: <span class="hljs-subst">{pred_class}</span>&quot;</span>)
+  plt.axis(<span class="hljs-literal">False</span>);
+</code></pre>
+<pre><code class="lang-python">pred_and_plot(model_7, <span class="hljs-string">&quot;04-pizza.png&quot;</span>, class_names)
+</code></pre>
+<p><img src="images/cnn/pizza-pred.png" alt="prediction pizza"></p>
+<p>Nosso modelo foi capaz de acertar a previsão dessa &quot;quase&quot; pizza!</p>
+<hr>
+<h2 id="wip">WIP</h2>
+<ul>
+<li>add exemplo multi-class classification</li>
+<li>revisão</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="rnn-intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Redes neurais com TensorFlow">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redes neurais convolucionais e Visão computacional com TensorFlow","level":"1.3.6","depth":2,"previous":{"title":"Redes neurais com TensorFlow","level":"1.3.5","depth":2,"path":"contents/rnn-intro.md","ref":"contents/rnn-intro.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","honkit":">= 3.0.0","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"contents/cnn-tensorflow.md","mtime":"2022-02-28T00:54:19.483Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-02-28T00:55:03.700Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -919,8 +919,234 @@ plot_loss_curves(history_1)
 
 ![accuracy curve model 1](images/cnn/cnn-accuracy-curve-5.png)
 
-As curvas de treinamento parecem boas, mas o desempenho do modelo no conjunto de teste não melhorou muito em comparação com o modelo anterior. Observando as curvas, parece que o desempenho do modelo pode melhorar se treinarmos por um pouco mais de tempo (mais `epochs`).
+As curvas de treinamento parecem boas, mas o desempenho do modelo no conjunto de teste não melhorou muito em comparação com o modelo anterior. Observando as curvas, parece que o desempenho do modelo pode melhorar se treinarmos por um pouco mais de tempo (mais `epochs`). Faça esse experimento, aumentando o número de `epochs` e veja como o modelo se comporta.
 
+## Fazendo uma previsão com o modelo treinado
+
+A melhor forma de avaliar um modelo treinado é fazendo previsões. Para isso enviaremos uma de nossas imagens próprias e veremos como o modelo se sai na hora de classificar. Lembre-se que temos duas classes `['pizza' 'steak']`, veremos agora nossa imagem que queremos testar.
+
+Uma maravilhosa pizza que sofreu um acidente no meio do caminho:
+
+```python
+!wget https://raw.githubusercontent.com/infoslack/food-vision/main/data/pred/04-pizza.png
+pizza = mpimg.imread("04-pizza.png")
+plt.imshow(pizza)
+plt.axis(False);
+```
+
+![pizza linda que recebi](images/cnn/04-pizza.png)
+
+```
+pizza.shape
+
+(1035, 1013, 4)
+```
+
+Uma vez que o nosso modelo recebe imagens no formato (224, 224, 3), precisamos remodelar nossa imagem personalizada para utilizá-la com o modelo.
+Para isso podemos importar e decodificar a imagem utilizando `tf.io_read_file` (para ler arquivos) e `tf.image` (para redimensionar a imagem e transformá-la em um `tensor`).
+
+```python
+# Função para importar imagem e redimensioná-la
+def load_and_prep_image(filename, img_shape=224):
+  # Faz a leitura de uma imagem
+  img = tf.io.read_file(filename)
+
+  # Decodifica o arquivo lido em um tensor
+  img = tf.image.decode_image(img, channels=3)
+
+  # Redimensiona a imagem (para o tamanho que o modelo foi treinado)
+  img = tf.image.resize(img, size = [img_shape, img_shape])
+
+  # Converte a imagem para escala entre 0 e 1
+  img = img/255.
+  return img
+```
+
+```python
+pizza = load_and_prep_image("04-pizza.png")
+pizza
+```
+
+```
+<tf.Tensor: shape=(224, 224, 3), dtype=float32, numpy=
+array([[[0.76675683, 0.8222251 , 0.8321166 ],
+        [0.74965155, 0.80900824, 0.8364592 ],
+        [0.7734243 , 0.81416315, 0.8236739 ],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       [[0.7647059 , 0.8134637 , 0.8272767 ],
+        [0.7602504 , 0.8190739 , 0.8465249 ],
+        [0.7710259 , 0.81056964, 0.81644785],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       [[0.7656425 , 0.81479776, 0.82259274],
+        [0.76625985, 0.81724024, 0.8483544 ],
+        [0.78615195, 0.8184483 , 0.827451  ],
+        ...,
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ],
+        [1.        , 1.        , 1.        ]],
+
+       ...,
+
+       [[0.30793068, 0.32753852, 0.3432248 ],
+        [0.334445  , 0.35405284, 0.36973912],
+        [0.34108895, 0.3606968 , 0.37638307],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ]],
+
+       [[0.31091562, 0.33052346, 0.34620973],
+        [0.34228814, 0.36252877, 0.37981448],
+        [0.3491334 , 0.37053996, 0.3866597 ],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ]],
+
+       [[0.3496061 , 0.37705708, 0.39721707],
+        [0.3635942 , 0.3966118 , 0.43211693],
+        [0.3726628 , 0.4087013 , 0.44399542],
+        ...,
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.72156864, 0.7647059 , 0.7882353 ],
+        [0.7176471 , 0.7607843 , 0.78431374]]], dtype=float32)>
+```
+
+Antes de prosseguir, lembre-se que o modelo foi treinado em lotes, precisamos adicionar uma dimensão extra para o tensor da nossa imagem personalizada utilizando `tf.expand_dims`:
+
+```python
+# Adicionando dimensão extra
+print(f"Shape antes da nova dimensão: {pizza.shape}")
+pizza = tf.expand_dims(pizza, axis=0)
+print(f"Shape depois da nova dimensão: {pizza.shape}")
+pizza
+```
+
+```
+Shape antes da nova dimensão: (224, 224, 3)
+Shape depois da nova dimensão: (1, 224, 224, 3)
+<tf.Tensor: shape=(1, 224, 224, 3), dtype=float32, numpy=
+array([[[[0.76675683, 0.8222251 , 0.8321166 ],
+         [0.74965155, 0.80900824, 0.8364592 ],
+         [0.7734243 , 0.81416315, 0.8236739 ],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        [[0.7647059 , 0.8134637 , 0.8272767 ],
+         [0.7602504 , 0.8190739 , 0.8465249 ],
+         [0.7710259 , 0.81056964, 0.81644785],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        [[0.7656425 , 0.81479776, 0.82259274],
+         [0.76625985, 0.81724024, 0.8483544 ],
+         [0.78615195, 0.8184483 , 0.827451  ],
+         ...,
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ],
+         [1.        , 1.        , 1.        ]],
+
+        ...,
+
+        [[0.30793068, 0.32753852, 0.3432248 ],
+         [0.334445  , 0.35405284, 0.36973912],
+         [0.34108895, 0.3606968 , 0.37638307],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ]],
+
+        [[0.31091562, 0.33052346, 0.34620973],
+         [0.34228814, 0.36252877, 0.37981448],
+         [0.3491334 , 0.37053996, 0.3866597 ],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ]],
+
+        [[0.3496061 , 0.37705708, 0.39721707],
+         [0.3635942 , 0.3966118 , 0.43211693],
+         [0.3726628 , 0.4087013 , 0.44399542],
+         ...,
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.72156864, 0.7647059 , 0.7882353 ],
+         [0.7176471 , 0.7607843 , 0.78431374]]]], dtype=float32)>
+```
+
+Agora vamos a nossa previsão:
+
+```python
+# Fazendo uma previsão em um imagem personalizada
+pred = model_7.predict(pizza)
+pred
+```
+
+> array([[0.35808182]], dtype=float32)
+
+O resultado saiu em forma probabilística, ou seja, isso significa a probabilidade de a imagem ser de uma classe ou outra. Como estamos trabalhando com um problema de classificação binária, se a probabilidade for maior que `0.5`, de acordo com o modelo, é mais provável que seja de classe positiva ou (*classe 1*). Se a probabilidade for inferior a `0.5` então a classe prevista será a classe negativa ou (*classe 0*). Claro que dizer classe positiva ou negativa não faz muito sentido para o nosso caso. Por isso vamos escrever uma pequena função para converter as previsões em seus nomes de classe para em seguida, plotar a imagem prevista.
+
+Vamos começar armazenando os nomes das classes:
+
+```python
+import numpy as np
+class_names = np.array(["pizza", "steak"])
+class_names
+```
+
+```
+array(['pizza', 'steak'], dtype='<U5')
+```
+
+Podemos indexar a classe prevista arredondando a probabilidade de previsão:
+
+```python
+pred_class = class_names[int(tf.round(pred)[0][0])]
+pred_class
+
+'pizza'
+```
+
+Até aqui tudo bem, a previsão se mostra correta, vamos escrever a função para obter o resultado final:
+
+```python
+def pred_and_plot(model, filename, class_names):
+  # importa a imagem personalizada
+  img = load_and_prep_image(filename)
+
+  # realiza uma previsão
+  pred = model.predict(tf.expand_dims(img, axis=0))
+
+  # captura a classe prevista
+  pred_class = class_names[int(tf.round(pred)[0][0])]
+
+  # Plota a imagem + nome da classe prevista
+  plt.imshow(img)
+  plt.title(f"Previsão: {pred_class}")
+  plt.axis(False);
+```
+
+```python
+pred_and_plot(model_7, "04-pizza.png", class_names)
+```
+
+![prediction pizza](images/cnn/pizza-pred.png)
+
+Nosso modelo foi capaz de acertar a previsão dessa "quase" pizza!
 
 ---
-WIP
+
+## WIP
+  - add exemplo multi-class classification
+  - revisão

@@ -81,4 +81,4 @@
     * [Manipulando Tensors](contents/intro-tensorflow.md#manipulando-tensors)
   * [Transfer Learning com TensorFlow](contents/transfer-learning-tensorflow.md)
   * [Redes neurais com TensorFlow](contents/rnn-intro.md)
-  * [Redes neurais convolucionais e Visão computacional com TensorFlow](xx)
+  * [Redes neurais convolucionais e Visão computacional com TensorFlow](contents/cnn-tensorflow.md)
