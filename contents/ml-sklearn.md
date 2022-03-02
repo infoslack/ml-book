@@ -6,13 +6,13 @@ Embora o campo de Machine Learning seja vasto, o objetivo principal é encontrar
 
 Digamos que você está tentando desenvolver um modelo de `ML` para conseguir prever se um email é spam ou não, nesse caso temos um problema de classificação. Agora suponha que você precise criar um modelo para prever o preço de apartamentos de acordo com suas características, agora você tem um problema de regressão (*prever um número*).
 
-Tudo começa descobrindo primeiro que tipo de problema estamos trabalhando, dependendo do problema, existem etapas semelhantes que devemos seguir para cada caso. Por exemplo, separar os dados em diferentes conjuntos, uma parte para os modelos de Machine Learning aprenderem e outra parte para utilizarmos nos testes. Escolher e avaliar se um modelo de `ML`  aprendeu alguma coisa.
+Tudo começa, descobrindo com qual tipo de problema estamos trabalhando, a partir daí podemos determinar as etapas que devemos seguir para cada caso. Por exemplo, separar os dados em diferentes conjuntos, uma parte para os modelos de Machine Learning aprenderem e outra parte para utilizarmos nos testes. Escolher e avaliar se um modelo de `ML`  aprendeu alguma coisa.
 
 O Scikit-Learn fornece implementações em Python para realizar todas essas tarefas, evitando a necessidade de ter que construí-los do zero.
 
 ## Sklearn de ponta a ponta
 
-Veremos agora na prática um fluxo de trabalho com `sklearn` de ponta a ponta e nos aprofundaremos um pouco mais em cada etapa no decorrer dos estudos.
+Veremos agora, na prática, um fluxo de trabalho com `sklearn` de ponta a ponta e nos aprofundaremos um pouco mais em cada etapa no decorrer dos estudos.
 
 Nesse capítulo vamos explorar um problema de classificação binária ou seja (*uma amostra só poder ser uma coisa ou outra*). O conjunto de dados que usaremos é o mesmo do capítulo de Matplotlib (*uma lista de pacientes anônimos e se eles possuem ou não doenças cardíacas*).
 
@@ -349,9 +349,9 @@ Olhando para os valores, parece que o modelo `LogisticRegression()` tem o melhor
 
 ## Ajuste de hiperparâmetros e validação cruzada
 
-Imagine que para fazer uma pizza você ajusta o forno para 180 graus. Mas quando um amigo vai utilizar o mesmo forno para preparar uma pizza, ele utiliza em 200 graus. Temos o mesmo forno, com configurações diferentes, logo teremos resultados diferentes.
+Imagine que para fazer uma pizza você ajusta o forno para 180 graus. Mas quando um amigo vai utilizar o mesmo forno para preparar outra pizza, ele utiliza em 200 graus. Temos o mesmo forno, com configurações diferentes, logo teremos resultados diferentes.
 
-O mesmo pensamento pode ser aplicado em `ML`, podemos utilizar os mesmos algoritmos, aplicando pequenas configurações (*hiperparâmetros*) e obter resultados diferentes. Assim como ajustar o forno para aquecer mais pode queimar a comida, o mesmo ocorre com os algoritmos de `ML`. Podemos ajustar as configurações para funcionar tão bem que *superajusta* os dados.
+O mesmo pensamento pode ser aplicado em `ML`, podemos utilizar os mesmos algoritmos, aplicando pequenas configurações (*hiperparâmetros*) e obter resultados diferentes. Assim como, se você ajustar o forno para aquecer mais ainda a comida ela pode queimar, o mesmo ocorre com os algoritmos de `ML`. Podemos ajustar as configurações para funcionar tão bem que *superajusta* os dados.
 
 Queremos encontrar um meio termo, um modelo que se saia bem com o nosso conjunto de dados, mas também que entregue bons resultados em exemplos nunca vistos.
 
