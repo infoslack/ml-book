@@ -6,10 +6,11 @@ TensorFlow é uma biblioteca de Machine Learning *open-source* para pré-process
 
 Os `tensors` são como matrizes NumPy. Daqui pra frente pense em um tensor como uma representação numérica multidimensional (n-dimensional, onde `n` pode ser qualquer número) de algo. Esse algo pode ser quase qualquer coisa que possamos imaginar:
 
-- Pode ser os próprios números (tensors representando o preço de carros).
-- Pode ser uma imagem (tensors representando os pixels de uma foto).
-- Pode ser texto (tensors representando palavras).
-- Ou pode ser alguma outra forma de informação (dados) que você deseja representar como números.
+- **números** (tensors representando o preço de carros).
+- **imagens** (tensors representando os pixels de uma foto).
+- **texto** (tensors representando palavras).
+
+> Ou alguma outra forma de informação (dados) que você deseja representar como números.
 
 A principal diferença entre tensors e matrizes NumPy é que os tensors podem ser utilizados em `GPUs` (unidades de processamento gráfico, placas de vídeo) e `TPUs` (unidades de processamento de tensor). O benefício disso é poder executar tarefas computacionais mais rápidas, ou seja, para encontrar padrões em representações numéricas nos dados de forma mais rápida.
 
