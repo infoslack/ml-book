@@ -746,9 +746,9 @@ cv_metrics.T.plot.bar(title="Métricas de validação cruzada", legend=False);
 
 ## Feature importance
 
-**Feature importance** é outra forma de perguntar que recursos contribuem mais para os resultados do modelo ?
+**Feature importance** é outra forma de identificar quais recursos contribuem mais para os resultados do modelo.
 
-Para o problema que queremos resolver, tentar prever doenças cardíacas utilizando características médicas de um paciente, quais dessas características contribuem mais para um modelo que prevê se alguém tem uma doença cardíaca ou não ? Diferente de algumas das outras funções que vimos, cada modelo encontra padrões nos dados de maneira ligeiramente diferente, a forma como um modelo julga a importância desses padrões também é diferente. Em outras palavras, para cada modelo, existe uma forma ligeiramente diferente de descobrir quais recursos foram mais importantes.
+Para resolver o problema, devemos tentar prever doenças cardíacas utilizando características médicas de um paciente. E analisando quais das características contribuem mais para um modelo que prevê se alguém tem uma doença cardíaca ou não. Diferente de algumas das outras funções que vimos, cada modelo encontra padrões nos dados de maneira ligeiramente diferente. A forma como um modelo julga a importância desses padrões também é diferente. Em outras palavras, para cada modelo, existe uma forma ligeiramente diferente de descobrir quais recursos foram mais importantes.
 
 Como estamos utilizando `LogisticRegression`, veremos uma maneira de calcular o `feature importance` para ele. Usaremos o atributo `coef_`, que é o coeficiente dos recursos na função de decisão (*função que julga a importância*).
 
