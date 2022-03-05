@@ -6,7 +6,7 @@ Vamos nos aprofundar em algo específico, veremos um tipo especial de rede neura
 
 Imagine poder classificar uma foto de comida se é pizza ou carne (*no capítulo passado fizemos algo parecido classificando raças de cães*). Detectar se um objeto está presente ou não em uma imagem ou ainda, se uma pessoa específica foi gravada por uma câmera de segurança. Neste capítulo, seguiremos com o workflow do TensorFlow que já vimos, ao mesmo tempo em que aprendemos sobre como construir e utilizar `CNNs`.
 
-As redes neurais convolucionais funcionam muito bem com imagens, para aprender sobre elas, vamos resolver um problema de classificação utilizando uma base de dados de imagens. Usaremos o [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/), uma coleção composta por 101 categorias diferentes de 101.000 imagens reais de pratos de comida.
+As redes neurais convolucionais funcionam muito bem com imagens. Para aprender sobre elas, vamos resolver um problema de classificação utilizando uma base de dados de imagens. Usaremos o [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/), uma coleção composta por 101 categorias diferentes de 101.000 imagens reais de pratos de comida.
 Utilizaremos apenas duas categorias, pizza e carne para construir um classificado binário.
 
 No Google Colab, vamos baixar o arquivo `.zip` com as imagens e descompactá-lo.
