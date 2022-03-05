@@ -34,7 +34,7 @@ scalar
 <tf.Tensor: shape=(), dtype=int32, numpy=5>
 ```
 
-> Um `scalar` é conhecido como um tensor de `rank` 0 por não ter dimensões (é apenas um número). No momento não precisamos saber muito sobre os diferentes `ranks` de tensors, veremos mais detalhes sobre isso em outro momento. O importante agora é saber que os tensors podem ter um intervalo ilimitado de dimensões (a quantidade exata, vai depender dos dados que vamos representar).
+> Um `scalar` é conhecido como um tensor de `rank` 0 por não ter dimensões (é apenas um número). No momento não precisamos saber muito sobre os diferentes `ranks` de tensors, veremos mais detalhes sobre isso mais na frente. O importante agora é saber que os tensors podem ter um intervalo ilimitado de dimensões (a quantidade exata, vai depender dos dados que vamos representar).
 
 ```python
 scalar.ndim
@@ -211,7 +211,7 @@ array([[False, False],
        [False, False]])>
 ```
 
-Ok, e se você quiser embaralhar a ordem de um tensor ? Digamos que você esteja em um projeto com 20.000 imagens de pizzas e carnes e as primeiras 15.000 imagens são de pizzas e as próximas 5.000 são de carnes. Essa distribuição pode afetar a forma como uma rede neural aprende ou seja, pode ser induzida a aprender pela ordem dos dados, em vez disso, pode ser uma boa estratégia embaralhar os dados.
+Ok, e se você quiser embaralhar a ordem de um tensor ? Digamos que você esteja em um projeto com 20.000 imagens de pizzas e carnes e as primeiras 15.000 imagens são de pizzas e as próximas 5.000 são de carnes. Essa distribuição pode afetar a forma como uma rede neural aprende, ou seja, pode ser induzida a aprender pela ordem dos dados, em vez disso, pode ser uma boa estratégia embaralhar os dados.
 
 ```python
 nao_embaralhado = tf.constant([[10, 7],
