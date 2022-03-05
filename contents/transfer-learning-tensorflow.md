@@ -482,7 +482,7 @@ Esse resultado mostra que a maior parte das informações em nosso modelo, já f
 
 ## Criando Callbacks
 
-O nosso modelos está pronto para ser treinado, mas antes de prosseguir faremos alguns `Callbacks`. São funções auxiliares que um modelo pode usar durante o treino para fazer tarefas como salvar o progresso, verificar o progresso ou interromper o processo de treinamento de forma antecipada.
+O nosso modelo está pronto para ser treinado, mas antes de prosseguir faremos alguns `Callbacks`. São funções auxiliares que um modelo pode usar durante o treino para fazer tarefas como salvar o progresso, verificar o progresso ou interromper o processo de treinamento de forma antecipada.
 Criaremos dois callbacks para adicionar uma chamada ao [TensorBoard](https://www.tensorflow.org/tensorboard/get_started) e outra chamada de parada antecipada.
 
 O `TensorBoard` fornece uma maneira visual de monitorar o progresso do modelo, durante e após o treinamento. Pode ser utilizado diretamente no notebook para rastrear métricas de desempenho de um modelo, como score de perda e precisão.
@@ -512,7 +512,7 @@ early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_accuracy",
 
 Como discutido antes, vamos treinar o nosso modelo em apenas 1000 imagens. Em outras palavras, treinaremos em 800 imagens e utilizaremos as outras 200 para validação, totalizando 1000. Faremos isso para garantir que tudo esteja funcionando, depois de confirmar isso poderemos treinar em todo o conjunto de dados.
 
-Antes de treinar precisamos definir mais um parâmetro `NUM_EPOCHS` que define quantas passagens dos dados gostaríamos que nosso modelo fizesse. Um passe equivale ao nosso modelo tentando encontrar padrões em cada imagem e verificar quais padrões se relacionam com cada rótulo.
+Antes de treinar precisamos definir mais um parâmetro `NUM_EPOCHS` que determina quantas passagens dos dados gostaríamos que nosso modelo fizesse. Um passe equivale ao nosso modelo tentando encontrar padrões em cada imagem e verificar quais padrões se relacionam com cada rótulo.
 
 Por exemplo `NUM_EPOCHS=1`, o modelo vai examinar os dados apenas uma única vez e provavelmente terá uma pontuação ruim, pois não tem chance de se corrigir. Um bom valor é difícil de definir, 10 pode ser um bom começo, mas 100 pode ser melhor. Esse é um dos motivos pelos quais criamos um `callback` de parada antecipada, se definirmos `NUM_EPOCHS=100` e o modelo parou de melhorar após 22, o treinamento será interrompido.
 
@@ -567,7 +567,7 @@ O callback `early_stopping` entrou em ação e parou de treinar após 25 verific
 
 ## Fazendo previsões e avaliando os resultados
 
-Bem, antes de aumentarmos o número de imagens para treinar o modelo com mais dados, veremos outras formas de avaliar o nosso modelo. Embora a precisão seja um bom indicador e como o nosso modelo está performando, seria ainda melhor poder ver ele em ação. Para isso podemos fazer previsões por meio da função `predict()`, passando os dados no mesmo formato em que o modelo foi treinado.
+Bem, antes de aumentarmos o número de imagens para treinar o modelo com mais dados, veremos outras formas de avaliar o nosso modelo. Embora a precisão seja um bom indicador e como o nosso modelo está performando, seria ainda melhor poder vê-lo em ação. Para isso podemos fazer previsões por meio da função `predict()`, passando os dados no mesmo formato em que o modelo foi treinado.
 
 ```
 predictions = model.predict(val_data, verbose=1)
