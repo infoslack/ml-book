@@ -103,7 +103,7 @@ pd.crosstab(df["target"], df["sex"])
 |   0    | 24  | 114 |
 |   1    | 72  | 93  |
 
-Existem cerca de 100 mulheres e 72 delas têm um valor positivo de presença de alguma doença cardíaca, podemo inferi com base nessa variável, se a participante for mulher, há 75% de chance de ela ter uma doença cardíaca.
+Existem cerca de 100 mulheres e 72 delas têm um valor positivo de presença de alguma doença cardíaca, podemos inferir com base nessa variável, se a participante for mulher, há 75% de chance de ela ter uma doença cardíaca.
 
 Quanto aos homens, há cerca de 200 no total, com quase metade indicando a presença de doenças cardíacas. Assim podemos prever que, se o participante for do sexo masculino, 50% das vezes ele terá uma doença cardíaca.
 

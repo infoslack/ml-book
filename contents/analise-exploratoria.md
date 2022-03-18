@@ -386,7 +386,7 @@ plt.ylabel('País');
 
 ![pontos por país boxplot](images/eda-vinhos-5.png)
 
-Embora os vinhos da Inglaterra tenham os pontos mais altos em média, os vinhos de Portugal, EUA, Itália, França e Austrália, receberam uma pontuação perfeita de `100`. Há mais vinhos desses países na base de dados, por tanto eles receberam uma gama maior de pontos.
+Embora os vinhos da Inglaterra tenham os pontos mais altos em média, os vinhos de Portugal, EUA, Itália, França e Austrália, receberam uma pontuação perfeita de `100`. Há mais vinhos desses países na base de dados, portanto eles receberam uma gama maior de pontos.
 
 Ok, agora que vimos as distribuições de pontos por cada país, vamos investigar o preço do vinho nos países:
 
