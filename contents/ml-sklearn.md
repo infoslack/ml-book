@@ -123,7 +123,7 @@ pd.crosstab(df.target, df.sex).plot(kind="bar",
 plt.title("Frequência de doenças cardíacas por sexo")
 plt.xlabel("0 = Não tem doença, 1 = Doença detectada")
 plt.ylabel("Montante")
-plt.legend(["Mulher", "Homen"])
+plt.legend(["Mulher", "Homem"])
 plt.xticks(rotation=0); # configura os eixos dos labels para vertical
 ```
 
